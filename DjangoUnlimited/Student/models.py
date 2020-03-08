@@ -4,11 +4,11 @@ from django.core.exceptions import ValidationError
 from datetime import datetime
 
 # Create your models here.
-from Home.models import Skill
+from Home.models import Skill, Job
 
 
 class Student(models.Model):
-    student_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user')
+    student_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user') #this has to be the murdoch student id, not user id
     gender_choices = [
         ('Male', 'Male'),
         ('Female', 'Female')
@@ -28,3 +28,7 @@ class StudentSkill (models.Model):
     student_user = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='student_user_skill')
     skill_id = models.ForeignKey(Skill, on_delete=models.CASCADE, related_name='student_skill')
 
+
+class StudentJobApplication(models.Model):
+    job_id = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='student_job')
+    student_user = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='student_user_application')
