@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Employer',
     'Admin',
     'Home',
+    'Accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [

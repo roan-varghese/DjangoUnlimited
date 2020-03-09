@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>HOME</h1>
+
+    {% if user.is_authenticated %}
+    
+    <h3>Welcome, {{user.username}}</h3> <!-- displays welcome message -->
+    <p><a href = "Accounts/logout">LOGOUT</a></p>
+
+    {% else %}
+    <p><a href = "Accounts/login">LOGIN</a></p>
+    <p><a href = "admin">ADMIN - > LOGIN</a></p>
+    <p><a href = "Accounts/Registration">STUDENT -> REGISTER</a></p>
+    <p><a href = "Accounts/EmployerRegistration">EMPLOYER -> REGISTER</a></p>
+
+    {% endif %}
+
+</body>
+</html>

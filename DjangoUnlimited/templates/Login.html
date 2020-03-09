@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h4><a href="/">Back to home</a></h4>
+    
+    <h2>Log In</h2>
+    <form action="login" method="post">
+        {% csrf_token %}
+
+        <label><b>Student ID</b></label><br>
+        <input type="text" name="studentID" required><br><br>
+
+        <label><b>Password</b></label><br>
+        <input type="password" name="password"><br><br>
+
+        <input type="submit"><br>
+        <a href="ForgotPassword">Forgot password?</a><br>
+    </form>
+
+    <div>
+        {% for message in messages %}
+            <h2> {{message}} </h2>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>
