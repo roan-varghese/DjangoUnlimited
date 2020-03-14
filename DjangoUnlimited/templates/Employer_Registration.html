@@ -9,20 +9,23 @@
     <h4><a href="/">Back to home</a></h4>
 
     <h2>Create an account to browse and post jobs</h2>
-    <form action="register" method="post">
+    <form action="EmployerRegistration" method="post">
         {% csrf_token %}
 
         <label><b>Company Name</b></label><br>
-        <input type="text" name="companyName" required><br><br>
+        <input type="text" name="companyName"><br><br>
 
-        <label><b>E-mail Address</b></label><br>
-        <input type="email" name="email"><br><br>
+        <label><b>Email Address</b></label><br>
+        <input type="email" name="email" required><br><br>
 
         <label><b>Password</b></label><br>
         <input type="password" name="password1"><br><br>
 
         <label><b>Confirm password</b></label><br>
         <input type="password" name="password2"><br><br>
+
+        <input type="checkbox" name="terms" required>
+        <label>I have read and agree to the terms and conditions</label><br><br>
 
         <input type="submit">
     </form>

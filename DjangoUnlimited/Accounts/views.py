@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-from .models import Destination
+from Student.models import Student
+from Employer.models import Employer
 
 def isValidated(passwd):
     special_symbols = {'$', '@', '%', '&', '?', '.', '!', '#', '*', ' '}
@@ -25,10 +26,35 @@ def isValidated(passwd):
         
     return status
 
-def emp_signup(request):
-    return redirect('/')
+def employer_signup(request):
+    if request.method == 'POST':
+        companyName = request.POST['companyName']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        
+        if password1==password2:
+            if User.objects.filter(username=email).exists():
+                messages.info(request, 'Username already taken. Try a different one')
+                return redirect("employer_register")
 
-def signup(request):
+            else:
+                # if (isValidated(password1)):
+                    user = User.objects.create_user(username=email, password=password1, email=email)
+                    user.save()
+                    return redirect('login')
+
+                # else:
+                #     messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
+                #     return redirect("employer_register")
+        else:
+            messages.info(request, 'Password not matching. Try again.')
+            return redirect("employer_register")
+
+    else:
+        return render(request, 'employer_registration.html')
+
+def student_signup(request):
 
     if request.method == 'POST':
         studentID = request.POST['studentID']
@@ -46,14 +72,15 @@ def signup(request):
                 return redirect("register")
 
             else:
-                if (isValidated(password1)):
+                # if (isValidated(password1)):
                     user = User.objects.create_user(username=studentID, password=password1, email=email)
                     user.save()
+
                     return redirect('login')
 
-                else:
-                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
-                    return redirect("register")
+                # else:
+                #     messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
+                #     return redirect("register")
         else:
             messages.info(request, 'Password not matching. Try again.')
             return redirect("register")
@@ -63,11 +90,9 @@ def signup(request):
 
 def login(request):
     if request.method == 'POST':
-            # email = request.POST['email']
-            username = request.POST['studentID']
+            username = request.POST['username']
             password = request.POST['password']
 
-            # user = auth.authenticate(email=email, password=password)
             user = auth.authenticate(username=username, password=password)
 
             if user is None:
