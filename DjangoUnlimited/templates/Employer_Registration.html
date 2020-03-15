@@ -12,7 +12,10 @@
     <form action="EmployerRegistration" method="post">
         {% csrf_token %}
 
-        <label><b>Company Name</b></label><br>
+        {{ compNameForm.as_p }}
+        {{ form.as_p }}
+
+        <!-- <label><b>Company Name</b></label><br>
         <input type="text" name="companyName"><br><br>
 
         <label><b>Email Address</b></label><br>
@@ -22,12 +25,12 @@
         <input type="password" name="password1"><br><br>
 
         <label><b>Confirm password</b></label><br>
-        <input type="password" name="password2"><br><br>
+        <input type="password" name="password2"><br><br> -->
 
-        <input type="checkbox" name="terms" required>
-        <label>I have read and agree to the terms and conditions</label><br><br>
+        <!-- <input type="checkbox" name="terms" required> -->
+        <!-- <label>I have read and agree to the terms and conditions</label><br><br> -->
 
-        <input type="submit">
+        <input type="submit"> 
     </form>
 
     <div>

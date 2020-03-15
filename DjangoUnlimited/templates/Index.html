@@ -7,10 +7,10 @@
 </head>
 <body>
     <h1>HOME</h1>
-
     {% if user.is_authenticated %}
     
     <h3>Welcome, {{user.username}}</h3> <!-- displays welcome message -->
+    <!-- <h3>Company name -> {{user.employer.company_name}}</h3> -->
     <p><a href = "Accounts/logout">LOGOUT</a></p>
 
     {% else %}
