@@ -11,7 +11,7 @@ class initialStudentForm(forms.ModelForm):
     studentID = forms.CharField(label='Student ID')
     email = forms.EmailField(required=True)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -26,7 +26,6 @@ class initialStudentForm(forms.ModelForm):
         user = super(initialStudentForm, self).save(commit=False)
         user.username = self.cleaned_data["studentID"]
         user.set_password(self.cleaned_data["password1"])
-        # user.active = false
         if commit:
             user.save()
         return user
@@ -34,10 +33,7 @@ class initialStudentForm(forms.ModelForm):
     def usernameExists(self):
         studentID = self.cleaned_data.get("studentID")
         if User.objects.filter(username=studentID).exists():
-            print('ok')
             return True
-            # raise forms.ValidationError("Username already taken. Try a different one.")
-        print('not ok')
         return False
 
     def samePasswords(self):
@@ -46,7 +42,6 @@ class initialStudentForm(forms.ModelForm):
         
         if p1 != p2:
             return False
-            # raise forms.ValidationError("Passwords not matching. Try again.")
         return True
         
 

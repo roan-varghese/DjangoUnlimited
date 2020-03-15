@@ -26,7 +26,7 @@ class initialEmployerForm(forms.ModelForm):
     
     email = forms.EmailField(required=True)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -40,7 +40,6 @@ class initialEmployerForm(forms.ModelForm):
         user = super(initialEmployerForm, self).save(commit=False)
         user.username = self.cleaned_data["email"]
         user.set_password(self.cleaned_data["password1"])
-        # user.active = false
         if commit:
             user.save()
         return user
@@ -49,7 +48,6 @@ class initialEmployerForm(forms.ModelForm):
         email = self.cleaned_data.get("email")
         if User.objects.filter(username=email).exists():
             return True
-            # raise forms.ValidationError("Username already taken. Try a different one.")
         return False
 
     def samePasswords(self):
@@ -58,15 +56,14 @@ class initialEmployerForm(forms.ModelForm):
         
         if p1 != p2:
             return False
-            # raise forms.ValidationError("Passwords not matching. Try again.")
         return True
         
 
 
 class completeEmployerForm(forms.ModelForm):
 
-    company_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
-        attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
+    # company_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
+    #     attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
     phone_number = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
         attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
 

@@ -29,7 +29,7 @@ def isValidated(passwd):
     return status
 
 def employer_signup(request):
-    # <--------------- USING DJANGO FORMS ------------------>
+
     if request.method == 'POST':
 
         compNameForm = companyNameForm(request.POST)
@@ -46,18 +46,20 @@ def employer_signup(request):
                 return redirect("employer_register")
 
             else:
-                user = form.save()
-                employer = compNameForm.save(commit=False)
-                employer.user = user
-                employer.company_name = compNameForm.cleaned_data.get('companyName')
-                employer.save()
+                if (isValidated(form.cleaned_data.get('password1'))): # if password meets validation criteria
+                    user = form.save()
 
-                # username = form.cleaned_data.get('email')
-                # raw_password = form.cleaned_data.get('password1')
-                # user = auth.authenticate(username=username, password=raw_password)
-                # auth.login(request, user)
-                # return redirect('/')
-                return redirect("login")
+                    employer = compNameForm.save(commit=False)
+                    employer.user = user
+                    employer.company_name = compNameForm.cleaned_data.get('companyName')
+                    employer.save()
+
+                    return redirect("login")
+
+                else:
+                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
+                    return redirect("employer_register")
+
 
         else:
             messages.info(request, form.errors)
@@ -69,41 +71,8 @@ def employer_signup(request):
         return render(request, 'employer_registration.html', {'form': form, 'compNameForm': compNameForm})
 
 
-    # <--------------- USING HTML FORMS ------------------>
-    # if request.method == 'POST':
-
-        # companyName = request.POST['companyName']
-        # email = request.POST['email']
-        # password1 = request.POST['password1']
-        # password2 = request.POST['password2']
-        
-        # if password1==password2:
-        #     if User.objects.filter(username=email).exists():
-        #         messages.info(request, 'Username already taken. Try a different one.')
-        #         return redirect("employer_register")
-
-        #     else:
-        #         # if (isValidated(password1)):
-        #             user = User.objects.create_user(username=email, password=password1, email=email)
-        #             employer = Employer()
-        #             employer.user = user
-        #             employer.company_name = companyName
-        #             user.save()
-
-        #             return redirect('login')
-
-        #         # else:
-        #         #     messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
-        #         #     return redirect("employer_register")
-    #     else:
-    #         messages.info(request, 'Passwords not matching. Try again.')
-    #         return redirect("employer_register")
-
-    # else:
-    #     return render(request, 'employer_registration.html')
-
 def student_signup(request):
-    # <--------------- USING DJANGO FORMS ------------------>
+
     if request.method == 'POST':
 
         form = initialStudentForm(request.POST)
@@ -119,13 +88,18 @@ def student_signup(request):
                 return redirect("register")
 
             else:
-                user = form.save()
-                # username = form.cleaned_data.get('email')
-                # raw_password = form.cleaned_data.get('password1')
-                # user = auth.authenticate(username=username, password=raw_password)
-                # auth.login(request, user)
-                # return redirect('/')
-                return redirect("login")
+                if (isValidated(form.cleaned_data.get('password1'))): # if password meets validation criteria
+                    user = form.save()
+
+                    student = Student()
+                    student.user = user
+                    student.save()
+                
+                    return redirect("login")
+
+                else:
+                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
+                    return redirect("register")
 
         else:
             messages.info(request, form.errors)
@@ -135,41 +109,6 @@ def student_signup(request):
         form = initialStudentForm() 
         return render(request, 'registration.html', {'form': form})
 
-
-
-
-    # <--------------- USING HTML FORMS ------------------>
-    # if request.method == 'POST':
-    #     studentID = request.POST['studentID']
-    #     email = request.POST['email']
-    #     password1 = request.POST['password1']
-    #     password2 = request.POST['password2']
-        
-    #     if password1==password2:
-    #         if User.objects.filter(username=studentID).exists():
-    #             messages.info(request, 'Username already taken. Try a different one')
-    #             return redirect("register")
-
-    #         elif User.objects.filter(email=email).exists():
-    #             messages.info(request, 'Email already used. Try a different one')
-    #             return redirect("register")
-
-    #         else:
-    #             # if (isValidated(password1)):
-    #                 user = User.objects.create_user(username=studentID, password=password1, email=email)
-    #                 user.save()
-
-    #                 return redirect('login')
-
-    #             # else:
-    #             #     messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
-    #             #     return redirect("register")
-    #     else:
-    #         messages.info(request, 'Password not matching. Try again.')
-    #         return redirect("register")
-
-    # else:
-    #     return render(request, 'Registration.html')
 
 def login(request):
 
