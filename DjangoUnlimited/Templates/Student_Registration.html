@@ -29,8 +29,8 @@
 <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
     <h4><a href="/">Back to home</a></h4>
 
-    <h2>Create an account to browse and post jobs</h2>
-    <form action="Registration" method="post" enctype="multipart/form-data">
+    <h2>Create an account to browse jobs</h2>
+    <form action="student_registration" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ student_form.as_p }}

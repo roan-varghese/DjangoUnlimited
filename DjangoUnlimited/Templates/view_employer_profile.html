@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+</head>
+<body>
+    {% if employer.logo %}
+        <img src="{{ employer.logo.url }}">
+    {% endif %}
+
+    <p>Company Name: {{ employer.company_name }}</p>
+    <p>Company Description: {{ employer.company_description }}</p>
+    <p>Contact Number: {{ employer.phone_number }}</p>
+
+    <button type="button"><a href="edit_employer_profile">Edit Profile</a></button>
+    <button type="button"><a href="/">Go back home</a></button>
+</body>
+</html>

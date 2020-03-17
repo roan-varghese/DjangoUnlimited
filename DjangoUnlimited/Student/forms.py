@@ -68,8 +68,7 @@ class StudentForm(forms.ModelForm):
                                                    'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
                                                    'autocomplete': 'off'
                                                }))
-    personal_email = forms.CharField(max_length=50, required=False, label='Personal Email Address', widget=forms.TextInput(
-        attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
+    personal_email = forms.EmailField(required=False, label='Personal Email Address')
     gender = forms.ChoiceField(choices=gender_choices, widget=forms.Select(attrs={'class': 'custom-select'}))
     #skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
     #                                        widget=forms.CheckboxSelectMultiple,

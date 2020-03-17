@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, auth
 from django.views.generic import TemplateView
 
 from Employer.models import Employer
-from Employer.forms import companyNameForm, initialEmployerForm, completeEmployerForm
+from Employer.forms import companyNameForm, InitialEmployerForm, EmployerForm
 
 def isValidated(passwd):
     special_symbols = {'$', '@', '%', '&', '?', '.', '!', '#', '*', ' '}
@@ -26,46 +26,6 @@ def isValidated(passwd):
         status = False
         
     return status
-
-def employer_signup(request):
-
-    if request.method == 'POST':
-
-        compNameForm = companyNameForm(request.POST)
-        form = initialEmployerForm(request.POST)
-
-        if compNameForm.is_valid and form.is_valid():
-
-            if form.usernameExists():
-                messages.info(request, 'Username already taken. Try a different one.')
-                return redirect("employer_register")
-
-            elif not form.samePasswords():
-                messages.info(request, 'Passwords not matching. Try again.')
-                return redirect("employer_register")
-
-            else:
-                if isValidated(form.cleaned_data.get('password1')): # if password meets validation criteria
-                    user = form.save()
-
-                    employer = compNameForm.save(commit=False)
-                    employer.user = user
-                    employer.company_name = compNameForm.cleaned_data.get('companyName')
-                    employer.save()
-
-                    return redirect("login")
-
-                else:
-                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
-                    return redirect("employer_register")
-        else:
-            messages.info(request, form.errors)
-            return redirect("employer_register")
-    else:
-        form = initialEmployerForm() 
-        compNameForm = companyNameForm()
-        return render(request, 'employer_registration.html', {'form': form, 'compNameForm': compNameForm})
-
 
 def login(request):
 

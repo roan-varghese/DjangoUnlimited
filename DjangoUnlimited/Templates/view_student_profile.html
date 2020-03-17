@@ -7,6 +7,11 @@
     <title>View Profile</title>
 </head>
 <body>
+    {% if student.dp %}
+        <img src="{{ student.dp.url }}">
+    {% else %}
+        <img src="DjangoUnlimited/Student/DefaultDP.jpg">
+    {% endif %}
     <p>Student ID: {{ user.username }}</p>
     <p>First Name: {{ user.first_name }}</p>
     <p>Last Name: {{ user.last_name }}</p>
@@ -21,7 +26,7 @@
 
     <p>Expected Graduation Date: {{ student.expected_graduation_date }}</p>
     <p>CV: {{ student.cv }}</p>
-    <button type="button"><a href="edit_profile">Edit Profile</a></button>
+    <button type="button"><a href="edit_student_profile">Edit Profile</a></button>
     <button type="button"><a href="/">Go back home</a></button>
 </body>
 </html>

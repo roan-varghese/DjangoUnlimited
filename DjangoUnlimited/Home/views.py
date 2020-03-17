@@ -31,7 +31,7 @@ def has_student(request):
 def profile(request):
     if has_employer(request):
         print('has employer')
-        return render(request, 'employer_profile.html')
+        return render(request, 'view_employer_profile.html')
     elif has_student(request):
         print('has student')
         return render(request, 'view_student_profile.html')
