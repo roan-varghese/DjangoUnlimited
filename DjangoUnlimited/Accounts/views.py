@@ -1,17 +1,16 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-from Student.models import Student
+from django.views.generic import TemplateView
+
 from Employer.models import Employer
-from Student.forms import initialStudentForm
 from Employer.forms import companyNameForm, initialEmployerForm, completeEmployerForm
 
 def isValidated(passwd):
     special_symbols = {'$', '@', '%', '&', '?', '.', '!', '#', '*', ' '}
     status = True
 
-    if (len(passwd) > 8):
+    if len(passwd) > 8:
         status = True
 
     if not any(char.isdigit() for char in passwd): 
@@ -37,16 +36,16 @@ def employer_signup(request):
 
         if compNameForm.is_valid and form.is_valid():
 
-            if form.usernameExists() == True:
+            if form.usernameExists():
                 messages.info(request, 'Username already taken. Try a different one.')
                 return redirect("employer_register")
 
-            elif form.samePasswords() == False:
+            elif not form.samePasswords():
                 messages.info(request, 'Passwords not matching. Try again.')
                 return redirect("employer_register")
 
             else:
-                if (isValidated(form.cleaned_data.get('password1'))): # if password meets validation criteria
+                if isValidated(form.cleaned_data.get('password1')): # if password meets validation criteria
                     user = form.save()
 
                     employer = compNameForm.save(commit=False)
@@ -59,55 +58,13 @@ def employer_signup(request):
                 else:
                     messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
                     return redirect("employer_register")
-
-
         else:
             messages.info(request, form.errors)
             return redirect("employer_register")
-
     else:
         form = initialEmployerForm() 
         compNameForm = companyNameForm()
         return render(request, 'employer_registration.html', {'form': form, 'compNameForm': compNameForm})
-
-
-def student_signup(request):
-
-    if request.method == 'POST':
-
-        form = initialStudentForm(request.POST)
-
-        if form.is_valid():
-
-            if form.usernameExists() == True:
-                messages.info(request, 'Username already taken. Try a different one.')
-                return redirect("register")
-
-            elif form.samePasswords() == False:
-                messages.info(request, 'Passwords not matching. Try again.')
-                return redirect("register")
-
-            else:
-                if (isValidated(form.cleaned_data.get('password1'))): # if password meets validation criteria
-                    user = form.save()
-
-                    student = Student()
-                    student.user = user
-                    student.save()
-                
-                    return redirect("login")
-
-                else:
-                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
-                    return redirect("register")
-
-        else:
-            messages.info(request, form.errors)
-            return redirect("register")
-
-    else:
-        form = initialStudentForm() 
-        return render(request, 'registration.html', {'form': form})
 
 
 def login(request):

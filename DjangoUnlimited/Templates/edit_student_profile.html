@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Profile</title>
+
+    <script language="JavaScript">
+        function disable_fields(status)
+        {
+            if(status)
+            {
+                document.getElementById('id_expected_graduation_date').disabled = true
+                document.getElementById('id_personal_email').disabled = true
+                document.getElementById('id_personal_email').required = false
+                document.getElementById('id_expected_graduation_date').required = false
+            }
+            else
+            {
+                document.getElementById('id_expected_graduation_date').disabled = false
+                document.getElementById('id_personal_email').disabled = false
+                document.getElementById('id_personal_email').required = true
+                document.getElementById('id_expected_graduation_date').required = true
+            }
+        }
+    </script>
+
+</head>
+<body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
+    <form method="post" enctype="multipart/form-data" action="edit_profile">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ student_form.as_p }}
+
+        <button type="submit">Save Changes</button>
+        <button type="button"><a href="view_profile">Cancel</a></button>
+    </form>
+</body>
+</html>

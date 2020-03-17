@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sign Up</title>
+
+    <script language="JavaScript">
+        function disable_fields(status)
+        {
+            if(status)
+            {
+                document.getElementById('id_expected_graduation_date').disabled = true
+                document.getElementById('id_personal_email').disabled = true
+                document.getElementById('id_personal_email').required = false
+                document.getElementById('id_expected_graduation_date').required = false
+            }
+            else
+            {
+                document.getElementById('id_expected_graduation_date').disabled = false
+                document.getElementById('id_personal_email').disabled = false
+                document.getElementById('id_personal_email').required = true
+                document.getElementById('id_expected_graduation_date').required = true
+            }
+        }
+    </script>
+
+</head>
+<body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
+    <h4><a href="/">Back to home</a></h4>
+
+    <h2>Create an account to browse and post jobs</h2>
+    <form action="Registration" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ student_form.as_p }}
+
+        <input type="checkbox" name="terms" required>
+        <label>I have read and agree to the terms and conditions</label><br><br>
+        <input type="submit">
+    </form>
+
+    <div>
+        {% for message in messages %}
+            <h3> {{message}} </h3>
+        {% endfor %}
+    </div>
+</body>
+</html>
