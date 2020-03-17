@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 from Admin.models import Admin
 #from Accounts.models import User
+from django.db.models import ManyToManyField
+
 
 class Industry(models.Model):
     industry_name = models.CharField(max_length=50)
@@ -19,8 +21,6 @@ class JobType(models.Model):
 
 
 class Job(models.Model):
-    industry_id = models.ForeignKey(Industry, on_delete=models.CASCADE, related_name='job_industry')
-    duration = models.IntegerField()
     date_posted = models.DateField(null=False, blank=False, auto_now_add=True)
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='job_author')
     job_title = models.CharField(max_length=100)
@@ -32,7 +32,9 @@ class Job(models.Model):
     ]
     date_closed = models.DateField(null=True, blank=True)
     location = models.CharField(max_length=100)
-    job_type_id = models.ForeignKey(JobType, on_delete=models.CASCADE, related_name='job_type')
+    #job_type_id = models.ForeignKey(JobType, on_delete=models.CASCADE, related_name='job_type')
+    #industry_id = models.ForeignKey(Industry, on_delete=models.CASCADE, related_name='job_industry')
+    duration = models.IntegerField()
     salary = models.FloatField()
     #skills = ManyToManyField(Skill, through='JobSkill')
 

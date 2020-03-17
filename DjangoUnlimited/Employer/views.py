@@ -7,7 +7,8 @@ from django.db import transaction
 
 from Accounts.views import isValidated
 from .models import Employer
-from .forms import InitialEmployerForm, EmployerForm
+from .forms import InitialEmployerForm, EmployerForm, CreateJobForm
+from Admin.models import Admin
 
 def signup(request):
     if request.method == 'POST':
@@ -72,3 +73,43 @@ def edit_profile(request):
 def view_profile(request):
     employer = Employer.objects.get(user_id=request.user.id)
     return render(request, 'view_employer_profile.html', {'employer': employer})
+
+
+def create_job(request):
+    #employer = Employer.objects.get(user_id= request.user.id)
+    #admin = Admin.objects.get(user_id=request.user.id)
+    if Employer.objects.get(user_id= request.user.id):
+        if request.method == 'POST':
+            form = CreateJobForm(request.POST)
+            if form.is_valid():
+                data = form.save(commit = False)
+                data.posted_by = request.user
+                data.save()
+                return redirect('/')
+            else:
+                messages.info(request, form.errors)
+        else:
+            form = CreateJobForm()
+            return render(request, "Employer_Create_Jobs.html", {'form': form})
+    elif Admin.objects.get(user_id=request.user.id):
+        if request.method == 'POST':
+            jobForm = CreateJobForm(request.POST)
+            companyForm = EmployerForm(request.POST, request.FILES )
+
+            if jobForm.is_valid() and companyForm.is_valid():
+                data = jobForm.save(commit=False)
+                data.posted_by = request.user
+                with transaction.atomic():
+                    data.save()
+                    companyForm.save()
+                    return redirect('/')
+            else:
+                messages.info(request, jobForm.errors)
+                messages.info(request, companyForm.errors)
+                return redirect('CreateJob')
+        else:
+            jobForm = CreateJobForm()
+            companyForm = EmployerForm()
+            args = {'jobForm': jobForm, 'companyForm': companyForm}
+            return render(request, "Employer_Create_Jobs.html", args)
+
