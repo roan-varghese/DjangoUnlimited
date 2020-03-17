@@ -7,6 +7,7 @@ from Home.models import Skill, Job
 
 class Student(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    student_id = models.CharField(null=True, max_length=50)
     # student_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student_user') #this has to be the murdoch student id, not user id
     gender_choices = [
         ('Male', 'Male'),

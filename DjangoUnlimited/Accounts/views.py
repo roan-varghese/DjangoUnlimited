@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from Student.models import Student
 from Employer.models import Employer
-from Student.forms import initialStudentForm
+from Student.forms import studentIDForm, initialStudentForm
 from Employer.forms import companyNameForm, initialEmployerForm, completeEmployerForm
 
 def isValidated(passwd):
@@ -41,12 +41,20 @@ def employer_signup(request):
                 messages.info(request, 'Username already taken. Try a different one.')
                 return redirect("employer_register")
 
+            elif form.emailExists() == True:
+                messages.info(request, 'Email already taken. Try a different one.')
+                return redirect("employer_register")
+
             elif form.samePasswords() == False:
                 messages.info(request, 'Passwords not matching. Try again.')
                 return redirect("employer_register")
 
+            elif form.emailDomainExists() == False:
+                messages.info(request, 'Email domain does not exist. Try again.')
+                return redirect("register")
+
             else:
-                if (isValidated(form.cleaned_data.get('password1'))): # if password meets validation criteria
+                # if (isValidaam.cleaned_data.get('password1'))): # if password meets validation criteria
                     user = form.save()
 
                     employer = compNameForm.save(commit=False)
@@ -54,11 +62,11 @@ def employer_signup(request):
                     employer.company_name = compNameForm.cleaned_data.get('companyName')
                     employer.save()
 
-                    return redirect("login")
+                    return redirect("log_in")
 
-                else:
-                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
-                    return redirect("employer_register")
+                # else:
+                #     messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
+                #     return redirect("employer_register")
 
 
         else:
@@ -75,12 +83,21 @@ def student_signup(request):
 
     if request.method == 'POST':
 
+        studIDForm = studentIDForm(request.POST)
         form = initialStudentForm(request.POST)
 
-        if form.is_valid():
+        if studIDForm.is_valid and form.is_valid():
 
             if form.usernameExists() == True:
                 messages.info(request, 'Username already taken. Try a different one.')
+                return redirect("register")
+
+            elif form.emailExists() == True:
+                messages.info(request, 'Email already taken. Try a different one.')
+                return redirect("register")
+
+            if form.emailDomainExists() == False:
+                messages.info(request, 'Email domain does not exist. Try again.')
                 return redirect("register")
 
             elif form.samePasswords() == False:
@@ -88,18 +105,24 @@ def student_signup(request):
                 return redirect("register")
 
             else:
-                if (isValidated(form.cleaned_data.get('password1'))): # if password meets validation criteria
+            #     if (isValidated(form.cleaned_data.get('password1'))): # if password meets validation criteria
                     user = form.save()
 
-                    student = Student()
-                    student.user = user
-                    student.save()
+                    # student = Student()
+                    # student.user = user
+                    # student.save()
                 
-                    return redirect("login")
+                    student = studIDForm.save(commit=False)
+                    student.user = user
+                    student.student_id = studIDForm.cleaned_data.get('studentID')
+                    student.save()
 
-                else:
-                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
-                    return redirect("register")
+                    return redirect('log_in')
+                    # return redirect('password_reset')
+
+                # else:
+                #     messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')   
+                #     return redirect("register")
 
         else:
             messages.info(request, form.errors)
@@ -120,7 +143,7 @@ def login(request):
 
             if user is None:
                 messages.info(request, 'Credentials do not exist, please try a different username/password')
-                return redirect("login")
+                return redirect("log_in")
             else:
                 auth.login(request, user)
                 print('User logged in')

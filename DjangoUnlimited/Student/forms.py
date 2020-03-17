@@ -6,6 +6,23 @@ from .models import Student
 # from ..DjangoUnlimited import settings
 from django.contrib.auth.models import User
 
+# Note: we need dnspython for this to work
+import dns.resolver, dns.exception
+
+class studentIDForm(forms.ModelForm):
+    studentID = forms.CharField(label='Student ID', required=True)
+
+    class Meta:
+        model = Student
+        fields = ('studentID',)
+
+    def save(self, commit=True):
+        student = super(studentIDForm, self).save(commit=False)
+        
+        if commit:
+            student.save()
+        return student
+
 class initialStudentForm(forms.ModelForm):
     
     studentID = forms.CharField(label='Student ID')
@@ -24,17 +41,33 @@ class initialStudentForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super(initialStudentForm, self).save(commit=False)
-        user.username = self.cleaned_data["studentID"]
+        user.username = self.cleaned_data["email"]
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
         return user
 
     def usernameExists(self):
-        studentID = self.cleaned_data.get("studentID")
+        studentID = self.cleaned_data.get("email")
         if User.objects.filter(username=studentID).exists():
             return True
         return False
+
+    def emailExists(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            return True
+        return False
+
+    def emailDomainExists(self):
+        email = self.cleaned_data.get("email")
+        domain = email.split('@')[1]
+        try:
+            dns.resolver.query(domain, 'MX')
+            return True
+
+        except dns.exception.DNSException:
+            return False
 
     def samePasswords(self):
         p1 = self.cleaned_data.get("password1")
