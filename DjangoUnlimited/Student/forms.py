@@ -14,7 +14,7 @@ import dns.resolver, dns.exception
 
 class InitialStudentForm(forms.ModelForm):
     
-    studentID = forms.CharField(label='Student ID')
+    #studentID = forms.CharField(label='Student ID')
     first_name = forms.CharField(label='First Name')
     last_name = forms.CharField(label='Last Name')
     email = forms.EmailField(required=True)
@@ -24,7 +24,6 @@ class InitialStudentForm(forms.ModelForm):
     class Meta:
         model = User
         fields = (
-            'studentID',
             'first_name',
             'last_name',
             'email',
@@ -75,6 +74,7 @@ class StudentForm(forms.ModelForm):
         ('Male', 'Male'),
         ('Female', 'Female')
     ]
+    student_id = forms.CharField(label = 'Student ID')
     dp = forms.ImageField(label='Select a profile picture', required=False)
     DOB = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=True, label='Date of Birth',
                           widget=forms.DateInput(attrs={
