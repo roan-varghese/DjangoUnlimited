@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'DjangoUnlimited',
         'USER': 'postgres',
         'PASSWORD': '1234',
-        'HOST': '',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -154,3 +154,5 @@ LOGIN_EXEMPT_URLS = {
 
 # Date input format.
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
+#AUTH_USER_MODEL = 'Accounts.User'

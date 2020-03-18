@@ -1,3 +1,73 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User, auth
 
 # Create your views here.
+
+from Accounts.views import isValidated
+from .models import Student
+from .forms import InitialStudentForm, StudentForm, EditStudentProfileForm
+
+
+def student_signup(request):
+    if request.method == 'POST':
+        user_form = InitialStudentForm(request.POST)
+        if user_form.is_valid():
+            if user_form.usernameExists():
+                messages.info(request, 'Username already taken. Try a different one.')
+                return redirect("register")
+            elif not user_form.samePasswords():
+                messages.info(request, 'Passwords not matching. Try again.')
+                return redirect("register")
+            else:
+                if isValidated(user_form.cleaned_data.get('password1')):
+                    student_form = StudentForm(request.POST, request.FILES)
+                    if student_form.is_valid():
+                        user = user_form.save()
+                        student = student_form.save(commit=False)
+                        student.user = user
+                        student.save()
+                        return redirect("login")
+                    else:
+                        messages.info(request, student_form.errors)
+                        return redirect("register")
+                else:
+                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')
+                    return redirect("register")
+        else:
+            messages.info(request, user_form.errors)
+            return redirect("register")
+    else:
+        user_form = InitialStudentForm()
+        student_form = StudentForm()
+        args = {'student_form': student_form, 'user_form': user_form}
+
+        return render(request, 'Student_Registration.html', args)
+
+
+def edit_profile(request):
+    student = Student.objects.get(user_id=request.user.id)
+
+    if request.method == 'POST':
+        user_form = EditStudentProfileForm(request.POST, instance=request.user)
+        student_form = StudentForm(request.POST, request.FILES, instance=student)
+
+        if user_form.is_valid() and student_form.is_valid():
+            user_form.save()
+            student_form.save()
+            return redirect('view_profile')
+        else:
+            messages.info(request, student_form.errors)
+            messages.info(request, user_form.errors)
+            return redirect("edit_profile")
+    else:
+        user_form = EditStudentProfileForm(instance=request.user)
+        student_form = StudentForm(instance=student)
+        args = {'student_form': student_form, 'user_form': user_form}
+        return render(request, 'edit_student_profile.html', args)
+
+def view_profile(request):
+    user = request.user
+    student = Student.objects.get(user_id=user.id)
+    args = {'student': student, 'user': user}
+    return render(request, 'view_student_profile.html', args)

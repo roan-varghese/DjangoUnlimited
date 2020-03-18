@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-from Student.models import Student
+from django.views.generic import TemplateView
+
 from Employer.models import Employer
-from Student.forms import studentIDForm, initialStudentForm
+from Student.forms import studentIDForm, InitialStudentForm
 from Employer.forms import companyNameForm, initialEmployerForm, completeEmployerForm
 
 def isValidated(passwd):
     special_symbols = {'$', '@', '%', '&', '?', '.', '!', '#', '*', ' '}
     status = True
 
-    if (len(passwd) > 8):
+    if len(passwd) > 8:
         status = True
 
     if not any(char.isdigit() for char in passwd): 
@@ -37,7 +37,7 @@ def employer_signup(request):
 
         if compNameForm.is_valid and form.is_valid():
 
-            if form.usernameExists() == True:
+            if form.usernameExists():
                 messages.info(request, 'Username already taken. Try a different one.')
                 return redirect("employer_register")
 
@@ -72,7 +72,6 @@ def employer_signup(request):
         else:
             messages.info(request, form.errors)
             return redirect("employer_register")
-
     else:
         form = initialEmployerForm() 
         compNameForm = companyNameForm()

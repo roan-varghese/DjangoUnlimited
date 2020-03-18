@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>View Profile</title>
+</head>
+<body>
+    <p>Student ID: {{ user.username }}</p>
+    <p>First Name: {{ user.first_name }}</p>
+    <p>Last Name: {{ user.last_name }}</p>
+    <p>Date of Birth: {{ student.DOB }}</p>
+    <p>Gender: {{ student.gender }}</p>
+    <p>Personal Email Address: {{ student.personal_email }}</p>
+    {% if student.alumni_status %}
+        <p>Alumni Status: Alumni</p>
+    {% else %}
+        <p>Alumni Status: Current Student</p>
+    {% endif %}
+
+    <p>Expected Graduation Date: {{ student.expected_graduation_date }}</p>
+    <p>CV: {{ student.cv }}</p>
+    <button type="button"><a href="edit_profile">Edit Profile</a></button>
+    <button type="button"><a href="/">Go back home</a></button>
+</body>
+</html>

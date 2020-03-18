@@ -1,10 +1,13 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.forms import models, HiddenInput
+from django.forms import models
+from datetime import date
 
 from .models import Student
-# from ..DjangoUnlimited import settings
-from django.contrib.auth.models import User
+from Home.models import Skill
+from DjangoUnlimited import settings
+
 
 # Note: we need dnspython for this to work
 import dns.resolver, dns.exception
@@ -23,9 +26,11 @@ class studentIDForm(forms.ModelForm):
             student.save()
         return student
 
-class initialStudentForm(forms.ModelForm):
+class InitialStudentForm(forms.ModelForm):
     
     studentID = forms.CharField(label='Student ID')
+    first_name = forms.CharField(label='First Name')
+    last_name = forms.CharField(label='Last Name')
     email = forms.EmailField(required=True)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
@@ -34,6 +39,8 @@ class initialStudentForm(forms.ModelForm):
         model = User
         fields = (
             'studentID',
+            'first_name',
+            'last_name',
             'email',
             'password1',
             'password2'
@@ -72,39 +79,63 @@ class initialStudentForm(forms.ModelForm):
     def samePasswords(self):
         p1 = self.cleaned_data.get("password1")
         p2 = self.cleaned_data.get("password2")
-        
+
         if p1 != p2:
             return False
         return True
-        
-
 
 class StudentForm(forms.ModelForm):
     gender_choices = [
         ('Male', 'Male'),
         ('Female', 'Female')
     ]
-    first_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
-        attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
-    last_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
-        attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
-    # DOB = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=True, widget=forms.DateInput(attrs={
-    #     'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY', 'autocomplete': 'off'
-    # }))
-    # joining_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=True,
-    #                                widget=forms.DateInput(attrs={
-    #                                    'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
-    #                                    'autocomplete': 'off'
-    #                                }))
-    # expected_graduation_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
-    #                                            widget=forms.DateInput(attrs={
-    #                                                'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
-    #                                                'autocomplete': 'off'
-    #                                            }))
-    personal_email = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
+    dp = forms.ImageField(label='Select a profile picture', required=False)
+    DOB = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=True, label='Date of Birth',
+                          widget=forms.DateInput(attrs={
+                              'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY', 'autocomplete': 'off'
+                          }))
+    alumni_status = forms.BooleanField(required=False, label='Select if you are a Murdoch University Alumni',
+                                       widget=forms.CheckboxInput(attrs={'onClick': 'disable_fields(this.checked)'}))
+    expected_graduation_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
+                                               label='Expected Graduation Date',
+                                               widget=forms.DateInput(attrs={
+                                                   'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
+                                                   'autocomplete': 'off'
+                                               }))
+    personal_email = forms.CharField(max_length=50, required=False, label='Personal Email Address', widget=forms.TextInput(
         attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
     gender = forms.ChoiceField(choices=gender_choices, widget=forms.Select(attrs={'class': 'custom-select'}))
+    #skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
+    #                                        widget=forms.CheckboxSelectMultiple,
+    #                                        required=True)
+    cv = forms.FileField(allow_empty_file=False, label='Attach CV')
 
     class Meta:
         model = Student
+        exclude = ['user', 'jobs_applied']
+
+
+class EditStudentProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name'
+        )
+        labels = (
+            {'first_name' : 'First Name'},
+            {'last_name' : 'Last Name'}
+        )
+        exclude = ['studentID', 'email', 'password1', 'password2']
+
+
+"""
+class StudentSkillsForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ('skills', )
+        widgets = {
+            'skills': forms.CheckboxSelectMultiple
+        }
         exclude = ['student_id', 'alumni_status']
+"""

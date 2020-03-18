@@ -4,11 +4,10 @@ from Student.models import Student
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
 
+# Create your views here.
+
 def index(request):
-    if request.user.is_authenticated:
-        return redirect('profile')
-    else:
-        return render(request, 'Index.html')
+    return render(request, 'Index.html')
     
 def has_employer(request):
     hasEmployer = False
@@ -30,11 +29,11 @@ def has_student(request):
 
 @login_required
 def profile(request):
-        if has_employer(request):
-            print('has employer')
-            return render(request, 'employer_profile.html')
-        elif has_student(request):
-            print('has student')
-            return render(request, 'student_profile.html')
-        else:
-            return render(request, 'Index.html')
+    if has_employer(request):
+        print('has employer')
+        return render(request, 'employer_profile.html')
+    elif has_student(request):
+        print('has student')
+        return render(request, 'view_student_profile.html')
+    else:
+        return render(request, 'Index.html')

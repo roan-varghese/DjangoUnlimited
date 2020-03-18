@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
 </head>
 <body>
     <h1>HOME</h1>
+
     {% if user.is_authenticated %}
     
-    <h3>Welcome, {{user.username}}</h3>
-    <p><a href = "Accounts/logout">LOGOUT</a></p>
+    <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
+    <p><a href = "student/view_profile">My Profile</a></p>
+    <p><a href = "accounts/logout">LOGOUT</a></p>
 
     {% else %}
-    <p><a href = "Accounts/login">LOGIN</a></p>
+    <p><a href = "accounts/login">LOGIN</a></p>
     <p><a href = "admin">ADMIN - > LOGIN</a></p>
-    <p><a href = "Accounts/Registration">STUDENT -> REGISTER</a></p>
-    <p><a href = "Accounts/EmployerRegistration">EMPLOYER -> REGISTER</a></p>
+    <p><a href = "student/Registration">STUDENT -> REGISTER</a></p>
+    <p><a href = "accounts/EmployerRegistration">EMPLOYER -> REGISTER</a></p>
 
     {% endif %}
 
