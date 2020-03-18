@@ -8,10 +8,9 @@ from django.dispatch import receiver
 from Home.models import Industry
 
 class Employer(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    # user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='employer_user')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='employer_user')
     company_name = models.CharField(max_length=50)
-    company_description = models.TextField(null=True)
+    company_description = models.TextField()
     phone_number = models.CharField(max_length=50)
     #industry = models.ForeignKey(Industry, on_delete=models.CASCADE, related_name='industry')
-    logo = models.ImageField(null=True, upload_to='company_logos')
+    logo = models.ImageField(upload_to='company_logos')
