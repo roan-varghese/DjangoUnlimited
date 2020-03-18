@@ -8,20 +8,6 @@ from Home.models import Industry, Job, Skill, JobType
 
 import dns.resolver, dns.exception
 
-class companyNameForm(forms.ModelForm):
-    companyName = forms.CharField(label='Company Name', required=True)
-
-    class Meta:
-        model = Employer
-        fields = ('companyName',)
-
-    def save(self, commit=True):
-        employer = super(companyNameForm, self).save(commit=False)
-        
-        if commit:
-            employer.save()
-        return employer
-
 class InitialEmployerForm(forms.ModelForm):
     
     email = forms.EmailField(required=True)

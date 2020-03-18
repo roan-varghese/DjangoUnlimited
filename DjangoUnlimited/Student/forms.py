@@ -12,20 +12,6 @@ from DjangoUnlimited import settings
 # Note: we need dnspython for this to work
 import dns.resolver, dns.exception
 
-class studentIDForm(forms.ModelForm):
-    studentID = forms.CharField(label='Student ID', required=True)
-
-    class Meta:
-        model = Student
-        fields = ('studentID',)
-
-    def save(self, commit=True):
-        student = super(studentIDForm, self).save(commit=False)
-        
-        if commit:
-            student.save()
-        return student
-
 class InitialStudentForm(forms.ModelForm):
     
     studentID = forms.CharField(label='Student ID')
@@ -47,7 +33,7 @@ class InitialStudentForm(forms.ModelForm):
         )
 
     def save(self, commit=True):
-        user = super(initialStudentForm, self).save(commit=False)
+        user = super(InitialStudentForm, self).save(commit=False)
         user.username = self.cleaned_data["email"]
         user.set_password(self.cleaned_data["password1"])
         if commit:
