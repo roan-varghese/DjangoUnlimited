@@ -6,7 +6,7 @@ from datetime import datetime
 from Home.models import Skill, Job
 
 class Student(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
     student_id = models.CharField(null=True, max_length=50)
     gender_choices = [
         ('Male', 'Male'),
