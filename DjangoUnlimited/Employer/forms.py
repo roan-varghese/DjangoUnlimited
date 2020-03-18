@@ -6,19 +6,7 @@ from django.contrib.auth.models import User
 from .models import Employer
 from Home.models import Industry, Job, Skill, JobType
 
-class companyNameForm(forms.ModelForm):
-    companyName = forms.CharField(label='Company Name', required=True)
-
-    class Meta:
-        model = Employer
-        fields = ('companyName',)
-
-    def save(self, commit=True):
-        employer = super(companyNameForm, self).save(commit=False)
-        
-        if commit:
-            employer.save()
-        return employer
+import dns.resolver, dns.exception
 
 class InitialEmployerForm(forms.ModelForm):
     
@@ -47,6 +35,22 @@ class InitialEmployerForm(forms.ModelForm):
         if User.objects.filter(username=email).exists():
             return True
         return False
+
+    def emailExists(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            return True
+        return False
+
+    def emailDomainExists(self):
+        email = self.cleaned_data.get("email")
+        domain = email.split('@')[1]
+        try:
+            dns.resolver.query(domain, 'MX')
+            return True
+
+        except dns.exception.DNSException:
+            return False
 
     def samePasswords(self):
         p1 = self.cleaned_data.get("password1")

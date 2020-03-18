@@ -19,8 +19,16 @@ def signup(request):
                 messages.info(request, 'Username already taken. Try a different one.')
                 return redirect("employer_register")
 
+            elif user_form.emailExists():
+                messages.info(request, 'Email already taken. Try a different one.')
+                return redirect("employer_register")
+
             elif not user_form.samePasswords():
                 messages.info(request, 'Passwords not matching. Try again.')
+                return redirect("employer_register")
+
+            elif not user_form.emailDomainExists():
+                messages.info(request, 'Email domain does not exist. Try again.')
                 return redirect("employer_register")
 
             else:
@@ -33,7 +41,7 @@ def signup(request):
                             employer = employer_form.save(commit=False)
                             employer.user = user
                             employer.save()
-                            return redirect("login")
+                            return redirect("log_in")
                     else:
                         messages.info(request, employer_form.errors)
                         return redirect("employer_register")
@@ -60,7 +68,7 @@ def edit_profile(request):
                 form.save()
                 return redirect('view_employer_profile')
             else:
-                messages.info(request, student_form.errors)
+                messages.info(request, form.errors)
                 return redirect("edit_employer_profile")
         else:
             form = EmployerForm(instance=employer)

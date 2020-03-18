@@ -3,9 +3,6 @@ from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.views.generic import TemplateView
 
-from Employer.models import Employer
-from Employer.forms import companyNameForm, InitialEmployerForm, EmployerForm
-
 def isValidated(passwd):
     special_symbols = {'$', '@', '%', '&', '?', '.', '!', '#', '*', ' '}
     status = True
@@ -37,7 +34,7 @@ def login(request):
 
             if user is None:
                 messages.info(request, 'Credentials do not exist, please try a different username/password')
-                return redirect("login")
+                return redirect("log_in")
             else:
                 auth.login(request, user)
                 print('User logged in')

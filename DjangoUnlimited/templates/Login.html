@@ -19,7 +19,9 @@
         <input type="password" name="password"><br><br>
 
         <input type="submit"><br>
-        <a href="ForgotPassword">Forgot password?</a><br>
+        
+        <a href="{% url 'password_reset' %}">Forgot password?</a><br>
+        <!-- <a href="password_reset">Forgot password?</a><br> -->
     </form>
 
     <div>

@@ -9,7 +9,11 @@ from Home.models import Skill
 from DjangoUnlimited import settings
 
 
+# Note: we need dnspython for this to work
+import dns.resolver, dns.exception
+
 class InitialStudentForm(forms.ModelForm):
+    
     studentID = forms.CharField(label='Student ID')
     first_name = forms.CharField(label='First Name')
     last_name = forms.CharField(label='Last Name')
@@ -30,17 +34,33 @@ class InitialStudentForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super(InitialStudentForm, self).save(commit=False)
-        user.username = self.cleaned_data["studentID"]
+        user.username = self.cleaned_data["email"]
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
         return user
 
     def usernameExists(self):
-        studentID = self.cleaned_data.get("studentID")
+        studentID = self.cleaned_data.get("email")
         if User.objects.filter(username=studentID).exists():
             return True
         return False
+
+    def emailExists(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            return True
+        return False
+
+    def emailDomainExists(self):
+        email = self.cleaned_data.get("email")
+        domain = email.split('@')[1]
+        try:
+            dns.resolver.query(domain, 'MX')
+            return True
+
+        except dns.exception.DNSException:
+            return False
 
     def samePasswords(self):
         p1 = self.cleaned_data.get("password1")

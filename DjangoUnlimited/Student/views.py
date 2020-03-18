@@ -16,8 +16,14 @@ def student_signup(request):
             if user_form.usernameExists():
                 messages.info(request, 'Username already taken. Try a different one.')
                 return redirect("student_registration")
+            elif user_form.emailExists():
+                messages.info(request, 'Email already taken. Try a different one.')
+                return redirect("student_registration")
             elif not user_form.samePasswords():
                 messages.info(request, 'Passwords not matching. Try again.')
+                return redirect("student_registration")
+            elif not user_form.emailDomainExists():
+                messages.info(request, 'Email domain does not exist. Try again.')
                 return redirect("student_registration")
             else:
                 if isValidated(user_form.cleaned_data.get('password1')):
@@ -27,7 +33,7 @@ def student_signup(request):
                         student = student_form.save(commit=False)
                         student.user = user
                         student.save()
-                        return redirect("login")
+                        return redirect("log_in")
                     else:
                         messages.info(request, student_form.errors)
                         return redirect("student_registration")
