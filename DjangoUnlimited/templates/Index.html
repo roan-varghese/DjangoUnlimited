@@ -7,20 +7,16 @@
 </head>
 <body>
     <h1>HOME</h1>
-
     {% if user.is_authenticated %}
-    
-    <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
-    <p><a href = "student/view_profile">My Profile</a></p>
-    <p><a href = "accounts/logout">LOGOUT</a></p>
-
+        <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
+        <p><a href = "student/view_student_profile">My Profile</a></p>
+        <p><a href = "employer/view_employer_profile">My Employer Profile</a></p>
+        <p><a href = "accounts/logout">LOGOUT</a></p>
     {% else %}
-    <p><a href = "accounts/login">LOGIN</a></p>
-    <p><a href = "admin">ADMIN - > LOGIN</a></p>
-    <p><a href = "student/Registration">STUDENT -> REGISTER</a></p>
-    <p><a href = "accounts/EmployerRegistration">EMPLOYER -> REGISTER</a></p>
-
+        <p><a href = "accounts/login">LOGIN</a></p>
+        <p><a href = "admin">ADMIN - > LOGIN</a></p>
+        <p><a href = "student/student_registration">STUDENT -> REGISTER</a></p>
+        <p><a href = "employer/employer_registration">EMPLOYER -> REGISTER</a></p>
     {% endif %}
-
 </body>
 </html>

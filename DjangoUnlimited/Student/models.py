@@ -12,7 +12,7 @@ class Student(models.Model):
         ('Male', 'Male'),
         ('Female', 'Female')
     ]
-    dp = models.ImageField(upload_to='profile_pictures')
+    dp = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
     DOB = models.DateField()
     personal_email = models.CharField(max_length=100)
     alumni_status = models.BooleanField(default=False)

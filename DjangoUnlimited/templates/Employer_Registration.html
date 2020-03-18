@@ -8,12 +8,12 @@
 <body>
     <h4><a href="/">Back to home</a></h4>
 
-    <h2>Create an account to browse and post jobs</h2>
-    <form action="EmployerRegistration" method="post">
+    <h2>Create an account to post jobs</h2>
+    <form action="employer_registration" method="post">
         {% csrf_token %}
 
-        {{ compNameForm.as_p }}
-        {{ form.as_p }}
+        {{ user_form.as_p }}
+        {{ employer_form.as_p }}
 
         <input type="checkbox" name="terms" required> 
         <label>I have read and agree to the terms and conditions</label><br><br>

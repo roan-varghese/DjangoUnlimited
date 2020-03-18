@@ -28,13 +28,18 @@
 
 </head>
 <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
-    <form method="post" enctype="multipart/form-data" action="edit_profile">
+    <form method="post" enctype="multipart/form-data" action="edit_student_profile">
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ student_form.as_p }}
 
         <button type="submit">Save Changes</button>
-        <button type="button"><a href="view_profile">Cancel</a></button>
+        <button type="button"><a href="view_student_profile">Cancel</a></button>
     </form>
+    <div>
+        {% for message in messages %}
+            <h3> {{message}} </h3>
+        {% endfor %}
+    </div>
 </body>
 </html>

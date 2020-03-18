@@ -15,10 +15,10 @@ def student_signup(request):
         if user_form.is_valid():
             if user_form.usernameExists():
                 messages.info(request, 'Username already taken. Try a different one.')
-                return redirect("register")
+                return redirect("student_registration")
             elif not user_form.samePasswords():
                 messages.info(request, 'Passwords not matching. Try again.')
-                return redirect("register")
+                return redirect("student_registration")
             else:
                 if isValidated(user_form.cleaned_data.get('password1')):
                     student_form = StudentForm(request.POST, request.FILES)
@@ -30,13 +30,13 @@ def student_signup(request):
                         return redirect("login")
                     else:
                         messages.info(request, student_form.errors)
-                        return redirect("register")
+                        return redirect("student_registration")
                 else:
                     messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')
-                    return redirect("register")
+                    return redirect("student_registration")
         else:
             messages.info(request, user_form.errors)
-            return redirect("register")
+            return redirect("student_registration")
     else:
         user_form = InitialStudentForm()
         student_form = StudentForm()
@@ -55,11 +55,11 @@ def edit_profile(request):
         if user_form.is_valid() and student_form.is_valid():
             user_form.save()
             student_form.save()
-            return redirect('view_profile')
+            return redirect('view_student_profile')
         else:
             messages.info(request, student_form.errors)
             messages.info(request, user_form.errors)
-            return redirect("edit_profile")
+            return redirect("edit_student_profile")
     else:
         user_form = EditStudentProfileForm(instance=request.user)
         student_form = StudentForm(instance=student)

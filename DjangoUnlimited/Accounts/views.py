@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 from Employer.models import Employer
 from Student.forms import studentIDForm, InitialStudentForm
-from Employer.forms import companyNameForm, initialEmployerForm, completeEmployerForm
+from Employer.forms import companyNameForm, InitialEmployerForm, EmployerForm
 
 def isValidated(passwd):
     special_symbols = {'$', '@', '%', '&', '?', '.', '!', '#', '*', ' '}
