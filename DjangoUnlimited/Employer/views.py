@@ -90,7 +90,7 @@ def create_job(request):
                 messages.info(request, form.errors)
         else:
             form = CreateJobForm()
-            return render(request, "Employer_Create_Jobs.html", {'form': form})
+            return render(request, "employer_create_jobs.html", {'form': form})
     elif Admin.objects.get(user_id=request.user.id):
         if request.method == 'POST':
             jobForm = CreateJobForm(request.POST)
@@ -106,10 +106,10 @@ def create_job(request):
             else:
                 messages.info(request, jobForm.errors)
                 messages.info(request, companyForm.errors)
-                return redirect('CreateJob')
+                return redirect('create_job')
         else:
             jobForm = CreateJobForm()
             companyForm = EmployerForm()
             args = {'jobForm': jobForm, 'companyForm': companyForm}
-            return render(request, "Employer_Create_Jobs.html", args)
+            return render(request, "employer_create_jobs.html", args)
 
