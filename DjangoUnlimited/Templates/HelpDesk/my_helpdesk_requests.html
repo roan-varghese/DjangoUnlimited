@@ -1,0 +1,58 @@
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mainmargin">
+        <div class="offset-md-1 col-md-10">
+            <div class="card p-0">
+                <div class="card-header ccm-blue-background text-left">
+                    <p class="white font-15 text-bold"> Status of my HelpDesk Requests</p>
+                </div>
+                <div class="p-3">
+                    <table class="table">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Request Date</th>
+                            <th>Issue</th>
+                            <th>Status</th>
+                            <th>Completed Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for helpdeskRequest in helpdeskRequests %}
+                        <tr class="text-center">
+                            <td>{{helpdeskRequest.issue_date|date:"d/m/Y"}}</td>
+                            <td>
+                                <a href="{% url 'HelpDesk' helpdeskRequest.id %}">
+                                    {{helpdeskRequest.subject}}</a>
+                            </td>
+                            <td>
+                                {% if helpdeskRequest.completed == True %}
+                                Completed
+                                {% else %}
+                                Pending
+                                {% endif %}
+                            </td>
+                            <td> {{helpdeskRequest.completed_date}}</td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+    // the initialisation of dataTables and set the ordering of first column
+    $(".table").DataTable({
+        "order": [[ 0, "desc" ]]
+    });
+
+</script>
+{% endblock js %}

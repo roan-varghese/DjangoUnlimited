@@ -36,14 +36,19 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django_comments',
+    'django.contrib.sites',
+    'django_cleanup',
     'django.contrib.staticfiles',
     'Student',
     'Employer',
     'Admin',
     'Home',
+    'HelpDesk',
     'Accounts.apps.AccountsConfig'
 ]
 
+SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
