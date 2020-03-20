@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,22 +11,23 @@
     {% if student.dp %}
         <img src="{{ student.dp.url }}">
     {% else %}
-        <img src="DjangoUnlimited/Student/DefaultDP.jpg">
+        <img src="{% static 'DefaultDP.jpg' %}">
     {% endif %}
-    <p>Student ID: {{ user.username }}</p>
+    <p>Student ID: {{ student.student_id }}</p>
     <p>First Name: {{ user.first_name }}</p>
     <p>Last Name: {{ user.last_name }}</p>
+    <p>Email Address: {{ user.email }}</p>
     <p>Date of Birth: {{ student.DOB }}</p>
     <p>Gender: {{ student.gender }}</p>
-    <p>Personal Email Address: {{ student.personal_email }}</p>
     {% if student.alumni_status %}
         <p>Alumni Status: Alumni</p>
     {% else %}
         <p>Alumni Status: Current Student</p>
+        <p>Expected Graduation Date: {{ student.expected_graduation_date }}</p>
+        <p>Personal Email Address: {{ student.personal_email }}</p>
     {% endif %}
-
-    <p>Expected Graduation Date: {{ student.expected_graduation_date }}</p>
     <p>CV: {{ student.cv }}</p>
+
     <button type="button"><a href="edit_student_profile">Edit Profile</a></button>
     <button type="button"><a href="/">Go back home</a></button>
 </body>

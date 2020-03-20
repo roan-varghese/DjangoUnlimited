@@ -20,7 +20,7 @@ class Student(models.Model):
     gender = models.CharField(max_length=10, choices=gender_choices)
     #skills = models.ManyToManyField(Skill, through='StudentSkill')
     jobs_applied = models.ManyToManyField(Job, through='StudentJobApplication')
-    cv = models.FileField(upload_to='documents', default='./DefaultCV.txt')
+    cv = models.FileField(upload_to='documents', default='../staticfiles/DefaultCV.txt')
 
     def __str__(self):
         name = self.user.first_name + ' ' + self.user.last_name

@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from Employer.models import Employer
 from Student.models import Student
+from Accounts.views import get_user_type
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'Index.html')
+    return render(request, "Index.html", get_user_type(request))
     
 def has_employer(request):
     hasEmployer = False
