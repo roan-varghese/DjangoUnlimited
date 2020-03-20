@@ -50,7 +50,7 @@ def student_signup(request):
         student_form = StudentForm()
         args = {'student_form': student_form, 'user_form': user_form}
 
-        return render(request, 'Student_Registration.html', args)
+        return render(request, 'student_registration.html', args)
 
 
 def edit_profile(request):

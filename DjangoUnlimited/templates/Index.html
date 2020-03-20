@@ -7,16 +7,21 @@
 </head>
 <body>
     <h1>HOME</h1>
+    {% csrf_token %}
     {% if user.is_authenticated %}
         {% if user_type == 'student' %}
             <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
-            <p><a href = "../student/view_student_profile">My Profile</a></p>
+            <p><a href = "../student/view_student_profile">My Profile</a>
+            <p><a href = "../view_jobs">BROWSE JOBS</a>
+
         {% elif user_type == 'employer' %}
             <h3>Welcome, {{ obj.company_name }}</h3>
             <p><a href = "../employer/view_employer_profile">My Employer Profile</a></p>
+            <p><a href = "../view_jobs">MY JOBS</a>
             <p><a href = "../employer/create_job">POST A JOB</a></p>
         {% elif user_type == 'admin' %}
             <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
+            <p><a href = "../view_jobs">MY JOBS</a>
         {% endif %}
         <p><a href = "../accounts/logout">LOGOUT</a></p>
     {% else %}

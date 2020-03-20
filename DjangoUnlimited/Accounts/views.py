@@ -41,15 +41,15 @@ def login(request):
             else:
                 auth.login(request, user)
                 print('User logged in')
-                return render(request, "Index.html", get_user_type(request))
+                return render(request, "index.html", get_user_type(request))
     else:
-        return render(request, 'Login.html')
+        return render(request, 'login.html')
 
 def forgot_password(request):
     if request.method == 'POST':
         return redirect("/")
     else:
-        return render(request, 'Forgot_Password.html')
+        return render(request, 'forgot_password.html')
 
 def logout(request):
     auth.logout(request)
