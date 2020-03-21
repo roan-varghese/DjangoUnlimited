@@ -45,10 +45,10 @@ def view_jobs(request):
     user = get_user_type(request)
 
     if user['user_type'] == 'employer' or user['user_type'] == 'admin':
-        jobs = Job.objects.filter(posted_by=request.user.id).order_by('date_posted')
+        jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted')
         args = {'jobs': jobs, 'company': user['obj']}
     elif user['user_type'] == 'student':
-        jobs = Job.objects.all().order_by('date_posted')
+        jobs = Job.objects.all().order_by('-date_posted')
         companies = Employer.objects.all()
         args = {'jobs': jobs,'companies': companies }
     else:
@@ -57,7 +57,7 @@ def view_jobs(request):
 
 
 def job_details(request, id):
-    job = Job.objects.get(id = id)
+    job = Job.objects.get(id = id).order_by('-date_posted')
     companies = Employer.objects.all()
     args = {'job': job, 'user': get_user_type(request), 'companies': companies}
     return render(request, 'job_details.html', args)
