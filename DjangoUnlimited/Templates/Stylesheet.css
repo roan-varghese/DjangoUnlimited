@@ -1,0 +1,157 @@
+body{
+    margin: 0px;
+}
+
+/* the position of overall nav  */
+nav{ 
+    width:100%;
+    height: 6.5em; 
+    position: relative;
+    background: black;
+}
+
+/* the section contains the nav-container */
+.nav-container{
+    width:100%;
+    position: relative;
+    background: black;
+    overflow: hidden;
+}
+
+/* the postion of overall murdochlogo */
+.nav-container>.logo{
+    float:left; 
+    position: fixed;
+    top: 1em;
+    left: 3.5em;
+}
+
+
+/*the navbar menu  of signup & login*/
+.menu{
+    width: 100%;
+    height: 1em;
+    background: black;
+}
+
+/* the over styling of nav menu-content*/
+.menu>.menu-content{
+    width: 200px;
+    height: 8.2em;
+    float: right;
+    font-family: Segoe UI;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    line-height: 100px;
+    background: black;
+}
+
+.menu>.menu-content>a{
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    border-width: thin;
+    border: solid;
+    border-color: white;
+    height: 60px; 
+    width: 40%;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+
+.menu>.menu-content>a:hover{
+    color: red;
+}
+
+
+/*This section contains the styling of bottomnav*/
+.bottomnav {
+    overflow: hidden;
+    background-color: red;
+    height: 5em;
+}
+
+.bottomnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 1em 1em ;
+    padding-top: 1.8em;
+    padding-left: 2.5em;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Segoe UI;
+}
+
+
+footer{
+    background-color: black;
+    color: white;
+    font-family: "Arial" ;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    position: fixed;
+    margin: auto;
+}
+
+.para1{
+    padding:0;
+    padding-bottom: 0;
+    border:0;
+    margin: 0;
+    border
+}
+
+.para2{
+    font-size: 0.75em;
+    padding:0;
+    border:0;
+    margin: 0;
+    border
+}
+
+ul{
+    list-style-type:none;
+}
+
+a{
+    color: white;
+    font-family: "Arial" ;
+    text-decoration: none;
+}
+
+.main{
+    background-color: black;
+    display:flex;
+    width: 100%;
+    bottom: 0;
+    left:0;
+    margin: auto;  
+}
+
+.about{
+    flex:1;
+}
+
+.sitemap{
+    flex:1;
+}
+.helpDesk{
+    flex:1;
+}
+
+.contact{
+    flex:1;
+}
+
+.follow{
+    flex:1;
+}
+
