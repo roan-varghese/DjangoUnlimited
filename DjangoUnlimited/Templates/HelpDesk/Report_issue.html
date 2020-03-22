@@ -1,0 +1,140 @@
+{% block content %}
+{% load comments %}
+
+<title>HELP DESK</title>
+
+<div class="container-fluid">
+    <div class="row mainmargin">
+        <div class="offset-md-1 col-md-10">
+            <div class="card p-0">
+                <div class="card-header ccm-blue-background text-left">
+                    <p class="white font-15 text-bold"> Report an Issue </p>
+                </div>
+                <form method="POST">
+                    <div class="p-3">
+                        {% csrf_token %}
+                        <p>Subject:</p>
+                        {{ help_desk_form.subject}}
+                        <p class="topmargin20">Please describe the issue or concern you are facing in detail:</p>
+                        {{ help_desk_form.issue}}
+                        {% if not thread %}
+                        <div class="mt-3 text-right">
+                            <button type="submit" class="btn btn-ccm" name="submitbutton">Submit</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </form>
+                {% if thread %}
+                <div class="row  px-3">
+                    <div class="col-md-12">
+                        <p class="font-14"> Number of Comment/s: <span class="paragraph-comment"> {{ thread.text }} </span>
+                            {# Get the number of comments for current post #}
+                            {% get_comment_count for thread as comment_count %}
+                            <!-- Number of comments-->
+                            <span class="p-0 m-0">
+                            {% if comment_count != 0 %}
+                            {% endif %}
+                            {{ comment_count }} comment/s
+                        </span>
+                        </p>
+                    </div>
+                </div>
+            
+                <div class="row px-3">
+                    {# Get comments from the DB #}
+                    {% get_comment_list for thread as comments_list %}
+                    <!--      Comments          -->
+                    {% for comment in comments_list %}
+                    {% if comment.user == user %}
+                    <div class="col-md-10">
+                        <div class="card card-shadow p-0 comment">
+                            <div class="card-header">
+                                <span class="font-weight-bold fonts-12">
+                                        {{ comment.user_name }}
+                                    </span>
+                                <a href="#" class="text-muted fonts-12" data-toggle="tooltip" data-placement="top"
+                                   title="{{comment.submit_date}}">
+                                    {{comment.submit_date|timesince}} ago
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                    {% if forloop.counter != comment_count %}
+                                    {% endif %}
+                                    <pre>{{ comment.comment }}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col-md-10  offset-md-2">
+                        <div class="card card-shadow p-0 text-right comment">
+                            <div class="card-header">
+                                  <span class="font-weight-bold fonts-12">
+                                        {{ comment.user_name }}
+                                    </span>
+                                <a href="#" class="text-muted fonts-12" data-toggle="tooltip" data-placement="top"
+                                   title="{{comment.submit_date}}">
+                                    {{comment.submit_date|timesince}} ago
+                                </a>
+                            </div>
+                            <div class="card-body">
+
+                                    {% if forloop.counter != comment_count %}
+                                    {% endif %}
+                                <pre>
+                                    {{ comment.comment }}
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% get_comment_form for thread as form %}
+                    <div class="col-md-12 mt-3 card-footer">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="col-sm-12 p-0 form-wrapper pt-3">
+                                <!-- disabled if ticket is completed -->
+                                <textarea id="{{form.comment.id_for_label}}" name="{{form.comment.html_name}}" class="form-control"
+                                          required {% if help_desk_form.completed.value == True %}disabled{% endif %}></textarea>
+                            </div>
+                            {# Required hidden fields to be rendered for security reasons from django-contrib-comments #}
+                            {% for field in form %}
+                            {% if field.is_hidden %}
+                            <div>{{ field }}</div>
+                            {% endif %}
+                            {% endfor %}
+                            <input type="hidden" name="name" value="{{ request.user.get_full_name }}"/>
+                            <input type="hidden" name="email" value="{{ request.user.email }}"/>
+                            <input type="hidden" name="url" value="http://dummyurl.com"/>
+                            <input type="hidden" name="next" value="{{ request.path }}"/>
+                            <div class="text-center my-3">
+                                <!-- disabled if ticket is completed -->
+                                {% if not help_desk_form.completed.value == True %}
+                                <button class="btn btn-ccm" type="submit" name="submit" value="Post">Comment</button>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            
+            {% endif %}
+            </div>
+            
+        </div>
+    </div>
+
+   
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    // the initialisation of bootstrap tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+
+</script>
+
+{% endblock js %}

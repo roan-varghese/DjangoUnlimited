@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
+from django.db import transaction
 
 # Create your views here.
 
@@ -29,11 +30,12 @@ def student_signup(request):
                 if isValidated(user_form.cleaned_data.get('password1')):
                     student_form = StudentForm(request.POST, request.FILES)
                     if student_form.is_valid():
-                        user = user_form.save()
-                        student = student_form.save(commit=False)
-                        student.user = user
-                        student.save()
-                        return redirect("log_in")
+                        with transaction.atomic():
+                            user = user_form.save()
+                            student = student_form.save(commit=False)
+                            student.user = user
+                            student.save()
+                            return redirect("log_in")
                     else:
                         messages.info(request, student_form.errors)
                         return redirect("student_registration")
@@ -48,7 +50,7 @@ def student_signup(request):
         student_form = StudentForm()
         args = {'student_form': student_form, 'user_form': user_form}
 
-        return render(request, 'Student_Registration.html', args)
+        return render(request, 'student_registration.html', args)
 
 
 def edit_profile(request):
@@ -59,10 +61,12 @@ def edit_profile(request):
         student_form = StudentForm(request.POST, request.FILES, instance=student)
 
         if user_form.is_valid() and student_form.is_valid():
-            user_form.save()
-            student_form.save()
-            return redirect('view_student_profile')
+            with transaction.atomic():
+                user_form.save()
+                student_form.save()
+                return redirect('view_student_profile')
         else:
+            print(student_form)
             messages.info(request, student_form.errors)
             messages.info(request, user_form.errors)
             return redirect("edit_student_profile")

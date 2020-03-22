@@ -12,5 +12,4 @@ class Employer(models.Model):
     company_name = models.CharField(max_length=50)
     company_description = models.TextField()
     phone_number = models.CharField(max_length=50)
-    #industry = models.ForeignKey(Industry, on_delete=models.CASCADE, related_name='industry')
-    logo = models.ImageField(upload_to='company_logos')
+    logo = models.ImageField(upload_to='company_logos', null=True, blank=True)

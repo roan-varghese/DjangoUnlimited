@@ -36,11 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django_comments',
+    'django.contrib.sites',
+    'django_cleanup',
     'django.contrib.staticfiles',
     'Student',
     'Employer',
     'Admin',
     'Home',
+    'HelpDesk',
     'Accounts'
 ]
 
@@ -137,11 +141,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
 # Sets a location to where the static files are supposed to be.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+#STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Sets a location to where the media files are supposed to be.
 MEDIA_URL = '/media/'
@@ -163,4 +168,3 @@ LOGIN_EXEMPT_URLS = {
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 #AUTH_USER_MODEL = 'Accounts.User'
-

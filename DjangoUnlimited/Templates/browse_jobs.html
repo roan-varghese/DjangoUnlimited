@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,24 @@
     <title>Browse Jobs</title>
 </head>
 <body>
+    <h4><a href="/">Back to home</a></h4>
+
+    {% for job in jobs%}
+         <h3><a href ="{% url 'job_details' job.id %}">{{ job.job_title }}</a></h3>
+        <p>{{ job.location}} | {{ job.duration}} | AED {{ job.salary}}</p>
+        <p>Posted On: {{ job.date_posted}}</p>
+
+        {% for company in companies%}
+                {% if job.posted_by == company.user%}
+                    <p>{{ company.company_name}}</p>
+                    {% if company.logo %}
+                        <img src="{{ company.logo.url }}"><br>
+                    {% else %}
+                        <img src="{% static 'DefaultDP.jpg' %}"><br>
+                    {% endif %}
+                {% endif %}
+        {% endfor%}
+    {% endfor %}
 
 </body>
 </html>

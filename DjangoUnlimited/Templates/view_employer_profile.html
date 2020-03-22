@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,8 @@
 <body>
     {% if employer.logo %}
         <img src="{{ employer.logo.url }}">
+    {% else %}
+        <img src="{% static 'DefaultDP.jpg' %}">
     {% endif %}
 
     <p>Company Name: {{ employer.company_name }}</p>

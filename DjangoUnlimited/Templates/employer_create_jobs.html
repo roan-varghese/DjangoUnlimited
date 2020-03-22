@@ -12,7 +12,7 @@
     <h3>Job details</h3>
 
     {% block content %}
-    <form action="create_job" method="post">
+    <form action="create_job" method="post" enctype="multipart/form-data">
 
         {% csrf_token %}
             {{ form.as_p  }}

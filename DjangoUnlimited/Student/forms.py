@@ -13,8 +13,6 @@ from DjangoUnlimited import settings
 import dns.resolver, dns.exception
 
 class InitialStudentForm(forms.ModelForm):
-    
-    #studentID = forms.CharField(label='Student ID')
     first_name = forms.CharField(label='First Name')
     last_name = forms.CharField(label='Last Name')
     email = forms.EmailField(required=True)
@@ -111,7 +109,7 @@ class EditStudentProfileForm(forms.ModelForm):
             {'first_name' : 'First Name'},
             {'last_name' : 'Last Name'}
         )
-        exclude = ['studentID', 'email', 'password1', 'password2']
+        exclude = ['email', 'password1', 'password2']
 
 
 """

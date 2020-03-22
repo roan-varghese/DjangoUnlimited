@@ -55,7 +55,7 @@ def signup(request):
         user_form = InitialEmployerForm()
         employer_form = EmployerForm()
         args = {'employer_form': employer_form, 'user_form': user_form}
-        return render(request, 'Employer_Registration.html', args)
+        return render(request, 'employer_registration.html', args)
 
 
 def edit_profile(request):
@@ -120,4 +120,3 @@ def create_job(request):
             companyForm = EmployerForm()
             args = {'jobForm': jobForm, 'companyForm': companyForm}
             return render(request, "employer_create_jobs.html", args)
-

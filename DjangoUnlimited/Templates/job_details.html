@@ -1,0 +1,39 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Details</title>
+</head>
+<body>
+
+    <h4><a href="/">Back to home</a></h4>
+
+    <p>{{ job.id }}</p>
+    <h3>{{ job.job_title }}</h3>
+    <p>{{ job.location}} | {{ job.duration}} | AED {{ job.salary}}</p>
+    <p>Posted On: {{ job.date_posted}}</p>
+
+    {% for company in companies%}
+            {% if job.posted_by == company.user%}
+                {% if company.logo %}
+                    <img src="{{ company.logo.url }}"><br>
+                {% else %}
+                    <img src="{% static 'DefaultDP.jpg' %}"><br>
+                {% endif %}
+
+                <p>{{ company.company_name}}</p>
+                <p>{{ company.company_description}}</p>
+            {% endif %}
+    {% endfor%}
+
+    <p>{{ job.desc }}</p>
+    {% if user.user_type == 'student' %}
+        <button type="submit">Apply</button>
+    {% else %}
+        <button type="submit">Edit Job</button>
+    {% endif %}
+
+
+</body>
+</html>
