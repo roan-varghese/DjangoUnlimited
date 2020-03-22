@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -6,23 +6,26 @@ urlpatterns = [
     path('login', views.login, name='log_in'),
     path('ForgotPassword', views.forgot_password, name='forgot_password'),
     path('logout', views.logout, name='logout'),
-    # path('confirm_logout', views.confirm_logout, name='logout'),
-    # path('cancel_logout', views.cancel_logout, name='logout')
-
-    path('', include('django.contrib.auth.urls')),
-    path(
+    
+    re_path(
         r'^password_reset/$',
         auth_views.PasswordResetView.as_view(), 
         name='password_reset'
     ),
-    path(
-        r'^password_reset_done/$', 
+    re_path(
+        r'^password_reset/done/$', 
         auth_views.PasswordResetDoneView.as_view(template_name = 'registration/password_link_sent.html'),
         name='password_reset_done'
     ),
-    # path(
-    #     r'^password_reset_confirm/(?P<uidb64>[\w-]+)/(?P<token>[\w-]+)/$',
-    #     auth_views.PasswordResetConfirmView,
-    #     name='password_reset_confirm'
-    # )
+    re_path(
+        r'^password_reset/confirm/(?P<uidb64>[\w-]+)/(?P<token>[\w-]+)/$', 
+        auth_views.PasswordResetConfirmView.as_view(template_name = 'registration/password_reset_confirm.html'), 
+        name='password_reset_confirm',
+    ),
+    re_path(
+        r'^password_reset/complete/$', 
+        auth_views.PasswordResetCompleteView.as_view(template_name = 'registration/password_reset_complete.html'), 
+        name='password_reset_complete',
+    )
+    
 ]
