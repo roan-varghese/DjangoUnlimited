@@ -58,6 +58,9 @@ DEFAULT_FROM_EMAIL = 'donotreply@murdochcareerportal.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+SITE_ID = 1  # needed for 'django.contrib.sites' to work for admin site
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
