@@ -45,12 +45,18 @@ INSTALLED_APPS = [
     'Admin',
     'Home',
     'HelpDesk',
-    'Accounts.apps.AccountsConfig'
+    'Accounts'
 ]
 
-SITE_ID = 1
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SEND_GRID_API_KEY = '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'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'DjangoUnlimited'
+EMAIL_HOST_PASSWORD = '0192_django_Unlimited_'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'donotreply@murdochcareerportal.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
