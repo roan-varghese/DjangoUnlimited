@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from Employer.models import Employer
-from Student.models import Student
+from Student.models import Student, StudentJobApplication
 from Accounts.views import get_user_type
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User, auth
@@ -79,3 +79,11 @@ def job_details(request, id):
         post.save()
 
     return render(request, 'job_details.html', args)
+
+
+def my_applications(request):
+    id_student = request.user.id
+    student = Student.objects.get(user_id=id_student)
+    jobs_applied = StudentJobApplication.objects.filter(applied_id=student)
+    args = {'jobs_applied': jobs_applied}
+    return render(request, 'my_applications.html', args)
