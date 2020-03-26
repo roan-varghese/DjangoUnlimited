@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Job
 from django.utils import timezone
 from Student.forms import StudentJobApplicationForm
+from newsapi import NewsApiClient
+from django.core.cache import cache
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -96,3 +99,33 @@ def my_applications(request):
     jobs_applied = StudentJobApplication.objects.filter(applied_id=student)
     args = {'jobs_applied': jobs_applied}
     return render(request, 'my_applications.html', args)
+
+
+def news(request):
+    # news API to show the latest news
+    newsapi = NewsApiClient(api_key='1aab8f2e782a4a588fc28a3292a57979')
+    top = newsapi.get_top_headlines(sources='cnn')
+
+    l = top['articles']
+    desc = []
+    news = []
+    img = []
+    urllink = []
+
+    for i in range(len(l)):
+        f = l[i]
+        news.append(f['title'])
+        desc.append(f['description'])
+        img.append(f['urlToImage'])
+        urllink.append(f['url'])
+
+    mylist = list(zip(news, desc, img, urllink))
+
+    paginator = Paginator(mylist, 5)
+
+    page = request.GET.get('page')
+    mylist = paginator.get_page(page)
+
+    args = {'mylist': mylist}
+
+    return render(request, 'news.html', args)
