@@ -2,15 +2,21 @@ from django.shortcuts import render, redirect
 from Employer.models import Employer
 from Student.models import Student
 from Accounts.views import get_user_type
+from django.views.generic import TemplateView
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
 from .models import Job
+from django.utils import timezone
+from Student.forms import StudentJobApplicationForm
+
 
 # Create your views here.
 
+
 def index(request):
     return render(request, "index.html", get_user_type(request))
-    
+
+
 def has_employer(request):
     hasEmployer = False
     try:
@@ -20,6 +26,7 @@ def has_employer(request):
 
     return hasEmployer
 
+
 def has_student(request):
     hasStudent = False
     try:
@@ -28,6 +35,7 @@ def has_student(request):
         pass
 
     return hasStudent
+
 
 @login_required
 def profile(request):
@@ -50,14 +58,24 @@ def view_jobs(request):
     elif user['user_type'] == 'student':
         jobs = Job.objects.all().order_by('-date_posted')
         companies = Employer.objects.all()
-        args = {'jobs': jobs,'companies': companies }
+        args = {'jobs': jobs, 'companies': companies}
     else:
         return redirect('/')
     return render(request, 'browse_jobs.html', args)
 
 
 def job_details(request, id):
-    job = Job.objects.get(id = id).order_by('-date_posted')
+    job = Job.objects.get(id=id)
     companies = Employer.objects.all()
     args = {'job': job, 'user': get_user_type(request), 'companies': companies}
+    form = StudentJobApplicationForm()
+    if request.method == 'POST':
+        post = form.save(commit=False)
+        post.job_id = job
+        id = request.user.id
+        student = Student.objects.get(user_id=id)
+        post.applied = student
+        post.date_applied = timezone.now()
+        post.save()
+
     return render(request, 'job_details.html', args)

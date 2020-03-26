@@ -49,3 +49,4 @@ class HelpDeskComplaints(models.Model):
     subject = models.CharField(max_length=100)
     details = models.TextField()
     admin_id = models.ForeignKey(Admin, on_delete=models.CASCADE, related_name='assigned_admin')
+
