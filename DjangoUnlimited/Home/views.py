@@ -70,14 +70,23 @@ def job_details(request, id):
     args = {'job': job, 'user': get_user_type(request), 'companies': companies}
     form = StudentJobApplicationForm()
     if request.method == 'POST':
-        post = form.save(commit=False)
-        post.job_id = job
-        id = request.user.id
-        student = Student.objects.get(user_id=id)
-        post.applied = student
-        post.date_applied = timezone.now()
-        post.save()
-
+        print('HI')
+        if request.POST.get("apply"):
+            print('HELLO123')
+            post = form.save(commit=False)
+            post.job_id = job
+            id = request.user.id
+            student = Student.objects.get(user_id=id)
+            post.applied = student
+            post.date_applied = timezone.now()
+            post.save()
+            return render(request, 'job_details.html', args)
+        elif request.POST.get("viewcandidates"):
+            print('HELLO111')
+            candidates = StudentJobApplication.objects.filter(job_id=job)
+            print(candidates)
+            args = {'candidates': candidates}
+            return render(request, 'view_candidates.html', args)
     return render(request, 'job_details.html', args)
 
 

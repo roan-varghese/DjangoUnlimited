@@ -14,20 +14,20 @@
 <div class="container-fluid mainmargin">
     <div class="row">
         <div class="offset-md-1 col-md-10 bg-white card-shadow p-0">
-            <h2 class="text-bold ccm-blue-background white p-3 font-15"> List of My Jobs</h2>
+            <h2 class="text-bold ccm-blue-background white p-3 font-15"> List of Candidates</h2>
             <div class="p-3">
                 <table class="table">
                     <thead>
                     <tr>
                         <th>Date Applied</th>
-                        <th>Job ID</th>
+                        <th>Student Name</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for job in jobs_applied %}
+                    {% for candidates in candidates %}
                     <tr>
-                        <td>{{job.date_applied}}</td>
-                        <td>{{job.job_id}}</td>
+                        <td>{{candidates.date_applied}}</td>
+                        <td>{{candidates.applied}}</td>
                         {% endfor %}
                     </tr>
                     </tbody>

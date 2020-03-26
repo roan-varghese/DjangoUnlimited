@@ -26,9 +26,10 @@
 
     <p>{{ job.desc }}</p>
     {% if user.user_type == 'student' %}
-    <button type="submit">Apply Job</button>
+    <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply</button>
     {% else %}
     <button type="submit">Edit Job</button>
+    <button type="submit" name="viewcandidates" value="ViewCandidates&Save">&nbsp;View Candidates</button>
     {% endif %}
 
 
