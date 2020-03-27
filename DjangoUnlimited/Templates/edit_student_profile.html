@@ -1,8 +1,8 @@
 {% load staticfiles %}
-<!-- Stylesheet -->
+<!-- Stylesheets -->
 {% block css %}
     <link rel="stylesheet" type = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type = "text/css" href="{% static 'css/Student-form.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
         </nav>
 
         <div class="bottomnav">
-            <a class="active" href="#home"> <b>Home</b></a>
+            <a class="active" href="index.html"> <b>Home</b></a>
             <a href = "browse_jobs.html"> <b>Browse Jobs</b></a>
         </div>
     </header>
@@ -53,24 +53,34 @@
     </script>
 
 </head>
-<body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
-    <div class = "container" >
-    <form method="post" enctype="multipart/form-data" action="edit_student_profile">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ student_form.as_p }}
 
-        <button type="submit">Save Changes</button>
-        <button type="button"><a href="view_student_profile">Cancel</a></button>
-    </form>
+<body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
+    <br><br>
+    <div class = "container" >
+        <!-- displays welcome message -->
+        <h3 align = "center">Welcome, {{user.first_name}} {{ user.last_name }}</h3>
+        <div class = "container2">
+            <div class = "heading"> <h4 align = "center">My profile</h4> </div>
+            <form method="post" enctype="multipart/form-data" action="edit_student_profile">
+                {% csrf_token %}
+                {{ user_form.as_p }}
+                {{ student_form.as_p }}
+
+                 <button type="submit"><b>Save Changes</b></button>
+                 <button type="button"><a href="view_student_profile"><b>Cancel</b></a></button>
+            </form>
+        </div>
     </div>
+    <br><br>
 
     <div>
         {% for message in messages %}
             <h3> {{message}} </h3>
         {% endfor %}
     </div>
-    <!--This is the begining of the footer!-->
+</body>
+
+<!--This is the begining of the footer!-->
     <footer>
         <div class = "main">
 
@@ -94,9 +104,10 @@
 
             <!-- This is the 3rd column of the footer !-->
             <div class = "helpDesk">
-                <h3> SUPPORT </h3>
-                <a href = "my_helpdesk_request.html"> Help Desk</a>
-
+                 <ul>
+                     <h3> SUPPORT </h3>
+                     <a href =my_helpdesk_request.html"> Help Desk</a>
+                </ul>
             </div>
 
             <!-- This is the 4th column of the footer !-->
@@ -125,5 +136,4 @@
             </div>
         </div>
     </footer>
-</body>
 </html>
