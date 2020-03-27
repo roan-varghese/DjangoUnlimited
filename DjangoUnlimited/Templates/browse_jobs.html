@@ -1,29 +1,125 @@
-{% load static %}
+{% load staticfiles %}
+<!-- Stylesheet -->
+{% block css %}
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+{% endblock css %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Browse Jobs</title>
 </head>
+<header>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    <a href="../accounts/logout">Log Out</a>
+                    <a href="../student/view_student_profile">{{ user.first_name }}</a>
+                </div>
+            </aside>
+        </section>
+    </nav>
+
+    <div class="bottomnav">
+        <a class="active" href="#home"> <b>Home</b></a>
+    </div>
+</header>
+
+
 <body>
-    <h4><a href="/">Back to home</a></h4>
+<h4><a href="/">Back to home</a></h4>
 
-    {% for job in jobs%}
-         <h3><a href ="{% url 'job_details' job.id %}">{{ job.job_title }}</a></h3>
-        <p>{{ job.location}} | {{ job.duration}} | AED {{ job.salary}}</p>
-        <p>Posted On: {{ job.date_posted}}</p>
+{% for job in jobs %}
+    <h3><a href="{% url 'job_details' job.id %}">{{ job.job_title }}</a></h3>
+    <p>{{ job.location }} | {{ job.duration }} | AED {{ job.salary }}</p>
+    <p>Posted On: {{ job.date_posted }}</p>
 
-        {% for company in companies%}
-                {% if job.posted_by == company.user%}
-                    <p>{{ company.company_name}}</p>
-                    {% if company.logo %}
-                        <img src="{{ company.logo.url }}"><br>
-                    {% else %}
-                        <img src="{% static 'DefaultDP.jpg' %}"><br>
-                    {% endif %}
-                {% endif %}
-        {% endfor%}
+    {% for company in companies %}
+        {% if job.posted_by == company.user %}
+            <p>{{ company.company_name }}</p>
+            {% if company.logo %}
+                <img src="{{ company.logo.url }}"><br>
+            {% else %}
+                <img src="{% static 'DefaultDP.jpg' %}"><br>
+            {% endif %}
+        {% endif %}
     {% endfor %}
+{% endfor %}
 
 </body>
+
+
+<footer>
+    <div class="main">
+
+        <!-- This is the 1st column of the footer!-->
+        <div class="about">
+            <ul><h3>ABOUT US</h3>
+                <a href="https://www.murdochuniversitydubai.com/faq">
+                    <li>FAQ</li>
+                </a>
+                <a href="https://murdochdubaicareerportal.com/page/anti-scam">
+                    <li>Anti-Scam</li>
+                </a>
+                <a href="">
+                    <li>Terms</li>
+                </a>
+                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy">
+                    <li>Privacy</li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- This is the 2nd column of the footer !-->
+        <div class="sitemap">
+            <ul>
+                <h3>SITEMAP</h3>
+                <a href="sitemap.html">
+                    <li> Sitemap</li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- This is the 3rd column of the footer !-->
+        <div class="helpDesk">
+            <h3></h3>
+
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
+        <div class="contact">
+            <h3> CONTACT US </h3>
+            <p class="para1">
+                <b>Murdoch University Dubai</b>
+                <br>
+            </p>
+            <p class="para2">
+                Dubai International Academic City <br>
+                Block 10, Fourth floor <br>
+                P.O. Box 345005 <br>
+                Dubai, United Arab Emirates
+            </p>
+
+        </div>
+
+        <!-- This is the 5th column of the footer !-->
+        <div class="follow">
+            <h3> FOLLOW US </h3>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
+                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
+            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
+                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
+            </a>
+            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
+                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
+            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
+                                                                         alt="Instagram Icon" height="40.0em"
+                                                                         width="47.0em"></a>
+        </div>
+    </div>
+</footer>
 </html>
