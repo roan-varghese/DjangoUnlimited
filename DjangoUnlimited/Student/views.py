@@ -35,6 +35,8 @@ def student_signup(request):
                             student = student_form.save(commit=False)
                             student.user = user
                             student.save()
+                            for skill in request.POST.getlist('skills'):
+                                student.skills.add(skill)
                             return redirect("log_in")
                     else:
                         messages.info(request, student_form.errors)

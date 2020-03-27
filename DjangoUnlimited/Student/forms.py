@@ -90,9 +90,9 @@ class StudentForm(forms.ModelForm):
                                                }))
     personal_email = forms.EmailField(required=False, label='Personal Email Address')
     gender = forms.ChoiceField(choices=gender_choices, widget=forms.Select(attrs={'class': 'custom-select'}))
-    # skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
-    #                                        widget=forms.CheckboxSelectMultiple,
-    #                                        required=True)
+    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
+                                            widget=forms.CheckboxSelectMultiple,
+                                            required=True)
     cv = forms.FileField(allow_empty_file=False, label='Attach CV')
 
     class Meta:
