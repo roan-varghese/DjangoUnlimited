@@ -15,7 +15,7 @@ nav{
 .nav-container{
     width:100%;
     position: relative;
-    background: black;
+    background: rgb(29,26,26);
     overflow: hidden;
 }
 
@@ -32,7 +32,7 @@ nav{
 .menu{
     width: 100%;
     height: 1em;
-    background: black;
+    background: rgb(29,26,26);
 }
 
 /* the over styling of nav menu-content*/
@@ -46,7 +46,7 @@ nav{
     letter-spacing: 1px;
     position: relative;
     line-height: 100px;
-    background: black;
+    background: rgb(29,26,26);
 }
 
 .menu>.menu-content>a {
@@ -67,14 +67,14 @@ nav{
 
 
 .menu>.menu-content>a:hover{
-    color: red;
+    color: rgb(204,0,0);
 }
 
 
 /*This section contains the styling of bottomnav*/
 .bottomnav {
     overflow: hidden;
-    background-color: red;
+    background-color: rgb(204,0,0);
     height: 4.3em;
 }
 
@@ -92,7 +92,7 @@ nav{
 
 
 footer{
-    background-color: black;
+    background-color: rgb(29,26,26);
     color: white;
     bottom: 0;
     left:0;
@@ -129,7 +129,7 @@ a{
     text-decoration: none;
 }
 .main{
-    background-color: black;
+    background-color: rgb(29,26,26);
     display:flex;
     width: 100%;
     bottom: 0;
