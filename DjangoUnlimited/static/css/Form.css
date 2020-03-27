@@ -1,3 +1,6 @@
+.page{
+    display:flex;
+}
 .container {
     margin: auto;
     width: 60%;
@@ -34,4 +37,20 @@
 	width:100%
 	padding:0em;
 	margin:0%;
+}
+
+.sidebar{
+    margin: auto;
+    width: 20%;
+    height: 15%;
+    background-color: #E8E8E8;
+    padding-top: 0px;
+    padding-bottom: 2em;
+    text-align: center;
+    border: 0.15em solid grey;
+}
+.button{
+    background-color:#D3D3D3;
+    height: 2em;
+    width: 15em;
 }

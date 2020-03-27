@@ -56,28 +56,37 @@
 
 <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
     <br><br>
-    <div class = "container" >
-        <!-- displays welcome message -->
-        <h3 align = "center">Welcome, {{user.first_name}} {{ user.last_name }}</h3>
-        <div class = "container2">
-            <div class = "heading"> <h4 align = "center">My profile</h4> </div>
-            <form method="post" enctype="multipart/form-data" action="edit_student_profile">
-                {% csrf_token %}
-                {{ user_form.as_p }}
-                {{ student_form.as_p }}
+    <div class = "page">
+        <div class = "sidebar">
+            <h4> MY ACCOUNT</h4>
+            <button class = "button"> <a href = "">Edit profile</a></button>
+            <h4> MY JOBS</h4>
+            <button class = "button"> <a href = ""> Jobs applied</a></button>
+        </div>
+        <div class = "container" >
+            <!-- displays welcome message -->
+            <h3 align = "center">Welcome, {{user.first_name}} {{ user.last_name }}</h3>
+            <div class = "container2">
+                <div class = "heading"> <h4 align = "center">My profile</h4> </div>
+                <form method="post" enctype="multipart/form-data" action="edit_student_profile">
+                    {% csrf_token %}
+                    {{ user_form.as_p }}
+                    {{ student_form.as_p }}
 
-                 <button type="submit"><b>Save Changes</b></button>
-                 <button type="button"><a href="view_student_profile"><b>Cancel</b></a></button>
-            </form>
+                     <button type="submit"><b>Save Changes</b></button>
+                     <button type="button"><a href="view_student_profile"><b>Cancel</b></a></button>
+                </form>
+            </div>
+        </div>
+        <br><br>
+
+        <div>
+            {% for message in messages %}
+                <h3> {{message}} </h3>
+            {% endfor %}
         </div>
     </div>
-    <br><br>
-
-    <div>
-        {% for message in messages %}
-            <h3> {{message}} </h3>
-        {% endfor %}
-    </div>
+<br><br>
 </body>
 
 <!--This is the begining of the footer!-->
