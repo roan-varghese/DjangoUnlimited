@@ -22,7 +22,7 @@ nav{
 /* the position of overall murdoch logo */
 .nav-container>.logo{
     float:left;
-    position: fixed;
+    position: relative;
     top: 1.5em;
     left: 3.5em;
 }

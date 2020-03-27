@@ -1,15 +1,29 @@
+.page{
+    display:flex;
+}
 .container {
     margin: auto;
-    width: 50%;
+    width: 60%;
     background-color: #E8E8E8;
-    padding-top: 3em;
+    padding-top: 0px;
     padding-bottom: 3em;
     align: center;
     border: 0.15em solid grey;
 }
 .container2 {
     margin: auto;
-    width: 75%;
+    width: 80%;
+    background-color: #F8F8F8;
+    padding-top:0.0em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    align: center;
+    border: 0.15em solid grey;
+}
+
+.job_post {
+    margin: auto;
+    width: 65%;
     background-color: #F8F8F8;
     padding-top:0.0em;
     padding-left: 1.5em;
@@ -23,4 +37,20 @@
 	width:100%
 	padding:0em;
 	margin:0%;
+}
+
+.sidebar{
+    margin: auto;
+    width: 20%;
+    height: 15%;
+    background-color: #E8E8E8;
+    padding-top: 0px;
+    padding-bottom: 2em;
+    text-align: center;
+    border: 0.15em solid grey;
+}
+.button{
+    background-color:#D3D3D3;
+    height: 2em;
+    width: 15em;
 }
