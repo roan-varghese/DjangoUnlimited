@@ -1,0 +1,53 @@
+{% load static %}
+
+{% block css %}
+<style>
+    b, strong {
+    font-weight: initial !important;
+    }
+
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="container-fluid mainmargin">
+    <div class="row">
+        <div class="offset-md-1 col-md-10 bg-white card-shadow p-0">
+            <h2 class="text-bold ccm-blue-background white p-3 font-15"> List of Candidates</h2>
+            <div class="p-3">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date Applied</th>
+                        <th>Student Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for candidates in candidates %}
+                    <tr>
+                        <td>{{candidates.date_applied}}</td>
+                        <td>{{candidates.applied}}</td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    // the initialisation of dataTables and set the ordering of first column
+
+     $('.table').DataTable({
+        "order": [[ 0, "desc" ]],
+        scrollX: true
+    });
+
+
+</script>
+{% endblock %}
