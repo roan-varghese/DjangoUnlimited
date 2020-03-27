@@ -1,7 +1,8 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-    <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/Student-form.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
 <header>
         <nav>
             <section class= "nav-container">
-                <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="85.0em" width="260.0em"></div>
+                <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="60.0em" width="170.0em"></div>
                 <aside class="menu">
                     <div class="menu-content">
                         <a href="accounts/login"><i class="userlogin"></i>LOG IN</a>
@@ -53,7 +54,7 @@
 
 </head>
 <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
-    <div class = "Student_Form">
+    <div class = "container" >
     <form method="post" enctype="multipart/form-data" action="edit_student_profile">
         {% csrf_token %}
         {{ user_form.as_p }}
@@ -63,6 +64,7 @@
         <button type="button"><a href="view_student_profile">Cancel</a></button>
     </form>
     </div>
+
     <div>
         {% for message in messages %}
             <h3> {{message}} </h3>
@@ -72,10 +74,10 @@
     <footer>
         <div class = "main">
 
-            <!-- This is the 1st column of the footer!>
+            <!-- This is the 1st column of the footer!-->
             <div class = "about">
                 <ul><h3>ABOUT US</h3>
-                    <a href = "https://www.murdochuniversitydubai.com/faq"> <li>FAQ</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/faq" class = "white"> <li>FAQ</li> </a>
                     <a href = "https://murdochdubaicareerportal.com/page/anti-scam"> <li>Anti-Scam</li> </a>
                     <a href = ""><li>Terms</li> </a>
                     <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy"><li>Privacy</li> </a>
