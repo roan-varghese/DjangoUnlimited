@@ -13,7 +13,14 @@ class Industry(models.Model):
 
 
 class Skill(models.Model):
-    skill_name = models.CharField(max_length=50)
+    skill_name = models.CharField(max_length=50, unique=True)
+
+    def clean(self):
+        self.skill_name = self.skill_name.capitalize()
+
+    def __str__(self):
+        name = self.skill_name
+        return name
 
 
 class JobType(models.Model):
