@@ -73,8 +73,52 @@ class StudentForm(forms.ModelForm):
         ('Male', 'Male'),
         ('Female', 'Female')
     ]
+    gender = forms.ChoiceField(choices=gender_choices, widget=forms.RadioSelect(attrs={'class': 'custom-select'}))
+    DOB = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=True, label='Date of Birth',
+                          widget=forms.DateInput(attrs={
+                              'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
+                              'autocomplete': 'off'
+                          }))
     student_id = forms.CharField(label='Student ID')
+    alumni_status = forms.BooleanField(required=False, label='Select if you are a Murdoch University Alumni',
+                                       widget=forms.CheckboxInput(attrs={'onClick': 'disable_fields(this.checked)'}))
+    expected_graduation_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
+                                               label='Expected Graduation Date',
+                                               widget=forms.DateInput(attrs={
+                                                   'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
+                                                   'autocomplete': 'off'
+                                               }))
+    personal_email = forms.EmailField(required=False, label='Personal Email Address')
+    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
+                                            widget=forms.CheckboxSelectMultiple,
+                                            required=True)
     dp = forms.ImageField(label='Select a profile picture', required=False)
+    cv = forms.FileField(allow_empty_file=False, label='Attach CV')
+
+    class Meta:
+        model = Student
+        exclude = ['user', 'jobs_applied']
+
+
+class EditStudentProfileInitialForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name'
+        )
+        labels = (
+            {'first_name': 'First Name'},
+            {'last_name': 'Last Name'}
+        )
+        exclude = ['email', 'password1', 'password2']
+
+class EditStudentProfileForm(forms.ModelForm):
+    gender_choices = [
+            ('Male', 'Male'),
+            ('Female', 'Female')
+        ]
+    gender = forms.ChoiceField(choices=gender_choices, widget=forms.RadioSelect(attrs={'class': 'custom-select'}))
     DOB = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=True, label='Date of Birth',
                           widget=forms.DateInput(attrs={
                               'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
@@ -89,29 +133,15 @@ class StudentForm(forms.ModelForm):
                                                    'autocomplete': 'off'
                                                }))
     personal_email = forms.EmailField(required=False, label='Personal Email Address')
-    gender = forms.ChoiceField(choices=gender_choices, widget=forms.Select(attrs={'class': 'custom-select'}))
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
                                             widget=forms.CheckboxSelectMultiple,
                                             required=True)
+    dp = forms.ImageField(label='Select a profile picture', required=False)
     cv = forms.FileField(allow_empty_file=False, label='Attach CV')
 
     class Meta:
         model = Student
-        exclude = ['user', 'jobs_applied']
-
-
-class EditStudentProfileForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = (
-            'first_name',
-            'last_name'
-        )
-        labels = (
-            {'first_name': 'First Name'},
-            {'last_name': 'Last Name'}
-        )
-        exclude = ['email', 'password1', 'password2']
+        exclude = ['user', 'jobs_applied', 'student_id']
 
 
 class StudentJobApplicationForm(forms.ModelForm):

@@ -7,7 +7,7 @@ from django.db import transaction
 
 from Accounts.views import isValidated
 from .models import Student
-from .forms import InitialStudentForm, StudentForm, EditStudentProfileForm
+from .forms import *
 
 
 def student_signup(request):
@@ -59,8 +59,8 @@ def edit_profile(request):
     student = Student.objects.get(user_id=request.user.id)
 
     if request.method == 'POST':
-        user_form = EditStudentProfileForm(request.POST, instance=request.user)
-        student_form = StudentForm(request.POST, request.FILES, instance=student)
+        user_form = EditStudentProfileInitialForm(request.POST, instance=request.user)
+        student_form = EditStudentProfileForm(request.POST, request.FILES, instance=student)
 
         if user_form.is_valid() and student_form.is_valid():
             with transaction.atomic():
@@ -73,8 +73,8 @@ def edit_profile(request):
             messages.info(request, user_form.errors)
             return redirect("edit_student_profile")
     else:
-        user_form = EditStudentProfileForm(instance=request.user)
-        student_form = StudentForm(instance=student)
+        user_form = EditStudentProfileInitialForm(instance=request.user)
+        student_form = EditStudentProfileForm(instance=student)
         args = {'student_form': student_form, 'user_form': user_form}
         return render(request, 'edit_student_profile.html', args)
 

@@ -1,20 +1,22 @@
 from django.shortcuts import render, redirect
 from Employer.models import Employer
+from Admin.models import Admin
 from Student.models import Student, StudentJobApplication
 from Accounts.views import get_user_type
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
 from .models import Job
+from .forms import CreateJobForm
+from Employer.forms import EmployerForm
 from django.utils import timezone
 from Student.forms import StudentJobApplicationForm
 from newsapi import NewsApiClient
 from django.core.cache import cache
 from django.core.paginator import Paginator
-
+from django.db import transaction
 
 # Create your views here.
-
 
 def index(request):
     return render(request, "index.html", get_user_type(request))
@@ -55,10 +57,10 @@ def profile(request):
 def view_jobs(request):
     user = get_user_type(request)
 
-    if user['user_type'] == 'employer' or user['user_type'] == 'admin':
+    if user['user_type'] == 'employer':
         jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted')
         args = {'jobs': jobs, 'company': user['obj']}
-    elif user['user_type'] == 'student':
+    elif user['user_type'] == 'student' or user['user_type'] == 'admin':
         jobs = Job.objects.all().order_by('-date_posted')
         companies = Employer.objects.all()
         args = {'jobs': jobs, 'companies': companies}
@@ -66,6 +68,54 @@ def view_jobs(request):
         return redirect('/')
     return render(request, 'browse_jobs.html', args)
 
+
+def create_job(request):
+    try:
+        Employer.objects.get(user_id= request.user.id)
+        if request.method == 'POST':
+            form = CreateJobForm(request.POST)
+            if form.is_valid():
+                data = form.save(commit = False)
+                data.posted_by = request.user
+                data.save()
+                return redirect('/')
+            else:
+                messages.info(request, form.errors)
+        else:
+            form = CreateJobForm()
+            args = {'form': form, 'user': 'employer'}
+            return render(request, "employer_create_jobs.html", args)
+    except Employer.DoesNotExist:
+        pass
+
+    try:
+        admin = Admin.objects.get(user_id= request.user.id)
+        print(admin.user.id)
+        if request.method == 'POST':
+            jobForm = CreateJobForm(request.POST)
+            companyForm = EmployerForm(request.POST, request.FILES )
+
+            if jobForm.is_valid() and companyForm.is_valid():
+                with transaction.atomic():
+                    company = companyForm.save(commit=False)
+                    company.user_id = admin.user.id
+                    job = jobForm.save(commit=False)
+                    job.posted_by = request.user
+                    print(job.skills)
+                    job.save()
+                    company.save()
+                    return redirect('/')
+            else:
+                messages.info(request, jobForm.errors)
+                messages.info(request, companyForm.errors)
+                return redirect('create_job')
+        else:
+            jobForm = CreateJobForm()
+            companyForm = EmployerForm()
+            args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
+            return render(request, "employer_create_jobs.html", args)
+    except Admin.DoesNotExist:
+        pass
 
 def job_details(request, id):
     job = Job.objects.get(id=id)
