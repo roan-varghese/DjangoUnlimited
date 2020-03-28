@@ -1,0 +1,50 @@
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mainmargin">
+        <div class="offset-md-1 col-md-10">
+            <div class="card p-0">
+                <div class="card-header ccm-blue-background text-left">
+                    <p class="white font-15 text-bold"> All Bulletin Posts</p>
+                </div>
+                <div class="p-3">
+                    <table class="table">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Title</th>
+                            <th>Feed</th>
+                            <th>Release Date</th>
+                            <th>Author</th>
+                            <th>Updated Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for post in posts %}
+                        <tr class="text-center">
+                            <td> {{post.title}}</td>
+                            <td> {{post.feed}}</td>
+                            <td> {{post.release_date}}</td>
+                            <td> {{post.author}}</td>
+                            <td> {{post.update_date}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+    // the initialisation of dataTables and set the ordering of first column
+    $(".table").DataTable({
+        "order": [[ 0, "desc" ]]
+    });
+
+</script>
+{% endblock js %}

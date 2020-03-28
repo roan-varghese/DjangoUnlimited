@@ -18,7 +18,7 @@ class Student(models.Model):
     alumni_status = models.BooleanField(default=False)
     expected_graduation_date = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=gender_choices)
-    #skills = models.ManyToManyField(Skill, through='StudentSkill')
+    skills = models.ManyToManyField(Skill)
     jobs_applied = models.ManyToManyField(Job, through='StudentJobApplication')
     cv = models.FileField(upload_to='documents', default='../staticfiles/DefaultCV.txt')
 

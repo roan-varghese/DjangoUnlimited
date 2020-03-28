@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'Admin',
     'Home',
     'HelpDesk',
-    'Accounts'
+    'Accounts',
+    'Bulletin'
 ]
 
 SEND_GRID_API_KEY = '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'

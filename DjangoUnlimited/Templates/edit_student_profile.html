@@ -1,3 +1,10 @@
+{% load staticfiles %}
+<!-- Stylesheets -->
+{% block css %}
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
+{% endblock css %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +12,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit Profile</title>
+<header>
+        <nav>
+            <section class= "nav-container">
+                <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="60.0em" width="170.0em"></div>
+                <aside class="menu">
+                    <div class="menu-content">
+                        <a href="accounts/login"><i class="userlogin"></i>LOG IN</a>
+                        <a href="register"><i class="useradd "></i>SIGN UP</a>
+                    </div>
+                </aside>
+            </section>
+        </nav>
+
+        <div class="bottomnav">
+            <a class="active" href="/"> <b>Home</b></a>
+            <a href = "../view_jobs"> <b>Browse Jobs</b></a>
+        </div>
+    </header>
 
     <script language="JavaScript">
         function disable_fields(status)
@@ -28,19 +53,96 @@
     </script>
 
 </head>
-<body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
-    <form method="post" enctype="multipart/form-data" action="edit_student_profile">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ student_form.as_p }}
 
-        <button type="submit">Save Changes</button>
-        <button type="button"><a href="view_student_profile">Cancel</a></button>
-    </form>
-    <div>
-        {% for message in messages %}
-            <h3> {{message}} </h3>
-        {% endfor %}
+<body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
+    <br><br>
+    <div class = "page">
+        <div class = "sidebar">
+            <h4> MY ACCOUNT</h4>
+            <button class = "button"> <a href = "">Edit profile</a></button>
+            <h4> MY JOBS</h4>
+            <button class = "button"> <a href = ""> Jobs applied</a></button>
+        </div>
+        <div class = "container" >
+            <!-- displays welcome message -->
+            <h3 align = "center">Welcome, {{user.first_name}} {{ user.last_name }}</h3>
+            <div class = "container2">
+                <div class = "heading"> <h4 align = "center">My profile</h4> </div>
+                <form method="post" enctype="multipart/form-data" action="edit_student_profile">
+                    {% csrf_token %}
+                    {{ user_form.as_p }}
+                    {{ student_form.as_p }}
+
+                     <button type="submit"><b>Save Changes</b></button>
+                     <button type="button"><a href="view_student_profile"><b>Cancel</b></a></button>
+                </form>
+            </div>
+        </div>
+        <br><br>
+
+        <div>
+            {% for message in messages %}
+                <h3> {{message}} </h3>
+            {% endfor %}
+        </div>
     </div>
+<br><br>
 </body>
+
+<!--This is the begining of the footer!-->
+    <footer>
+        <div class = "main">
+
+            <!-- This is the 1st column of the footer!-->
+            <div class = "about">
+                <ul><h3>ABOUT US</h3>
+                    <a href = "https://www.murdochuniversitydubai.com/faq" class = "white"> <li>FAQ</li> </a>
+                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam"> <li>Anti-Scam</li> </a>
+                    <a href = ""><li>Terms</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy"><li>Privacy</li> </a>
+                </ul>
+            </div>
+
+            <!-- This is the 2nd column of the footer !-->
+            <div class = "sitemap">
+                <ul>
+                    <h3>SITEMAP</h3>
+                    <a href = "sitemap.html"><li> Sitemap </li> </a>
+                </ul>
+            </div>
+
+            <!-- This is the 3rd column of the footer !-->
+            <div class = "helpDesk">
+                 <ul>
+                     <h3> SUPPORT </h3>
+                     <a href =my_helpdesk_request.html"> Help Desk</a>
+                </ul>
+            </div>
+
+            <!-- This is the 4th column of the footer !-->
+            <div class = "contact">
+                <h3> CONTACT US </h3>
+                <p class="para1">
+                    <b>Murdoch University Dubai</b>
+                    <br>
+                </p>
+                <p class="para2">
+                    Dubai International Academic City <br>
+                    Block 10, Fourth floor <br>
+                    P.O. Box 345005 <br>
+                    Dubai, United Arab Emirates
+                </p>
+
+            </div>
+
+            <!-- This is the 5th column of the footer !-->
+            <div class = "follow">
+                <h3> FOLLOW US </h3>
+                <a href= "https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src = "{% static 'images/twitter.png' %}" alt = "Twitter Icon" height="35.0em" width="35.0em"> </a>
+                <a href= "https://www.facebook.com/murdochdubai/"><img src= "{% static 'images/facebook.png' %}" alt = "Facebook Icon" height="40.0em" width="40.0em"> </a>
+                <a href= "https://www.linkedin.com/school/murdoch-university-dxb/"><img src = "{% static 'images/linkedin.png' %}" alt = "LinkedIn Icon" height="35.0em" width="35.0em"></a>
+                <a href = "https://www.instagram.com/murdochdubai/?hl=en"><img src = "{% static 'images/insta.png' %}" alt = "Instagram Icon" height="40.0em" width="47.0em"></a>
+            </div>
+        </div>
+    </footer>
 </html>
