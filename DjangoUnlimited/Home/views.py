@@ -78,9 +78,12 @@ def create_job(request):
                 data = form.save(commit = False)
                 data.posted_by = request.user
                 data.save()
+                for skill in request.POST.getlist('skills'):
+                    data.skills.add(skill)
                 return redirect('/')
             else:
                 messages.info(request, form.errors)
+                return redirect('create_job')
         else:
             form = CreateJobForm()
             args = {'form': form, 'user': 'employer'}
@@ -99,11 +102,12 @@ def create_job(request):
                 with transaction.atomic():
                     company = companyForm.save(commit=False)
                     company.user_id = admin.user.id
+                    company.save()
                     job = jobForm.save(commit=False)
                     job.posted_by = request.user
-                    print(job.skills)
                     job.save()
-                    company.save()
+                    for skill in request.POST.getlist('skills'):
+                        job.skills.add(skill)
                     return redirect('/')
             else:
                 messages.info(request, jobForm.errors)

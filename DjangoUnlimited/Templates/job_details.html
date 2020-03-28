@@ -11,6 +11,11 @@
     <p>{{ job.location}} | {{ job.duration}} | AED {{ job.salary}}</p>
     <p>Posted On: {{ job.date_posted}}</p>
 
+    Skills required:
+    {% for skill in job.skills.all %}
+        <li>{{ skill }}</li>
+    {% endfor %}
+
     {% for company in companies%}
         {% if job.posted_by == company.user%}
             {% if company.logo %}
