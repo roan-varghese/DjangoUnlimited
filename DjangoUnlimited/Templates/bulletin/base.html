@@ -1,0 +1,112 @@
+{% block title %}
+<title>Bulletin - Add New Post</title>
+{% endblock title %}
+
+
+{% block content %}
+<div class="container-fluid mainmargin">
+    <div class="row ">
+        <div class="col-xl-8">
+            <div class="card card-shadow">
+                <div class="card-header ccm-blue-background">
+                    <p class="text-bold white font-15">Add New Post</p>
+                </div>
+                <div class="card-body padding20">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--Title of the bulletin-->
+                                <div class="topmargin20">
+                                    {{ form.title }}
+                                </div>
+                                <!--detailed post-->
+                                <div class="topmargin20">
+                                    {{ form.feed }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 topmargin20">
+                                <button id="submitbutton" type="submit" name="submitbutton" value="submitbutton"
+                                        class="btn btn-ccm btn-block text-bold">Submit
+                                </button>
+                            </div>
+                            <div class="col-md-6 topmargin20">
+                                <button id="savebutton" type="submit" name="savebutton" value="savebutton"
+                                        class="btn btn-ccm-1 btn-block text-bold">Save as draft
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!--View Drafts-->
+        <div class="col-xl-4">
+            <div class="card card-shadow ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-header ccm-blue-background">
+                            <p class="white text-left font-15 text-bold"> List of Drafts</p>
+                        </div>
+                        <div class="card-body padding20">
+                            {% for post in posts %}
+                            <div class="post">
+                                <div class="date">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <p class="font-12 mt-0 mb-0"> {{ post.release_date }} </p>
+                                            <p class="font-15 mt-0 mb-0"> Title: {{ post.title }} </p>
+                                        </div>
+                                        <div class="col-md-2 offset-2">
+
+                                            <a class="btn btn-default" href="{% url 'post_edit' post.pk %}"
+                                               title="Edit Post"><i class="fas fa-pen"></i></a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="post">
+                                <div class="date">
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <p>No saved drafts to display.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer ccm-blue-background">
+                    <div class="row">
+                        <div class="col-md-12 white">
+                            <div class="pagination">
+                                {% if posts.has_previous %}
+
+                                <a href="?page={{ posts.previous_page_number }}" class="white fonts-12">&nbsp;Previous&nbsp;</a>
+                                {% endif %}
+
+                                <span class="fonts-12">{{ posts.number }} </span>
+                                <span class="fonts-12">&nbsp; of &nbsp;</span>
+                                <span class="fonts-12">{{ posts.paginator.num_pages }}</span>
+
+                                {% if posts.has_next %}
+                                <a href="?page={{ posts.next_page_number }}" class="white fonts-12">&nbsp;Next</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

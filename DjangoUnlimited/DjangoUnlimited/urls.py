@@ -25,7 +25,8 @@ urlpatterns = [
     path('myadmin/', include('Admin.urls')),
     path('student/', include('Student.urls')),
     path('employer/', include('Employer.urls')),
-    path('HelpDesk/', include('HelpDesk.urls'))
+    path('HelpDesk/', include('HelpDesk.urls')),
+    path('bulletin/', include('Bulletin.urls')),  # Using URLS from the Bulletin app
 
 ]
 
