@@ -8,6 +8,11 @@ from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.contrib import messages
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.core.mail import send_mail
+from DjangoUnlimited.settings import SENDGRID_API_KEY
+
 
 # Create your views here.
 
@@ -41,13 +46,23 @@ def view_jobs(request):
 @login_required
 def create_job(request):
     try:
-        Employer.objects.get(user_id= request.user.id)
+        Employer.objects.get(user_id=request.user.id)
         if request.method == 'POST':
             form = CreateJobForm(request.POST)
             if form.is_valid():
-                data = form.save(commit = False)
+                data = form.save(commit=False)
                 data.posted_by = request.user
                 data.save()
+
+                message = Mail(
+                    from_email='info@murdochcareerportal.com',
+                    to_emails=['sethshivangi1998@gmail.com'],
+                    subject='New Job has been posted',
+                    html_content="A new Job has been posted on the Murdoch Career Portal."
+                )
+                sg = SendGridAPIClient(SENDGRID_API_KEY)
+             #   sg.send(message)
+
                 for skill in request.POST.getlist('skills'):
                     data.skills.add(skill)
                 return redirect('/')
@@ -62,11 +77,11 @@ def create_job(request):
         pass
 
     try:
-        admin = Admin.objects.get(user_id= request.user.id)
+        admin = Admin.objects.get(user_id=request.user.id)
         print(admin.user.id)
         if request.method == 'POST':
             jobForm = CreateJobForm(request.POST)
-            companyForm = EmployerForm(request.POST, request.FILES )
+            companyForm = EmployerForm(request.POST, request.FILES)
 
             if jobForm.is_valid() and companyForm.is_valid():
                 with transaction.atomic():
