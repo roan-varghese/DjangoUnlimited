@@ -58,17 +58,17 @@
                 <!-- displays welcome message -->
                 <div class="hello"><h3>hello</h3></div>
             </div>
-
+            <div class="heading"><h4 align="center">My profile</h4></div>
             <div class="container2">
-                <div class="heading"><h4 align="center">My profile</h4></div>
                 <form method="post" enctype="multipart/form-data" action="edit_employer_profile">
                     <!--div class = "Col1"> </div>
                     <div class = "Col2"> </div!-->
                     {% csrf_token %}
                     {{ employer_form.as_p }}
-
-                    <button class="button2" type="submit"><b>Save Changes</b></button>
-                    <button class="button2" type="button"><a href="view_employer_profile"> <b>Cancel</b></a></button>
+                    <div class = "middle">
+                        <button class="button2" type="submit"><b>Save Changes</b></button>
+                        <button class="button2" type="button"><a href="view_employer_profile"> <b>Cancel</b></a></button>
+                    </div>
                 </form>
             </div>
         </div>
