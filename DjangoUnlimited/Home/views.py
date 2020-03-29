@@ -73,9 +73,7 @@ def job_details(request, id):
     args = {'job': job, 'user': get_user_type(request), 'companies': companies}
     form = StudentJobApplicationForm()
     if request.method == 'POST':
-        print('HI')
         if request.POST.get("apply"):
-            print('HELLO123')
             post = form.save(commit=False)
             post.job_id = job
             id = request.user.id
@@ -85,7 +83,6 @@ def job_details(request, id):
             post.save()
             return render(request, 'job_details.html', args)
         elif request.POST.get("viewcandidates"):
-            print('HELLO111')
             candidates = StudentJobApplication.objects.filter(job_id=job)
             print(candidates)
             args = {'candidates': candidates}
