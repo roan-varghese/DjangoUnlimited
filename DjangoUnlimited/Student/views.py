@@ -49,7 +49,7 @@ def student_signup(request):
                                 html_content="A new Student has registered to use the Murdoch Career Portal."
                             )
                             sg = SendGridAPIClient(SENDGRID_API_KEY)
-                            sg.send(message)
+                          #  sg.send(message)
                             return redirect("log_in")
                     else:
                         messages.info(request, student_form.errors)

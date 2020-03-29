@@ -55,7 +55,7 @@ def signup(request):
                                 html_content="A new Employer has registered to use the Murdoch Career Portal."
                             )
                             sg = SendGridAPIClient(SENDGRID_API_KEY)
-                            sg.send(message)
+                          #  sg.send(message)
 
                         return redirect("log_in")
                     else:

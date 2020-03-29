@@ -91,7 +91,7 @@ def create_job(request):
                     html_content="A new Job has been posted on the Murdoch Career Portal."
                 )
                 sg = SendGridAPIClient(SENDGRID_API_KEY)
-                sg.send(message)
+             #   sg.send(message)
 
                 for skill in request.POST.getlist('skills'):
                     data.skills.add(skill)
