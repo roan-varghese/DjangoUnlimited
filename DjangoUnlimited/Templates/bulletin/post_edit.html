@@ -3,6 +3,7 @@
 {% endblock title %}
 
 {% block content %}
+{% if user.user_type == 'admin' %}
 <div class="container-fluid mainmargin">
     <div class="row">
         <div class="col-md-8">
@@ -103,4 +104,5 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock content %}

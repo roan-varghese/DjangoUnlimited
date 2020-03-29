@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.views.generic import TemplateView
 from django.contrib import messages
 from django_comments.models import Comment
-
+from Accounts.views import get_user_type
 from .models import HelpDeskModel
 from .forms import HelpDeskForm
 
@@ -77,9 +77,10 @@ class HelpDeskRequests(TemplateView):
 
     def get(self, request, *args, **kwargs):
         c = HelpDeskModel.objects.all().order_by("-completed_date")
-
+        user = get_user_type(request)
         args = {
             'helpDeskRequests': c,
+            'user': user,
         }
 
         return render(request, 'HelpDesk/Admin_List_of_Requests.html', args)
