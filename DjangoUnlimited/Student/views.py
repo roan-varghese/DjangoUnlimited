@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
@@ -49,7 +50,7 @@ def student_signup(request):
                                 html_content="A new Student has registered to use the Murdoch Career Portal."
                             )
                             sg = SendGridAPIClient(SENDGRID_API_KEY)
-                            sg.send(message)
+                          #  sg.send(message)
                             return redirect("log_in")
                     else:
                         messages.info(request, student_form.errors)
@@ -67,7 +68,7 @@ def student_signup(request):
 
         return render(request, 'student_registration.html', args)
 
-
+@login_required
 def edit_profile(request):
     student = Student.objects.get(user_id=request.user.id)
 
@@ -91,6 +92,7 @@ def edit_profile(request):
         args = {'student_form': student_form, 'user_form': user_form}
         return render(request, 'edit_student_profile.html', args)
 
+@login_required
 def view_profile(request):
     user = request.user
     student = Student.objects.get(user_id=user.id)
