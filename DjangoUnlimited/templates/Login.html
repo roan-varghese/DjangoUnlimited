@@ -2,14 +2,26 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{% static 'Ionicons/css/ionicons.min.css' %}" />
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="{% static 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' %}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 {% endblock css %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta name="description" content="Welcome to Career Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords" content="Career Portal, United Arab Emirates, jobs ads, jobs, ads, script, app, premium jobs">
 
     <style>
         Form {
@@ -17,9 +29,9 @@
             border-style: solid;
             color: black;
             width: 40%;
-            height: 300px;
+            height: 340px;
             margin: auto;
-            margin-top:20px;
+            margin-top:10px;
             position: relative;
             border: 3px solid #D3D3D3;
         }
@@ -121,11 +133,19 @@ input:checked + .slider:before {
 }
 
         h3{
-            font-size: 15px;
+            font-size: 13px;
         }
-
-
+        footer{
+        height: 120px;
+        }
+nav{
+height: 90px;
+}
+.bottomnav{
+height:40px;
+}
     </style>
+
 </head>
  <!--This is the begining of the header!-->
     <header>
@@ -157,7 +177,7 @@ input:checked + .slider:before {
           <!-- /.login-logo -->
             <div class="login-box-body" >
 
-                <div class="form-group has-feedback" style="height:70px;">
+                <div class="form-group has-feedback" style="height:50px;">
 
                    <strong>Email Address
                    <input id="Email" type="Email"  class="form-control" name="username" required />
@@ -165,17 +185,15 @@ input:checked + .slider:before {
                    </strong>
                    </div>
 
-                <div class="form-group has-feedback" style="height:70px;">
+                <div class="form-group has-feedback" style="height:50px;">
                    <strong> Password
                      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                        <input type="password" id="password" class="form-control" name="password" /> </strong>
                 </div>
                 <div class="form-checkbox">
                     <input class="input-checkbox" id="ckb1" type="checkbox" name="remember-me">
-                    <label class="label-checkbox" for="ckb1">
-                        Keep me logged in
-                    </label>
-                    <a style="padding-left:120px; color:black" href="{% url 'password_reset' %}">Forgot password?</a><br>
+                    <label class="label-checkbox" for="ckb1">Keep me logged in</label>
+                    <a style="padding-left:60px; color:black" href="{% url 'password_reset' %}">Forgot password?</a><br>
                     <!-- <a href="password_reset">Forgot password?</a><br> -->
 
                 </div>
@@ -223,10 +241,10 @@ input:checked + .slider:before {
             <!-- This is the 1st column of the footer!-->
             <div class = "about">
                 <ul><h3>ABOUT US</h3>
-                    <a href = "https://www.murdochuniversitydubai.com/faq"> <li>FAQ</li> </a>
-                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam"> <li>Anti-Scam</li> </a>
-                    <a href = ""><li>Terms</li> </a>
-                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy"><li>Privacy</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/faq" style="color: white"> <li>FAQ</li> </a>
+                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam" style="color: white"> <li>Anti-Scam</li> </a>
+                    <a href = ""><li style="color: white">Terms</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white"><li>Privacy</li> </a>
                 </ul>
             </div>
 
@@ -234,7 +252,7 @@ input:checked + .slider:before {
             <div class = "sitemap">
                 <ul>
                     <h3>SITEMAP</h3>
-                    <a href = "sitemap.html"><li> Sitemap </li> </a>
+                    <a href = "sitemap.html" style="color: white"><li> Sitemap </li> </a>
                 </ul>
             </div>
 
@@ -270,4 +288,7 @@ input:checked + .slider:before {
             </div>
         </div>
     </footer>
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>

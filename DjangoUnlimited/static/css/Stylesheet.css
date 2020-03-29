@@ -1,9 +1,6 @@
 body{
     margin: 0px;
-    padding: 0;
-	text-align: center;
 }
-
 
 /* the position of overall nav  */
 nav{
@@ -79,7 +76,7 @@ nav{
 .bottomnav {
     overflow: hidden;
     background-color: red;
-    height: 4em;
+     height: 40px;
 }
 
 .bottomnav a {
@@ -90,7 +87,7 @@ nav{
     padding-top: 0.2em;
     padding-left: 2.5em;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 15px;
     font-family: Segoe UI;
 }
 
@@ -144,13 +141,13 @@ a{
 
 .about{
     flex:1;
-    font-size: 12px;
+    font-size: 10px;
 
 }
 
 .sitemap{
     flex:1;
-    font-size: 12px;
+    font-size: 10px;
 }
 .helpDesk{
     flex:1;
@@ -158,11 +155,11 @@ a{
 
 .contact{
     flex:1;
-      font-size: 12px;
+      font-size: 10px;
 }
 
 .follow{
     flex:1;
-      font-size: 12px;
+      font-size: 10px;
 }
 
