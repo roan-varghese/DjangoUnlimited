@@ -45,12 +45,6 @@ def logout(request):
     auth.logout(request)
     return redirect("/")
 
-# def confirm_logout(request):
-#     return render(request, 'logout.html')
-
-# def cancel_logout(request):
-#     return redirect("/")
-
 def get_user_type(request):
     type = 'none'
     args = {'user_type': type}

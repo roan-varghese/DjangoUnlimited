@@ -1,16 +1,8 @@
 from django.shortcuts import render, redirect
-from Employer.models import Employer
-from Admin.models import Admin
-from Student.models import Student, StudentJobApplication
-from Accounts.views import get_user_type
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
-from .models import Job
-from .forms import CreateJobForm, EditJobForm
-from Employer.forms import EmployerForm
 from django.utils import timezone
-from Student.forms import StudentJobApplicationForm
 from newsapi import NewsApiClient
 from django.core.cache import cache
 from django.core.paginator import Paginator
@@ -19,42 +11,19 @@ from django.contrib import messages
 
 # Create your views here.
 
+from Employer.models import Employer
+from Admin.models import Admin
+from Student.models import Student, StudentJobApplication
+from Accounts.views import get_user_type
+from .models import Job
+from .forms import CreateJobForm, EditJobForm
+from Employer.forms import EmployerForm
+from Student.forms import StudentJobApplicationForm
+
 def index(request):
     return render(request, "index.html", get_user_type(request))
 
-
-def has_employer(request):
-    hasEmployer = False
-    try:
-        hasEmployer = (request.user.employer is not None)
-    except Employer.DoesNotExist:
-        pass
-
-    return hasEmployer
-
-
-def has_student(request):
-    hasStudent = False
-    try:
-        hasStudent = (request.user.student is not None)
-    except Student.DoesNotExist:
-        pass
-
-    return hasStudent
-
-
 @login_required
-def profile(request):
-    if has_employer(request):
-        print('has employer')
-        return render(request, 'view_employer_profile.html')
-    elif has_student(request):
-        print('has student')
-        return render(request, 'view_student_profile.html')
-    else:
-        return render(request, 'index.html')
-
-
 def view_jobs(request):
     user = get_user_type(request)
 
@@ -69,7 +38,7 @@ def view_jobs(request):
         return redirect('/')
     return render(request, 'browse_jobs.html', args)
 
-
+@login_required
 def create_job(request):
     try:
         Employer.objects.get(user_id= request.user.id)
@@ -122,6 +91,7 @@ def create_job(request):
     except Admin.DoesNotExist:
         pass
 
+@login_required
 def job_details(request, id):
     job = Job.objects.get(id=id)
     companies = Employer.objects.all()
@@ -144,6 +114,7 @@ def job_details(request, id):
             return render(request, 'view_candidates.html', args)
     return render(request, 'job_details.html', args)
 
+@login_required
 def edit_job(request, id):
     job = Job.objects.get(id=id)
     try:
@@ -194,7 +165,7 @@ def edit_job(request, id):
     except Admin.DoesNotExist:
         pass
     
-
+@login_required
 def my_applications(request):
     id_student = request.user.id
     student = Student.objects.get(user_id=id_student)
@@ -202,7 +173,7 @@ def my_applications(request):
     args = {'jobs_applied': jobs_applied}
     return render(request, 'my_applications.html', args)
 
-
+@login_required
 def news(request):
     # news API to show the latest news
     newsapi = NewsApiClient(api_key='1aab8f2e782a4a588fc28a3292a57979')

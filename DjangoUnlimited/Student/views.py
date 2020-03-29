@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -54,7 +55,7 @@ def student_signup(request):
 
         return render(request, 'student_registration.html', args)
 
-
+@login_required
 def edit_profile(request):
     student = Student.objects.get(user_id=request.user.id)
 
@@ -78,6 +79,7 @@ def edit_profile(request):
         args = {'student_form': student_form, 'user_form': user_form}
         return render(request, 'edit_student_profile.html', args)
 
+@login_required
 def view_profile(request):
     user = request.user
     student = Student.objects.get(user_id=user.id)

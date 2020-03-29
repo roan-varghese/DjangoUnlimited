@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -57,7 +58,7 @@ def signup(request):
         args = {'employer_form': employer_form, 'user_form': user_form}
         return render(request, 'employer_registration.html', args)
 
-
+@login_required
 def edit_profile(request):
     employer = Employer.objects.get(user_id=request.user.id)
     if employer is not None:
@@ -77,7 +78,7 @@ def edit_profile(request):
     else:
         messages.info(request, 'This employer user does not exist')
 
-
+@login_required
 def view_profile(request):
     employer = Employer.objects.get(user_id=request.user.id)
     return render(request, 'view_employer_profile.html', {'employer': employer})
