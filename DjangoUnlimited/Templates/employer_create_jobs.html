@@ -40,7 +40,13 @@
         <form action="create_job" method="post" enctype="multipart/form-data">
 
             {% csrf_token %}
-            {{ form.as_p  }}
+            {% if user == 'employer' %}
+                {{ form.as_p  }}
+            {% elif user == 'admin' %}
+                {{ jobForm.as_p }}
+                {{ companyForm.as_p }}
+            {% endif %}
+
             <button  type ="Submit"><b>Submit</b></button>
         </form>
     </div>

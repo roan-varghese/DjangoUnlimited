@@ -11,17 +11,22 @@
     <p>{{ job.location}} | {{ job.duration}} | AED {{ job.salary}}</p>
     <p>Posted On: {{ job.date_posted}}</p>
 
-    {% for company in companies%}
-    {% if job.posted_by == company.user%}
-    {% if company.logo %}
-    <img src="{{ company.logo.url }}"><br>
-    {% else %}
-    <img src="{% static 'DefaultDP.jpg' %}"><br>
-    {% endif %}
+    Skills required:
+    {% for skill in job.skills.all %}
+        <li>{{ skill }}</li>
+    {% endfor %}
 
-    <p>{{ company.company_name}}</p>
-    <p>{{ company.company_description}}</p>
-    {% endif %}
+    {% for company in companies%}
+        {% if job.posted_by == company.user%}
+            {% if company.logo %}
+                <img src="{{ company.logo.url }}"><br>
+            {% else %}
+                <img src="{% static 'DefaultDP.jpg' %}"><br>
+            {% endif %}
+
+            <p>{{ company.company_name}}</p>
+            <p>{{ company.company_description}}</p>
+        {% endif %}
     {% endfor%}
 
     <p>{{ job.desc }}</p>
@@ -36,4 +41,4 @@
     </body>
  </form>
 
-    {% endblock %}
+{% endblock %}

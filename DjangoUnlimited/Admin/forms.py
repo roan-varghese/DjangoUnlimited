@@ -75,8 +75,20 @@ class AdminForm(forms.ModelForm):
 
     class Meta:
         model = Admin
-        exclude = ['user', 'admin_id']
+        exclude = ['user',]
 
+class EditAdminProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name'
+        )
+        labels = (
+            {'first_name': 'First Name'},
+            {'last_name': 'Last Name'}
+        )
+        exclude = ['email', 'password1', 'password2']
 
 class AddIndustryForm(forms.ModelForm):
     industry_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs=

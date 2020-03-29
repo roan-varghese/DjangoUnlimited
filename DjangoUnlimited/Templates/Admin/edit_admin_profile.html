@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" action="../edit_admin_profile/">
+        {% csrf_token %}
+
+        {{user_form.as_p}}
+        {{admin_form.as_p }}
+
+        <button type="submit">Save Changes</button>
+        <button type="button"><a href="../../admin">Cancel</a></button>
+    </form>
+    <div>
+        {% for message in messages %}
+            <h3> {{message}} </h3>
+        {% endfor %}
+    </div>
+</body>
+</html>

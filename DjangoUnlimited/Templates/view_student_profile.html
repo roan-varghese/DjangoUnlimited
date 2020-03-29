@@ -19,6 +19,12 @@
     <p>Email Address: {{ user.email }}</p>
     <p>Date of Birth: {{ student.DOB }}</p>
     <p>Gender: {{ student.gender }}</p>
+
+    Skills:
+    {% for skill in student.skills.all %}
+        <li>{{ skill }}</li>
+    {% endfor %}
+
     {% if student.alumni_status %}
         <p>Alumni Status: Alumni</p>
     {% else %}

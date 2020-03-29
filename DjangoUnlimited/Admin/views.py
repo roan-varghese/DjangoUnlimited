@@ -8,12 +8,14 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from .forms import InitialAdminForm, AdminForm, AddIndustryForm
 from Accounts.views import isValidated
-from Admin.models import Admin
+from .models import Admin
+from .forms import EditAdminProfileForm
+from Student.forms import EditStudentProfileForm
 
 # Create your views here.
 
 @staff_member_required 
-def createAdmin(request):
+def create_admin(request):
     if request.method == 'POST':
         user_form = InitialAdminForm(request.POST)
 
@@ -49,7 +51,7 @@ def createAdmin(request):
                         messages.info(request, admin_form.errors)
                         return redirect("admin_register")
                 else:
-                    messages.info(request,'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')
+                    messages.info(request,'ERROR: Password must be 8 characters or more, and must have at least 1 uppercase, lowercase, numeric and special character.')
                     return redirect("admin_register")
         else:
             messages.info(request, user_form.errors)
@@ -59,3 +61,33 @@ def createAdmin(request):
         admin_form = AdminForm()
         args = {'admin_form': admin_form, 'user_form': user_form}
         return render(request, 'admin/admin_registration.html', args)
+
+@staff_member_required
+def view_profile(request):
+    user = request.user
+    admin = Admin.objects.get(user_id=user.id)
+    args = {'admin': admin, 'user': user}
+    return render(request, 'admin/view_admin_profile.html', args)
+
+@staff_member_required 
+def edit_profile(request):
+    admin = Admin.objects.get(user_id=request.user.id)
+
+    if request.method == 'POST':
+        user_form = EditAdminProfileForm(request.POST, instance=request.user)
+        admin_form = AdminForm(request.POST, request.FILES, instance=admin)
+
+        if user_form.is_valid() and admin_form.is_valid():
+            with transaction.atomic():
+                user_form.save()
+                admin_form.save()
+                return render(request, 'admin/index.html')
+        else:
+            messages.info(request, admin_form.errors)
+            messages.info(request, user_form.errors)
+            return redirect("edit_admin_profile")
+    else:
+        user_form = EditAdminProfileForm(instance=request.user)
+        admin_form = AdminForm(instance=admin)
+        args = {'admin_form': admin_form, 'user_form': user_form}
+        return render(request, 'admin/edit_admin_profile.html', args)

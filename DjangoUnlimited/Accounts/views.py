@@ -8,22 +8,12 @@ from Employer.models import Employer
 from Admin.models import Admin
 
 def isValidated(passwd):
-    special_symbols = {'$', '@', '%', '&', '?', '.', '!', '#', '*', ' '}
     status = True
 
     if len(passwd) > 8:
         status = True
 
     if not any(char.isdigit() for char in passwd): 
-        status = False
-          
-    if not any(char.isupper() for char in passwd): 
-        status = False
-          
-    if not any(char.islower() for char in passwd): 
-        status = False
-          
-    if not any(char in special_symbols for char in passwd): 
         status = False
         
     return status

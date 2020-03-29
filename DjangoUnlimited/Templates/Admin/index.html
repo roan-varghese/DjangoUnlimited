@@ -12,15 +12,20 @@
 {% block content %}
 <div id="content-main">
 
+<!-- link to view profile function -->
+ <h1>
+    <a href = "{% url 'view_admin_profile' %}">----> Click to View Profile <----</a>
+</h1>
+<!---->
+
 {% if app_list %}
 
     <!-- link to add new admin function -->
-    <br><br>
     <h1>
         <a href = "{% url 'admin_register' %}">----> Click to Create New Admin <----</a>
     </h1>
-    <br><br>
     <!---->
+   
 
     {% for app in app_list %}
         <div class="app-{{ app.app_label }} module">
@@ -57,7 +62,7 @@
         </div>
     {% endfor %}
 {% else %}
-    <p>You don’t have permission to view or edit anything.</p>
+    <!-- <p>You don’t have permission to view or edit anything.</p> -->
 {% endif %}
 </div>
 {% endblock %}

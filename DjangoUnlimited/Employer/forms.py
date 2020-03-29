@@ -4,7 +4,6 @@ from django.forms import models, HiddenInput
 from django.contrib.auth.models import User
 
 from .models import Employer
-from Home.models import Industry, Job, Skill, JobType
 
 import dns.resolver, dns.exception
 
@@ -66,38 +65,9 @@ class EmployerForm(forms.ModelForm):
     company_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
                                                                 attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
     company_description = forms.CharField(required=False, widget=forms.Textarea)
-    #industry = forms.ModelChoiceField(queryset = Industry.objects.all(), required=True)
     phone_number = forms.CharField(required=False, max_length=50, widget=forms.TextInput(
                                                                                 attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
 
     class Meta:
         model = Employer
-        exclude = ['user', 'employer_id', 'industry']
-
-
-class CreateJobForm(forms.ModelForm):
-
-    job_title = forms.CharField(max_length=100, required=True, widget=forms.TextInput(
-         attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
-    desc = forms.CharField(max_length=100, required=True, widget=forms.Textarea(
-         attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
-    duration = forms.IntegerField()
-    location = forms.CharField(max_length = 100, required = True)
-    '''job_type_id = forms.ModelChoiceField(
-        queryset=JobType.objects.all(),
-        required = True
-        )'''
-    salary = forms.FloatField()
-    '''skills = forms.ModelMultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple,
-       queryset=Skill.objects.all(),
-        required = True
-        )
-    industry_id = forms.ModelChoiceField(
-       queryset = Industry.objects.all(),
-       required = True,
-        )'''
-
-    class Meta:
-        model = Job
-        exclude = ['posted_by', 'date_posted', 'job_status', 'date_closed']
+        exclude = ['user', 'employer_id']

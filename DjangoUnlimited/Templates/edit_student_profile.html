@@ -34,7 +34,6 @@
     <script language="JavaScript">
         function disable_fields(status)
         {
-            document.getElementById('id_student_id').hidden = true
             if(status)
             {
                 document.getElementById('id_expected_graduation_date').disabled = true
@@ -70,8 +69,18 @@
                 <div class = "heading"> <h4 align = "center">My profile</h4> </div>
                 <form method="post" enctype="multipart/form-data" action="edit_student_profile">
                     {% csrf_token %}
-                    {{ user_form.as_p }}
-                    {{ student_form.as_p }}
+
+                    {% for field in user_form %}
+                        <div>{{ field.label }}: </div>
+                        <div>{{ field }}</div>
+                    {% endfor %}
+
+                    {% for field in student_form %}
+                        {% if field != "student_id" %}
+                            <div>{{ field.label }}: </div>
+                            <div>{{ field }}</div>
+                        {% endif %}
+                    {% endfor %}
 
                      <button type="submit"><b>Save Changes</b></button>
                      <button type="button"><a href="view_student_profile"><b>Cancel</b></a></button>
