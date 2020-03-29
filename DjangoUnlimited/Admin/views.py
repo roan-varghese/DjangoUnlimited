@@ -46,7 +46,8 @@ def create_admin(request):
                             admin = admin_form.save(commit=False)
                             admin.user = user
                             admin.save()
-                            return redirect("/")
+                            next = request.POST.get('next', '/')
+                            return redirect(next)
                     else:
                         messages.info(request, admin_form.errors)
                         return redirect("admin_register")
@@ -81,7 +82,8 @@ def edit_profile(request):
             with transaction.atomic():
                 user_form.save()
                 admin_form.save()
-                return render(request, 'admin/index.html')
+                next = request.POST.get('next', '/')
+                return redirect(next)
         else:
             messages.info(request, admin_form.errors)
             messages.info(request, user_form.errors)
