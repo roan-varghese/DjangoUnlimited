@@ -5,14 +5,16 @@
     <title>Edit Profile</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data" action="../edit_admin_profile/">
+    <form method="post" enctype="multipart/form-data" action="{% url 'edit_admin_profile' %}">
         {% csrf_token %}
 
         {{user_form.as_p}}
         {{admin_form.as_p }}
 
+        <input type="hidden" name="next" value="{% url 'view_admin_profile' %}">
+
         <button type="submit">Save Changes</button>
-        <button type="button"><a href="../../admin">Cancel</a></button>
+        <button type="button"><a href="{% url 'view_admin_profile' %}">Cancel</a></button>
     </form>
     <div>
         {% for message in messages %}
