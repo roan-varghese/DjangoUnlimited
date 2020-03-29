@@ -10,6 +10,13 @@ from django.db.models import ManyToManyField
 class Industry(models.Model):
     industry_name = models.CharField(max_length=50)
 
+    def clean(self):
+        self.industry_name = self.industry_name.capitalize()
+
+    def __str__(self):
+        name = self.industry_name
+        return name
+
 
 class Skill(models.Model):
     skill_name = models.CharField(max_length=50, unique=True)
@@ -24,6 +31,13 @@ class Skill(models.Model):
 
 class JobType(models.Model):
     type_name = models.CharField(max_length=50)
+
+    def clean(self):
+        self.type_name = self.type_name.capitalize()
+
+    def __str__(self):
+        name = self.type_name
+        return name
 
 
 class Job(models.Model):
@@ -44,6 +58,10 @@ class Job(models.Model):
     duration = models.IntegerField()
     salary = models.FloatField()
     skills = models.ManyToManyField(Skill)
+
+    def __str__(self):
+        title = self.job_title
+        return title
 
 
 class HelpDeskComplaints(models.Model):

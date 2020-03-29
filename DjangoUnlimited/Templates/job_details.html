@@ -6,8 +6,8 @@
 
     <h4><a href="/">Back to home</a></h4>
 
-    <p>{{ job.id }}</p>
     <h3>{{ job.job_title }}</h3>
+    <p>{{ job.description }}</p>
     <p>{{ job.location}} | {{ job.duration}} | AED {{ job.salary}}</p>
     <p>Posted On: {{ job.date_posted}}</p>
 
@@ -33,7 +33,7 @@
     {% if user.user_type == 'student' %}
     <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply</button>
     {% else %}
-    <button type="submit">Edit Job</button>
+    <button type="button"><a href="{% url 'edit_job' job.id %}">Edit Job</button>
     <button type="submit" name="viewcandidates" value="ViewCandidates&Save">&nbsp;View Candidates</button>
     {% endif %}
 
