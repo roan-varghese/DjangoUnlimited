@@ -29,9 +29,12 @@ def login(request):
                 messages.info(request, 'Credentials do not exist, please try a different username/password')
                 return redirect("log_in")
             else:
-                auth.login(request, user)
-                print('User logged in')
-                return render(request, "index.html", get_user_type(request))
+                if user.is_superuser == True or user.is_staff == True:
+                    messages.info(request, 'To login in as admin, please visit the admin site.')
+                    return redirect("log_in")
+                else:
+                    auth.login(request, user)
+                    return render(request, "index.html", get_user_type(request))
     else:
         return render(request, 'login.html')
 
