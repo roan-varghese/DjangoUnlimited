@@ -9,6 +9,12 @@ from Accounts.views import isValidated
 from .models import Employer
 from .forms import InitialEmployerForm, EmployerForm
 from Admin.models import Admin
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.core.mail import send_mail
+from DjangoUnlimited.settings import SENDGRID_API_KEY
+
+import os
 
 def signup(request):
     if request.method == 'POST':
@@ -41,12 +47,23 @@ def signup(request):
                             employer = employer_form.save(commit=False)
                             employer.user = user
                             employer.save()
-                            return redirect("log_in")
+
+                            message = Mail(
+                                from_email='info@murdochcareerportal.com',
+                                to_emails=['sethshivangi1998@gmail.com'],
+                                subject='New User has signed up',
+                                html_content="A new Employer has registered to use the Murdoch Career Portal."
+                            )
+                            sg = SendGridAPIClient(SENDGRID_API_KEY)
+                            sg.send(message)
+
+                        return redirect("log_in")
                     else:
                         messages.info(request, employer_form.errors)
                         return redirect("employer_register")
                 else:
-                    messages.info(request,'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')
+                    messages.info(request,
+                                  'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')
                     return redirect("employer_register")
         else:
             messages.info(request, user_form.errors)

@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.db import transaction
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.core.mail import send_mail
+from DjangoUnlimited.settings import SENDGRID_API_KEY
 
 # Create your views here.
 
@@ -37,6 +41,15 @@ def student_signup(request):
                             student.save()
                             for skill in request.POST.getlist('skills'):
                                 student.skills.add(skill)
+
+                            message = Mail(
+                                from_email='info@murdochcareerportal.com',
+                                to_emails=['sethshivangi1998@gmail.com'],
+                                subject='New User has signed up',
+                                html_content="A new Student has registered to use the Murdoch Career Portal."
+                            )
+                            sg = SendGridAPIClient(SENDGRID_API_KEY)
+                            sg.send(message)
                             return redirect("log_in")
                     else:
                         messages.info(request, student_form.errors)
