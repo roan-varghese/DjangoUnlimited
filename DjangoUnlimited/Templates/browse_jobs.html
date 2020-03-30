@@ -29,7 +29,6 @@
     </div>
 </header>
 
-
 <body>
 <h4><a href="/">Back to home</a></h4>
 
@@ -49,6 +48,32 @@
         {% endif %}
     {% endfor %}
 {% endfor %}
+
+<form>
+    <div class="inner-form">
+        <div class="input-field first-wrap">
+            <div class="input-field1 second-wrap">
+                <input id="search" type="text" placeholder="What?"/>
+            </div>
+            <div class="input-select">
+                <select data-trigger="" name="choices-single-defaul">
+                    <option placeholder="">All Categories</option>
+                    <option>Subject A</option>
+                    <option>Subject B</option>
+                    <option>Subject C</option>
+                </select>
+            </div>
+            <div class="input-field2 second-wrap">
+                <input id="search" type="text" placeholder="Where?"/>
+            </div>
+        </div>
+
+        <div class="input-field third-wrap">
+            <button class="btn-search" type="button">Search</button>
+        </div>
+    </div>
+</form>
+
 
 </body>
 
