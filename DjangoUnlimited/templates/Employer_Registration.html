@@ -2,6 +2,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -26,30 +27,46 @@
         </nav>
 
         <div class="bottomnav">
-            <a class="active" href="#home"> <b>Home</b></a>
+            <a class="active" href="/"> <b>Home</b></a>
         </div>
     </header>
 <body>
-    <h4><a href="/">Back to home</a></h4>
+<br><br>
+     <div class = "page">
 
-    <h2>Create an account to post jobs</h2>
+        <div class = "container" >
+            <div class = "page"> </div>
+
+    <h2 align = "center">Create an account to post jobs</h2><br>
+             <div class = "container2">
     <form action="employer_registration" method="post">
         {% csrf_token %}
 
-        {{ user_form.as_p }}
-        {{ employer_form.as_p }}
+        {% for field in user_form %}
+            <div class = "Col1">{{ field.label }}: </div>
+            <br>
+            <div class = "Col2">{{ field }}</div>
+        {% endfor %}
+
+        {% for field in employer_form %}
+            <div class = "Col1">{{ field.label }}: </div>
+            <div class = "Col2">{{ field }}</div>
+        {% endfor %}
 
         <input type="checkbox" name="terms" required> 
         <label>I have read and agree to the terms and conditions</label><br><br>
 
         <input type="submit"> 
     </form>
+             </div>
+        </div>
+        <br><br>
 
     <div>
         {% for message in messages %}
             <h3> {{message}} </h3>
         {% endfor %}
-    </div>
+        </div></div>
 </body>
  <!--This is the begining of the footer!-->
     <footer>
@@ -71,12 +88,6 @@
                     <h3>SITEMAP</h3>
                     <a href = "sitemap.html"><li> Sitemap </li> </a>
                 </ul>
-            </div>
-
-            <!-- This is the 3rd column of the footer !-->
-            <div class = "helpDesk">
-                <h3> </h3>
-
             </div>
 
             <!-- This is the 4th column of the footer !-->

@@ -2,7 +2,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/Registration.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -58,7 +58,7 @@
             <div class = "page"> </div>
             <h2 align = "center">Create an account to browse jobs</h2><br>
             <div class = "container2">
-                <form method="post" enctype="multipart/form-data" action="student_registration">
+                <form method="post" action="student_registration">
                     {% csrf_token %}
 
                     {% for field in user_form %}
@@ -73,13 +73,14 @@
                             <div class = "Col2">{{ field }}</div>
                         {% endif %}
                     {% endfor %}
+                    <input type="checkbox" name="terms" required>
+                  <label>I have read and agree to the terms and conditions</label><br><br>
 
-                     <button class = "button2" type="submit"><b>Submit</b></button>
+        <input type="submit">
                 </form>
             </div>
         </div>
         <br><br>
-
     <div>
         {% for message in messages %}
             <h3> {{message}} </h3>
