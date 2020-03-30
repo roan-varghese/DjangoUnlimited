@@ -61,12 +61,10 @@
             <div class="heading"><h4 align="center">My profile</h4></div>
             <div class="container2">
                 <form method="post" enctype="multipart/form-data" action="edit_employer_profile">
-                    <!--div class = "Col1"> </div>
-                    <div class = "Col2"> </div!-->
                     {% csrf_token %}
                     {% for field in employer_form %}
-                        {{ field.label }}
-                        {{ field }}
+                    <div class = "Col1">{{ field.label }}</div>
+                    <div class = "Col2">{{ field }}</div>
                     {% endfor %}
                     <div class = "middle">
                         <button class="button2" type="submit"><b>Save Changes</b></button>
