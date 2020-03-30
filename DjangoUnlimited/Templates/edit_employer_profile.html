@@ -64,7 +64,10 @@
                     <!--div class = "Col1"> </div>
                     <div class = "Col2"> </div!-->
                     {% csrf_token %}
-                    {{ employer_form.as_p }}
+                    {% for field in employer_form %}
+                        {{ field.label }}
+                        {{ field }}
+                    {% endfor %}
                     <div class = "middle">
                         <button class="button2" type="submit"><b>Save Changes</b></button>
                         <button class="button2" type="button"><a href="view_employer_profile"> <b>Cancel</b></a></button>
