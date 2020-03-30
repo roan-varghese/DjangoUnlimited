@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'p-y$&3u8l04=z-*r#2t&+ff2#&c2)+6$$tmpqf#vo8s3n57dxt'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -40,6 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_cleanup',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django.contrib.humanize',
+    'rest_framework_datatables',
+    'widget_tweaks',
+    'datatableview',
+    'mathfilters',
     'Student',
     'Employer',
     'Admin',
@@ -59,7 +63,6 @@ DEFAULT_FROM_EMAIL = 'donotreply@murdochcareerportal.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 SITE_ID = 1  # needed for 'django.contrib.sites' to work for admin site
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -91,7 +94,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DjangoUnlimited.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -105,7 +107,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -125,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -139,7 +139,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -148,7 +147,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-#STATIC_ROOT = 'staticfiles'
+# STATIC_ROOT = 'staticfiles'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Sets a location to where the media files are supposed to be.
@@ -170,4 +169,4 @@ LOGIN_EXEMPT_URLS = {
 # Date input format.
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
-#AUTH_USER_MODEL = 'Accounts.User'
+# AUTH_USER_MODEL = 'Accounts.User'

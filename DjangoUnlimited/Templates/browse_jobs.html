@@ -1,8 +1,13 @@
+{% extends 'navbar.html' %}
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
 {% endblock css %}
+
+
+
+{% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,14 +33,45 @@
         <a class="active" href="#home"> <b>Home</b></a>
     </div>
 </header>
-
-<body>
-<h4><a href="/">Back to home</a></h4>
-
-{% for job in jobs %}
-    <h3><a href="{% url 'job_details' job.id %}">{{ job.job_title }}</a></h3>
-    <p>{{ job.location }} | {{ job.duration }} | AED {{ job.salary }}</p>
-    <p>Posted On: {{ job.date_posted }}</p>
+<div class="container-fluid mainmargin">
+    <div class="row">
+        <div class="offset-md-1 col-md-10 bg-white card-shadow p-0">
+            <h2 class="text-bold ccm-blue-background white p-3 font-15"> List of Jobs</h2>
+            <div class="p-3">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date Posted</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Salary</th>
+                        <th>Duration</th>
+                        <th>Industry</th>
+                        <th>Job Type</th>
+                        <th>View more details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for job in jobs %}
+                    <tr>
+                        <td>{{job.date_posted}}</td>
+                        <td>  {{job.job_title}} </td>
+                        <td>{{job.description}}</td>
+                        <td>{{job.location}}</td>
+                        <td>{{job.salary}}</td>
+                        <td>{{job.duration}}</td>
+                        <td>{{job.industry_id}}</td>
+                        <td>{{job.job_type_id}}</td>
+                         <td> <a href ="{% url 'job_details' job.id %}"> {{job.job_title}} </a></td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
     {% for company in companies %}
         {% if job.posted_by == company.user %}
@@ -47,35 +83,6 @@
             {% endif %}
         {% endif %}
     {% endfor %}
-{% endfor %}
-
-<form>
-    <div class="inner-form">
-        <div class="input-field first-wrap">
-            <div class="input-field1 second-wrap">
-                <input id="search" type="text" placeholder="What?"/>
-            </div>
-            <div class="input-select">
-                <select data-trigger="" name="choices-single-defaul">
-                    <option placeholder="">All Categories</option>
-                    <option>Subject A</option>
-                    <option>Subject B</option>
-                    <option>Subject C</option>
-                </select>
-            </div>
-            <div class="input-field2 second-wrap">
-                <input id="search" type="text" placeholder="Where?"/>
-            </div>
-        </div>
-
-        <div class="input-field third-wrap">
-            <button class="btn-search" type="button">Search</button>
-        </div>
-    </div>
-</form>
-
-
-</body>
 
 
 <footer>
@@ -148,3 +155,18 @@
     </div>
 </footer>
 </html>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    // the initialisation of dataTables and set the ordering of first column
+
+     $('.table').DataTable({
+        "order": [[ 0, "desc" ]],
+        scrollX: true
+    });
+
+
+</script>
+{% endblock %}

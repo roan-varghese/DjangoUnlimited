@@ -2,17 +2,13 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
- <link rel="stylesheet" rel = "text/css" href="{% static 'css/login.css' %}"/>
+    <link rel="stylesheet" rel = "text/css" href="{% static 'css/login.css' %}"/>
     <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}" />
     <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="{% static 'Ionicons/css/ionicons.min.css' %}" />
     <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
     <link rel="stylesheet" href="{% static 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' %}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -41,7 +37,7 @@
         </nav>
 
         <div class="bottomnav">
-            <a class="active" href="/"> <b>Back to Home</b></a>
+            <a class="active" href="/"> <b>Home</b></a>
         </div>
     </header>
 <body>
@@ -114,16 +110,16 @@
     
 </body>
 <!--This is the begining of the footer!-->
-    <footer>
+   <footer>
         <div class = "main">
 
             <!-- This is the 1st column of the footer!-->
             <div class = "about">
                 <ul><h3>ABOUT US</h3>
-                    <a href = "https://www.murdochuniversitydubai.com/faq" style="color: white"> <li>FAQ</li> </a>
-                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam" style="color: white"> <li>Anti-Scam</li> </a>
-                    <a href = ""><li style="color: white">Terms</li> </a>
-                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white"><li>Privacy</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/faq" class = "white"> <li>FAQ</li> </a>
+                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam"> <li>Anti-Scam</li> </a>
+                    <a href = ""><li>Terms</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy"><li>Privacy</li> </a>
                 </ul>
             </div>
 
@@ -131,13 +127,12 @@
             <div class = "sitemap">
                 <ul>
                     <h3>SITEMAP</h3>
-                    <a href = "sitemap.html" style="color: white"><li> Sitemap </li> </a>
+                    <a href = "sitemap.html"><li> Sitemap </li> </a>
                 </ul>
             </div>
 
 
-
-            <!-- This is the 3rd column of the footer !-->
+            <!-- This is the 4th column of the footer !-->
             <div class = "contact">
                 <h3> CONTACT US </h3>
                 <p class="para1">
@@ -153,7 +148,7 @@
 
             </div>
 
-            <!-- This is the 4th column of the footer !-->
+            <!-- This is the 5th column of the footer !-->
             <div class = "follow">
                 <h3> FOLLOW US </h3>
                 <a href= "https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src = "{% static 'images/twitter.png' %}" alt = "Twitter Icon" height="35.0em" width="35.0em"> </a>
@@ -163,7 +158,5 @@
             </div>
         </div>
     </footer>
-<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 </html>

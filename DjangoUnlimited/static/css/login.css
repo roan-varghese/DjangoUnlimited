@@ -98,15 +98,3 @@ input:checked + .slider:before {
     font-size: 18px;
 }
 
-        h3{
-            font-size: 13px;
-        }
-        footer{
-        height: 120px;
-        }
-nav{
-height: 90px;
-}
-.bottomnav{
-height:40px;
-}
