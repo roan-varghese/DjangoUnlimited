@@ -82,7 +82,13 @@
     border-radius: 0.45em;
     margin-left: 20%;
     padding:0.5em;
+    margin-top:3em;
+    color:white;
  }
+
+.button2>a{
+    color:white;
+}
 
 .col1{
     float: left;
@@ -108,7 +114,23 @@ input[type=text], textarea{
   resize: vertical;
 }
 
-input[type=email], select {
+input[type=text], number{
+  width: 75%;
+  padding: 0.75em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.45em;
+  resize: vertical;
+}
+
+input[type=number]{
+  width: 75%;
+  padding: 0.75em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.45em;
+  resize: vertical;
+}
+
+input[type=email], select, options {
   width: 75%;
   padding: 0.75em;
   display: inline-block;

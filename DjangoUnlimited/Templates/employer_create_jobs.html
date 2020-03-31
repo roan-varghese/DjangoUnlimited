@@ -38,7 +38,7 @@
 <div class="page">
     <div class="sidebar">
         <h4> MY ACCOUNT</h4>
-        <button class="button"><a href="edit_employer_profile">Edit company information</a></button>
+        <button class="button"><a href="../employer/edit_employer_profile">Edit company information</a></button>
         <h4> MY JOBS</h4>
         <button class="button"><a href="../create_job"> Create Job listing</a></button>
         <button class="button"><a href=""> View Job listings</a></button>
@@ -55,10 +55,22 @@
 
             {% csrf_token %}
             {% if user == 'employer' %}
-            {{ form.as_p }}
+
+            {% for field in form %}
+                <div class ="col1">{{ field.label }}</div>
+                <div class = "col2">{{ field }} </div>
+            {% endfor %}
+
             {% elif user == 'admin' %}
-            {{ jobForm.as_p }}
-            {{ companyForm.as_p }}
+            {% for field in jobForm%}
+                <div class = "col1">{{ field.label }}</div>
+                <div class = "col2">{{ field }}</div>
+            {% endfor %}
+
+            {% for field in companyForm%}
+                <div class = "col1">{{ field.label }} </div>
+                <div class = "col2">{{ field }}</div>
+            {% endfor %}
             {% endif %}
 
             <button class="button2" type="Submit"><b>Submit</b></button>
