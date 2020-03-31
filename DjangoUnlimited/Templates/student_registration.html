@@ -2,8 +2,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
-<link rel="stylesheet" rel = "text/css" href="{% static 'css/Registor.css' %}"/>
-
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/Registration.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -53,17 +52,18 @@
 <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
 
 <br><br>
-     <div class = "overall-page">
+     <div class = "page">
 
-        <div class = "inside-container" >
-            <div class = "overall-page"> </div>
-            <h2 align = "center">Create an account to browse jobs</h2>
-            <div class = "inside-container2">
+        <div class = "container" >
+            <div class = "page"> </div>
+            <h2 align = "center">Create an account to browse jobs</h2><br>
+            <div class = "container2">
                 <form method="post" action="student_registration">
                     {% csrf_token %}
 
                     {% for field in user_form %}
-                     <br>   <div class = "Col1">{{ field.label }}: </div>
+                        <div class = "Col1">{{ field.label }}: </div>
+                        <br>
                         <div class = "Col2">{{ field }}</div>
                     {% endfor %}
 
@@ -75,17 +75,19 @@
                     {% endfor %}
                     <input type="checkbox" name="terms" required>
                   <label>I have read and agree to the terms and conditions</label><br><br>
-                   <div style="text-align:center;">
-                        <input type="submit" style=" background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/> </div>
+
+        <input type="submit">
                 </form>
             </div>
         </div>
-        <br>
-         <div>
+        <br><br>
+
+    <!-- this displays any errors during submission -->
+    <div>
         {% for message in messages %}
             <h3> {{message}} </h3>
         {% endfor %}
-     </div></div><br>
+    </div></div>
 </body>
 <!--This is the begining of the footer!-->
     <footer>

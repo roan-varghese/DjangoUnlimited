@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 from Admin.models import Admin
@@ -55,8 +56,8 @@ class Job(models.Model):
     location = models.CharField(max_length=100)
     job_type_id = models.ForeignKey(JobType, on_delete=models.CASCADE, related_name='job_type')
     industry_id = models.ForeignKey(Industry, on_delete=models.CASCADE, related_name='job_industry')
-    duration = models.IntegerField()
-    salary = models.FloatField()
+    duration = models.DurationField(null=True)
+    salary = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(0.00)])
     skills = models.ManyToManyField(Skill)
 
     def __str__(self):

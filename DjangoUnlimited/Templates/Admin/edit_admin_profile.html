@@ -16,6 +16,8 @@
         <button type="submit">Save Changes</button>
         <button type="button"><a href="{% url 'view_admin_profile' %}">Cancel</a></button>
     </form>
+
+    <!-- this displays any errors during submission -->
     <div>
         {% for message in messages %}
             <h3> {{message}} </h3>

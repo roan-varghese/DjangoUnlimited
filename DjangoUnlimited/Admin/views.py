@@ -82,12 +82,12 @@ def edit_profile(request):
             with transaction.atomic():
                 user_form.save()
                 admin_form.save()
-                next = request.POST.get('next', '/')
-                return redirect(next)
+                next_page = request.POST.get('next', '/')
+                return redirect(next_page)
         else:
             messages.info(request, admin_form.errors)
             messages.info(request, user_form.errors)
-            return redirect("edit_admin_profile")
+            return redirect(request.path_info)
     else:
         user_form = EditAdminProfileForm(instance=request.user)
         admin_form = AdminForm(instance=admin)

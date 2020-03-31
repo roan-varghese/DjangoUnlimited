@@ -56,7 +56,8 @@ def student_signup(request):
                         messages.info(request, student_form.errors)
                         return redirect("student_registration")
                 else:
-                    messages.info(request, 'ERROR: Password must be 8 characters or more, and must have atleast 1 uppercase, lowercase, numeric and special character.')
+                    messages.info(request, 
+                                    'ERROR: Password must be 8 characters or more, and must have atleast 1 numeric character.')
                     return redirect("student_registration")
         else:
             messages.info(request, user_form.errors)
