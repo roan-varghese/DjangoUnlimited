@@ -24,8 +24,8 @@
                 <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="60.0em" width="170.0em"></div>
                 <aside class="menu">
                     <div class="menu-content">
-                        <a href="accounts/login"><i class="userlogin"></i>LOG IN</a>
-                        <a href="register"><i class="useradd "></i>SIGN UP</a>
+                        <a href="/student/student_registration"><i class="userlogin"></i>Student Signup</a>
+                         <a href="/employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
                     </div>
                 </aside>
             </section>
@@ -60,7 +60,7 @@
                        <input type="password" id="password" class="form-control" name="password" /> </strong>
                 </div>
                 <div class="form-checkbox">
-                    <a style="padding-left:340px; color:black" href="{% url 'password_reset' %}">Forgot password?</a><br><br>
+                    <a style="padding-left:340px; color:black" href=" /accounts/password_reset/">Forgot password?</a><br><br>
                     <!-- <a href="password_reset">Forgot password?</a><br> -->
 
                 </div>
