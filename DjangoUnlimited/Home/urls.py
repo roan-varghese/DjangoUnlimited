@@ -9,5 +9,7 @@ urlpatterns = [
     path('my_applications', views.my_applications, name='my_applications'),
     path('job_details/<int:id>', views.job_details, name='job_details'),
     path('edit_job/<int:id>', views.edit_job, name='edit_job'),
+    path('delete_job/<int:id>', views.delete_job, name='delete_job'),
+    path('close_job/<int:id>', views.close_job, name='close_job'),
     path('news', views.news, name='news')
 ]
