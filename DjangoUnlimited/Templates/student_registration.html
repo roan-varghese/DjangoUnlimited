@@ -56,8 +56,11 @@
 
         <div class = "inside-container" >
             <div class = "overall-page"> </div>
+
             <h2 align = "center">Create an account to browse jobs</h2><br>
+
             <div class = "inside-container2">
+
                 <form method="post" action="student_registration">
                     {% csrf_token %}
 
@@ -78,10 +81,12 @@
         <div style="text-align:center;">
             <input type="submit" style=" background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/> </div>
                 </form>
-            </div>
-        </div>
-        <br>
 
+            </div>
+
+        </div>
+
+        <br>
     <!-- this displays any errors during submission -->
     <div>
         {% for message in messages %}
