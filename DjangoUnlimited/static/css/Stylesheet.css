@@ -38,15 +38,15 @@ nav{
 /* the over styling of nav menu-content*/
 .menu>.menu-content{
 
-    height: 11em;
+    height: 8em;
     float: right;
-    font-family: Segoe UI;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: bold;
     letter-spacing: 1px;
     position: relative;
     line-height: 100px;
     background: rgb(29,26,26);
+    padding-right: 1em;
 }
 
 .menu>.menu-content>a {
