@@ -81,6 +81,7 @@
     align:center;
     border-radius: 0.45em;
     margin-left: 20%;
+    padding:0.5em;
  }
 
 .col1{
@@ -88,6 +89,7 @@
     width: 40%;
     margin-top: 1em;
     display: inline-block;
+    margin-bottom:0em;
 }
 
 .col2{
@@ -95,6 +97,7 @@
     width: 50%;
     height:5.5em;
     margin-top: 0.5em;
+    margin-bottom:0em;
 }
 
 input[type=text], textarea{
@@ -105,12 +108,13 @@ input[type=text], textarea{
   resize: vertical;
 }
 
-input [type=email], select{
+input[type=email], select {
   width: 75%;
   padding: 0.75em;
-  border: 0.1em solid #ccc;
+  display: inline-block;
+  border: 1px solid #ccc;
   border-radius: 0.45em;
-  resize: vertical;
+  box-sizing: border-box;
 }
 
 input[type="file"] {
@@ -119,4 +123,10 @@ input[type="file"] {
   border: 0.1em solid #ccc;
   border-radius: 0.45em;
   resize: vertical;
+}
+input[type= checkbox] {
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 0.45em;
+  box-sizing: border-box;
 }
