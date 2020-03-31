@@ -2,7 +2,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/Registor.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -32,19 +32,18 @@
     </header>
 <body>
 <br><br>
-     <div class = "page">
+     <div class = "overall-page">
 
-        <div class = "container" >
-            <div class = "page"> </div>
+        <div class = "inside-container" >
+            <div class = "overall-page"> </div>
 
     <h2 align = "center">Create an account to post jobs</h2><br>
-             <div class = "container2">
+             <div class = "inside-container2">
     <form action="employer_registration" method="post">
         {% csrf_token %}
 
         {% for field in user_form %}
-            <div class = "Col1">{{ field.label }}: </div>
-            <br>
+            <br><div class = "Col1">{{ field.label }}: </div>
             <div class = "Col2">{{ field }}</div>
         {% endfor %}
 
@@ -56,18 +55,18 @@
         <input type="checkbox" name="terms" required> 
         <label>I have read and agree to the terms and conditions</label><br><br>
 
-        <input type="submit"> 
+        <div style="text-align:center;">
+            <input type="submit" style=" background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/> </div>
     </form>
              </div>
         </div>
-        <br><br>
 
     <!-- this displays any errors during submission -->
     <div>
         {% for message in messages %}
             <h3> {{message}} </h3>
         {% endfor %}
-        </div></div>
+        </div></div><br>
 </body>
  <!--This is the begining of the footer!-->
     <footer>
