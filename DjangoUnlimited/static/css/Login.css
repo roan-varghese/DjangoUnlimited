@@ -3,42 +3,26 @@
 }
 .inside-container{
 margin: auto;
-    width: 70%;
+    width: 60%;
     height: auto;
     background-color: #E8E8E8;
     padding-top: 0px;
-    padding-bottom: 3em;
+    padding-bottom: 2em;
     align: center;
     border: 0.05em solid grey;}
 
  .inside-container2{
  margin: auto;
-    width: 80%;
+    width: 60%;
     height: auto;
     background-color: #F8F8F8;
-    padding-top:0.0em;
-    padding-left: 1.5em;
-    padding-right: 1.5em;
+    padding-top:1em;
+    padding-left: 3em;
+    padding-right: 3em;
     align: center;
     border: 0.05em solid grey;
 }
 
-input[type=text],select{
-  width: 100%;
-  padding: 12px 12px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
 input[type=email], select {
   width: 100%;
   padding: 12px 20px;
@@ -57,17 +41,6 @@ input[type=password], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-input[type="file"] {
-width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-
-}
-
 .btn-size {
     height: 30px;
     font-size: 18px;
