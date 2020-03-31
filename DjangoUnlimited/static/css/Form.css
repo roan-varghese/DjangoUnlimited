@@ -80,12 +80,13 @@
     width:10em;
     align:center;
     border-radius: 0.45em;
+    margin-left: 20%;
  }
 
 .col1{
     float: left;
     width: 40%;
-    margin-top: 2em;
+    margin-top: 1em;
     display: inline-block;
 }
 
@@ -93,10 +94,10 @@
     float: left;
     width: 50%;
     height:5.5em;
-    margin-top: 1em;
+    margin-top: 0.5em;
 }
 
-input[type=text], select, email, datalist , option {
+input[type=text], textarea{
   width: 75%;
   padding: 0.75em;
   border: 0.1em solid #ccc;
@@ -104,3 +105,18 @@ input[type=text], select, email, datalist , option {
   resize: vertical;
 }
 
+input [type=email], select{
+  width: 75%;
+  padding: 0.75em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.45em;
+  resize: vertical;
+}
+
+input[type="file"] {
+  width: 75%;
+  padding: 0.75em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.45em;
+  resize: vertical;
+}
