@@ -1,6 +1,8 @@
 body{
     margin: 0px;
+    font-family: "Arial";
 }
+
 
 
 /* the position of overall nav  */
@@ -40,13 +42,13 @@ nav{
 
     height: 11em;
     float: right;
-    font-family: Segoe UI;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 1px;
     position: relative;
     line-height: 100px;
     background: rgb(29,26,26);
+    padding-right: 1em;
 }
 
 .menu>.menu-content>a {
@@ -65,11 +67,9 @@ nav{
     padding-top: 0.5em;
 }
 
-
 .menu>.menu-content>a:hover{
     color: rgb(204,0,0);
 }
-
 
 /*This section contains the styling of bottomnav*/
 .bottomnav {
@@ -90,6 +90,11 @@ nav{
     font-family: Segoe UI;
 }
 
+.home_img{
+    display: block;
+    margin-left: 5%;
+
+}
 
 footer{
     background-color: rgb(29,26,26);

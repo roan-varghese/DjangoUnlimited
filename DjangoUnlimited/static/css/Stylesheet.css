@@ -37,7 +37,7 @@ nav{
 
 /* the over styling of nav menu-content*/
 .menu>.menu-content{
-    width: 200px;
+
     height: 11em;
     float: right;
     font-family: Segoe UI;
@@ -65,11 +65,9 @@ nav{
     padding-top: 0.5em;
 }
 
-
 .menu>.menu-content>a:hover{
     color: rgb(204,0,0);
 }
-
 
 /*This section contains the styling of bottomnav*/
 .bottomnav {
@@ -90,6 +88,10 @@ nav{
     font-family: Segoe UI;
 }
 
+.home_img{
+    align:center;
+    border: 1em;
+}
 
 footer{
     background-color: rgb(29,26,26);
