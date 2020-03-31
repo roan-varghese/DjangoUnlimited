@@ -28,6 +28,9 @@
                     <tr>
                         <td>{{candidates.date_applied}}</td>
                         <td>{{candidates.applied}}</td>
+                        <td>
+                            <button type="button"><a target="_blank" href="{{ candidates.applied.cv.url }}">DOWNLOAD CV</a></button>
+                        </td>
                         {% endfor %}
                     </tr>
                     </tbody>
