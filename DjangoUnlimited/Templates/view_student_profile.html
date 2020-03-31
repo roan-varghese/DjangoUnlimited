@@ -2,7 +2,8 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type = "text/css" href="{% static 'css/Registor.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
+<link rel="stylesheet" type = "text/css" href="{% static 'css/View.css' %}"/>
 {% endblock css %}
 <!DOCTYPE html>
 <html lang="en">
@@ -25,13 +26,15 @@
 
         <div class="bottomnav">
             <a class="active" href="/"> <b>Home</b></a>
+            <a href ="edit_student_profile"><b>Edit Profile</b></a>
+            <a href = "../view_jobs"> <b>Browse Jobs</b></a>
         </div>
     </header>
 <br><br>
 <body>
-<div class="overall-page">
-    <div class = "inside-container" >
-        <div class = "overall-page">
+<div class="page">
+    <div class = "container" >
+        <div class = "page">
             <div class="icon">
     {% if student.dp %}
         <img src="{{ student.dp.url }}" height="80.0em" width="90.0em">
@@ -39,35 +42,32 @@
         <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
     {% endif %}
             </div>
+            <div style="align:center; padding-top: 20px;"><h2>My Profile</h2> </div>
         </div>
-            <div> <h2 align = "center">My profile</h2> </div>
-            <div class = "inside-container2">
+            <div class = "container2">
 
-   <strong> <p style="word-spacing: 2px;">Student ID: {{ student.student_id }}</p>
-    <p style="word-spacing: 2px;">First Name: {{ user.first_name }}</p>
-    <p style="word-spacing: 2px;">Last Name: {{ user.last_name }}</p>
-    <p style="word-spacing: 2px;">Email Address: {{ user.email }}</p>
-    <p style="word-spacing: 2px;">Date of Birth: {{ student.DOB }}</p>
-       <p style="word-spacing: 2px;">Gender: {{ student.gender }}</p>
+                <p class="view"> <strong> Student ID:</strong> {{ student.student_id }}</p>
+                <p class="view"> <strong> First Name:</strong> {{ user.first_name }}</p>
+                <p class="view"> <strong>Last Name:</strong> {{ user.last_name }}</p>
+                <p class="view"> <strong>Email Address:</strong> {{ user.email }}</p>
+                <p class="view"> <strong>Date of Birth:</strong> {{ student.DOB }}</p>
+                <p class="view"> <strong>Gender:</strong> {{ student.gender }}</p>
 
-    Skills:<br><br>
-    {% for skill in student.skills.all %}
-        <li>{{ skill }}</li><br>
+                <strong>Skills: </strong><br><br>
+       {% for skill in student.skills.all %}
+                  <li>{{ skill }}</li><br>
     {% endfor %}
-
     {% if student.alumni_status %}
-        <p style="word-spacing: 2px;">Alumni Status: Alumni</p>
+                <p class="view"> <strong> Alumni Status:</strong> Alumni</p>
     {% else %}
-        <p style="word-spacing: 2px;">Alumni Status: Current Student</p>
-        <p style="word-spacing: 2px;">Expected Graduation Date: {{ student.expected_graduation_date }}</p>
-        <p style="word-spacing: 2px;">Personal Email Address: {{ student.personal_email }}</p>
+                <p class="view"> <strong>Alumni Status: </strong> Current Student</p>
+                <p class="view"><strong> Expected Graduation Date:</strong> {{ student.expected_graduation_date }}</p>
+                <p class="view"><strong> Personal Email Address:</strong> {{ student.personal_email }}</p>
     {% endif %}
-       <p style="word-spacing: 2px;">CV: {{ student.cv }}</p></strong><br>
+                    <p class="view"><strong> CV: </strong> {{ student.cv }}</p><br>
 
-    <button type="button" style= "color:white; background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"><a href="edit_student_profile">Edit Profile</a></button>
-    <button type="button" style= "color:white; background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"><a href="/">Go back home</a></button><br><br>
             </div></div></div></div>
-</body>
+</body
 <br><br>
 <!--This is the begining of the footer!-->
     <footer>
