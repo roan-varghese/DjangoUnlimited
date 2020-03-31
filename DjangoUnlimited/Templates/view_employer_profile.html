@@ -20,6 +20,8 @@
                 <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="60.0em" width="170.0em"></div>
                 <aside class="menu">
                     <div class="menu-content">
+                         <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                        <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
                     </div>
                 </aside>
             </section>
@@ -27,7 +29,8 @@
 
         <div class="bottomnav">
             <a class="active" href="/"> <b>Home</b></a>
-            <a href ="edit_employer_profile"><b>Edit Profile</b></a>
+           <a href="../view_jobs"> <b>Browse Students</b></a>
+            <a href="../create_job"> <b> Post a job</b></a>
         </div>
     </header>
 <br><br>
@@ -48,6 +51,10 @@
                 <p class="view"> <strong>Company Name:</strong> {{ employer.company_name }}</p>
                 <p class="view"> <strong>Company Description:</strong> {{ employer.company_description }}</p>
                 <p class="view"> <strong>Contact Number:</strong> {{ employer.phone_number }}</p>
+
+                <button id="Button1" type="button" class="btn" style="color:white; background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;">
+                <a href="/employer/edit_employer_profile">Edit Profile</a></button><br><br>
+
             </div></div></div>
 </body>
 <br><br>
