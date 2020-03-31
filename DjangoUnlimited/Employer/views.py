@@ -90,7 +90,7 @@ def edit_profile(request):
                 return redirect("edit_employer_profile")
         else:
             form = EmployerForm(instance=employer)
-            args = {'employer_form': form}
+            args = {'employer_form': form, 'employer': employer}
             return render(request, 'edit_employer_profile.html', args)
     else:
         messages.info(request, 'This employer user does not exist')

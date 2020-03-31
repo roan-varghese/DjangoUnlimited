@@ -2,13 +2,16 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/Registration.css' %}"/>
 {% endblock css %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Sign Up</title>
+
 
     <script language="JavaScript">
         function disable_fields(status)
@@ -31,57 +34,72 @@
     </script>
 
 </head>
- <!--This is the begining of the header!-->
-    <header>
+<header>
         <nav>
             <section class= "nav-container">
                 <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="60.0em" width="170.0em"></div>
                 <aside class="menu">
                     <div class="menu-content">
-                        <a href="accounts/login"><i class="userlogin"></i>LOG IN</a>
-                        <a href="register"><i class="useradd "></i>SIGN UP</a>
                     </div>
                 </aside>
             </section>
         </nav>
 
         <div class="bottomnav">
-            <a class="active" href="#home"> <b>Home</b></a>
+            <a class="active" href="/"> <b>Home</b></a>
         </div>
     </header>
-
 <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
-    <h4><a href="/">Back to home</a></h4>
 
-    <h2>Create an account to browse jobs</h2>
-    <form action="student_registration" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ student_form.as_p }}
+<br><br>
+     <div class = "page">
 
-        <input type="checkbox" name="terms" required>
-        <label>I have read and agree to the terms and conditions</label><br><br>
+        <div class = "container" >
+            <div class = "page"> </div>
+            <h2 align = "center">Create an account to browse jobs</h2><br>
+            <div class = "container2">
+                <form method="post" action="student_registration">
+                    {% csrf_token %}
+
+                    {% for field in user_form %}
+                        <div class = "Col1">{{ field.label }}: </div>
+                        <br>
+                        <div class = "Col2">{{ field }}</div>
+                    {% endfor %}
+
+                    {% for field in student_form %}
+                        {% if field != "student_id" %}
+                            <div class = "Col1">{{ field.label }}: </div>
+                            <div class = "Col2">{{ field }}</div>
+                        {% endif %}
+                    {% endfor %}
+                    <input type="checkbox" name="terms" required>
+                  <label>I have read and agree to the terms and conditions</label><br><br>
+
         <input type="submit">
-    </form>
+                </form>
+            </div>
+        </div>
+        <br><br>
 
     <!-- this displays any errors during submission -->
     <div>
         {% for message in messages %}
             <h3> {{message}} </h3>
         {% endfor %}
-    </div>
+    </div></div>
 </body>
- <!--This is the begining of the footer!-->
+<!--This is the begining of the footer!-->
     <footer>
         <div class = "main">
 
             <!-- This is the 1st column of the footer!-->
             <div class = "about">
                 <ul><h3>ABOUT US</h3>
-                    <a href = "https://www.murdochuniversitydubai.com/faq"> <li>FAQ</li> </a>
-                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam"> <li>Anti-Scam</li> </a>
-                    <a href = ""><li>Terms</li> </a>
-                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy"><li>Privacy</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/faq" style="color: white"> <li>FAQ</li> </a>
+                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam" style="color: white"> <li>Anti-Scam</li> </a>
+                    <a href = ""><li style="color: white">Terms</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white"><li>Privacy</li> </a>
                 </ul>
             </div>
 
@@ -89,17 +107,13 @@
             <div class = "sitemap">
                 <ul>
                     <h3>SITEMAP</h3>
-                    <a href = "sitemap.html"><li> Sitemap </li> </a>
+                    <a href = "sitemap.html" style="color: white"><li> Sitemap </li> </a>
                 </ul>
             </div>
 
+
+
             <!-- This is the 3rd column of the footer !-->
-            <div class = "helpDesk">
-                <h3> </h3>
-
-            </div>
-
-            <!-- This is the 4th column of the footer !-->
             <div class = "contact">
                 <h3> CONTACT US </h3>
                 <p class="para1">
@@ -115,7 +129,7 @@
 
             </div>
 
-            <!-- This is the 5th column of the footer !-->
+            <!-- This is the 4th column of the footer !-->
             <div class = "follow">
                 <h3> FOLLOW US </h3>
                 <a href= "https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src = "{% static 'images/twitter.png' %}" alt = "Twitter Icon" height="35.0em" width="35.0em"> </a>

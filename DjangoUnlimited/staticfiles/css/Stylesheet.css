@@ -5,9 +5,10 @@ body{
 /* the position of overall nav  */
 nav{
     width:100%;
-    height: 6.5em;
+    height: 8.5em;
     position: relative;
     background: black;
+
 }
 
 /* the section contains the nav-container */
@@ -16,13 +17,14 @@ nav{
     position: relative;
     background: black;
     overflow: hidden;
+
 }
 
 /* the postion of overall murdochlogo */
 .nav-container>.logo{
     float:left;
     position: fixed;
-    top: 1em;
+    top: 0.5em;
     left: 3.5em;
 }
 
@@ -37,15 +39,16 @@ nav{
 /* the over styling of nav menu-content*/
 .menu>.menu-content{
     width: 200px;
-    height: 8.2em;
+    height: 6.0em;
     float: right;
     font-family: Segoe UI;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: bold;
     letter-spacing: 1px;
     position: relative;
     line-height: 100px;
     background: black;
+    padding-bottom: 20px;
 }
 
 .menu>.menu-content>a{
@@ -74,7 +77,7 @@ nav{
 .bottomnav {
     overflow: hidden;
     background-color: red;
-    height: 5em;
+     height: 40px;
 }
 
 .bottomnav a {
@@ -82,10 +85,10 @@ nav{
     color: white;
     text-align: center;
     padding: 1em 1em ;
-    padding-top: 1.8em;
+    padding-top: 0.2em;
     padding-left: 2.5em;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 15px;
     font-family: Segoe UI;
 }
 
@@ -106,13 +109,16 @@ footer{
     padding-bottom: 0;
     border:0;
     margin: 0;
+    font-size: 12px;
+
 }
 
 .para2{
-    font-size: 0.75em;
+    font-size: 10px;
     padding:0;
     border:0;
     margin: 0;
+
 }
 
 ul{
@@ -136,10 +142,13 @@ a{
 
 .about{
     flex:1;
+    font-size: 10px;
+
 }
 
 .sitemap{
     flex:1;
+    font-size: 10px;
 }
 .helpDesk{
     flex:1;
@@ -147,9 +156,11 @@ a{
 
 .contact{
     flex:1;
+      font-size: 10px;
 }
 
 .follow{
     flex:1;
+      font-size: 10px;
 }
 

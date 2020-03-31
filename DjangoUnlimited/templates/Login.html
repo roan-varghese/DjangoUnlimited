@@ -2,130 +2,25 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" rel = "text/css" href="{% static 'css/login.css' %}"/>
+    <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{% static 'Ionicons/css/ionicons.min.css' %}" />
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="{% static 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' %}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% endblock css %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-
-    <style>
-        Form {
-            border-color: #D3D3D3;
-            border-style: solid;
-            color: black;
-            width: 40%;
-            height: 300px;
-            margin: auto;
-            margin-top:20px;
-            position: relative;
-            border: 3px solid #D3D3D3;
-        }
-
-        h2 {
-
-            padding-left:20px;
-            padding-top:5px;
-        }
-        .headtop{
-               width: 100%;
-               height:40px;
-               background-color: gainsboro;
-        }
-
-        #tex {
-    position: fixed;
-    bottom: 0;
-    right: 50px;
-    display: inline-block;
-    width: 100px;
-    height: 24px;
-    font-family: Consolas;
-}
-
-.switch {
-    position: fixed;
-    bottom: 0;
-    right: 20px;
-    display: inline-block;
-    width: 34px;
-    height: 14px;
-    left: 1230px;
-}
-
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 15px;
-        width: 15px;
-        left: 1px;
-        bottom: 1px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
+    <meta name="description" content="Welcome to Career Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords" content="Career Portal, United Arab Emirates, jobs ads, jobs, ads, script, app, premium jobs">
 
 
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-    -webkit-transform: translateX(18px);
-    -ms-transform: translateX(18px);
-    transform: translateX(18px);
-}
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 34px;
-}
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-
-.bgimg {
-    background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.1)), url(img/erpimg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.btn-size {
-    height: 30px;
-    font-size: 18px;
-}
-
-        h3{
-            font-size: 15px;
-        }
-
-
-    </style>
 </head>
  <!--This is the begining of the header!-->
     <header>
@@ -142,7 +37,7 @@ input:checked + .slider:before {
         </nav>
 
         <div class="bottomnav">
-            <a class="active" href="/"> <b>Back to Home</b></a>
+            <a class="active" href="/"> <b>Home</b></a>
         </div>
     </header>
 <body>
@@ -157,7 +52,7 @@ input:checked + .slider:before {
           <!-- /.login-logo -->
             <div class="login-box-body" >
 
-                <div class="form-group has-feedback" style="height:70px;">
+                <div class="form-group has-feedback" style="height:50px;">
 
                    <strong>Email Address
                    <input id="Email" type="Email"  class="form-control" name="username" required />
@@ -165,17 +60,15 @@ input:checked + .slider:before {
                    </strong>
                    </div>
 
-                <div class="form-group has-feedback" style="height:70px;">
+                <div class="form-group has-feedback" style="height:50px;">
                    <strong> Password
                      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                        <input type="password" id="password" class="form-control" name="password" /> </strong>
                 </div>
                 <div class="form-checkbox">
                     <input class="input-checkbox" id="ckb1" type="checkbox" name="remember-me">
-                    <label class="label-checkbox" for="ckb1">
-                        Keep me logged in
-                    </label>
-                    <a style="padding-left:120px; color:black" href="{% url 'password_reset' %}">Forgot password?</a><br>
+                    <label class="label-checkbox" for="ckb1">Keep me logged in</label>
+                    <a style="padding-left:60px; color:black" href="{% url 'password_reset' %}">Forgot password?</a><br>
                     <!-- <a href="password_reset">Forgot password?</a><br> -->
 
                 </div>
@@ -217,13 +110,13 @@ input:checked + .slider:before {
     
 </body>
 <!--This is the begining of the footer!-->
-    <footer>
+   <footer>
         <div class = "main">
 
             <!-- This is the 1st column of the footer!-->
             <div class = "about">
                 <ul><h3>ABOUT US</h3>
-                    <a href = "https://www.murdochuniversitydubai.com/faq"> <li>FAQ</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/faq" class = "white"> <li>FAQ</li> </a>
                     <a href = "https://murdochdubaicareerportal.com/page/anti-scam"> <li>Anti-Scam</li> </a>
                     <a href = ""><li>Terms</li> </a>
                     <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy"><li>Privacy</li> </a>
@@ -238,11 +131,6 @@ input:checked + .slider:before {
                 </ul>
             </div>
 
-            <!-- This is the 3rd column of the footer !-->
-            <div class = "helpDesk">
-                <h3> </h3>
-
-            </div>
 
             <!-- This is the 4th column of the footer !-->
             <div class = "contact">
@@ -270,4 +158,5 @@ input:checked + .slider:before {
             </div>
         </div>
     </footer>
+
 </html>

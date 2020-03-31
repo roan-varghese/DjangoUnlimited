@@ -2,6 +2,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -11,27 +12,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employer Sign Up</title>
 </head>
-<body>
-    <h4><a href="/">Back to home</a></h4>
+ <!--This is the begining of the header!-->
+    <header>
+        <nav>
+            <section class= "nav-container">
+                <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="60.0em" width="170.0em"></div>
+                <aside class="menu">
+                    <div class="menu-content">
+                        <a href="accounts/login"><i class="userlogin"></i>LOG IN</a>
+                        <a href="register"><i class="useradd "></i>SIGN UP</a>
+                    </div>
+                </aside>
+            </section>
+        </nav>
 
-    <h2>Create an account to post jobs</h2>
+        <div class="bottomnav">
+            <a class="active" href="/"> <b>Home</b></a>
+        </div>
+    </header>
+<body>
+<br><br>
+     <div class = "page">
+
+        <div class = "container" >
+            <div class = "page"> </div>
+
+    <h2 align = "center">Create an account to post jobs</h2><br>
+             <div class = "container2">
     <form action="employer_registration" method="post">
         {% csrf_token %}
 
-        {{ user_form.as_p }}
-        {{ employer_form.as_p }}
+        {% for field in user_form %}
+            <div class = "Col1">{{ field.label }}: </div>
+            <br>
+            <div class = "Col2">{{ field }}</div>
+        {% endfor %}
+
+        {% for field in employer_form %}
+            <div class = "Col1">{{ field.label }}: </div>
+            <div class = "Col2">{{ field }}</div>
+        {% endfor %}
 
         <input type="checkbox" name="terms" required> 
         <label>I have read and agree to the terms and conditions</label><br><br>
 
         <input type="submit"> 
     </form>
+             </div>
+        </div>
+        <br><br>
 
     <!-- this displays any errors during submission -->
     <div>
         {% for message in messages %}
             <h3> {{message}} </h3>
         {% endfor %}
-    </div>
+        </div></div>
 </body>
+ <!--This is the begining of the footer!-->
+    <footer>
+        <div class = "main">
+
+            <!-- This is the 1st column of the footer!-->
+            <div class = "about">
+                <ul><h3>ABOUT US</h3>
+                    <a href = "https://www.murdochuniversitydubai.com/faq"> <li>FAQ</li> </a>
+                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam"> <li>Anti-Scam</li> </a>
+                    <a href = ""><li>Terms</li> </a>
+                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy"><li>Privacy</li> </a>
+                </ul>
+            </div>
+
+            <!-- This is the 2nd column of the footer !-->
+            <div class = "sitemap">
+                <ul>
+                    <h3>SITEMAP</h3>
+                    <a href = "sitemap.html"><li> Sitemap </li> </a>
+                </ul>
+            </div>
+
+            <!-- This is the 4th column of the footer !-->
+            <div class = "contact">
+                <h3> CONTACT US </h3>
+                <p class="para1">
+                    <b>Murdoch University Dubai</b>
+                    <br>
+                </p>
+                <p class="para2">
+                    Dubai International Academic City <br>
+                    Block 10, Fourth floor <br>
+                    P.O. Box 345005 <br>
+                    Dubai, United Arab Emirates
+                </p>
+
+            </div>
+
+            <!-- This is the 5th column of the footer !-->
+            <div class = "follow">
+                <h3> FOLLOW US </h3>
+                <a href= "https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src = "{% static 'images/twitter.png' %}" alt = "Twitter Icon" height="35.0em" width="35.0em"> </a>
+                <a href= "https://www.facebook.com/murdochdubai/"><img src= "{% static 'images/facebook.png' %}" alt = "Facebook Icon" height="40.0em" width="40.0em"> </a>
+                <a href= "https://www.linkedin.com/school/murdoch-university-dxb/"><img src = "{% static 'images/linkedin.png' %}" alt = "LinkedIn Icon" height="35.0em" width="35.0em"></a>
+                <a href = "https://www.instagram.com/murdochdubai/?hl=en"><img src = "{% static 'images/insta.png' %}" alt = "Instagram Icon" height="40.0em" width="47.0em"></a>
+            </div>
+        </div>
+    </footer>
 </html>

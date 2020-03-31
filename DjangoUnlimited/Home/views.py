@@ -13,7 +13,6 @@ from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
 from DjangoUnlimited.settings import SENDGRID_API_KEY
 
-
 # Create your views here.
 
 from Employer.models import Employer
@@ -21,12 +20,14 @@ from Admin.models import Admin
 from Student.models import Student, StudentJobApplication
 from Accounts.views import get_user_type
 from .models import Job
-from .forms import CreateJobForm, EditJobForm
+from .forms import CreateJobForm, EditJobForm, FilterJobForm
 from Employer.forms import EmployerForm
 from Student.forms import StudentJobApplicationForm
 
+
 def index(request):
     return render(request, "index.html", get_user_type(request))
+
 
 @login_required
 def view_jobs(request):
@@ -42,6 +43,7 @@ def view_jobs(request):
     else:
         return redirect('/')
     return render(request, 'browse_jobs.html', args)
+
 
 @login_required
 def create_job(request):
@@ -61,7 +63,7 @@ def create_job(request):
                     html_content="A new Job has been posted on the Murdoch Career Portal."
                 )
                 sg = SendGridAPIClient(SENDGRID_API_KEY)
-             #   sg.send(message)
+                #   sg.send(message)
 
                 for skill in request.POST.getlist('skills'):
                     data.skills.add(skill)
@@ -106,6 +108,72 @@ def create_job(request):
     except Admin.DoesNotExist:
         return redirect('log_in')
 
+
+def filter_jobs(request):
+    print("HERE")
+    if request.method == 'POST':
+        print(request.POST.get)
+        min_duration = request.POST.get("min_duration")
+        # print(min_duration)
+        max_duration = request.POST.get("max_duration")
+        # print(max_duration)
+        location = request.POST.get("location")
+        # print(location)
+        job_type_id = request.POST.get("job_type_id")
+        # print(job_type_id)
+        min_salary = request.POST.get("min_salary")
+        # print(min_salary)
+        max_salary = request.POST.get("max_salary")
+        # print(max_salary)
+        industry_id = request.POST.get("industry_id")
+        # print(industry_id)
+        if min_duration:
+            min_duration_jobs = Job.objects.filter(duration__gte=min_duration)
+        else:
+            min_duration_jobs = Job.objects.all()
+
+        if max_duration:
+            max_duration_jobs = Job.objects.filter(duration__lte=max_duration)
+        else:
+            max_duration_jobs = Job.objects.all()
+
+        if location:
+            location_jobs = Job.objects.filter(location=location)
+        else:
+            location_jobs = Job.objects.all()
+
+        if min_salary:
+            min_salary_jobs = Job.objects.filter(salary__gte=min_salary)
+        else:
+            min_salary_jobs = Job.objects.all()
+
+        if max_salary:
+            max_salary_jobs = Job.objects.filter(salary__lte=max_salary)
+        else:
+            max_salary_jobs = Job.objects.all()
+
+        if job_type_id:
+            job_type_id_jobs = Job.objects.filter(job_type_id=job_type_id)
+        else:
+            job_type_id_jobs = Job.objects.all()
+
+        if industry_id:
+            industry_id_jobs = Job.objects.filter(industry_id=industry_id)
+        else:
+            industry_id_jobs = Job.objects.all()
+
+        filtered_jobs = min_duration_jobs & max_duration_jobs & location_jobs & max_salary_jobs & min_salary_jobs & job_type_id_jobs & industry_id_jobs
+        jobs_all = Job.objects.all()
+        jobs = jobs_all & filtered_jobs
+        print("jobs", jobs)
+        args = {'jobs': jobs}
+        return render(request, "filtered_jobs.html", args)
+    else:
+        form = FilterJobForm()
+        args = {'form': form}
+        return render(request, "filter_jobs.html", args)
+
+
 @login_required
 def job_details(request, id):
     job = Job.objects.get(id=id)
@@ -129,15 +197,16 @@ def job_details(request, id):
             return render(request, 'view_candidates.html', args)
     return render(request, 'job_details.html', args)
 
+
 @login_required
 def edit_job(request, id):
     job = Job.objects.get(id=id)
     try:
-        Employer.objects.get(user_id= request.user.id)
+        Employer.objects.get(user_id=request.user.id)
         if request.method == 'POST':
             form = EditJobForm(request.POST, request.FILES, instance=job)
             if form.is_valid():
-                data = form.save(commit = False)
+                data = form.save(commit=False)
                 data.posted_by = request.user
                 data.save()
                 next = request.POST.get('next', '/')
@@ -187,6 +256,7 @@ def my_applications(request):
     jobs_applied = StudentJobApplication.objects.filter(applied_id=student)
     args = {'jobs_applied': jobs_applied}
     return render(request, 'my_applications.html', args)
+
 
 @login_required
 def news(request):

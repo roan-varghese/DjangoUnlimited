@@ -149,15 +149,3 @@ class StudentJobApplicationForm(forms.ModelForm):
         model = StudentJobApplication
 
         fields = ['job_id', 'applied']
-
-
-"""
-class StudentSkillsForm(forms.ModelForm):
-    class Meta:
-        model = Student
-        fields = ('skills', )
-        widgets = {
-            'skills': forms.CheckboxSelectMultiple
-        }
-        exclude = ['student_id', 'alumni_status']
-"""

@@ -1,0 +1,53 @@
+.page{
+    display:flex;
+}
+
+.container {
+    margin: auto;
+    width: 60%;
+    height: auto;
+    background-color: #E8E8E8;
+    padding-top: 0px;
+    padding-bottom: 3em;
+    align: center;
+    border: 0.05em solid grey;
+}
+.container2 {
+    margin: auto;
+    width: 80%;
+    height: auto;
+    background-color: #F8F8F8;
+    padding-top:0.0em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    align: center;
+    border: 0.05em solid grey;
+}
+
+form.submit{
+    background-color:#D3D3D3;
+    height: 2em;
+    width: 15em;
+}
+
+.col1{
+    float: left;
+    width: 40%;
+    margin-top: 2em;
+    display: inline-block;
+}
+
+.col2{
+    float: left;
+    width: 50%;
+    height:5.5em;
+    margin-top: 1em;
+}
+
+input[type=text], select, email, datalist , option, {
+  width: 75%;
+  padding: 0.75em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.45em;
+  resize: vertical;
+}

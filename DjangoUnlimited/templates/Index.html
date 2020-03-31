@@ -1,71 +1,68 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-    <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Career Portal - Murdoch Dubai Career Portal</title>
+<head>
+    <title>Career Portal - Murdoch Dubai Career Portal</title>
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta name="description" content="Welcome to Career Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-        <meta name="keywords" content="Career Portal, United Arab Emirates, jobs ads, jobs, ads, script, app, premium jobs">
+    <meta name="description"
+          content="Welcome to Career Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords" content="Career Portal, United Arab Emirates, jobs ads, jobs, ads, script, app, premium jobs">
+</head>
 
-    </head>
-    <style>
-a {
-  color: black;
-}
-</style>
-    <!--This is the begining of the header!-->
-    <header>
-        <nav>
-            <section class= "nav-container">
-                <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="60.0em" width="170.0em"></div>
-                <aside class="menu">
-                    <div class="menu-content"> 
-                        <a href="accounts/login"><i class="userlogin"></i>LOG IN</a>
-                        <a href="register"><i class="useradd "></i>SIGN UP</a>
-                    </div>
-                </aside>
-            </section>
-        </nav>
-
-        <div class="bottomnav">
-            <a class="active" href="#home"> <b>Home</b></a>
-        </div>
-    </header>
+<!--This is the begining of the header!-->
+<header>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    <a href="accounts/login"><i class="userlogin"></i>LOG IN</a>
+                    <a href="register"><i class="useradd "></i>SIGN UP</a>
+                </div>
+            </aside>
+        </section>
+    </nav>
 
 
-    <body>
-        {% csrf_token %}
-        {% if user.is_authenticated %}
-            {% if user_type == 'student' %}
-                <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
-        <p><a href = "../student/view_student_profile">My Profile</a>
-                    <p><a href = "../view_jobs">BROWSE JOBS</a>
-            {% elif user_type == 'employer' %}
-                <h3>Welcome, {{ obj.company_name }}</h3>
-                <p><a href = "../employer/view_employer_profile">My Employer Profile</a></p>
-                <p><a href = "../view_jobs">MY JOBS</a>
-                <p><a href = "../create_job">POST A JOB</a></p>
-            {% elif user_type == 'admin' %}
-                <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
-                <p><a href = "../create_job">POST A JOB</a></p>
-                <p><a href = "../view_jobs">VIEW ALL JOBS</a>
-            {% endif %}
-                <p><a href = "../accounts/logout">LOGOUT</a></p>
-        {% else %}
-            <p><a href = "accounts/login">LOGIN</a></p>
-            <p><a href = "admin">ADMIN - > LOGIN</a></p>
-            <p><a href = "student/student_registration">STUDENT -> REGISTER</a></p>
-            <p><a href = "employer/employer_registration">EMPLOYER -> REGISTER</a></p>
+    <div class="bottomnav">
+        <a class="active" href="#home"> <b>Home</b></a>
+    </div>
+</header>
+
+<body>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+        {% if user_type == 'student' %}
+            <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
+            <p><a href = "../student/view_student_profile">My Profile</a>
+            <p><a href = "../view_jobs">BROWSE JOBS</a>
+        {% elif user_type == 'employer' %}
+            <h3>Welcome, {{ obj.company_name }}</h3>
+            <p><a href = "../employer/view_employer_profile">My Employer Profile</a></p>
+            <p><a href = "../view_jobs">MY JOBS</a>
+            <p><a href = "../create_job">POST A JOB</a></p>
+        {% elif user_type == 'admin' %}
+            <h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
+            <p><a href = "../create_job">POST A JOB</a></p>
+            <p><a href = "../view_jobs">VIEW ALL JOBS</a>
         {% endif %}
-    </body>
+            <p><a href = "../accounts/logout">LOGOUT</a></p>
+    {% else %}
+        <p><a href = "accounts/login">LOGIN</a></p>
+        <p><a href = "admin">ADMIN - > LOGIN</a></p>
+        <p><a href = "student/student_registration">STUDENT -> REGISTER</a></p>
+        <p><a href = "employer/employer_registration">EMPLOYER -> REGISTER</a></p>
+    {% endif %}
+</body>
     
     <!--This is the begining of the footer!-->
     <footer>
@@ -89,36 +86,42 @@ a {
                 </ul>
             </div>
 
-            <!-- This is the 3rd column of the footer !-->
-            <div class = "helpDesk">
-                <h3> </h3>
+        <!-- This is the 3rd column of the footer !-->
+        <div class="helpDesk">
+            <h3></h3>
 
-            </div>
-
-            <!-- This is the 4th column of the footer !-->
-            <div class = "contact">
-                <h3> CONTACT US </h3>
-                <p class="para1">
-                    <b>Murdoch University Dubai</b>
-                    <br>   
-                </p>
-                <p class="para2">
-                    Dubai International Academic City <br>
-                    Block 10, Fourth floor <br>
-                    P.O. Box 345005 <br>
-                    Dubai, United Arab Emirates
-                </p>
-                
-            </div>
-
-            <!-- This is the 5th column of the footer !-->
-            <div class = "follow">
-                <h3> FOLLOW US </h3>          
-                <a href= "https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src = "{% static 'images/twitter.png' %}" alt = "Twitter Icon" height="35.0em" width="35.0em"> </a>
-                <a href= "https://www.facebook.com/murdochdubai/"><img src= "{% static 'images/facebook.png' %}" alt = "Facebook Icon" height="40.0em" width="40.0em"> </a>
-                <a href= "https://www.linkedin.com/school/murdoch-university-dxb/"><img src = "{% static 'images/linkedin.png' %}" alt = "LinkedIn Icon" height="35.0em" width="35.0em"></a>
-                <a href = "https://www.instagram.com/murdochdubai/?hl=en"><img src = "{% static 'images/insta.png' %}" alt = "Instagram Icon" height="40.0em" width="47.0em"></a>
-            </div>
         </div>
-    </footer>
+
+        <!-- This is the 4th column of the footer !-->
+        <div class="contact">
+            <h3> CONTACT US </h3>
+            <p class="para1">
+                <b>Murdoch University Dubai</b>
+                <br>
+            </p>
+            <p class="para2">
+                Dubai International Academic City <br>
+                Block 10, Fourth floor <br>
+                P.O. Box 345005 <br>
+                Dubai, United Arab Emirates
+            </p>
+
+        </div>
+
+        <!-- This is the 5th column of the footer !-->
+        <div class="follow">
+            <h3> FOLLOW US </h3>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
+                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
+            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
+                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
+            </a>
+            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
+                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
+            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
+                                                                         alt="Instagram Icon" height="40.0em"
+                                                                         width="47.0em"></a>
+        </div>
+    </div>
+</footer>
 </html>
