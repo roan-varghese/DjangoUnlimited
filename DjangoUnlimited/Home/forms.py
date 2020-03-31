@@ -6,7 +6,7 @@ class CreateJobForm(forms.ModelForm):
          attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
     description = forms.CharField(label = 'Job Description', max_length=100, required=True, widget=forms.Textarea(
          attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
-    duration = forms.IntegerField()
+    duration = forms.DurationField()
     location = forms.CharField(max_length = 100, required = True)
     job_type_id = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'custom-select'}),
@@ -42,7 +42,7 @@ class EditJobForm(forms.ModelForm):
         ('Deleted', 'Deleted')
     ]
     status = forms.ChoiceField(choices=job_status, widget=forms.Select(attrs={'class': 'custom-select'}))
-    duration = forms.IntegerField()
+    duration = forms.DurationField()
     location = forms.CharField(max_length = 100, required = True)
     job_type_id = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'custom-select'}),

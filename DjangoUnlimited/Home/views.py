@@ -74,7 +74,7 @@ def create_job(request):
             args = {'form': form, 'user': 'employer'}
             return render(request, "employer_create_jobs.html", args)
     except Employer.DoesNotExist:
-        pass
+        return redirect('log_in')
 
     try:
         admin = Admin.objects.get(user_id=request.user.id)
@@ -104,7 +104,7 @@ def create_job(request):
             args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
             return render(request, "employer_create_jobs.html", args)
     except Admin.DoesNotExist:
-        pass
+        return redirect('log_in')
 
 @login_required
 def job_details(request, id):
@@ -135,7 +135,7 @@ def edit_job(request, id):
     try:
         Employer.objects.get(user_id= request.user.id)
         if request.method == 'POST':
-            form = EditJobForm(request.POST, instance=job)
+            form = EditJobForm(request.POST, request.FILES, instance=job)
             if form.is_valid():
                 data = form.save(commit = False)
                 data.posted_by = request.user
@@ -144,18 +144,18 @@ def edit_job(request, id):
                 return redirect(next)
             else:
                 messages.info(request, form.errors)
-                return redirect('edit_job')
+                return redirect(request.path_info)
         else:
-            jobForm = EditJobForm()
+            jobForm = EditJobForm(instance=job)
             args = {'job': job, 'jobForm': jobForm, 'user': 'employer'}
             return render(request, 'edit_job.html', args)
     except Employer.DoesNotExist:
-        pass
+        return redirect('log_in')
 
     try:
         admin = Admin.objects.get(user_id=request.user.id)
         if request.method == 'POST':
-            jobForm = CreateJobForm(request.POST, instance=job)
+            jobForm = EditJobForm(request.POST, instance=job)
             companyForm = EmployerForm(request.POST, request.FILES, instance=admin)
 
             if jobForm.is_valid() and companyForm.is_valid():
@@ -166,19 +166,19 @@ def edit_job(request, id):
                     job = jobForm.save(commit=False)
                     job.posted_by = request.user
                     job.save()
-                    next = request.POST.get('next', '/')
-                    return redirect(next)
+                    next_page = request.POST.get('next', '/')
+                    return redirect(next_page)
             else:
                 messages.info(request, jobForm.errors)
                 messages.info(request, companyForm.errors)
-                return redirect('edit_job')
+                return redirect(request.path_info)
         else:
             jobForm = EditJobForm()
             companyForm = EmployerForm()
             args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
             return render(request, 'edit_job.html', args)
     except Admin.DoesNotExist:
-        pass
+        return redirect('log_in')
     
 @login_required
 def my_applications(request):
