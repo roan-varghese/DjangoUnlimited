@@ -2,8 +2,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
-<link rel="stylesheet" type = "text/css" href="{% static 'css/View.css' %}"/>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/View.css' %}"/>
 {% endblock css %}
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +67,7 @@
                 <p class="view"><strong> CV: </strong> {{ student.cv }}</p><br>
 
 
-            <button id="Button1" type="button" class="btn" style="color:white; background-color:rgb(204,0,0); width: 140px; height:30px; margin-left: 270px;">
+            <button class="btn">
                 <a href="/student/edit_student_profile">Edit Profile</a></button>
 
                     <br><br>

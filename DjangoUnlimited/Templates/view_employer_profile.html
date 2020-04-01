@@ -2,7 +2,6 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type = "text/css" href="{% static 'css/form.css' %}"/>
 <link rel="stylesheet" type = "text/css" href="{% static 'css/View.css' %}"/>
 {% endblock css %}
 
@@ -52,8 +51,9 @@
                 <p class="view"> <strong>Company Description:</strong> {{ employer.company_description }}</p>
                 <p class="view"> <strong>Contact Number:</strong> {{ employer.phone_number }}</p>
 
-                <button id="Button1" type="button" class="btn" style="color:white; background-color:rgb(204,0,0); width: 140px; height:30px; margin-left: 270px;">
-                <a href="/employer/edit_employer_profile">Edit Profile</a></button><br><br>
+            <button class="btn">
+                <a href="/employer/edit_employer_profile">Edit Profile</a></button>
+                <br><br>
 
             </div></div></div>
 </body>

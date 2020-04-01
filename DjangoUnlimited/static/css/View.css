@@ -1,4 +1,42 @@
+.btn{
+color:white;
+width: 140px;
+height:30px;
+margin-left: 270px;}
+
 p.view{
 border-style: thin;
 height: 25px;
+}
+.page{
+    display:flex;
+}
+
+.icon{
+    flex:0.2;
+    margin-left:4.3em;
+    padding-top:1em;
+    padding-bottom:1em;
+
+}
+.container {
+    margin: auto;
+    width: 70%;
+    height: auto;
+    background-color: #E8E8E8;
+    padding-top: 0px;
+    padding-bottom: 3em;
+    align: center;
+    border: 0.05em solid grey;
+}
+.container2 {
+    margin: auto;
+    width: 80%;
+    height: auto;
+    background-color: #F8F8F8;
+    padding-top:0.0em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    align: center;
+    border: 0.05em solid grey;
 }
