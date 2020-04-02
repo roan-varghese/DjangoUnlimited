@@ -19,7 +19,7 @@ from Employer.models import Employer
 from Admin.models import Admin
 from Student.models import Student, StudentJobApplication
 from Accounts.views import get_user_type
-from .models import Job
+from .models import Job, Skill
 from .forms import CreateJobForm, EditJobForm, FilterJobForm
 from Employer.forms import EmployerForm
 from Student.forms import StudentJobApplicationForm
@@ -321,3 +321,24 @@ def close_job(request, id):
         form = EditJobForm()
         args = {'job': job, 'form': form}
         return render(request, 'close_job.html', args)
+
+
+@login_required
+def view_students(request):
+    user = get_user_type(request)
+
+    if user['user_type'] == 'employer' or user['user_type'] == 'admin':
+        students = Student.objects.all()
+        users = User.objects.all()
+        args = {'students': students, 'users': users}
+    else:
+        return redirect('/')
+    return render(request, 'browse_students.html', args)
+
+
+@login_required
+def student_details(request, id):
+    student = Student.objects.get(user_id=id)
+    skills = Skill.objects.all()
+    args = {'student': student, 'user': get_user_type(request), 'skills': skills}
+    return render(request, 'student_details.html', args)

@@ -1,0 +1,37 @@
+{% load staticfiles %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <h4><a href="/">Back to home</a></h4>
+
+    <h3>{{student.user.first_name}} {{student.user.last_name}} </h3>
+    {% if student.dp %}
+        <img src="{{ student.dp.url }}"><br>
+    {% else %}
+        <img src="{% static 'DefaultDP.jpg' %}"><br>
+    {% endif %}
+
+    <p>Email: {{student.user}}</p>
+    <p>Gender: {{student.gender}}</p>
+    <p>Date of Birth: {{student.DOB}}</p>
+
+    {% if student.alumni_status == False %}
+        <p>Personal Email: {{student.personal_email}}</p>
+        <p>Expected Graduation Date: {{student.expected_graduation_date}}</p>
+    {% endif %}
+
+    Skills:
+    {% for skill in student.skills.all %}
+        <li>{{ skill }}</li>
+    {% endfor %}
+
+    <p>CV: {{ student.cv}}</p>
+
+    <button type="submit">Download CV</button>
+
+    </body>
+ </form>
+
+{% endblock %}
