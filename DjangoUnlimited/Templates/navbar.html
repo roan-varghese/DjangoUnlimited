@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block title %}
-    <title>Murdoch Career Portal | Home</title>
+        <title>Murdoch Career Portal | Home</title>
     {% endblock title %}
     <!-- Place your favicon.ico in the template root directory -->
     <link rel="shortcut icon" href="{% static 'images/logo.ico' %}" type="image/ico">
@@ -20,11 +20,11 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css"/>
 </head>
-    {% block css %}
-    {% endblock css %}
+{% block css %}
+{% endblock css %}
 
-    {% block content %}
-    {% endblock content %}
+{% block content %}
+{% endblock content %}
 
 
 <!-- /#wrapper -->
@@ -44,12 +44,12 @@
 <!--Static JS file-->
 
 {% block js %}
-<script>
-$(document).ready(function() {
-     $(".table").DataTable();
-});
+    <script>
+        $(document).ready(function () {
+            $(".table").DataTable();
+        });
 
-</script>
+    </script>
 {% endblock js %}
 </body>
 </html>
