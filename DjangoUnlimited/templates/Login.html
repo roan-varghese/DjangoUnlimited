@@ -1,15 +1,11 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-<<<<<<< Updated upstream
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
  <link rel="stylesheet" rel = "text/css" href="{% static 'css/Login.css' %}"/>
  <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}" />
-=======
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Login.css' %}"/>
-
->>>>>>> Stashed changes
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -28,8 +24,7 @@
 <header>
     <nav>
         <section class="nav-container">
-            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                   height="60.0em" width="170.0em"></div>
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo" height="60.0em" width="170.0em"></div>
             <aside class="menu">
                 <div class="menu-content">
                     <a href="/student/student_registration"><i class="userlogin"></i>Student Signup</a>
@@ -45,7 +40,7 @@
 </header>
 <br>
 <body>
-<<<<<<< Updated upstream
+
     <form action="login" method="post">
         {% csrf_token %}
         <div class="headtop">
@@ -76,7 +71,7 @@
                         <input id="Button1" type="submit" class="btn" style="background-color:limegreen; width:80px; height:30px; color:white; font-weight:700 ; cursor:pointer" value="Log in" />
                     </div>
 
-            </div>
+        </div>
 
         <!-- /.login-box-body -->
 <script>
@@ -90,75 +85,7 @@
         </script>
 
     </form>
-              </div>
-=======
 
-<div class="overall-page">
-    <div class="inside-container">
-        <div class="overall-page"></div>
-        <h2 align="center">Log in</h2>
-        <div class="inside-container2">
-            <form action="login" method="post">
-                {% csrf_token %}
-
-                <div class=" Login-box">
-                    <!-- /.login-logo -->
-                    <div class="login-box-body">
-
-                        <div class="form-group has-feedback">
-                            <strong>Email Address
-                                <input id="Email" type="Email" class="form-control" name="username" required/>
-                            </strong>
-                        </div>
-
-                        <div class="form-group has-feedback">
-                            <strong> Password
-                                <input type="password" id="password" class="form-control" name="password"/> </strong>
-                        </div>
-                        <div class="form-checkbox">
-                            <a style="padding-left:340px; color:black" href=" /accounts/password_reset/">Forgot
-                                password?</a><br><br>
-                            <!-- <a href="password_reset">Forgot password?</a><br> -->
-
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-
-                            </div>
-                            <div style="text-align:right;">
-                                <input id="Button1" type="submit" class="btn"
-                                       style="background-color:limegreen; width:80px; height:30px; color:white; font-weight:700 ; cursor:pointer"
-                                       value="Log in"/>
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                    <!-- /.login-box-body -->
-                </div>
-                <script>
-                    $(function () {
-                        $('input').iCheck({
-                            checkboxClass: 'icheckbox_square-blue',
-                            radioClass: 'iradio_square-blue',
-                            increaseArea: '20%' /* optional */
-                        });
-                    });
-                </script>
-
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div>
-    {% for message in messages %}
-        <h2> {{ message }} </h2>
-    {% endfor %}
-</div>
 
 </body>
 <br>
@@ -192,7 +119,6 @@
                     <li> Sitemap</li>
                 </a>
             </ul>
->>>>>>> Stashed changes
         </div>
 
         <!-- This is the 4th column of the footer !-->
@@ -214,16 +140,10 @@
         <!-- This is the 5th column of the footer !-->
         <div class="follow">
             <h3> FOLLOW US </h3>
-            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
-                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
-            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
-            </a>
-            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                         alt="Instagram Icon" height="40.0em"
-                                                                         width="47.0em"></a>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
+            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}" alt="Facebook Icon" height="40.0em" width="40.0em"></a>
+            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
+            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}" alt="Instagram Icon" height="40.0em" width="47.0em"></a>
         </div>
     </div>
 </footer>
