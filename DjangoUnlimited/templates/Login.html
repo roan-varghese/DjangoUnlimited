@@ -3,7 +3,7 @@
 {% block css %}
     <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
  <link rel="stylesheet" rel = "text/css" href="{% static 'css/Login.css' %}"/>
-
+ <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}" />
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -36,49 +36,39 @@
         </div>
     </header><br>
 <body>
-
- <div class = "overall-page">
-        <div class = "inside-container" >
-            <div class = "overall-page"> </div>
-            <h2 align = "center">Log in</h2>
-              <div class = "inside-container2">
     <form action="login" method="post">
         {% csrf_token %}
+        <div class="headtop">
+            <h2>Log In</h2>
+        </div>
 
-        <div class=" Login-box">
-          <!-- /.login-logo -->
-            <div class="login-box-body" >
 
-                <div class="form-group has-feedback">
-                   <strong>Email Address
+        <div class="login-box-body" >
+               <div class="form-group has-feedback">
+
+                   <strong>
+                       Email Address
+
                    <input id="Email" type="Email"  class="form-control" name="username" required />
                    </strong>
                    </div>
 
                 <div class="form-group has-feedback">
-                   <strong> Password
-                       <input type="password" id="password" class="form-control" name="password" /> </strong>
+                    Password
+                       <input type="password" id="password" class="form-control" name="password" />
                 </div>
                 <div class="form-checkbox">
-                    <a style="padding-left:340px; color:black" href=" /accounts/password_reset/">Forgot password?</a><br><br>
+                    <a style="padding-left:335px; color:black" href=" /accounts/password_reset/">Forgot password?</a><br>
                     <!-- <a href="password_reset">Forgot password?</a><br> -->
 
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-
-                    </div>
                     <div style="text-align:right;">
                         <input id="Button1" type="submit" class="btn" style="background-color:limegreen; width:80px; height:30px; color:white; font-weight:700 ; cursor:pointer" value="Log in" />
                     </div>
 
-                </div>
-
-
             </div>
 
         <!-- /.login-box-body -->
-        </div>
 <script>
   $(function () {
     $('input').iCheck({
@@ -92,7 +82,6 @@
     </form>
               </div>
         </div>
- </div>
 
 
     <div>
