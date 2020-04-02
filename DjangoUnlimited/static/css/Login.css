@@ -1,31 +1,42 @@
-.overall-page{
-    display:flex;
-}
-.inside-container{
-margin: auto;
-    width: 60%;
-    height: auto;
-    background-color: #E8E8E8;
-    padding-top: 0px;
-    padding-bottom: 2em;
-    align: center;
-    border: 0.05em solid grey;}
+Form {
+            border-color: #D3D3D3;
+            border-style: solid;
+            color: black;
+            width: 40%;
+            height: 300px;
+            margin: auto;
+            margin-top:20px;
+            position: relative;
+            border: 3px solid #D3D3D3;
+        }
 
- .inside-container2{
- margin: auto;
-    width: 60%;
-    height: auto;
-    background-color: #F8F8F8;
-    padding-top:1em;
-    padding-left: 3em;
-    padding-right: 3em;
-    align: center;
-    border: 0.05em solid grey;
+        h2 {
+
+            padding-left:20px;
+            padding-top:5px;
+        }
+        .headtop{
+               width: 100%;
+               height:40px;
+        }
+
+.bgimg {
+    background-image: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.1)), url(img/erpimg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
+.btn-size {
+    height: 30px;
+    font-size: 18px;
+}
+
+body{
+font-family: Arial;}
 
 input[type=email], select {
   width: 100%;
-  padding: 12px 20px;
+  padding: 10px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -34,14 +45,10 @@ input[type=email], select {
 }
 input[type=password], select {
   width: 100%;
-  padding: 12px 20px;
+  padding: 10px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
-.btn-size {
-    height: 30px;
-    font-size: 18px;
 }

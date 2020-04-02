@@ -1,5 +1,6 @@
 body{
     margin: 0px;
+    font-family: Arial;
 }
 
 
@@ -37,7 +38,7 @@ nav{
 
 /* the over styling of nav menu-content*/
 .menu>.menu-content{
-
+    width: 200px;
     height: 8em;
     float: right;
     font-size: 13px;
