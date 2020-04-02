@@ -22,6 +22,7 @@ class Student(models.Model):
     dp = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
     cv = models.FileField(upload_to='documents', default='../staticfiles/DefaultCV.txt')
 
+
     def __str__(self):
         name = self.user.first_name + ' ' + self.user.last_name
         return name

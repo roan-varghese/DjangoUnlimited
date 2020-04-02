@@ -1,8 +1,8 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-    <link rel="stylesheet" rel = "text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type = "text/css" href="{% static 'css/Registor.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Registor.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -14,17 +14,13 @@
 
 
     <script language="JavaScript">
-        function disable_fields(status)
-        {
-            if(status)
-            {
+        function disable_fields(status) {
+            if (status) {
                 document.getElementById('id_expected_graduation_date').disabled = true
                 document.getElementById('id_personal_email').disabled = true
                 document.getElementById('id_personal_email').required = false
                 document.getElementById('id_expected_graduation_date').required = false
-            }
-            else
-            {
+            } else {
                 document.getElementById('id_expected_graduation_date').disabled = false
                 document.getElementById('id_personal_email').disabled = false
                 document.getElementById('id_personal_email').required = true
@@ -35,115 +31,136 @@
 
 </head>
 <header>
-        <nav>
-            <section class= "nav-container">
-                <div class = "logo"><img src="{% static 'images/murdochlogo.png' %}" alt = "Murdoch University Logo" height="60.0em" width="170.0em"></div>
-                <aside class="menu">
-                    <div class="menu-content">
-                        <a href="/accounts/login"><i class="userlogin "></i>Login</a>
-                    </div>
-                </aside>
-            </section>
-        </nav>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    <a href="/employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
+                    <a href="/accounts/login"><i class="userlogin "></i>Login</a>
+                </div>
+            </aside>
+        </section>
+    </nav>
 
-        <div class="bottomnav">
-            <a class="active" href="/"> <b>Home</b></a>
-        </div>
-    </header>
+    <div class="bottomnav">
+        <a class="active" href="/"> <b>Home</b></a>
+    </div>
+</header>
 <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
 
 <br>
-     <div class = "overall-page">
+<div class="overall-page">
 
-        <div class = "inside-container" >
-            <div class = "overall-page"> </div>
+    <div class="inside-container">
+        <div class="overall-page"></div>
 
-            <h2 align = "center">Create an account to browse jobs</h2><br>
+        <h2 align="center">Create an account to browse jobs</h2><br>
 
-            <div class = "inside-container2">
+        <div class="inside-container2">
 
-                <form method="post" action="student_registration">
-                    {% csrf_token %}
+            <form method="post" action="student_registration">
+                {% csrf_token %}
 
-                    {% for field in user_form %}
-                       <br> <div class = "Col1">{{ field.label }}: </div>
-                        <div class = "Col2">{{ field }}</div>
-                    {% endfor %}
+                {% for field in user_form %}
+                    <br>
+                    <div class="Col1">{{ field.label }}:</div>
+                    <div class="Col2">{{ field }}</div>
+                {% endfor %}
 
-                    {% for field in student_form %}
-                        {% if field != "student_id" %}
-                            <div class = "Col1">{{ field.label }}: </div>
-                            <div class = "Col2">{{ field }}</div>
-                        {% endif %}
-                    {% endfor %}
-                    <input type="checkbox" name="terms" required>
-                  <label>I have read and agree to the terms and conditions</label><br><br>
+                {% for field in student_form %}
+                    {% if field != "student_id" %}
+                        <div class="Col1">{{ field.label }}:</div>
+                        <div class="Col2">{{ field }}</div>
+                    {% endif %}
+                {% endfor %}
+                <input type="checkbox" name="terms" required>
+                <label>I have read and agree to the terms and conditions</label><br><br>
 
-        <div style="text-align:center;">
-            <input type="submit" style=" color: white; background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/> </div>
-                </form>
-
-            </div>
+                <div style="text-align:center;">
+                    <input type="submit"
+                           style=" color: white; background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/>
+                </div>
+            </form>
 
         </div>
 
-        <br>
+    </div>
+
+    <br>
     <!-- this displays any errors during submission -->
     <div>
         {% for message in messages %}
-            <h3> {{message}} </h3>
+            <h3> {{ message }} </h3>
         {% endfor %}
-    </div></div>
+    </div>
+</div>
 </body>
 <br><br>
 <!--This is the begining of the footer!-->
-    <footer>
-        <div class = "main">
+<footer>
+    <div class="main">
 
-            <!-- This is the 1st column of the footer!-->
-            <div class = "about">
-                <ul><h3>ABOUT US</h3>
-                    <a href = "https://www.murdochuniversitydubai.com/faq" style="color: white"> <li>FAQ</li> </a>
-                    <a href = "https://murdochdubaicareerportal.com/page/anti-scam" style="color: white"> <li>Anti-Scam</li> </a>
-                    <a href = ""><li style="color: white">Terms</li> </a>
-                    <a href = "https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white"><li>Privacy</li> </a>
-                </ul>
-            </div>
-
-            <!-- This is the 2nd column of the footer !-->
-            <div class = "sitemap">
-                <ul>
-                    <h3>SITEMAP</h3>
-                    <a href = "sitemap.html" style="color: white"><li> Sitemap </li> </a>
-                </ul>
-            </div>
-
-
-
-            <!-- This is the 3rd column of the footer !-->
-            <div class = "contact">
-                <h3> CONTACT US </h3>
-                <p class="para1">
-                    <b>Murdoch University Dubai</b>
-                    <br>
-                </p>
-                <p class="para2">
-                    Dubai International Academic City <br>
-                    Block 10, Fourth floor <br>
-                    P.O. Box 345005 <br>
-                    Dubai, United Arab Emirates
-                </p>
-
-            </div>
-
-            <!-- This is the 4th column of the footer !-->
-            <div class = "follow">
-                <h3> FOLLOW US </h3>
-                <a href= "https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src = "{% static 'images/twitter.png' %}" alt = "Twitter Icon" height="35.0em" width="35.0em"> </a>
-                <a href= "https://www.facebook.com/murdochdubai/"><img src= "{% static 'images/facebook.png' %}" alt = "Facebook Icon" height="40.0em" width="40.0em"> </a>
-                <a href= "https://www.linkedin.com/school/murdoch-university-dxb/"><img src = "{% static 'images/linkedin.png' %}" alt = "LinkedIn Icon" height="35.0em" width="35.0em"></a>
-                <a href = "https://www.instagram.com/murdochdubai/?hl=en"><img src = "{% static 'images/insta.png' %}" alt = "Instagram Icon" height="40.0em" width="47.0em"></a>
-            </div>
+        <!-- This is the 1st column of the footer!-->
+        <div class="about">
+            <ul><h3>ABOUT US</h3>
+                <a href="https://www.murdochuniversitydubai.com/faq" style="color: white">
+                    <li>FAQ</li>
+                </a>
+                <a href="https://murdochdubaicareerportal.com/page/anti-scam" style="color: white">
+                    <li>Anti-Scam</li>
+                </a>
+                <a href="">
+                    <li style="color: white">Terms</li>
+                </a>
+                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white">
+                    <li>Privacy</li>
+                </a>
+            </ul>
         </div>
-    </footer>
+
+        <!-- This is the 2nd column of the footer !-->
+        <div class="sitemap">
+            <ul>
+                <h3>SITEMAP</h3>
+                <a href="sitemap.html" style="color: white">
+                    <li> Sitemap</li>
+                </a>
+            </ul>
+        </div>
+
+
+        <!-- This is the 3rd column of the footer !-->
+        <div class="contact">
+            <h3> CONTACT US </h3>
+            <p class="para1">
+                <b>Murdoch University Dubai</b>
+                <br>
+            </p>
+            <p class="para2">
+                Dubai International Academic City <br>
+                Block 10, Fourth floor <br>
+                P.O. Box 345005 <br>
+                Dubai, United Arab Emirates
+            </p>
+
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
+        <div class="follow">
+            <h3> FOLLOW US </h3>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
+                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
+            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
+                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
+            </a>
+            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
+                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
+            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
+                                                                         alt="Instagram Icon" height="40.0em"
+                                                                         width="47.0em"></a>
+        </div>
+    </div>
+</footer>
 </html>

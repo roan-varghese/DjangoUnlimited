@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-<link rel="stylesheet" rel="text/css" href="{% static 'css/index.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/index.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -35,39 +35,39 @@
 
 
     <div class="bottomnav">
-        <a class="active" href="#home"> <b>Home</b></a>
+        <a class="active" href="/"> <b>Home</b></a>
     </div>
 </header>
 
 <body>
 {% csrf_token %}
 {% if user.is_authenticated %}
-{% if user_type == 'student' %}
+    {% if user_type == 'student' %}
 
-<!-- displays welcome message -->
-<h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3> <!-- displays welcome message -->
-<p><a href="../student/view_student_profile">My Profile</a>
-<p><a href="../view_jobs">BROWSE JOBS</a>
-    {% elif user_type == 'employer' %}
+        <!-- displays welcome message -->
+        <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3> <!-- displays welcome message -->
+        <p><a href="../student/view_student_profile">My Profile</a>
+        <p><a href="../view_jobs">BROWSE JOBS</a>
+            {% elif user_type == 'employer' %}
 
-<!-- displays welcome message -->
-<h3>Welcome, {{ obj.company_name }}</h3>
-<p><a href="../employer/view_employer_profile">My Employer Profile</a></p>
-<p><a href="../view_jobs">MY JOBS</a>
-<p><a href="../create_job">POST A JOB</a></p>
-{% elif user_type == 'admin' %}
+            <!-- displays welcome message -->
+        <h3>Welcome, {{ obj.company_name }}</h3>
+        <p><a href="../employer/view_employer_profile">My Employer Profile</a></p>
+        <p><a href="../view_jobs">MY JOBS</a>
+        <p><a href="../create_job">POST A JOB</a></p>
+    {% elif user_type == 'admin' %}
 
-<!-- displays welcome message -->
-<h3>Welcome, {{user.first_name}} {{ user.last_name }}</h3>
-<p><a href="../create_job">POST A JOB</a></p>
-<p><a href="../view_jobs">VIEW ALL JOBS</a>
+        <!-- displays welcome message -->
+        <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3>
+        <p><a href="../create_job">POST A JOB</a></p>
+        <p><a href="../view_jobs">VIEW ALL JOBS</a>
     {% endif %}
-<p><a href="../accounts/logout">LOGOUT</a></p>
+    <p><a href="../accounts/logout">LOGOUT</a></p>
 {% else %}
-<p><a href="accounts/login">LOGIN</a></p>
-<p><a href="admin">ADMIN - > LOGIN</a></p>
-<p><a href="student/student_registration">STUDENT -> REGISTER</a></p>
-<p><a href="employer/employer_registration">EMPLOYER -> REGISTER</a></p>
+    <p><a href="accounts/login">LOGIN</a></p>
+    <p><a href="admin">ADMIN - > LOGIN</a></p>
+    <p><a href="student/student_registration">STUDENT -> REGISTER</a></p>
+    <p><a href="employer/employer_registration">EMPLOYER -> REGISTER</a></p>
 {% endif %}
 <div class="home_img"><img src="{% static 'images/homeimg.jpg' %}" alt="Home page image"></div>
 <br><br>

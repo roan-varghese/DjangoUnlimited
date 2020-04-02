@@ -32,14 +32,14 @@ def index(request):
 @login_required
 def view_jobs(request):
     user = get_user_type(request)
-
+    print(user)
     if user['user_type'] == 'employer':
         jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted')
         args = {'jobs': jobs, 'company': user['obj']}
     elif user['user_type'] == 'student' or user['user_type'] == 'admin':
         jobs = Job.objects.all().order_by('-date_posted')
         companies = Employer.objects.all()
-        args = {'jobs': jobs, 'companies': companies}
+        args = {'jobs': jobs, 'companies': companies, 'user_type': user}
     else:
         return redirect('/')
     return render(request, 'browse_jobs.html', args)

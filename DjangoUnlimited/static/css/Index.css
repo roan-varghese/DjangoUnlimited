@@ -3,8 +3,6 @@ body{
     font-family: "Arial";
 }
 
-
-
 /* the position of overall nav  */
 nav{
     width:100%;
@@ -28,7 +26,6 @@ nav{
     top: 1.5em;
     left: 3.5em;
 }
-
 
 /*the navbar menu  of signup & login*/
 .menu{
@@ -133,6 +130,7 @@ a{
     color: black;
     text-decoration: none;
 }
+
 .main{
     background-color: rgb(29,26,26);
     display:flex;

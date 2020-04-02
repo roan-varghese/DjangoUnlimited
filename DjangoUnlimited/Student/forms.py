@@ -93,7 +93,6 @@ class StudentForm(forms.ModelForm):
                                             widget=forms.CheckboxSelectMultiple,
                                             required=True)
     dp = forms.ImageField(label='Select a profile picture', required=False)
-    cv = forms.FileField(allow_empty_file=False, label='Attach CV')
 
     class Meta:
         model = Student

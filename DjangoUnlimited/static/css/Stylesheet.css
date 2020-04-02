@@ -1,4 +1,5 @@
 body{
+    font-family: Arial;
     margin: 0px;
     font-family: Arial;
 }
@@ -27,7 +28,6 @@ nav{
     top: 1.5em;
     left: 3.5em;
 }
-
 
 /*the navbar menu  of signup & login*/
 .menu{
@@ -95,6 +95,7 @@ nav{
 }
 
 footer{
+    font-family: Arial;
     background-color: rgb(29,26,26);
     color: white;
     bottom: 0;
