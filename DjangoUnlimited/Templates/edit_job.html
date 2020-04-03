@@ -23,9 +23,6 @@
             {% endif %}
 
             <input type="hidden" name="next" value="{% url 'job_details' job.id %}">
-
-            <button type="button"><a href="{% url 'close_job' job.id %}"><b>Close Job</b></a></button>
-            <button type="button"><a href="{% url 'delete_job' job.id %}"><b>Delete Job</b></a></button>
             <button type="submit"><b>Save Changes</b></button>
             <button type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
         </form>

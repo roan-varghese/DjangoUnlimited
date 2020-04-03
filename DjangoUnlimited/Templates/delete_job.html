@@ -13,7 +13,7 @@
             {% block content %}
             <h2>Are you sure you want to delete the job {{ job.job_title }} ?</h2>
             <button class ="btn btn-outline-danger" type="submit"><b>Yes, Delete</b></button>
-            <button type="button"><a href="{% url 'edit_job' job.id %}"><b>Cancel</b></a></button>
+            <button type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
             </div>
             <br><br>
         </form>

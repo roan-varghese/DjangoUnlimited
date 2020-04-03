@@ -9,12 +9,13 @@ urlpatterns = [
     
     re_path(
         r'^password_reset/$',
-        auth_views.PasswordResetView.as_view(), 
+        auth_views.PasswordResetView.as_view(template_name = 'registration/password_reset_form.html', 
+        subject_template_name = 'registration/password_reset_subject.txt'), 
         name='password_reset'
     ),
     re_path(
         r'^password_reset/done/$', 
-        auth_views.PasswordResetDoneView.as_view(template_name = 'registration/password_link_sent.html'),
+        auth_views.PasswordResetDoneView.as_view(template_name = 'registration/password_link_sent.html', ),
         name='password_reset_done'
     ),
     re_path(
