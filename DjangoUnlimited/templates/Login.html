@@ -47,27 +47,26 @@
         <h2>Log In</h2>
     </div>
 
-
     <div class="login-box-body">
         <div class="form-group has-feedback">
 
             <strong>
                 Email Address
-
                 <input id="Email" type="Email" class="form-control" name="username" required/>
             </strong>
         </div>
-
         <div class="form-group has-feedback">
+            <strong>
             Password
-
             <input type="password" id="password" class="form-control" name="password"/>
+            </strong>
         </div>
-        <div class="form-checkbox">
-            <a style="padding-left:335px; color:black" href=" /accounts/password_reset/">Forgot password?</a><br>
-            <!-- <a href="password_reset">Forgot password?</a><br> -->
 
+        <div class="form-checkbox">
+            <a style="padding-left:335px; color:black" href=" /accounts/password_reset/">Forgot password?</a><br><br>
+            <!-- <a href="password_reset">Forgot password?</a><br> -->
         </div>
+
         <div style="text-align:right;">
             <input id="Button1" type="submit" class="btn"
                    style="background-color:rgb(204,0,0); width:80px; height:30px; color:white; font-weight:700 ; cursor:pointer"
@@ -86,17 +85,14 @@
     });
   });
 
-
     </script>
-
 </form>
-
 <!-- this displays any errors during submission -->
-    <div>
-        {% for message in messages %}
-            <h3> {{ message }} </h3>
-        {% endfor %}
-    </div>
+<div>
+    {% for message in messages %}
+    <h3> {{ message }} </h3>
+    {% endfor %}
+</div>
 
 </body>
 <br>
