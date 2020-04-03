@@ -2,6 +2,9 @@ body{
     font-family: Arial;
     margin: 0px;
     font-family: Arial;
+    min-height: 400px;
+    margin-bottom: 150px;
+    clear: both;
 }
 
 
@@ -102,6 +105,8 @@ footer{
     width: 100%;
     position: fixed;
     margin: auto;
+    font-size: 0.85em;
+    height:9em;
 }
 
 .para1{
