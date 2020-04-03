@@ -1,46 +1,151 @@
 {% load staticfiles %}
-{% block content %}
+<!-- Stylesheet -->
+{% block css %}
+<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
+{% endblock css %}
 
-    <form method="POST">
-        {% csrf_token %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+</head>
+<header>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                    <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
+                </div>
+            </aside>
+        </section>
+    </nav>
 
-        <h4><a href="/">Back to home</a></h4>
+    <div class="bottomnav">
+        <a class="active" href="/"> <b>Home</b></a>
+        <a href="../view_jobs"> <b>Browse Students</b></a>
+        <a href="../create_job"> <b> Post a job</b></a>
+        <a href="../news"> <b> News</b></a>
+    </div>
+</header>
+<br><br>
+<body>
 
-        <h3>{{ job.job_title }}</h3>
-        <p>{{ job.description }}</p>
-        <p>{{ job.location }} | {{ job.duration }} | AED {{ job.salary }}</p>
-        <p>Posted On: {{ job.date_posted }}</p>
 
-        Skills required:
-        {% for skill in job.skills.all %}
-            <li>{{ skill }}</li>
-        {% endfor %}
+</body>
+ <div class="overall-page">
+    <div class="inside-container">
+        <form method="POST">
+            {% csrf_token %}
 
-        {% for company in companies %}
-            {% if job.posted_by == company.user %}
+            <div class="icon">
+                {% for company in companies %}
+                {% if job.posted_by == company.user %}
                 {% if company.logo %}
-                    <img src="{{ company.logo.url }}"><br>
+                <img src="{{ company.logo.url }}" height="80.0em" width="90.0em"><br>
                 {% else %}
-                    <img src="{% static 'DefaultDP.jpg' %}"><br>
+                <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em"><br>
                 {% endif %}
+            </div>
+            <div class="inside-container2">
+
+                <h3>{{ job.job_title }}</h3>
+                <p>{{ job.description }}</p>
+                <p>{{ job.location }} | {{ job.duration }} | AED {{ job.salary }}</p>
+                <p>Posted On: {{ job.date_posted }}</p>
+
+                Skills required:
+                {% for skill in job.skills.all %}
+                <li>{{ skill }}</li>
+                {% endfor %}
 
                 <p>{{ company.company_name }}</p>
                 <p>{{ company.company_description }}</p>
-            {% endif %}
-        {% endfor %}
-
-        <p>{{ job.desc }}</p>
-        {% if user.user_type == 'student' %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <p>{{ job.desc }}</p>
+            {% if user.user_type == 'student' %}
             <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply</button>
-        {% else %}
-            <button type="button"><a href="{% url 'close_job' job.id %}"><b>Close Job</b></a></button>
-            <button type="button"><a href="{% url 'delete_job' job.id %}"><b>Delete Job</b></a></button>
-            <button type="button"><a href="{% url 'edit_job' job.id %}">Edit Job</a></button>
-            <button type="submit" name="viewcandidates" value="ViewCandidates&Save">&nbsp;View Candidates</button>
-        {% endif %}
+            {% else %}
+            <button class = "button2" type="button"><a href="{% url 'close_job' job.id %}"><b>Close Job</b></a></button>
+            <button class = "button2" type="button"><a href="{% url 'delete_job' job.id %}"><b>Delete Job</b></a></button>
+            <button class = "button2" type="button"><a href="{% url 'edit_job' job.id %}">Edit Job</a></button>
+            <button class = "button2" type="submit" name="viewcandidates" value="ViewCandidates&Save"><b> View Candidates</b></button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+</body>
+
+<!--This is the begining of the footer!-->
+<footer>
+    <div class="main">
+
+        <!-- This is the 1st column of the footer!-->
+        <div class="about">
+            <ul><h3>ABOUT US</h3>
+                <a href="https://www.murdochuniversitydubai.com/faq" style="color: white">
+                    <li>FAQ</li>
+                </a>
+                <a href="https://murdochdubaicareerportal.com/page/anti-scam" style="color: white">
+                    <li>Anti-Scam</li>
+                </a>
+                <a href="">
+                    <li style="color: white">Terms</li>
+                </a>
+                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white">
+                    <li>Privacy</li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- This is the 2nd column of the footer !-->
+        <div class="sitemap">
+            <ul>
+                <h3>SITEMAP</h3>
+                <a href="sitemap.html" style="color: white">
+                    <li> Sitemap</li>
+                </a>
+            </ul>
+        </div>
 
 
-        </body>
-    </form>
+        <!-- This is the 3rd column of the footer !-->
+        <div class="contact">
+            <h3> CONTACT US </h3>
+            <p class="para1">
+                <b>Murdoch University Dubai</b>
+                <br>
+            </p>
+            <p class="para2">
+                Dubai International Academic City <br>
+                Block 10, Fourth floor <br>
+                P.O. Box 345005 <br>
+                Dubai, United Arab Emirates
+            </p>
 
-{% endblock %}
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
+        <div class="follow">
+            <h3> FOLLOW US </h3>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
+                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
+            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
+                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
+            </a>
+            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
+                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
+            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
+                                                                         alt="Instagram Icon" height="40.0em"
+                                                                         width="47.0em"></a>
+        </div>
+    </div>
+</footer>
+</html>
