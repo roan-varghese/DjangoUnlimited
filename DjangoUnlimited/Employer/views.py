@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
@@ -16,6 +17,8 @@ from django.core.mail import send_mail
 from DjangoUnlimited.settings import SENDGRID_API_KEY
 
 import os
+import csv
+
 
 def signup(request):
     if request.method == 'POST':
@@ -56,7 +59,7 @@ def signup(request):
                                 html_content="A new Employer has registered to use the Murdoch Career Portal."
                             )
                             sg = SendGridAPIClient(SENDGRID_API_KEY)
-                          #  sg.send(message)
+                        #  sg.send(message)
 
                         return redirect("log_in")
                     else:
@@ -74,6 +77,7 @@ def signup(request):
         employer_form = EmployerForm()
         args = {'employer_form': employer_form, 'user_form': user_form}
         return render(request, 'employer_registration.html', args)
+
 
 @login_required
 def edit_profile(request):
@@ -95,7 +99,19 @@ def edit_profile(request):
     else:
         messages.info(request, 'This employer user does not exist')
 
+
 @login_required
 def view_profile(request):
     employer = Employer.objects.get(user_id=request.user.id)
     return render(request, 'view_employer_profile.html', {'employer': employer})
+
+
+def getfile(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="file.csv"'
+    employers = Employer.objects.all()
+    writer = csv.writer(response)
+    writer.writerow(['1002', 'Amit', 'Mukharji', 'LA', '"Testing"'])
+    for employer in employers:
+        writer.writerow([employer.company_name, employer.company_description, employer.phone_number])
+    return response

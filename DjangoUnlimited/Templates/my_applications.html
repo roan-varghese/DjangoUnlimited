@@ -1,46 +1,39 @@
 {% load staticfiles %}
 
 {% block css %}
-    <style>
+<style>
         b, strong {
             font-weight: initial !important;
         }
 
-    </style>
+
+</style>
 {% endblock css %}
 
 {% block content %}
 
-    <div class="container-fluid mainmargin">
-        <div class="row">
-            <div class="offset-md-1 col-md-10 bg-white card-shadow p-0">
-                <h2 class="text-bold ccm-blue-background white p-3 font-15"> List of My Jobs</h2>
-                <div class="p-3">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Date Applied</th>
-                            <th>Job ID</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for job in jobs_applied %}
-                            <tr>
-                            <td>{{ job.date_applied }}</td>
-                            <td>{{ job.job_id }}</td>
-                        {% endfor %}
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date Applied</th>
+        <th>Job ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for job in jobs_applied %}
+    <tr>
+        <td>{{ job.date_applied }}</td>
+        <td>{{ job.job_id }}</td>
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+
 
 {% endblock %}
 
 {% block js %}
-    <script>
+<script>
         // the initialisation of dataTables and set the ordering of first column
 
         $('.table').DataTable({
@@ -49,5 +42,6 @@
         });
 
 
-    </script>
+
+</script>
 {% endblock %}

@@ -1,74 +1,66 @@
 {% block css %}
-    <style>
+<style>
         b, strong {
             font-weight: initial !important;
         }
-    </style>
+
+</style>
 {% endblock css %}
 
 {% block content %}
 
-    {% if user.user_type == 'admin' %}
-        <div class="container-fluid mainmargin">
-            <div class="row">
-                <div class="offset-md-1 col-md-10 bg-white card-shadow p-0">
-                    <h2 class="text-bold ccm-blue-background white p-3 font-15"> List of HelpDesk Requests</h2>
-                    <div class="p-3">
-                        <table class="table ">
-                            <thead>
-                            <tr class="text-center">
-                                <th>Request Date</th>
-                                <th>Requester</th>
-                                <th>Subject</th>
-                                <th>Action</th>
-                                <th>Completed Date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for helpDeskRequest in helpDeskRequests %}
-                                <tr class="text-center">
-                                    <td class="align-middle">
-                                        {{ helpDeskRequest.issue_date|date:"F d, Y"}}
-                                    </td>
-                                    <td class="align-middle">
+{% if user.user_type == 'admin' %}
 
-                                        {{ helpDeskRequest.name_Request }}
-                                    </td>
-                                    <td class="align-middle">
-                                        {{ helpDeskRequest.subject }}
-                                    </td>
-                                    <td>
-                                        <button id="submitbutton" type="submit" name="submitbutton"
-                                                value="{{ itsupportRequest.id }}"
-                                                class="btn btn-ccm btn-sm submitbutton"
-                                                {% if helpDeskRequest.completed_date %}disabled>Closed{% else %}>Mark as
-                                                    resolved{% endif %}
-                                        </button>
-                                    </td>
-                                    <td class="align-middle">
-                                        {{ helpDeskRequest.completed_date|date:"F d, Y"}}
-                                    </td>
-                                </tr>
-                                {% empty %}
-                                <tr>
-                                    <td colspan="3" class="text-center">
-                                        <h4>
-                                            There are currently no pending requests.
-                                        </h4>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
+<table class="table ">
+    <thead>
+    <tr class="text-center">
+        <th>Request Date</th>
+        <th>Requester</th>
+        <th>Subject</th>
+        <th>Action</th>
+        <th>Completed Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for helpDeskRequest in helpDeskRequests %}
+    <tr class="text-center">
+        <td class="align-middle">
+            {{ helpDeskRequest.issue_date|date:"F d, Y"}}
+        </td>
+        <td class="align-middle">
+
+            {{ helpDeskRequest.name_Request }}
+        </td>
+        <td class="align-middle">
+            {{ helpDeskRequest.subject }}
+        </td>
+        <td>
+            <button id="submitbutton" type="submit" name="submitbutton"
+                    value="{{ itsupportRequest.id }}"
+                    {% if helpDeskRequest.completed_date %}disabled>Closed{% else %}>Mark as
+                resolved{% endif %}
+            </button>
+        </td>
+        <td class="align-middle">
+            {{ helpDeskRequest.completed_date|date:"F d, Y"}}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3" class="text-center">
+            <h4>
+                There are currently no pending requests.
+            </h4>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
 {% endblock %}
 
 {% block js %}
-    <script>
+<script>
 
         // the initialisation of dataTables and set the ordering of first column
         $('.table').DataTable({
@@ -97,5 +89,6 @@
             });
         })
 
-    </script>
+
+</script>
 {% endblock %}

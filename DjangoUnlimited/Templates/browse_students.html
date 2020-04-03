@@ -3,59 +3,52 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Browse Students</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Browse Students</title>
+</head>
 
-    <body>
+<body>
 
-        <div class="page">
-            <div class="container-fluid mainmargin">
-                <div class="row">
-                    <div class="offset-md-1 col-md-10 bg-white card-shadow p-0">
-                        <h2 class="text-bold ccm-blue-background white p-3 font-15">Browse Students</h2>
 
-                        <h5><a href ='view_students'>View All Students</a></h5>
-                        <div class="p-3">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Student Name</th>
-                                    <th>Email</th>
-                                    <th>Expected Graduation Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for student in students %}
-                                    <tr>
-                                    <td><a href="{% url 'student_details' student.user_id %}">{{ student.user.first_name }}  {{ student.user.last_name }}</a></td>
-                                    <td> {{student.user}} </td>
-                                    <td>{{student.expected_graduation_date}}</td>
-                                {% endfor %}
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<h2>Browse Students</h2>
 
-        <button type="Submit"><a href = 'filter_students'>Filter Students</a></button>
-    </body>
+<h5><a href='view_students'>View All Students</a></h5>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Expected Graduation Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for student in students %}
+    <tr>
+        <td><a href="{% url 'student_details' student.user_id %}">{{ student.user.first_name }} {{
+            student.user.last_name }}</a></td>
+        <td> {{student.user}}</td>
+        <td>{{student.expected_graduation_date}}</td>
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+
+<button type="Submit"><a href='filter_students'>Filter Students</a></button>
+</body>
 
 </html>
 
 {% endblock %}
 
 {% block js %}
-    <script>
+<script>
         // the initialisation of dataTables and set the ordering of first column
 
         $('.table').DataTable({
             "order": [[0, "desc"]],
             scrollX: true
         });
-    </script>
+
+</script>
 {% endblock %}
