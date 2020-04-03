@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import models, HiddenInput
 from django.contrib.auth.models import User
+from upload_validator import FileTypeValidator
 
 from .models import Employer
 
@@ -61,7 +62,9 @@ class InitialEmployerForm(forms.ModelForm):
         
 
 class EmployerForm(forms.ModelForm):
-    logo = forms.ImageField(label='Logo', required=False)
+    logo = forms.ImageField(label='Logo', required=False, help_text="Only jpeg or png file formats allowed.", validators=[FileTypeValidator(
+                                                                                                                allowed_types=['image/jpeg','image/png']
+                                                                                                                )])
     company_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
                                                                 attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
     company_description = forms.CharField(required=False, widget=forms.Textarea)

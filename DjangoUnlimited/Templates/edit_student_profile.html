@@ -47,7 +47,6 @@
                 document.getElementById('id_expected_graduation_date').required = true
             }
         }
-
     </script>
 
 </head>
@@ -86,8 +85,8 @@
                 {% endfor %}
 
                 {% for field in student_form %}
-                <div class="Col1">{{ field.label }}:</div>
-                <div class="Col2">{{ field }}</div>
+                    <div class="Col1">{{ field.label }}:</div>
+                    <div class="Col2">{{ field }}</div>
                 {% endfor %}
                 <button class="button2" type="submit"><b>Save Changes</b></button>
                 <button class="button2" type="button"><a href="view_student_profile"><b>Cancel</b></a></button>

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import models
 from datetime import date
+from upload_validator import FileTypeValidator
 
 from .models import Student, StudentJobApplication
 from Home.models import Skill
@@ -92,7 +93,12 @@ class StudentForm(forms.ModelForm):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
                                             widget=forms.CheckboxSelectMultiple,
                                             required=True)
-    dp = forms.ImageField(label='Select a profile picture', required=False)
+    dp = forms.ImageField(label='Select a profile picture', required=False, help_text="Only jpeg or png file formats allowed.", validators=[FileTypeValidator(
+                                                                                                                                    allowed_types=['image/jpeg','image/png']
+                                                                                                                                )])
+    cv = forms.FileField(allow_empty_file=False, label='Attach CV', help_text="Only PDF or MS Word files allowed.", validators=[FileTypeValidator(
+                                                                                                                        allowed_types=["application/pdf", "application/msword"]
+                                                                                                                     )])
 
     class Meta:
         model = Student
@@ -135,8 +141,12 @@ class EditStudentProfileForm(forms.ModelForm):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
                                             widget=forms.CheckboxSelectMultiple,
                                             required=True)
-    dp = forms.ImageField(label='Select a profile picture', required=False)
-    cv = forms.FileField(allow_empty_file=False, label='Attach CV')
+    dp = forms.ImageField(label='Select a profile picture', required=False, help_text="Only jpeg or png file formats allowed.", validators=[FileTypeValidator(
+                                                                                                                                    allowed_types=['image/jpeg','image/png']
+                                                                                                                                )])
+    cv = forms.FileField(allow_empty_file=False, label='Attach CV', help_text="Only PDF or MS Word files allowed.", validators=[FileTypeValidator(
+                                                                                                                        allowed_types=["application/pdf", "application/msword"]
+                                                                                                                     )])
 
     class Meta:
         model = Student

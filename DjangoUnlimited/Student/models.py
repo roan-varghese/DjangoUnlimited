@@ -26,13 +26,6 @@ class Student(models.Model):
     def __str__(self):
         name = self.user.first_name + ' ' + self.user.last_name
         return name
-'''
-class StudentSkill(models.Model):
-    #student_user = str
-    student_user = models.ForeignKey(Student, null=True, on_delete=models.CASCADE, related_name='student_user')
-    skill_id = models.ForeignKey(Skill, null=True, on_delete=models.CASCADE, related_name='student_skill')
-    date_skill_added = models.DateTimeField(null=True, auto_now_add=True)
-'''
 
 class StudentJobApplication(models.Model):
     job_id = models.ForeignKey(Job, null=True, on_delete=models.CASCADE, related_name='student_job')

@@ -134,7 +134,7 @@ def create_job(request):
             args = {'form': form, 'user': 'employer'}
             return render(request, "employer_create_jobs.html", args)
     except Employer.DoesNotExist:
-        return redirect('log_in')
+        pass
 
     try:
         admin = Admin.objects.get(user_id=request.user.id)
@@ -164,7 +164,9 @@ def create_job(request):
             args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
             return render(request, "employer_create_jobs.html", args)
     except Admin.DoesNotExist:
-        return redirect('log_in')
+        pass
+
+    return redirect('log_in')
 
 
 @login_required
@@ -212,7 +214,7 @@ def edit_job(request, id):
             args = {'job': job, 'jobForm': jobForm, 'user': 'employer'}
             return render(request, 'edit_job.html', args)
     except Employer.DoesNotExist:
-        return redirect('log_in')
+        pass
 
     try:
         admin = Admin.objects.get(user_id=request.user.id)
@@ -240,7 +242,9 @@ def edit_job(request, id):
             args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
             return render(request, 'edit_job.html', args)
     except Admin.DoesNotExist:
-        return redirect('log_in')
+        pass
+
+    return redirect('log_in')
     
 @login_required
 def my_applications(request):

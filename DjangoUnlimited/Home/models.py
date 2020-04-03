@@ -56,7 +56,7 @@ class Job(models.Model):
     location = models.CharField(max_length=100)
     job_type_id = models.ForeignKey(JobType, on_delete=models.CASCADE, related_name='job_type')
     industry_id = models.ForeignKey(Industry, on_delete=models.CASCADE, related_name='job_industry')
-    duration = models.DurationField(null=True)
+    duration = models.IntegerField(null=True, validators=[MinValueValidator(1)])
     salary = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(0.00)])
     skills = models.ManyToManyField(Skill)
 
