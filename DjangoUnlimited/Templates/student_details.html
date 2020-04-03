@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Student_details</title>
+    <title>Student Details</title>
 </head>
 <header>
     <nav>
@@ -19,7 +19,7 @@
                                    height="60.0em" width="170.0em"></div>
             <aside class="menu">
                 <div class="menu-content">
-                    <a href="../student/view_student_profile"> {{ user.first_name }} </a>
+                    <a href="../employer/view_employer_profile"> {{ user.obj.company_name }} </a>
                     <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
                 </div>
             </aside>
@@ -42,8 +42,7 @@
                 <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em"><br>
                 {% endif %}
             </div>
-            <div style="align:center; padding-top: 20px;"><h3>{{student.user.first_name}}
-                {{student.user.last_name}} </h3></div>
+            <div style="align:center; padding-top: 20px;"><h3>{{student.user.first_name}} {{student.user.last_name}} </h3></div>
         </div>
         <div class="inside-container2">
             <form method="POST">
@@ -63,8 +62,6 @@
                 {% for skill in student.skills.all %}
                 <li>{{ skill }}</li>
                 {% endfor %}
-
-                <p>CV: {{ student.cv}}</p>
 
                 <div style="text-align:center">
                     <button type="submit"

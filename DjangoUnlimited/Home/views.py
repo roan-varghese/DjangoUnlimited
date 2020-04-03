@@ -281,7 +281,7 @@ def news(request):
     page = request.GET.get('page')
     mylist = paginator.get_page(page)
 
-    args = {'mylist': mylist}
+    args = {'mylist': mylist, 'user': get_user_type(request)}
 
     return render(request, 'news.html', args)
 
@@ -333,8 +333,7 @@ def view_students(request):
 @login_required
 def student_details(request, id):
     student = Student.objects.get(user_id=id)
-    skills = Skill.objects.all()
-    args = {'student': student, 'user': get_user_type(request), 'skills': skills}
+    args = {'student': student, 'user': get_user_type(request)}
     return render(request, 'student_details.html', args)
 
 
