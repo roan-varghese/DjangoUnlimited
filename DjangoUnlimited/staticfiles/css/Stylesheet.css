@@ -2,29 +2,28 @@ body{
     margin: 0px;
 }
 
+
 /* the position of overall nav  */
 nav{
     width:100%;
-    height: 8.5em;
+    height: 5.8em;
     position: relative;
     background: black;
-
 }
 
 /* the section contains the nav-container */
 .nav-container{
     width:100%;
     position: relative;
-    background: black;
+    background: rgb(29,26,26);
     overflow: hidden;
-
 }
 
-/* the postion of overall murdochlogo */
+/* the position of overall murdoch logo */
 .nav-container>.logo{
     float:left;
-    position: fixed;
-    top: 0.5em;
+    position: relative;
+    top: 1.5em;
     left: 3.5em;
 }
 
@@ -33,25 +32,24 @@ nav{
 .menu{
     width: 100%;
     height: 1em;
-    background: black;
+    background: rgb(29,26,26);
 }
 
 /* the over styling of nav menu-content*/
 .menu>.menu-content{
-    width: 200px;
-    height: 6.0em;
+
+    height: 11em;
     float: right;
     font-family: Segoe UI;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
     letter-spacing: 1px;
     position: relative;
     line-height: 100px;
-    background: black;
-    padding-bottom: 20px;
+    background: rgb(29,26,26);
 }
 
-.menu>.menu-content>a{
+.menu>.menu-content>a {
     color: white;
     text-align: center;
     text-decoration: none;
@@ -69,15 +67,15 @@ nav{
 
 
 .menu>.menu-content>a:hover{
-    color: red;
+    color: rgb(204,0,0);
 }
 
 
 /*This section contains the styling of bottomnav*/
 .bottomnav {
     overflow: hidden;
-    background-color: red;
-     height: 40px;
+    background-color: rgb(204,0,0);
+    height: 4.3em;
 }
 
 .bottomnav a {
@@ -85,22 +83,21 @@ nav{
     color: white;
     text-align: center;
     padding: 1em 1em ;
-    padding-top: 0.2em;
-    padding-left: 2.5em;
+    padding-top: 1.5em;
+    padding-left: 3.5em;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 18px;
     font-family: Segoe UI;
 }
 
 
 footer{
-    background-color: black;
+    background-color: rgb(29,26,26);
     color: white;
-    font-family: "Arial" ;
     bottom: 0;
     left:0;
     width: 100%;
-    position: fixed;
+    position: static;
     margin: auto;
 }
 
@@ -109,30 +106,30 @@ footer{
     padding-bottom: 0;
     border:0;
     margin: 0;
-    font-size: 12px;
-
 }
 
 .para2{
-    font-size: 10px;
+    font-size: 0.75em;
     padding:0;
     border:0;
     margin: 0;
-
 }
 
 ul{
     list-style-type:none;
 }
 
-a{
+ul>a{
     color: white;
-    font-family: "Arial" ;
     text-decoration: none;
 }
 
+a{
+    color: black;
+    text-decoration: none;
+}
 .main{
-    background-color: black;
+    background-color: rgb(29,26,26);
     display:flex;
     width: 100%;
     bottom: 0;
@@ -142,13 +139,10 @@ a{
 
 .about{
     flex:1;
-    font-size: 10px;
-
 }
 
 .sitemap{
     flex:1;
-    font-size: 10px;
 }
 .helpDesk{
     flex:1;
@@ -156,11 +150,8 @@ a{
 
 .contact{
     flex:1;
-      font-size: 10px;
 }
 
 .follow{
     flex:1;
-      font-size: 10px;
 }
-

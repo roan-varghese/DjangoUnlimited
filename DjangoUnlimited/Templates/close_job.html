@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Close Job</title>
+</head>
+<body>
+<script>
+      function validate(form) {
+    var rb =document.querySelector('input[name="isMurdochStd"]:checked').value
+    if(rb =='no'){
+        alert("Jobs can only be closed if filled by murdoch students. Please delete the job instead.")
+        return false
+    }
+    else{
+        return true
+     }
+    return true
+ }
+
+</script>
+
+    <h4><a href="/">Back to home</a></h4>
+    <div>
+        <form method='POST' onsubmit= "return validate(this)">
+
+            {% csrf_token %}
+            {% block content %}
+            <h2>Are you sure you want to close the job {{ job.job_title }} ?</h2>
+
+            <h3>Did a Murdoch Student get this job?</h3>
+
+            <input type='radio' name='isMurdochStd' value='yes' id='yes' onclick="validate(this)"> Yes<br>
+            <input type='radio' name='isMurdochStd' value='no' id='no' onclick="validate(this)" > No<br>
+            <br>
+
+            <button class ="btn btn-outline-danger" type="submit" onsubmit= "return validate(this)" ><b>Close</b></button>
+            <button type="button"><a href="{% url 'edit_job' job.id %}"><b>Cancel</b></a></button>
+
+            </div>
+            <br><br>
+        </form>
+        <div>
+            {% for message in messages %}
+                <h3> {{message}} </h3>
+            {% endfor %}
+        </div>
+        {% endblock %}
+</body>
+</html>

@@ -2,8 +2,9 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
 {% endblock css %}
+
 
 
 {% block content %}
@@ -22,7 +23,7 @@
             <aside class="menu">
                 <div class="menu-content">
                     <a href="../accounts/logout"><i class="userlogin"></i>LOG OUT</a>
-                    <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
+                    <a href = "../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
                 </div>
             </aside>
         </section>
@@ -55,14 +56,14 @@
                     {% for job in jobs %}
                     <tr>
                         <td>{{job.date_posted}}</td>
-                        <td> {{job.job_title}}</td>
+                        <td>  {{job.job_title}} </td>
                         <td>{{job.description}}</td>
                         <td>{{job.location}}</td>
                         <td>{{job.salary}}</td>
                         <td>{{job.duration}}</td>
                         <td>{{job.industry_id}}</td>
                         <td>{{job.job_type_id}}</td>
-                        <td><a href="{% url 'job_details' job.id %}"> {{job.job_title}} </a></td>
+                         <td> <a href ="{% url 'job_details' job.id %}"> {{job.job_title}} </a></td>
                         {% endfor %}
                     </tr>
                     </tbody>
@@ -72,36 +73,29 @@
     </div>
 </div>
 
-{% for company in companies %}
-{% if job.posted_by == company.user %}
-<p>{{ company.company_name }}</p>
-{% if company.logo %}
-<img src="{{ company.logo.url }}"><br>
-{% else %}
-<img src="{% static 'DefaultDP.jpg' %}"><br>
-{% endif %}
-{% endif %}
-{% endfor %}
-
-<body>
+    {% for company in companies %}
+        {% if job.posted_by == company.user %}
+            <p>{{ company.company_name }}</p>
+            {% if company.logo %}
+                <img src="{{ company.logo.url }}"><br>
+            {% else %}
+                <img src="{% static 'DefaultDP.jpg' %}"><br>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
 
 <div class="job_post">
-    <h2>Filter Job Listing</h2>
-    <hr>
+        <h2>Filter Job Listing</h2>
+        <hr>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
+        <form method="POST">
 
+            {% csrf_token %}
+            {{ form.as_p }}
 
-        <button class="button2" type="Submit"><b>Submit</b></button>
-
-    </form>
-
-</div>
-</body>
-
-
+            <button class = "button2" type="Submit"><b>Submit</b></button>
+        </form>
+    </div>
 <footer>
     <div class="main">
 
@@ -183,9 +177,6 @@
         "order": [[ 0, "desc" ]],
         scrollX: true
     });
-
-
-
 
 
 </script>

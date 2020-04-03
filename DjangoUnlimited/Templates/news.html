@@ -1,65 +1,66 @@
 {% load staticfiles %}
 
 {% block title %}
-<title>NEWS HEADLINES BY CNN</title>
+    <title>NEWS HEADLINES BY CNN</title>
 {% endblock title %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card-deck">
-                <!-- News Widget-->
-                <div class="card">
-                    <div class="card-header ccm-blue-background">
-                        <h5 class="white">Top Headlines</h5>
-                    </div>
-                    <div class="card-body">
-                        {% for new, des, i, urllink in mylist %}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="m-0">
-                                    <a href="{{urllink}}" class="ccm-blue text-bold" target="_blank">{{ new }}</a>
-                                </p>
-                                <hr>
-                            </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-deck">
+                    <!-- News Widget-->
+                    <div class="card">
+                        <div class="card-header ccm-blue-background">
+                            <h5 class="white">Top Headlines</h5>
                         </div>
-                        {% endfor %}
-                        <div class="row">
-                            <div class="offset-md-8 col-md-2">
-                                <div class="pagination">
-                                    {% if mylist.has_previous %}
-                                    <a class="pagination-action ccm-blue-background white padding10 marginright10"
-                                       href="?page=1">
-                                        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                                    </a>
-                                    {% endif %}
+                        <div class="card-body">
+                            {% for new, des, i, urllink in mylist %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="m-0">
+                                            <a href="{{ urllink }}" class="ccm-blue text-bold"
+                                               target="_blank">{{ new }}</a>
+                                        </p>
+                                        <hr>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="row">
+                                <div class="offset-md-8 col-md-2">
+                                    <div class="pagination">
+                                        {% if mylist.has_previous %}
+                                            <a class="pagination-action ccm-blue-background white padding10 marginright10"
+                                               href="?page=1">
+                                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                            </a>
+                                        {% endif %}
 
-                                    {% for num in mylist.paginator.page_range %}
+                                        {% for num in mylist.paginator.page_range %}
 
-                                    {% if mylist.number == num %}
-                                    <span class="pagination-number pagination-current ccm-blue-background white padding10 marginright10">{{ num }}</span>
-                                    {% elif num > mylist.number|add:'-3' and num < mylist.number|add:'3' %}
-                                    <a class="pagination-number ccm-blue-background white padding10 marginright10"
-                                       href="?page={{ num }}">{{ num }}</a>
-                                    {% endif %}
+                                            {% if mylist.number == num %}
+                                                <span class="pagination-number pagination-current ccm-blue-background white padding10 marginright10">{{ num }}</span>
+                                            {% elif num > mylist.number|add:'-3' and num < mylist.number|add:'3' %}
+                                                <a class="pagination-number ccm-blue-background white padding10 marginright10"
+                                                   href="?page={{ num }}">{{ num }}</a>
+                                            {% endif %}
 
-                                    {% endfor %}
+                                        {% endfor %}
 
-                                    {% if mylist.has_next %}
-                                    <a class="pagination-action ccm-blue-background white padding10 marginright10"
-                                       href="?page={{ mylist.paginator.num_pages }}">
-                                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                    </a>
-                                    {% endif %}
+                                        {% if mylist.has_next %}
+                                            <a class="pagination-action ccm-blue-background white padding10 marginright10"
+                                               href="?page={{ mylist.paginator.num_pages }}">
+                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock content%}
+    </div>
+{% endblock content %}
