@@ -3,225 +3,181 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
 {% endblock css %}
 
 
 
 {% block content %}
 
-
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Browse Jobs</title>
-    </head>
-    <header>
-        <nav>
-            <section class="nav-container">
-                <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                       height="60.0em" width="170.0em"></div>
-                <aside class="menu">
-                    <div class="menu-content">
-                        <a href="../accounts/logout"><i class="userlogin"></i>LOG OUT</a>
-                        {% if user_type.user_type == 'student' %}
-                            <a href="../student/view_student_profile"><i class="useradd "></i>{{ user.first_name }} {{ user.last_name }}</a>
-                        {% elif user_type.user_type == 'employer' %}
-                            <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ user_type.obj.company_name }}</a>
-                        {% elif user_type.user_type == 'admin' %}
-                            <a href="../admin"><i class="useradd "></i>{{ user.first_name }} {{ user.last_name }}</a>
-                        {% endif %}
-                    </div>
-                </aside>
-            </section>
-        </nav>
-
-        <div class="bottomnav">
-            <a class="active" href="/"> <b>Home</b></a>
-        </div>
-    </header>
-
-    <body>
-    <div class="s132">
-        <form>
-            <div class="inner-form">
-                <div class="input-field first-wrap">
-                    <div class="input-field second-wrap">
-                        <input id="search" type="text" placeholder="What?"/>
-                    </div>
-                    <div class="input-select">
-                        <select data-trigger="" name="choices-single-defaul">
-                            <option placeholder="">All Categories</option>
-                            <option>Subject A</option>
-                            <option>Subject B</option>
-                            <option>Subject C</option>
-                        </select>
-                    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browse Jobs</title>
+</head>
+<header>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    <a href="../accounts/logout"><i class="userlogin"></i>LOG OUT</a>
+                    <a href = "../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
                 </div>
-                <div class="input-field second-wrap">
-                    <input id="search" type="text" placeholder="Where?"/>
-                </div>
-                <div class="input-field third-wrap">
-                    <button class="btn-search" type="button">Search</button>
-                </div>
+            </aside>
+        </section>
+    </nav>
+
+    <div class="bottomnav">
+        <a class="active" href="#home"> <b>Home</b></a>
+    </div>
+</header>
+<div class="container-fluid mainmargin">
+    <div class="row">
+        <div class="offset-md-1 col-md-10 bg-white card-shadow p-0">
+            <h2 class="text-bold ccm-blue-background white p-3 font-15"> List of Jobs</h2>
+            <div class="p-3">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date Posted</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Salary</th>
+                        <th>Duration</th>
+                        <th>Industry</th>
+                        <th>Job Type</th>
+                        <th>View more details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for job in jobs %}
+                    <tr>
+                        <td>{{job.date_posted}}</td>
+                        <td>  {{job.job_title}} </td>
+                        <td>{{job.description}}</td>
+                        <td>{{job.location}}</td>
+                        <td>{{job.salary}}</td>
+                        <td>{{job.duration}}</td>
+                        <td>{{job.industry_id}}</td>
+                        <td>{{job.job_type_id}}</td>
+                         <td> <a href ="{% url 'job_details' job.id %}"> {{job.job_title}} </a></td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+    </div>
+</div>
+
+    {% for company in companies %}
+        {% if job.posted_by == company.user %}
+            <p>{{ company.company_name }}</p>
+            {% if company.logo %}
+                <img src="{{ company.logo.url }}"><br>
+            {% else %}
+                <img src="{% static 'DefaultDP.jpg' %}"><br>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+<div class="job_post">
+        <h2>Filter Job Listing</h2>
+        <hr>
+
+        <form method="POST">
+
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class = "button2" type="Submit"><b>Submit</b></button>
         </form>
     </div>
+<footer>
+    <div class="main">
 
-
-    <br><br>
-    <div class="page">
-        <div class="sidebar">
-            <br>
-            <h4>Date Posted</h4>
-            <h4>Job Type</h4>
-            <h4>Salary Pay Range</h4>
-            <h4>All Categories</h4>
-            <h4>Location</h4>
-
-        </div>
-
-        <div class="page">
-            <div class="container-fluid mainmargin">
-                <div class="row">
-                    <div class="offset-md-1 col-md-10 bg-white card-shadow p-0">
-                        <h2 class="text-bold ccm-blue-background white p-3 font-15"> Browse Jobs</h2>
-                        <div class="p-3">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Date Posted</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Location</th>
-                                    <th>Salary</th>
-                                    <th>Duration</th>
-                                    <th>Industry</th>
-                                    <th>Job Type</th>
-                                    <th>View more details</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for job in jobs %}
-                                    <tr>
-                                    <td>{{ job.date_posted }}</td>
-                                    <td>  {{ job.job_title }} </td>
-                                    <td>{{ job.description }}</td>
-                                    <td>{{ job.location }}</td>
-                                    <td>{{ job.salary }}</td>
-                                    <td>{{ job.duration }}</td>
-                                    <td>{{ job.industry_id }}</td>
-                                    <td>{{ job.job_type_id }}</td>
-                                    <td><a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a></td>
-                                {% endfor %}
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {% for company in companies %}
-            {% if job.posted_by == company.user %}
-                <p>{{ company.company_name }}</p>
-                {% if company.logo %}
-                    <img src="{{ company.logo.url }}"><br>
-                {% else %}
-                    <img src="{% static 'DefaultDP.jpg' %}"><br>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-
-
-    </body>
-
-
-    <footer>
-        <div class="main">
-            <!-- This is the 1st column of the footer!-->
-            <div class="about">
-                <ul><h3>ABOUT US</h3>
-                    <a href="https://www.murdochuniversitydubai.com/faq">
-                        <li>FAQ</li>
-                    </a>
-                    <a href="https://murdochdubaicareerportal.com/page/anti-scam">
-                        <li>Anti-Scam</li>
-                    </a>
-                    <a href="">
-                        <li>Terms</li>
-                    </a>
-                    <a href="https://www.murdochuniversitydubai.com/university-privacy-policy">
-                        <li>Privacy</li>
-                    </a>
-                </ul>
-            </div>
-
-            <!-- This is the 2nd column of the footer !-->
-            <div class="sitemap">
-                <ul>
-                    <h3>SITEMAP</h3>
-                    <a href="sitemap.html">
-                        <li> Sitemap</li>
-                    </a>
-                </ul>
-            </div>
-
-            <!-- This is the 3rd column of the footer !-->
-            <div class="helpDesk">
-                <h3></h3>
-
-            </div>
-
-            <!-- This is the 4th column of the footer !-->
-            <div class="contact">
-                <h3> CONTACT US </h3>
-                <p class="para1">
-                    <b>Murdoch University Dubai</b>
-                    <br>
-                </p>
-                <p class="para2">
-                    Dubai International Academic City <br>
-                    Block 10, Fourth floor <br>
-                    P.O. Box 345005 <br>
-                    Dubai, United Arab Emirates
-                </p>
-
-            </div>
-
-            <!-- This is the 5th column of the footer !-->
-            <div class="follow">
-                <h3> FOLLOW US </h3>
-                <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
-                    <img
-                            src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em">
+        <!-- This is the 1st column of the footer!-->
+        <div class="about">
+            <ul><h3>ABOUT US</h3>
+                <a href="https://www.murdochuniversitydubai.com/faq">
+                    <li>FAQ</li>
                 </a>
-                <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                      alt="Facebook Icon" height="40.0em"
-                                                                      width="40.0em">
+                <a href="https://murdochdubaicareerportal.com/page/anti-scam">
+                    <li>Anti-Scam</li>
                 </a>
-                <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                        src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-                <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                             alt="Instagram Icon" height="40.0em"
-                                                                             width="47.0em"></a>
-            </div>
+                <a href="">
+                    <li>Terms</li>
+                </a>
+                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy">
+                    <li>Privacy</li>
+                </a>
+            </ul>
         </div>
-    </footer>
-    </html>
+
+        <!-- This is the 2nd column of the footer !-->
+        <div class="sitemap">
+            <ul>
+                <h3>SITEMAP</h3>
+                <a href="sitemap.html">
+                    <li> Sitemap</li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- This is the 3rd column of the footer !-->
+        <div class="helpDesk">
+            <h3></h3>
+
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
+        <div class="contact">
+            <h3> CONTACT US </h3>
+            <p class="para1">
+                <b>Murdoch University Dubai</b>
+                <br>
+            </p>
+            <p class="para2">
+                Dubai International Academic City <br>
+                Block 10, Fourth floor <br>
+                P.O. Box 345005 <br>
+                Dubai, United Arab Emirates
+            </p>
+
+        </div>
+
+        <!-- This is the 5th column of the footer !-->
+        <div class="follow">
+            <h3> FOLLOW US </h3>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
+                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
+            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
+                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
+            </a>
+            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
+                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
+            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
+                                                                         alt="Instagram Icon" height="40.0em"
+                                                                         width="47.0em"></a>
+        </div>
+    </div>
+</footer>
+</html>
 
 {% endblock %}
 
 {% block js %}
-    <script>
-        // the initialisation of dataTables and set the ordering of first column
+<script>
+    // the initialisation of dataTables and set the ordering of first column
 
-        $('.table').DataTable({
-            "order": [[0, "desc"]],
-            scrollX: true
-        });
-    </script>
+     $('.table').DataTable({
+        "order": [[ 0, "desc" ]],
+        scrollX: true
+    });
+
+
+</script>
 {% endblock %}
