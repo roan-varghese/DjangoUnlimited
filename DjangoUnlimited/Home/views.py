@@ -287,12 +287,10 @@ def delete_job(request, id):
     job = Job.objects.get(id=id)
     if request.method == 'POST':
         job.status = 'Deleted'
-        #job.delete()
         job.save()
         messages.success(request, "You have successfully deleted the job")
         args = {'job': job}
         return render(request, 'delete_job.html', args)
-        #return render(request, 'edit_job.html', args)
     else:
         form = EditJobForm()
         args = {'job': job, 'form': form}
@@ -309,7 +307,6 @@ def close_job(request, id):
         messages.success(request, "You have successfully closed the job")
         args = {'job': job}
         return render(request, 'close_job.html', args)
-        #return render(request, 'edit_job.html', args)
     else:
         form = EditJobForm()
         args = {'job': job, 'form': form}
