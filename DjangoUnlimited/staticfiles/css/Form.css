@@ -104,3 +104,7 @@ input[type=text], select, email, datalist , option {
   resize: vertical;
 }
 
+.btn{
+background-color: rgb(204,0,0);
+color: white;
+}

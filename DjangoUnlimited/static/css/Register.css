@@ -141,3 +141,7 @@ width: 100%;
     align: center;
     border: 0.05em solid grey;
 }
+p.view{
+border-style: thin;
+height: 25px;
+}
