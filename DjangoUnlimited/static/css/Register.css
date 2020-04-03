@@ -141,7 +141,30 @@ width: 100%;
     align: center;
     border: 0.05em solid grey;
 }
+
 p.view{
 border-style: thin;
 height: 25px;
+}
+
+.msg{
+    margin:auto;
+    width:55%;
+    height: 50%;
+    background-color: #E8E8E8;
+    padding-top: 0px;
+    padding-bottom: 2em;
+    text-align: center;
+    border: 0.05em solid grey;
+}
+
+.msg2{
+    margin:auto;
+    width:60%;
+    height: 40%;
+    background-color: #F8F8F8;
+    padding-top: 0px;
+    padding-bottom: 2em;
+    text-align: center;
+    border: 0.05em solid grey;
 }
