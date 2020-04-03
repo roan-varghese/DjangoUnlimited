@@ -14,13 +14,17 @@
 
 
     <script language="JavaScript">
-        function disable_fields(status) {
-            if (status) {
+        function disable_fields(status)
+        {
+            if(status)
+            {
                 document.getElementById('id_expected_graduation_date').disabled = true
                 document.getElementById('id_personal_email').disabled = true
                 document.getElementById('id_personal_email').required = false
                 document.getElementById('id_expected_graduation_date').required = false
-            } else {
+            }
+            else
+            {
                 document.getElementById('id_expected_graduation_date').disabled = false
                 document.getElementById('id_personal_email').disabled = false
                 document.getElementById('id_personal_email').required = true
@@ -60,7 +64,7 @@
 
         <div class="inside-container2">
 
-            <form method="post" action="student_registration">
+            <form method="post" action="student_registration" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 {% for field in user_form %}
@@ -69,32 +73,31 @@
                     <div class="Col2">{{ field }}</div>
                 {% endfor %}
 
-                {% for field in student_form %}
-                    {% if field != "student_id" %}
-                        <div class="Col1">{{ field.label }}:</div>
-                        <div class="Col2">{{ field }}</div>
-                    {% endif %}
-                {% endfor %}
-                <input type="checkbox" name="terms" required>
-                <label>I have read and agree to the terms and conditions</label><br><br>
+                    {% for field in student_form %}
+                        {% if field == "alumni_status" %}
+                            <div class = "Col1">{{ field.label }}: {{ field }}</div>
+                        {% else %}
+                            <div class = "Col1">{{ field.label }}: </div>
+                            <div class = "Col2">{{ field }}<br><br>{{ field.help_text }}</div>
+                        {% endif %}
+
+                    {% endfor %}
+                    <input type="checkbox" name="terms" required>
+                  <label>I have read and agree to the terms and conditions</label><br><br>
 
                 <div style="text-align:center;">
                     <input type="submit"
                            style=" color: white; background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/>
                 </div>
             </form>
-
+            <div>
+                {% for message in messages %}
+                    <h3> {{message}} </h3>
+                {% endfor %}
+            </div>
         </div>
-
     </div>
-
     <br>
-    <!-- this displays any errors during submission -->
-    <div>
-        {% for message in messages %}
-            <h3> {{ message }} </h3>
-        {% endfor %}
-    </div>
 </div>
 </body>
 <br><br>
