@@ -20,7 +20,7 @@ from Admin.models import Admin
 from Student.models import Student, StudentJobApplication
 from Accounts.views import get_user_type
 from .models import Job, Skill
-from .forms import CreateJobForm, EditJobForm, FilterJobForm
+from .forms import CreateJobForm, EditJobForm, FilterJobForm, FilterStudentForm
 from Employer.forms import EmployerForm
 from Student.forms import StudentJobApplicationForm
 
@@ -287,12 +287,10 @@ def delete_job(request, id):
     job = Job.objects.get(id=id)
     if request.method == 'POST':
         job.status = 'Deleted'
-        #job.delete()
         job.save()
         messages.success(request, "You have successfully deleted the job")
         args = {'job': job}
         return render(request, 'delete_job.html', args)
-        #return render(request, 'edit_job.html', args)
     else:
         form = EditJobForm()
         args = {'job': job, 'form': form}
@@ -309,7 +307,6 @@ def close_job(request, id):
         messages.success(request, "You have successfully closed the job")
         args = {'job': job}
         return render(request, 'close_job.html', args)
-        #return render(request, 'edit_job.html', args)
     else:
         form = EditJobForm()
         args = {'job': job, 'form': form}
@@ -335,3 +332,56 @@ def student_details(request, id):
     skills = Skill.objects.all()
     args = {'student': student, 'user': get_user_type(request), 'skills': skills}
     return render(request, 'student_details.html', args)
+
+
+@login_required
+def filter_students(request):
+    if request.method == 'POST':
+        print(request.POST.get)
+        expected_graduation_date = request.POST.get("expected_graduation_date")
+        gender = request.POST.get("gender")
+        alumni_status = request.POST.get("alumni_status")
+        skills = request.POST.get("skills")
+        min_graduation_year = request.POST.get('min_graduation_year')
+        max_graduation_year = request.POST.get('max_graduation_year')
+
+        if gender:
+            gender_stds = Student.objects.filter(gender=gender)
+        else:
+            gender_stds = Student.objects.all()
+
+        if alumni_status:
+            alumni_status_stds = Student.objects.filter(alumni_status=True)
+        else:
+            alumni_status_stds = Student.objects.all()
+
+        if skills:
+            skills_stds = Student.objects.filter(skills=skills)
+        else:
+            skills_stds = Student.objects.all()
+
+        if expected_graduation_date:
+            expected_graduation_date_stds = Student.objects.filter(expected_graduation_date=expected_graduation_date)
+        else:
+            expected_graduation_date_stds = Student.objects.all()
+
+        if min_graduation_year:
+            min_graduation_year_students = Student.objects.filter(expected_graduation_date__gte=min_graduation_year)
+        else:
+            min_graduation_year_students = Student.objects.all()
+
+        if max_graduation_year:
+            max_graduation_year_stds = Student.objects.filter(expected_graduation_date__lte=max_graduation_year)
+        else:
+            max_graduation_year_stds = Student.objects.all()
+
+        filtered_stds = gender_stds & skills_stds & alumni_status_stds & expected_graduation_date_stds & min_graduation_year_students & max_graduation_year_stds
+        students_all = Student.objects.all()
+        students = students_all & filtered_stds
+        print("students", students)
+        args = {'students': students}
+        return render(request, "browse_students.html", args)
+    else:
+        form = FilterStudentForm()
+        args = {'form': form}
+        return render(request, "filter_students.html", args)

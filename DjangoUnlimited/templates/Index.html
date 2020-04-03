@@ -53,6 +53,7 @@
             <!-- displays welcome message -->
         <h3>Welcome, {{ obj.company_name }}</h3>
         <p><a href="../employer/view_employer_profile">My Employer Profile</a></p>
+        <p><a href="../view_students">BROWSE STUDENTS</a>
         <p><a href="../view_jobs">MY JOBS</a>
         <p><a href="../create_job">POST A JOB</a></p>
     {% elif user_type == 'admin' %}
@@ -60,6 +61,7 @@
         <!-- displays welcome message -->
         <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3>
         <p><a href="../create_job">POST A JOB</a></p>
+        <p><a href="../view_students">BROWSE STUDENTS</a>
         <p><a href="../view_jobs">VIEW ALL JOBS</a>
     {% endif %}
     <p><a href="../accounts/logout">LOGOUT</a></p>
