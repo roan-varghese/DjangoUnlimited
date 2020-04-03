@@ -1,8 +1,8 @@
 {% load staticfiles %}
 <!-- Stylesheets -->
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -46,58 +46,62 @@
                 document.getElementById('id_expected_graduation_date').required = true
             }
         }
+
     </script>
 
 </head>
 
 <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
 <br><br>
-<div class="page">
+<div class="overall-page">
     <div class="sidebar">
         <h4> MY ACCOUNT</h4>
         <button class="button"><a href="">Edit profile</a></button>
         <h4> MY JOBS</h4>
         <button class="button"><a href=""> Jobs applied</a></button>
     </div>
-    <div class="container">
+
+    <div class="inside-container">
         <div class="page">
             <div class="icon">
                 {% if student.dp %}
-                    <img src="{{ student.dp.url }}" height="80.0em" width="90.0em">
+                <img src="{{ student.dp.url }}" height="80.0em" width="90.0em">
                 {% else %}
-                    <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
                 {% endif %}
             </div>
             <!-- displays welcome message -->
             <div class="hello"><h3>Hello, {{ user.first_name }} {{ user.last_name }}</h3></div>
         </div>
         <div class="heading"><h4 align="center">My profile</h4></div>
-        <div class="container2">
+        <div class="inside-container2">
+            <br/><br/>
             <form method="post" enctype="multipart/form-data" action="edit_student_profile">
                 {% csrf_token %}
 
                 {% for field in user_form %}
-                    <div class="Col1">{{ field.label }}:</div>
-                    <div class="Col2">{{ field }}</div>
+                <div class="Col1">{{ field.label }}:</div>
+                <div class="Col2">{{ field }}</div>
                 {% endfor %}
 
                 {% for field in student_form %}
-                    <div class="Col1">{{ field.label }}:</div>
-                    <div class="Col2">{{ field }}</div>
+                <div class="Col1">{{ field.label }}:</div>
+                <div class="Col2">{{ field }}</div>
                 {% endfor %}
                 <button class="button2" type="submit"><b>Save Changes</b></button>
                 <button class="button2" type="button"><a href="view_student_profile"><b>Cancel</b></a></button>
             </form>
         </div>
-    </div>
-    <br><br>
+        <br><br>
 
-    <!-- this displays any errors during submission -->
-    <div>
-        {% for message in messages %}
-            <h3> {{ message }} </h3>
-        {% endfor %}
+        <!-- this displays any errors during submission -->
+        <div>
+            {% for message in messages %}
+            <h4 class="message"> {{ message }} </h4>
+            {% endfor %}
+        </div>
     </div>
+</div>
 </div>
 <br><br>
 </body>
