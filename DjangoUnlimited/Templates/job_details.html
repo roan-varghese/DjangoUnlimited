@@ -33,7 +33,9 @@
         {% if user.user_type == 'student' %}
             <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply</button>
         {% else %}
-            <button type="button"><a href="{% url 'edit_job' job.id %}">Edit Job</button>
+            <button type="button"><a href="{% url 'close_job' job.id %}"><b>Close Job</b></a></button>
+            <button type="button"><a href="{% url 'delete_job' job.id %}"><b>Delete Job</b></a></button>
+            <button type="button"><a href="{% url 'edit_job' job.id %}">Edit Job</a></button>
             <button type="submit" name="viewcandidates" value="ViewCandidates&Save">&nbsp;View Candidates</button>
         {% endif %}
 

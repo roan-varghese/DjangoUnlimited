@@ -20,7 +20,7 @@ from Admin.models import Admin
 from Student.models import Student, StudentJobApplication
 from Accounts.views import get_user_type
 from .models import Job, Skill
-from .forms import CreateJobForm, EditJobForm, FilterJobForm
+from .forms import CreateJobForm, EditJobForm, FilterJobForm, FilterStudentForm
 from Employer.forms import EmployerForm
 from Student.forms import StudentJobApplicationForm
 
@@ -32,16 +32,74 @@ def index(request):
 @login_required
 def view_jobs(request):
     user = get_user_type(request)
-    print(user)
-    if user['user_type'] == 'employer':
+    if request.method == 'POST':
+        print(request.POST.get)
+        min_duration = request.POST.get("min_duration")
+        # print(min_duration)
+        max_duration = request.POST.get("max_duration")
+        # print(max_duration)
+        location = request.POST.get("location")
+        # print(location)
+        job_type_id = request.POST.get("job_type_id")
+        # print(job_type_id)
+        min_salary = request.POST.get("min_salary")
+        # print(min_salary)
+        max_salary = request.POST.get("max_salary")
+        # print(max_salary)
+        industry_id = request.POST.get("industry_id")
+        # print(industry_id)
+        if min_duration:
+            min_duration_jobs = Job.objects.filter(duration__gte=min_duration)
+        else:
+            min_duration_jobs = Job.objects.all()
+
+        if max_duration:
+            max_duration_jobs = Job.objects.filter(duration__lte=max_duration)
+        else:
+            max_duration_jobs = Job.objects.all()
+
+        if location:
+            location_jobs = Job.objects.filter(location=location)
+        else:
+            location_jobs = Job.objects.all()
+
+        if min_salary:
+            min_salary_jobs = Job.objects.filter(salary__gte=min_salary)
+        else:
+            min_salary_jobs = Job.objects.all()
+
+        if max_salary:
+            max_salary_jobs = Job.objects.filter(salary__lte=max_salary)
+        else:
+            max_salary_jobs = Job.objects.all()
+
+        if job_type_id:
+            job_type_id_jobs = Job.objects.filter(job_type_id=job_type_id)
+        else:
+            job_type_id_jobs = Job.objects.all()
+
+        if industry_id:
+            industry_id_jobs = Job.objects.filter(industry_id=industry_id)
+        else:
+            industry_id_jobs = Job.objects.all()
+
+        filtered_jobs = min_duration_jobs & max_duration_jobs & location_jobs & max_salary_jobs & min_salary_jobs & job_type_id_jobs & industry_id_jobs
+        jobs_all = Job.objects.all()
+        jobs = jobs_all & filtered_jobs
+        form = FilterJobForm()
+        print("user", get_user_type(request))
+        args = {'jobs': jobs, 'user': get_user_type(request), 'form': form}
+        return render(request, "browse_jobs.html", args)
+    elif user['user_type'] == 'employer':
         jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted')
         args = {'jobs': jobs, 'company': user['obj']}
     elif user['user_type'] == 'student' or user['user_type'] == 'admin':
         jobs = Job.objects.all().order_by('-date_posted')
         companies = Employer.objects.all()
-        args = {'jobs': jobs, 'companies': companies, 'user_type': user}
+        form = FilterJobForm()
+        args = {'jobs': jobs, 'companies': companies, 'form': form, 'user_type': user}
     else:
-        return redirect('/')
+       redirect('/')
     return render(request, 'browse_jobs.html', args)
 
 
@@ -107,71 +165,6 @@ def create_job(request):
             return render(request, "employer_create_jobs.html", args)
     except Admin.DoesNotExist:
         return redirect('log_in')
-
-
-def filter_jobs(request):
-    print("HERE")
-    if request.method == 'POST':
-        print(request.POST.get)
-        min_duration = request.POST.get("min_duration")
-        # print(min_duration)
-        max_duration = request.POST.get("max_duration")
-        # print(max_duration)
-        location = request.POST.get("location")
-        # print(location)
-        job_type_id = request.POST.get("job_type_id")
-        # print(job_type_id)
-        min_salary = request.POST.get("min_salary")
-        # print(min_salary)
-        max_salary = request.POST.get("max_salary")
-        # print(max_salary)
-        industry_id = request.POST.get("industry_id")
-        # print(industry_id)
-        if min_duration:
-            min_duration_jobs = Job.objects.filter(duration__gte=min_duration)
-        else:
-            min_duration_jobs = Job.objects.all()
-
-        if max_duration:
-            max_duration_jobs = Job.objects.filter(duration__lte=max_duration)
-        else:
-            max_duration_jobs = Job.objects.all()
-
-        if location:
-            location_jobs = Job.objects.filter(location=location)
-        else:
-            location_jobs = Job.objects.all()
-
-        if min_salary:
-            min_salary_jobs = Job.objects.filter(salary__gte=min_salary)
-        else:
-            min_salary_jobs = Job.objects.all()
-
-        if max_salary:
-            max_salary_jobs = Job.objects.filter(salary__lte=max_salary)
-        else:
-            max_salary_jobs = Job.objects.all()
-
-        if job_type_id:
-            job_type_id_jobs = Job.objects.filter(job_type_id=job_type_id)
-        else:
-            job_type_id_jobs = Job.objects.all()
-
-        if industry_id:
-            industry_id_jobs = Job.objects.filter(industry_id=industry_id)
-        else:
-            industry_id_jobs = Job.objects.all()
-
-        filtered_jobs = min_duration_jobs & max_duration_jobs & location_jobs & max_salary_jobs & min_salary_jobs & job_type_id_jobs & industry_id_jobs
-        jobs_all = Job.objects.all()
-        jobs = jobs_all & filtered_jobs
-        print("jobs", jobs)
-        args = {'jobs': jobs}
-        return render(request, "filtered_jobs.html", args)
-    else:
-        form = FilterJobForm()
-        args = {'form': form}
-        return render(request, "filter_jobs.html", args)
 
 
 @login_required
@@ -294,12 +287,10 @@ def delete_job(request, id):
     job = Job.objects.get(id=id)
     if request.method == 'POST':
         job.status = 'Deleted'
-        #job.delete()
         job.save()
         messages.success(request, "You have successfully deleted the job")
         args = {'job': job}
         return render(request, 'delete_job.html', args)
-        #return render(request, 'edit_job.html', args)
     else:
         form = EditJobForm()
         args = {'job': job, 'form': form}
@@ -316,7 +307,6 @@ def close_job(request, id):
         messages.success(request, "You have successfully closed the job")
         args = {'job': job}
         return render(request, 'close_job.html', args)
-        #return render(request, 'edit_job.html', args)
     else:
         form = EditJobForm()
         args = {'job': job, 'form': form}
@@ -342,3 +332,56 @@ def student_details(request, id):
     skills = Skill.objects.all()
     args = {'student': student, 'user': get_user_type(request), 'skills': skills}
     return render(request, 'student_details.html', args)
+
+
+@login_required
+def filter_students(request):
+    if request.method == 'POST':
+        print(request.POST.get)
+        expected_graduation_date = request.POST.get("expected_graduation_date")
+        gender = request.POST.get("gender")
+        alumni_status = request.POST.get("alumni_status")
+        skills = request.POST.get("skills")
+        min_graduation_year = request.POST.get('min_graduation_year')
+        max_graduation_year = request.POST.get('max_graduation_year')
+
+        if gender:
+            gender_stds = Student.objects.filter(gender=gender)
+        else:
+            gender_stds = Student.objects.all()
+
+        if alumni_status:
+            alumni_status_stds = Student.objects.filter(alumni_status=True)
+        else:
+            alumni_status_stds = Student.objects.all()
+
+        if skills:
+            skills_stds = Student.objects.filter(skills=skills)
+        else:
+            skills_stds = Student.objects.all()
+
+        if expected_graduation_date:
+            expected_graduation_date_stds = Student.objects.filter(expected_graduation_date=expected_graduation_date)
+        else:
+            expected_graduation_date_stds = Student.objects.all()
+
+        if min_graduation_year:
+            min_graduation_year_students = Student.objects.filter(expected_graduation_date__gte=min_graduation_year)
+        else:
+            min_graduation_year_students = Student.objects.all()
+
+        if max_graduation_year:
+            max_graduation_year_stds = Student.objects.filter(expected_graduation_date__lte=max_graduation_year)
+        else:
+            max_graduation_year_stds = Student.objects.all()
+
+        filtered_stds = gender_stds & skills_stds & alumni_status_stds & expected_graduation_date_stds & min_graduation_year_students & max_graduation_year_stds
+        students_all = Student.objects.all()
+        students = students_all & filtered_stds
+        print("students", students)
+        args = {'students': students}
+        return render(request, "browse_students.html", args)
+    else:
+        form = FilterStudentForm()
+        args = {'form': form}
+        return render(request, "filter_students.html", args)

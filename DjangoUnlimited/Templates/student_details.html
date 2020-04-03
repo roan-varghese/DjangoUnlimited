@@ -4,8 +4,6 @@
 <form method="POST">
     {% csrf_token %}
 
-    <h4><a href="/">Back to home</a></h4>
-
     <h3>{{student.user.first_name}} {{student.user.last_name}} </h3>
     {% if student.dp %}
         <img src="{{ student.dp.url }}"><br>

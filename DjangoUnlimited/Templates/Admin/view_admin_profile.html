@@ -9,17 +9,17 @@
 </head>
 <body>
 
-    {% if student.dp %}
-        <img src="{{ student.dp.url }}">
-    {% else %}
-        <img src="{% static 'DefaultDP.jpg' %}">
-    {% endif %}
-    <p>First Name: {{ user.first_name }}</p>
-    <p>Last Name: {{ user.last_name }}</p>
-    <p>Email Address: {{ user.email }}</p>
-    <p>Gender: {{ admin.gender }}</p>
+{% if student.dp %}
+    <img src="{{ student.dp.url }}">
+{% else %}
+    <img src="{% static 'DefaultDP.jpg' %}">
+{% endif %}
+<p>First Name: {{ user.first_name }}</p>
+<p>Last Name: {{ user.last_name }}</p>
+<p>Email Address: {{ user.email }}</p>
+<p>Gender: {{ admin.gender }}</p>
 
-    <button type="button"><a href="{% url 'edit_admin_profile' %}">Edit Profile</a></button>
-    <button type="button"><a href="../../admin">Go back home</a></button>
+<button type="button"><a href="{% url 'edit_admin_profile' %}">Edit Profile</a></button>
+<button type="button"><a href="../../admin">Go back home</a></button>
 </body>
 </html>
