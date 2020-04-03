@@ -1,5 +1,8 @@
 from django import forms
 from Home.models import Job, Skill, JobType, Industry
+from Student.models import Student
+
+from DjangoUnlimited import settings
 
 
 class CreateJobForm(forms.ModelForm):
@@ -95,3 +98,46 @@ class FilterJobForm(forms.ModelForm):
         super(FilterJobForm, self).__init__(*args, **kwargs)
         self.fields['job_type_id'].required = False
         self.fields['industry_id'].required = False
+
+
+class FilterStudentForm(forms.Form):
+    gender_choices = [
+        ('Male', 'Male'),
+        ('Female', 'Female')
+    ]
+    gender = forms.ChoiceField(choices=gender_choices, widget=forms.RadioSelect(attrs={'class': 'custom-select'}))
+    alumni_status = forms.BooleanField(required=False, label='Alumni Student',
+                                       widget=forms.CheckboxInput(attrs={'onClick': 'disable_fields(this.checked)'}))
+    expected_graduation_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
+                                               label='Expected Graduation Date',
+                                               widget=forms.DateInput(attrs={
+                                                   'class': 'datepicker form-control-text',
+                                                   'placeholder': 'YYY-MM-DD',
+                                                   'autocomplete': 'off'
+                                               }))
+
+    min_graduation_year = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
+                                               label='Minimum Graduation Date',
+                                               widget=forms.DateInput(attrs={
+                                                   'class': 'datepicker form-control-text',
+                                                   'placeholder': 'YYY-MM-DD',
+                                                   'autocomplete': 'off'
+                                               }))
+    max_graduation_year = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
+                                          label='Maximum Graduation Date',
+                                          widget=forms.DateInput(attrs={
+                                              'class': 'datepicker form-control-text',
+                                              'placeholder': 'YYY-MM-DD',
+                                              'autocomplete': 'off'
+                                          }))
+
+    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
+                                            widget=forms.CheckboxSelectMultiple,
+                                            required=True)
+    class Meta:
+        model = Student
+        fields = ['gender', 'alumni_status','skills', 'expected_graduation_date']
+
+    def __init__(self, *args, **kwargs):
+        super(FilterStudentForm, self).__init__(*args, **kwargs)
+        self.fields['gender'].required = False
