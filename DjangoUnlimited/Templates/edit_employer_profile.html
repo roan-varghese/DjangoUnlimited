@@ -28,6 +28,7 @@
             <a href="/"> <b>Home</b></a>
             <a href="../view_jobs"> <b>Browse Students</b></a>
             <a href="../create_job"> <b> Post a job</b></a>
+            <a href="../news"> <b> News</b></a>
         </div>
     </header>
 </head>
@@ -60,6 +61,7 @@
             </div>
             <div class="heading"><h4 align="center">My profile</h4></div>
             <div class="inside-container2">
+                <br/><br/>
                 <form method="post" enctype="multipart/form-data" action="edit_employer_profile">
                     {% csrf_token %}
                     {% for field in employer_form %}

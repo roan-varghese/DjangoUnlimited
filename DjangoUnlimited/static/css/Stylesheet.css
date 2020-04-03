@@ -6,8 +6,9 @@ body{
     margin-bottom: 150px;
     clear: both;
 }
-
-
+header{
+    font-family: Arial;
+}
 /* the position of overall nav  */
 nav{
     width:100%;
@@ -163,3 +164,4 @@ a{
 .follow{
     flex:1;
 }
+
