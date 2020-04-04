@@ -10,8 +10,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View Profile</title>
+    <title>View Profile - Murdoch Dubai Job Portal</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
 <header>
     <nav>
         <section class="nav-container">
@@ -33,7 +43,9 @@
         <a href="../news"> <b> News</b></a>
     </div>
 </header>
+
 <br><br>
+
 <body>
 <div class="overall-page">
     <div class="inside-container">
@@ -69,7 +81,11 @@
             {% endif %}
             <p class="view"><strong> CV: </strong> {{ student.cv }}</p><br>
 
-            <div style="text-align:center"><button  type="submit" class="Button2" style="background-color: rgb(204,0,0); color: white; width: 140px; height:30px; margin: 0 auto;"> <a href="/student/edit_student_profile">Edit Profile</a></button></div>
+            <div style="text-align:center">
+                <button type="submit" class="Button2"
+                        style="background-color: rgb(204,0,0); color: white; width: 140px; height:30px; margin: 0 auto;">
+                    <a href="/student/edit_student_profile">Edit Profile</a></button>
+            </div>
 
             <br><br>
         </div>

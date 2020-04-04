@@ -1,37 +1,47 @@
 {% extends 'navbar.html' %}
 {% load staticfiles %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Browse Students</title>
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Browse Students - Murdoch Dubai Job Portal</title>
 
-<body>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+              content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+        <meta name="keywords"
+              content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+        <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
+    </head>
+
+    <body>
 
 
-<h2>Browse Students</h2>
+    <h2>Browse Students</h2>
 
-<h5><a href='../view_students'>View All Students</a></h5>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Student Name</th>
-        <th>Email</th>
-        <th>Expected Graduation Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for student in students %}
-    <tr>
-        <td><a href="{% url 'student_details' student.user_id %}"> {{ student.user.first_name }} {{ student.user.last_name }}</a></td>
-        <td> {{student.user}}</td>
-        <td>{{student.expected_graduation_date}}</td>
+    <h5><a href='../view_students'>View All Students</a></h5>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>Expected Graduation Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+            <td>
+                <a href="{% url 'student_details' student.user_id %}"> {{ student.user.first_name }} {{ student.user.last_name }}</a>
+            </td>
+            <td> {{ student.user }}</td>
+            <td>{{ student.expected_graduation_date }}</td>
         {% endfor %}
-    </tr>
-    </tbody>
-</table>
+        </tr>
+        </tbody>
+    </table>
     <br>
     <div>
         <h2>Filter Students Listing</h2>
@@ -46,14 +56,14 @@
     </div>
 
 
-</body>
+    </body>
 
-</html>
+    </html>
 
 {% endblock %}
 
 {% block js %}
-<script>
+    <script>
         // the initialisation of dataTables and set the ordering of first column
 
         $('.table').DataTable({
@@ -61,5 +71,5 @@
             scrollX: true
         });
 
-</script>
+    </script>
 {% endblock %}

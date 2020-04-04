@@ -10,21 +10,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Sign Up</title>
+    <title>Student Account Signup - Murdoch Dubai Job Portal</title>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 
     <script language="JavaScript">
-        function disable_fields(status)
-        {
-            if(status)
-            {
+        function disable_fields(status) {
+            if (status) {
                 document.getElementById('id_expected_graduation_date').disabled = true
                 document.getElementById('id_personal_email').disabled = true
                 document.getElementById('id_personal_email').required = false
                 document.getElementById('id_expected_graduation_date').required = false
-            }
-            else
-            {
+            } else {
                 document.getElementById('id_expected_graduation_date').disabled = false
                 document.getElementById('id_personal_email').disabled = false
                 document.getElementById('id_personal_email').required = true
@@ -73,17 +77,17 @@
                     <div class="Col2">{{ field }}</div>
                 {% endfor %}
 
-                    {% for field in student_form %}
-                        {% if field == "alumni_status" %}
-                            <div class = "Col1">{{ field.label }}: {{ field }}</div>
-                        {% else %}
-                            <div class = "Col1">{{ field.label }}: </div>
-                            <div class = "Col2">{{ field }}<br><br>{{ field.help_text }}</div>
-                        {% endif %}
+                {% for field in student_form %}
+                    {% if field == "alumni_status" %}
+                        <div class="Col1">{{ field.label }}: {{ field }}</div>
+                    {% else %}
+                        <div class="Col1">{{ field.label }}:</div>
+                        <div class="Col2">{{ field }}<br><br>{{ field.help_text }}</div>
+                    {% endif %}
 
-                    {% endfor %}
-                    <input type="checkbox" name="terms" required>
-                  <label>I have read and agree to the terms and conditions</label><br><br>
+                {% endfor %}
+                <input type="checkbox" name="terms" required>
+                <label>I have read and agree to the terms and conditions</label><br><br>
 
                 <div style="text-align:center;">
                     <input type="submit"
@@ -92,7 +96,7 @@
             </form>
             <div>
                 {% for message in messages %}
-                    <h3> {{message}} </h3>
+                    <h3> {{ message }} </h3>
                 {% endfor %}
             </div>
         </div>

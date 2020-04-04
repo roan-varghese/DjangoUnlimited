@@ -1,11 +1,11 @@
 {% load staticfiles %}
 
 {% block title %}
-<title>NEWS HEADLINES BY CNN</title>
+    <title>NEWS HEADLINES BY CNN</title>
 {% endblock title %}
 
 {% block css %}
-<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
 {% endblock css %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +13,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Profile</title>
+    <title>News - Murdoch Dubai Job Portal</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
 <header>
     <nav>
         <section class="nav-container">
@@ -25,7 +35,8 @@
                     <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
 
                     {% if user.user_type == 'student' %}
-                        <a href="../student/view_student_profile"><i class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
+                        <a href="../student/view_student_profile"><i
+                                class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
                     {% elif user.user_type == 'employer' %}
                         <a href="../employer/view_employer_profile"> {{ user.obj.company_name }} </a>
                     {% elif user.user_type == 'admin' %}
@@ -46,47 +57,47 @@
             <a href="../view_jobs"><b>Browse Jobs</b></a>
             <a href="../view_students"><b>Browse Students</b></a>
         {% endif %}
-            <a class="active" href="/news"> <b>News</b></a>
+        <a class="active" href="/news"> <b>News</b></a>
     </div>
 </header>
 {% block content %}
-<h5>Top Headlines</h5>
+    <h5>Top Headlines</h5>
 
-{% for new, des, i, urllink in mylist %}
+    {% for new, des, i, urllink in mylist %}
 
 
-<a href="{{ urllink }}"
-   target="_blank">{{ new }}</a>
+        <a href="{{ urllink }}"
+           target="_blank">{{ new }}</a>
 
-<hr>
-
-{% endfor %}
-
-<div class="pagination">
-    {% if mylist.has_previous %}
-    <a
-            href="?page=1">
-        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-    </a>
-    {% endif %}
-
-    {% for num in mylist.paginator.page_range %}
-
-    {% if mylist.number == num %}
-    <span>{{ num }}</span>
-    {% elif num > mylist.number|add:'-3' and num < mylist.number|add:'3' %}
-    <a href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
+        <hr>
 
     {% endfor %}
 
-    {% if mylist.has_next %}
-    <a
-            href="?page={{ mylist.paginator.num_pages }}">
-        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-    </a>
-    {% endif %}
-</div>
+    <div class="pagination">
+        {% if mylist.has_previous %}
+            <a
+                    href="?page=1">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+
+        {% for num in mylist.paginator.page_range %}
+
+            {% if mylist.number == num %}
+                <span>{{ num }}</span>
+            {% elif num > mylist.number|add:'-3' and num < mylist.number|add:'3' %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+
+        {% endfor %}
+
+        {% if mylist.has_next %}
+            <a
+                    href="?page={{ mylist.paginator.num_pages }}">
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+    </div>
 
 {% endblock content %}
 <!--This is the begining of the footer!-->

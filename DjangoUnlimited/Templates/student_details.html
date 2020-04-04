@@ -1,8 +1,8 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock css %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +10,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Student Details</title>
+    <title>Student Details - Murdoch Dubai Job Portal</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
 <header>
     <nav>
@@ -42,29 +51,32 @@
                     <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em"><br>
                 {% endif %}
             </div>
-            <div style="align:center; padding-top: 20px;"><h3>{{student.user.first_name}} {{student.user.last_name}} </h3></div>
+            <div style="align:center; padding-top: 20px;">
+                <h3>{{ student.user.first_name }} {{ student.user.last_name }} </h3></div>
         </div>
         <div class="inside-container2">
-                {% csrf_token %}
+            {% csrf_token %}
 
-                <p>Email: {{student.user}}</p>
-                <p>Gender: {{student.gender}}</p>
-                <p>Date of Birth: {{student.DOB}}</p>
+            <p>Email: {{ student.user }}</p>
+            <p>Gender: {{ student.gender }}</p>
+            <p>Date of Birth: {{ student.DOB }}</p>
 
-                {% if student.alumni_status == False %}
-                <p>Personal Email: {{student.personal_email}}</p>
-                <p>Expected Graduation Date: {{student.expected_graduation_date}}</p>
-                {% endif %}
+            {% if student.alumni_status == False %}
+                <p>Personal Email: {{ student.personal_email }}</p>
+                <p>Expected Graduation Date: {{ student.expected_graduation_date }}</p>
+            {% endif %}
 
-                Skills:
-                {% for skill in student.skills.all %}
+            Skills:
+            {% for skill in student.skills.all %}
                 <li>{{ skill }}</li>
-                {% endfor %}
+            {% endfor %}
 
-                <div style="text-align:center">
-                    <button type="button" style="background-color: rgb(204,0,0);color: white; width: 140px; height:30px; margin: 0 auto;"><a href="{% url 'get_cv_file' student.user_id %}">Download CV</a></button>
-                </div>
-                <br><br>
+            <div style="text-align:center">
+                <button type="button"
+                        style="background-color: rgb(204,0,0);color: white; width: 140px; height:30px; margin: 0 auto;">
+                    <a href="{% url 'get_cv_file' student.user_id %}">Download CV</a></button>
+            </div>
+            <br><br>
         </div>
     </div>
 </div>
