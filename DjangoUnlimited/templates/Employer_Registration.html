@@ -51,7 +51,7 @@
 
                 {% for field in employer_form %}
                     <div class="Col1">{{ field.label }}:</div>
-                    <div class="Col2">{{ field }}</div>
+                    <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
                 {% endfor %}
 
                 <input type="checkbox" name="terms" required>

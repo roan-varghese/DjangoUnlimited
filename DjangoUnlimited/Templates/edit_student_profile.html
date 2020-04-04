@@ -86,7 +86,7 @@
 
                 {% for field in student_form %}
                     <div class="Col1">{{ field.label }}:</div>
-                    <div class="Col2">{{ field }}</div>
+                    <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
                 {% endfor %}
                 <button class="button2" type="submit"><b>Save Changes</b></button>
                 <button class="button2" type="button"><a href="view_student_profile"><b>Cancel</b></a></button>

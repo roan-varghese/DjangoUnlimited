@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from Accounts.views import isValidated
 from .models import Employer
 from .forms import InitialEmployerForm, EmployerForm
+from Student.models import Student
 from Admin.models import Admin
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -104,14 +105,3 @@ def edit_profile(request):
 def view_profile(request):
     employer = Employer.objects.get(user_id=request.user.id)
     return render(request, 'view_employer_profile.html', {'employer': employer})
-
-
-def getfile(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="file.csv"'
-    employers = Employer.objects.all()
-    writer = csv.writer(response)
-    writer.writerow(['1002', 'Amit', 'Mukharji', 'LA', '"Testing"'])
-    for employer in employers:
-        writer.writerow([employer.company_name, employer.company_description, employer.phone_number])
-    return response

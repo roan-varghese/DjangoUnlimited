@@ -1,5 +1,5 @@
 {% extends 'navbar.html' %}
-
+{% load staticfiles %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
 
 <h2>Browse Students</h2>
 
-<h5><a href='view_students'>View All Students</a></h5>
+<h5><a href='../view_students'>View All Students</a></h5>
 <table class="table">
     <thead>
     <tr>
@@ -32,8 +32,20 @@
     </tr>
     </tbody>
 </table>
+    <br>
+    <div>
+        <h2>Filter Students Listing</h2>
+        <hr>
+        <form method="POST">
 
-<button type="Submit"><a href='filter_students'>Filter Students</a></button>
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="Submit"><b>Submit</b></button>
+        </form>
+    </div>
+
+
 </body>
 
 </html>

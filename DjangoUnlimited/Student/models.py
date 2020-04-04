@@ -14,7 +14,7 @@ class Student(models.Model):
     gender = models.CharField(max_length=10, choices=gender_choices)
     DOB = models.DateField(null=True)
     student_id = models.CharField(null=False, max_length=8)
-    skills = models.ManyToManyField(Skill)
+    skills = models.ManyToManyField(Skill, related_name='student_skills')
     alumni_status = models.BooleanField(default=False)
     personal_email = models.CharField(max_length=100)
     expected_graduation_date = models.DateField(null=True, blank=True)
