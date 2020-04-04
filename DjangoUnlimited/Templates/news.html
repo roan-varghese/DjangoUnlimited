@@ -39,12 +39,12 @@
     <div class="bottomnav">
         <a class="active" href="/"> <b>Home</b></a>
         {% if user.user_type == 'student' %}
-            <a href="../view_jobs">Browse Jobs</a>
+            <a href="../view_jobs"><b>Browse Jobs</b></a>
         {% elif user.user_type == 'employer' %}
-            <a href="../view_students"> Browse Students </a>
+            <a href="../view_students"><b>Browse Students</b></a>
         {% elif user.user_type == 'admin' %}
-            <a href="../view_jobs">Browse Jobs</a>
-            <a href="../view_students"> Browse Students </a>
+            <a href="../view_jobs"><b>Browse Jobs</b></a>
+            <a href="../view_students"><b>Browse Students</b></a>
         {% endif %}
     </div>
 </header>

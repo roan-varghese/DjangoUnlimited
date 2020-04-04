@@ -12,6 +12,13 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
 from DjangoUnlimited.settings import SENDGRID_API_KEY
+from django.http import HttpResponse
+from wsgiref.util import FileWrapper
+from django.core.files import File
+import os
+import sys
+import pythoncom
+import win32com.client
 
 # Create your views here.
 
@@ -323,8 +330,7 @@ def view_students(request):
 
     if user['user_type'] == 'employer' or user['user_type'] == 'admin':
         students = Student.objects.all()
-        users = User.objects.all()
-        args = {'students': students, 'users': users}
+        args = {'students': students}
     else:
         return redirect('/')
     return render(request, 'browse_students.html', args)
@@ -376,3 +382,35 @@ def filter_students(request):
         form = FilterStudentForm()
         args = {'form': form}
         return render(request, "filter_students.html", args)
+
+@login_required
+def job_to_student_skills(request, id):
+    job = Job.objects.get(id=id)
+    students = Student.objects.filter(skills__in=job.skills.all())
+    students = list(set(students))
+    args = {'students': students}
+    return render(request, "browse_students.html", args)
+
+
+@login_required
+def get_cv_file(request, id):
+    student = Student.objects.get(user_id=id)
+    cv = student.cv
+    file_name = os.path.basename(cv.file.name)
+    extension = cv.file.name.split(".")
+    if extension[1] != "pdf":
+        input_filename = cv.file.name
+        output_filename = extension[0] + ".pdf"
+        pythoncom.CoInitialize()
+        word = win32com.client.Dispatch('Word.Application')
+        doc = word.Documents.Open(input_filename)
+        doc.SaveAs(output_filename, FileFormat=17)
+        doc.Close()
+        word.Quit()
+        file_name = os.path.split(output_filename)[1]
+        cv = open(output_filename, 'rb')
+
+    wrapper = FileWrapper(File(cv, 'rb'))
+    response = HttpResponse(wrapper, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=' + file_name
+    return response

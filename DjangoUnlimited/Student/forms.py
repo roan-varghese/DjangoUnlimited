@@ -93,11 +93,11 @@ class StudentForm(forms.ModelForm):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
                                             widget=forms.CheckboxSelectMultiple,
                                             required=True)
-    dp = forms.ImageField(label='Select a profile picture', required=False, help_text="Only jpeg or png file formats allowed.", validators=[FileTypeValidator(
+    dp = forms.ImageField(label='Select a profile picture', required=False, help_text="Only jpeg and png file formats allowed.", validators=[FileTypeValidator(
                                                                                                                                     allowed_types=['image/jpeg','image/png']
                                                                                                                                 )])
-    cv = forms.FileField(allow_empty_file=False, label='Attach CV', help_text="Only PDF or MS Word files allowed.", validators=[FileTypeValidator(
-                                                                                                                        allowed_types=["application/pdf", "application/msword"]
+    cv = forms.FileField(allow_empty_file=False, label='Attach CV', help_text="Only PDF, docx, and doc file formats allowed.", validators=[FileTypeValidator(
+                                                                                                                        allowed_types=["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
                                                                                                                      )])
 
     class Meta:
@@ -141,11 +141,11 @@ class EditStudentProfileForm(forms.ModelForm):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
                                             widget=forms.CheckboxSelectMultiple,
                                             required=True)
-    dp = forms.ImageField(label='Select a profile picture', required=False, help_text="Only jpeg or png file formats allowed.", validators=[FileTypeValidator(
+    dp = forms.ImageField(label='Select a profile picture', required=False, help_text="Only jpeg and png file formats allowed.", validators=[FileTypeValidator(
                                                                                                                                     allowed_types=['image/jpeg','image/png']
                                                                                                                                 )])
-    cv = forms.FileField(allow_empty_file=False, label='Attach CV', help_text="Only PDF or MS Word files allowed.", validators=[FileTypeValidator(
-                                                                                                                        allowed_types=["application/pdf", "application/msword"]
+    cv = forms.FileField(allow_empty_file=False, label='Attach CV', help_text="Only PDF, docx, and doc file formats allowed.", validators=[FileTypeValidator(
+                                                                                                                        allowed_types=["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
                                                                                                                      )])
 
     class Meta:

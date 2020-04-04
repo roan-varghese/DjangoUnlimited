@@ -58,7 +58,7 @@ class Job(models.Model):
     industry_id = models.ForeignKey(Industry, on_delete=models.CASCADE, related_name='job_industry')
     duration = models.IntegerField(null=True, validators=[MinValueValidator(1)])
     salary = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(0.00)])
-    skills = models.ManyToManyField(Skill)
+    skills = models.ManyToManyField(Skill, related_name='job_skills')
 
     def __str__(self):
         title = self.job_title
