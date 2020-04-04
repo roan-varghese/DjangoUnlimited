@@ -12,6 +12,5 @@ urlpatterns = [
     path('close_job/<int:id>', views.close_job, name='close_job'),
     path('view_students', views.view_students, name='view_students'),
     path('student_details/<int:id>', views.student_details, name='student_details'),
-    path('filter_students', views.filter_students, name='filter_students'),
     path('news', views.news, name='news')
 ]

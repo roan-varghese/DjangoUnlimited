@@ -320,31 +320,15 @@ def close_job(request, id):
 @login_required
 def view_students(request):
     user = get_user_type(request)
-
-    if user['user_type'] == 'employer' or user['user_type'] == 'admin':
-        students = Student.objects.all()
-        users = User.objects.all()
-        args = {'students': students, 'users': users}
-    else:
-        return redirect('/')
-    return render(request, 'browse_students.html', args)
-
-
-@login_required
-def student_details(request, id):
-    student = Student.objects.get(user_id=id)
-    args = {'student': student, 'user': get_user_type(request)}
-    return render(request, 'student_details.html', args)
-
-
-@login_required
-def filter_students(request):
     if request.method == 'POST':
-        print(request.POST.get)
         alumni_status = request.POST.get("alumni_status")
+        #print(alumni_status)
         skills = request.POST.get("skills")
+        #print(skills)
         min_graduation_date = request.POST.get('min_graduation_date')
+        #print(min_graduation_date)
         max_graduation_date = request.POST.get('max_graduation_date')
+        #print(max_graduation_date)
 
         if alumni_status:
             alumni_status_students = Student.objects.filter(alumni_status=True)
@@ -369,10 +353,22 @@ def filter_students(request):
         filtered_stds = skills_students & alumni_status_students & min_graduation_date_students & max_graduation_date_students
         students_all = Student.objects.all()
         students = students_all & filtered_stds
-        print("students", students)
-        args = {'students': students}
-        return render(request, "browse_students.html", args)
-    else:
         form = FilterStudentForm()
-        args = {'form': form}
-        return render(request, "filter_students.html", args)
+        print("students", students)
+        args = {'students': students, 'form': form, 'user': user}
+        return render(request, "browse_students.html", args)
+    elif user['user_type'] == 'employer' or user['user_type'] == 'admin':
+        students = Student.objects.all()
+        users = User.objects.all()
+        form = FilterStudentForm()
+        args = {'students': students, 'users': users, 'form': form}
+    else:
+        return redirect('/')
+    return render(request, 'browse_students.html', args)
+
+
+@login_required
+def student_details(request, id):
+    student = Student.objects.get(user_id=id)
+    args = {'student': student, 'user': get_user_type(request)}
+    return render(request, 'student_details.html', args)
