@@ -10,6 +10,7 @@
     <title>Career Portal - Murdoch Dubai Career Portal</title>
 
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
@@ -17,7 +18,7 @@
     <meta name="keywords" content="Career Portal, United Arab Emirates, jobs ads, jobs, ads, script, app, premium jobs">
 </head>
 
-<!--This is the begining of the header!-->
+<!--This is the beginning of the header!-->
 <header>
     <nav>
         <section class="nav-container">
@@ -27,9 +28,9 @@
                 <div class="menu-content">
                     {% if user.is_authenticated %}
                         <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
-
                         {% if user_type == 'student' %}
-                            <a href="../student/view_student_profile"><i class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
+                            <a href="../student/view_student_profile"><i
+                                    class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
                         {% elif user_type == 'employer' %}
                             <a href="../employer/view_employer_profile"> {{ obj.company_name }} </a>
                         {% elif user_type == 'admin' %}
@@ -45,22 +46,19 @@
         </section>
     </nav>
 
-
     <div class="bottomnav">
         <a class="active" href="/"> <b>Home</b></a>
         {% if user_type == 'student' %}
             <a href="../view_jobs"><b>Browse Jobs</b></a>
-            <a href="../news"> <b>News</b></a>
         {% elif user_type == 'employer' %}
             <a href="../view_students"><b>Browse Students</b></a>
             <a href="../create_job"> <b>Post a job</b></a>
-            <a href="../news"> <b>News</b></a>
         {% elif user_type == 'admin' %}
             <a href="../view_jobs"><b>Browse Jobs</b></a>
             <a href="../view_students"><b>Browse Students</b></a>
             <a href="../create_job"> <b>Post a job</b></a>
-            <a href="../news"> <b>News</b></a>
         {% endif %}
+        <a href="../news"> <b>News</b></a>
     </div>
 </header>
 
@@ -72,12 +70,13 @@
         <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3> <!-- displays welcome message -->
 
     {% elif user_type == 'employer' %}
-            <!-- displays welcome message -->
+
+        <!-- displays welcome message -->
         <h3>Welcome, {{ obj.company_name }}</h3>
         <p><a href="../view_jobs">MY JOBS</a>
 
-    {% elif user_type == 'admin' %}
-        <!-- displays welcome message -->
+            {% elif user_type == 'admin' %}
+            <!-- displays welcome message -->
         <h3>Welcome, {{ user.username }}</h3>
     {% endif %}
 {% else %}
