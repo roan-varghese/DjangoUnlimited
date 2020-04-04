@@ -2,7 +2,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/View.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock css %}
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +19,8 @@
                                    height="60.0em" width="170.0em"></div>
             <aside class="menu">
                 <div class="menu-content">
-                    <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
                     <a href="../student/view_student_profile"> {{ user.first_name }} </a>
+                    <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
                 </div>
             </aside>
         </section>
@@ -29,13 +29,14 @@
     <div class="bottomnav">
         <a class="active" href="/"> <b>Home</b></a>
         <a href="../view_jobs"> <b>Browse Jobs</b></a>
+        <a href="../news"> <b> News</b></a>
     </div>
 </header>
 <br><br>
 <body>
-<div class="page">
-    <div class="container">
-        <div class="page">
+<div class="overall-page">
+    <div class="inside-container">
+        <div class="overall-page">
             <div class="icon">
                 {% if student.dp %}
                     <img src="{{ student.dp.url }}" height="80.0em" width="90.0em">
@@ -45,7 +46,7 @@
             </div>
             <div style="align:center; padding-top: 20px;"><h2>My Profile</h2></div>
         </div>
-        <div class="container2">
+        <div class="inside-container2">
 
             <p class="view"><strong> Student ID:</strong> {{ student.student_id }}</p>
             <p class="view"><strong> First Name:</strong> {{ user.first_name }}</p>
@@ -67,16 +68,14 @@
             {% endif %}
             <p class="view"><strong> CV: </strong> {{ student.cv }}</p><br>
 
-
-            <button class="btn">
-                <a href="/student/edit_student_profile">Edit Profile</a></button>
+            <div style="text-align:center"><button  type="submit" class="Button2" style="background-color: rgb(204,0,0); color: white; width: 140px; height:30px; margin: 0 auto;"> <a href="/student/edit_student_profile">Edit Profile</a></button></div>
 
             <br><br>
         </div>
     </div>
 </div>
 </div>
-</body
+</body>
 <br><br>
 <!--This is the begining of the footer!-->
 <footer>

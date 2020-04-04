@@ -154,3 +154,12 @@ input[type= checkbox] {
   border-radius: 0.45em;
   box-sizing: border-box;
 }
+
+.msg{
+    margin:auto;
+    background-color: #E8E8E8;
+    padding-top: 0px;
+    padding-bottom: 2em;
+    text-align: center;
+    border: 0.05em solid grey;
+}

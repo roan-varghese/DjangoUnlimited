@@ -2,7 +2,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/View.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -29,15 +29,16 @@
 
     <div class="bottomnav">
         <a class="active" href="/"> <b>Home</b></a>
-        <a href="../view_jobs"> <b>Browse Students</b></a>
+        <a href="../view_students"> <b>Browse Students</b></a>
         <a href="../create_job"> <b> Post a job</b></a>
+        <a href="../news"> <b> News</b></a>
     </div>
 </header>
 <br><br>
 <body>
-<div class="page">
-    <div class="container">
-        <div class="page">
+<div class="overall-page">
+    <div class="inside-container">
+        <div class="overall-page">
             <div class="icon">
                 {% if employer.logo %}
                     <img src="{{ employer.logo.url }}" height="80.0em" width="90.0em">
@@ -47,13 +48,12 @@
             </div>
             <div style="align:center; padding-top: 20px;"><h2>My Profile</h2></div>
         </div>
-        <div class="container2">
+        <div class="inside-container2">
             <p class="view"><strong>Company Name:</strong> {{ employer.company_name }}</p>
             <p class="view"><strong>Company Description:</strong> {{ employer.company_description }}</p>
             <p class="view"><strong>Contact Number:</strong> {{ employer.phone_number }}</p>
 
-            <button class="btn">
-                <a href="/employer/edit_employer_profile">Edit Profile</a></button>
+           <div style="text-align:center"><button type="submit" class="button2" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin: 0 auto;"> <a href="/employer/edit_employer_profile">Edit Profile</a></button></div>
             <br><br>
 
         </div>

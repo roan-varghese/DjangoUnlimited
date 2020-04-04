@@ -12,6 +12,13 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
 from DjangoUnlimited.settings import SENDGRID_API_KEY
+from django.http import HttpResponse
+from wsgiref.util import FileWrapper
+from django.core.files import File
+import os
+import sys
+import pythoncom
+import win32com.client
 
 # Create your views here.
 
@@ -134,7 +141,7 @@ def create_job(request):
             args = {'form': form, 'user': 'employer'}
             return render(request, "employer_create_jobs.html", args)
     except Employer.DoesNotExist:
-        return redirect('log_in')
+        pass
 
     try:
         admin = Admin.objects.get(user_id=request.user.id)
@@ -164,7 +171,9 @@ def create_job(request):
             args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
             return render(request, "employer_create_jobs.html", args)
     except Admin.DoesNotExist:
-        return redirect('log_in')
+        pass
+
+    return redirect('log_in')
 
 
 @login_required
@@ -212,7 +221,7 @@ def edit_job(request, id):
             args = {'job': job, 'jobForm': jobForm, 'user': 'employer'}
             return render(request, 'edit_job.html', args)
     except Employer.DoesNotExist:
-        return redirect('log_in')
+        pass
 
     try:
         admin = Admin.objects.get(user_id=request.user.id)
@@ -240,7 +249,9 @@ def edit_job(request, id):
             args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
             return render(request, 'edit_job.html', args)
     except Admin.DoesNotExist:
-        return redirect('log_in')
+        pass
+
+    return redirect('log_in')
     
 @login_required
 def my_applications(request):
@@ -277,7 +288,7 @@ def news(request):
     page = request.GET.get('page')
     mylist = paginator.get_page(page)
 
-    args = {'mylist': mylist}
+    args = {'mylist': mylist, 'user': get_user_type(request)}
 
     return render(request, 'news.html', args)
 
@@ -316,11 +327,44 @@ def close_job(request, id):
 @login_required
 def view_students(request):
     user = get_user_type(request)
+    if request.method == 'POST':
+        alumni_status = request.POST.get("alumni_status")
+        skills = request.POST.get("skills")
+        min_graduation_date = request.POST.get('min_graduation_date')
+        max_graduation_date = request.POST.get('max_graduation_date')
 
-    if user['user_type'] == 'employer' or user['user_type'] == 'admin':
+        if alumni_status:
+            alumni_status_students = Student.objects.filter(alumni_status=True)
+        else:
+            alumni_status_students = Student.objects.all()
+
+        if skills:
+            skills_students = Student.objects.filter(skills=skills)
+        else:
+            skills_students = Student.objects.all()
+
+        if min_graduation_date:
+            min_graduation_date_students = Student.objects.filter(expected_graduation_date__gte=min_graduation_date)
+        else:
+            min_graduation_date_students = Student.objects.all()
+
+        if max_graduation_date:
+            max_graduation_date_students = Student.objects.filter(expected_graduation_date__lte=max_graduation_date)
+        else:
+            max_graduation_date_students = Student.objects.all()
+
+        filtered_stds = skills_students & alumni_status_students & min_graduation_date_students & max_graduation_date_students
+        students_all = Student.objects.all()
+        students = students_all & filtered_stds
+        form = FilterStudentForm()
+        print("students", students)
+        args = {'students': students, 'form': form, 'user': user}
+        return render(request, "browse_students.html", args)
+    elif user['user_type'] == 'employer' or user['user_type'] == 'admin':
         students = Student.objects.all()
         users = User.objects.all()
-        args = {'students': students, 'users': users}
+        form = FilterStudentForm()
+        args = {'students': students, 'users': users, 'form': form}
     else:
         return redirect('/')
     return render(request, 'browse_students.html', args)
@@ -329,59 +373,37 @@ def view_students(request):
 @login_required
 def student_details(request, id):
     student = Student.objects.get(user_id=id)
-    skills = Skill.objects.all()
-    args = {'student': student, 'user': get_user_type(request), 'skills': skills}
+    args = {'student': student, 'user': get_user_type(request)}
     return render(request, 'student_details.html', args)
+
+@login_required
+def job_to_student_skills(request, id):
+    job = Job.objects.get(id=id)
+    students = Student.objects.filter(skills__in=job.skills.all())
+    students = list(set(students))
+    args = {'students': students}
+    return render(request, "browse_students.html", args)
 
 
 @login_required
-def filter_students(request):
-    if request.method == 'POST':
-        print(request.POST.get)
-        expected_graduation_date = request.POST.get("expected_graduation_date")
-        gender = request.POST.get("gender")
-        alumni_status = request.POST.get("alumni_status")
-        skills = request.POST.get("skills")
-        min_graduation_year = request.POST.get('min_graduation_year')
-        max_graduation_year = request.POST.get('max_graduation_year')
+def get_cv_file(request, id):
+    student = Student.objects.get(user_id=id)
+    cv = student.cv
+    file_name = os.path.basename(cv.file.name)
+    extension = cv.file.name.split(".")
+    if extension[1] != "pdf":
+        input_filename = cv.file.name
+        output_filename = extension[0] + ".pdf"
+        pythoncom.CoInitialize()
+        word = win32com.client.Dispatch('Word.Application')
+        doc = word.Documents.Open(input_filename)
+        doc.SaveAs(output_filename, FileFormat=17)
+        doc.Close()
+        word.Quit()
+        file_name = os.path.split(output_filename)[1]
+        cv = open(output_filename, 'rb')
 
-        if gender:
-            gender_stds = Student.objects.filter(gender=gender)
-        else:
-            gender_stds = Student.objects.all()
-
-        if alumni_status:
-            alumni_status_stds = Student.objects.filter(alumni_status=True)
-        else:
-            alumni_status_stds = Student.objects.all()
-
-        if skills:
-            skills_stds = Student.objects.filter(skills=skills)
-        else:
-            skills_stds = Student.objects.all()
-
-        if expected_graduation_date:
-            expected_graduation_date_stds = Student.objects.filter(expected_graduation_date=expected_graduation_date)
-        else:
-            expected_graduation_date_stds = Student.objects.all()
-
-        if min_graduation_year:
-            min_graduation_year_students = Student.objects.filter(expected_graduation_date__gte=min_graduation_year)
-        else:
-            min_graduation_year_students = Student.objects.all()
-
-        if max_graduation_year:
-            max_graduation_year_stds = Student.objects.filter(expected_graduation_date__lte=max_graduation_year)
-        else:
-            max_graduation_year_stds = Student.objects.all()
-
-        filtered_stds = gender_stds & skills_stds & alumni_status_stds & expected_graduation_date_stds & min_graduation_year_students & max_graduation_year_stds
-        students_all = Student.objects.all()
-        students = students_all & filtered_stds
-        print("students", students)
-        args = {'students': students}
-        return render(request, "browse_students.html", args)
-    else:
-        form = FilterStudentForm()
-        args = {'form': form}
-        return render(request, "filter_students.html", args)
+    wrapper = FileWrapper(File(cv, 'rb'))
+    response = HttpResponse(wrapper, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=' + file_name
+    return response

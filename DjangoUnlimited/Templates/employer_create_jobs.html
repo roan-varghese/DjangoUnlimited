@@ -29,13 +29,14 @@
         <div class="bottomnav">
             <a href="/"> <b>Home</b></a>
             <a href=""> <b>Browse Students</b></a>
+            <a href="../news"> <b> News</b></a>
         </div>
     </header>
 </head>
 
 <body>
 <br><br>
-<div class="page">
+<div class="overall-page">
     <div class="sidebar">
         <h4> MY ACCOUNT</h4>
         <button class="button"><a href="../employer/edit_employer_profile">Edit company information</a></button>
@@ -82,7 +83,7 @@
     <!-- this displays any errors during submission -->
     <div>
         {% for message in messages %}
-        <h3> {{message}} </h3>
+        <h3 class = "message"> {{message}} </h3>
         {% endfor %}
     </div>
 </div>

@@ -1,8 +1,14 @@
 body{
+    font-family: Arial;
     margin: 0px;
+    font-family: Arial;
+    min-height: 400px;
+    margin-bottom: 150px;
+    clear: both;
 }
-
-
+header{
+    font-family: Arial;
+}
 /* the position of overall nav  */
 nav{
     width:100%;
@@ -27,7 +33,6 @@ nav{
     left: 3.5em;
 }
 
-
 /*the navbar menu  of signup & login*/
 .menu{
     width: 100%;
@@ -37,16 +42,15 @@ nav{
 
 /* the over styling of nav menu-content*/
 .menu>.menu-content{
-
-    height: 11em;
+    height: 8em;
     float: right;
-    font-family: Segoe UI;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: bold;
     letter-spacing: 1px;
     position: relative;
     line-height: 100px;
     background: rgb(29,26,26);
+    padding-left: 1em;
 }
 
 .menu>.menu-content>a {
@@ -65,11 +69,9 @@ nav{
     padding-top: 0.5em;
 }
 
-
 .menu>.menu-content>a:hover{
     color: rgb(204,0,0);
 }
-
 
 /*This section contains the styling of bottomnav*/
 .bottomnav {
@@ -90,15 +92,22 @@ nav{
     font-family: Segoe UI;
 }
 
+.home_img{
+    align:center;
+    border: 1em;
+}
 
 footer{
+    font-family: Arial;
     background-color: rgb(29,26,26);
     color: white;
     bottom: 0;
     left:0;
     width: 100%;
-    position: static;
+    position: fixed;
     margin: auto;
+    font-size: 0.85em;
+    height:9em;
 }
 
 .para1{
@@ -155,3 +164,4 @@ a{
 .follow{
     flex:1;
 }
+

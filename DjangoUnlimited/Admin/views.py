@@ -162,3 +162,14 @@ def create_job(request):
 
         args = {'companyForm': companyForm, 'jobForm': jobForm}
         return render(request, "admin/admin_create_job.html", args)
+
+
+def get_statistic_file(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="file.csv"'
+    employers = Employer.objects.all()
+    writer = csv.writer(response)
+    writer.writerow(['1002', 'Amit', 'Mukharji', 'LA', '"Testing"'])
+    for employer in employers:
+        writer.writerow([employer.company_name, employer.company_description, employer.phone_number])
+    return response

@@ -2,7 +2,7 @@
 <!-- Stylesheets -->
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -28,6 +28,7 @@
             <a href="/"> <b>Home</b></a>
             <a href="../view_jobs"> <b>Browse Students</b></a>
             <a href="../create_job"> <b> Post a job</b></a>
+            <a href="../news"> <b> News</b></a>
         </div>
     </header>
 </head>
@@ -35,7 +36,7 @@
 <body>
 <div>
     <br><br>
-    <div class="page">
+    <div class="overall-page">
         <div class="sidebar">
             <h4> MY ACCOUNT</h4>
             <button class="button"><a href="edit_employer_profile">Edit company information</a></button>
@@ -46,7 +47,7 @@
             <button class="button"><a href=""> Browse students</a></button>
         </div>
 
-        <div class="container">
+        <div class="inside-container">
             <div class="page">
                 <div class="icon">
                     {% if employer.logo %}
@@ -59,32 +60,34 @@
                 <div class="hello"><h3>hello {{ employer.company_name }}</h3></div>
             </div>
             <div class="heading"><h4 align="center">My profile</h4></div>
-            <div class="container2">
+            <div class="inside-container2">
+                <br/><br/>
                 <form method="post" enctype="multipart/form-data" action="edit_employer_profile">
                     {% csrf_token %}
                     {% for field in employer_form %}
-                    <div class = "Col1">{{ field.label }}</div>
-                    <div class = "Col2">{{ field }}</div>
+                    <div class="Col1">{{ field.label }}</div>
+                    <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
                     {% endfor %}
-                    <div class = "middle">
+                    <div class="middle">
                         <button class="button2" type="submit"><b>Save Changes</b></button>
-                        <button class="button2" type="button"><a href="view_employer_profile"> <b>Cancel</b></a></button>
+                        <button class="button2" type="button"><a href="view_employer_profile"> <b>Cancel</b></a>
+                        </button>
                     </div>
                 </form>
             </div>
-        </div>
 
-        <br><br>
+            <br><br>
 
-    <!-- this displays any errors during submission -->
-    <div>
-        {% for message in messages %}
-            <h3> {{message}} </h3>
-            {% endfor %}
+            <!-- this displays any errors during submission -->
+            <div>
+                {% for message in messages %}
+                <h3> {{message}} </h3>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
-    <br><br><br><br>
+<br><br><br><br>
 </body>
 <!--This is the begining of the footer!-->
 <footer>

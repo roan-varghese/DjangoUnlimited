@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
@@ -9,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from Accounts.views import isValidated
 from .models import Employer
 from .forms import InitialEmployerForm, EmployerForm
+from Student.models import Student
 from Admin.models import Admin
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -16,6 +18,8 @@ from django.core.mail import send_mail
 from DjangoUnlimited.settings import SENDGRID_API_KEY
 
 import os
+import csv
+
 
 def signup(request):
     if request.method == 'POST':
@@ -56,7 +60,7 @@ def signup(request):
                                 html_content="A new Employer has registered to use the Murdoch Career Portal."
                             )
                             sg = SendGridAPIClient(SENDGRID_API_KEY)
-                          #  sg.send(message)
+                        #  sg.send(message)
 
                         return redirect("log_in")
                     else:
@@ -74,6 +78,7 @@ def signup(request):
         employer_form = EmployerForm()
         args = {'employer_form': employer_form, 'user_form': user_form}
         return render(request, 'employer_registration.html', args)
+
 
 @login_required
 def edit_profile(request):
@@ -94,6 +99,7 @@ def edit_profile(request):
             return render(request, 'edit_employer_profile.html', args)
     else:
         messages.info(request, 'This employer user does not exist')
+
 
 @login_required
 def view_profile(request):

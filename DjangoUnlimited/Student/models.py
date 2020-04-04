@@ -14,7 +14,7 @@ class Student(models.Model):
     gender = models.CharField(max_length=10, choices=gender_choices)
     DOB = models.DateField(null=True)
     student_id = models.CharField(null=False, max_length=8)
-    skills = models.ManyToManyField(Skill)
+    skills = models.ManyToManyField(Skill, related_name='student_skills')
     alumni_status = models.BooleanField(default=False)
     personal_email = models.CharField(max_length=100)
     expected_graduation_date = models.DateField(null=True, blank=True)
@@ -26,13 +26,6 @@ class Student(models.Model):
     def __str__(self):
         name = self.user.first_name + ' ' + self.user.last_name
         return name
-'''
-class StudentSkill(models.Model):
-    #student_user = str
-    student_user = models.ForeignKey(Student, null=True, on_delete=models.CASCADE, related_name='student_user')
-    skill_id = models.ForeignKey(Skill, null=True, on_delete=models.CASCADE, related_name='student_skill')
-    date_skill_added = models.DateTimeField(null=True, auto_now_add=True)
-'''
 
 class StudentJobApplication(models.Model):
     job_id = models.ForeignKey(Job, null=True, on_delete=models.CASCADE, related_name='student_job')
