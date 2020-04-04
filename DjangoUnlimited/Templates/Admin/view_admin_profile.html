@@ -1,4 +1,7 @@
+{% extends "admin/base_site.html" %}
+
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,18 +11,38 @@
     <title>View Profile</title>
 </head>
 <body>
+{% block content %}
 
-{% if student.dp %}
-    <img src="{{ student.dp.url }}">
+{% if hasAdminDetails %}
+    {% if admin.dp %}
+        <img src="{{ admin.dp.url }}">
+    {% else %}
+        <img src="{% static 'DefaultDP.jpg' %}">
+    {% endif %}
+    <p>First Name: {{ user.first_name }}</p>
+    <p>Last Name: {{ user.last_name }}</p>
+    <p>Email Address: {{ user.email }}</p>
+    <p>Gender: {{ admin.gender }}</p>
+
+    <button type="button"><a href="{% url 'edit_admin_profile' %}">Edit Profile</a></button>
+    <button type="button"><a href="../../admin">Go back home</a></button>
+
 {% else %}
-    <img src="{% static 'DefaultDP.jpg' %}">
-{% endif %}
-<p>First Name: {{ user.first_name }}</p>
-<p>Last Name: {{ user.last_name }}</p>
-<p>Email Address: {{ user.email }}</p>
-<p>Gender: {{ admin.gender }}</p>
 
-<button type="button"><a href="{% url 'edit_admin_profile' %}">Edit Profile</a></button>
-<button type="button"><a href="../../admin">Go back home</a></button>
+    <h2>Looks like you have not filled in some details yet. Fill in the form below to be able to view your profile.</h2>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'view_admin_profile' %}">
+        {% csrf_token %}
+
+        {{ admin_form.as_p }}
+    
+        <button type="submit">Add Details</button>
+        <button type="button"><a href="../../admin">Cancel</a></button>
+    </form>
+
+{% endif %}
+
+{% endblock %}
 </body>
 </html>
+

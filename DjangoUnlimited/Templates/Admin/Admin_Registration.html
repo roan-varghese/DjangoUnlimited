@@ -1,3 +1,5 @@
+{% extends "admin/base_site.html" %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-<h4><a href="../../admin">Back to admin home</a></h4>
+{% block content %}
+
 <h2>Admin account creation</h2>
 <form action="{% url 'admin_register' %}" method="post">
     {% csrf_token %}
@@ -19,7 +23,8 @@
 
     <input type="hidden" name="next" value="../admin">
 
-    <input type="submit">
+    <button type="submit">Create Admin</button>
+    <button type="button"><a href="../../admin">Cancel</a></button>
 </form>
 
 <!-- this displays any errors during submission -->
@@ -28,5 +33,7 @@
         <h3> {{ message }} </h3>
     {% endfor %}
 </div>
+
+{% endblock %}
 </body>
 </html>
