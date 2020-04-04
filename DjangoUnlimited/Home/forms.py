@@ -100,7 +100,7 @@ class FilterJobForm(forms.ModelForm):
         self.fields['industry_id'].required = False
 
 
-class FilterStudentForm(forms.Form):
+class FilterStudentForm(forms.ModelForm):
     alumni_status = forms.BooleanField(required=False, label='Alumni Student',
                                        widget=forms.CheckboxInput(attrs={'onClick': 'disable_fields(this.checked)'}))
 
@@ -110,7 +110,7 @@ class FilterStudentForm(forms.Form):
                                                    'class': 'datepicker form-control-text',
                                                    'placeholder': 'YYYY-MM-DD',
                                                    'autocomplete': 'off'
-                                               }))
+                                                }))
     max_graduation_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
                                           label='Maximum Graduation Date',
                                           widget=forms.DateInput(attrs={
