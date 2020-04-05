@@ -128,7 +128,7 @@ ul{
     list-style-type:none;
 }
 
-ul>a{
+ul>li>a{
     color: white;
     text-decoration: none;
 }
