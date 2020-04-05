@@ -89,11 +89,10 @@
         <form method="post">
             {% csrf_token %}
             <div class="col-sm-12 p-0 form-wrapper pt-3">
-                <!-- disabled if ticket is completed -->
                 <textarea id="{{ form.comment.id_for_label }}" name="{{ form.comment.html_name }}"
                           class="form-control"
                           required
-                          {% if help_desk_form.completed.value== True %}disabled{% endif %}></textarea>
+                         ></textarea>
             </div>
             {# Required hidden fields to be rendered for security reasons from django-contrib-comments #}
             {% for field in form %}
