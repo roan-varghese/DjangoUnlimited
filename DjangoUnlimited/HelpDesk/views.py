@@ -79,21 +79,12 @@ class HelpDeskRequests(TemplateView):
         c = HelpDeskModel.objects.all().order_by("-completed_date")
         user = get_user_type(request)
         args = {
-            'helpDeskRequests': c,
+            'reqs': c,
             'user': user,
         }
+        print (c)
 
         return render(request, 'HelpDesk/Admin_List_of_Requests.html', args)
-
-    # Admin completes the request
-    def post(self, request, *args, **kwargs):
-        if request.POST.get("submitbutton"):
-            help_desk = HelpDeskModel.objects.get(id=request.POST['ID'])
-            help_desk.completed = True  # marks the request as completed
-            help_desk.completed_date = timezone.now()
-            help_desk.save()
-
-        return redirect('HelpDeskRequests')
 
 
 # Each User's own view of their own requests

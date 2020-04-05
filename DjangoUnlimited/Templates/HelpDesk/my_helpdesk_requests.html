@@ -8,8 +8,8 @@
     <tr class="text-center">
         <th>Request Date</th>
         <th>Issue</th>
-        <th>Status</th>
-        <th>Completed Date</th>
+        <th>Subject</th>
+
     </tr>
     </thead>
     <tbody>
@@ -20,14 +20,7 @@
             <a href="{% url 'HelpDesk' helpdeskRequest.id %}">
                 {{ helpdeskRequest.subject }}</a>
         </td>
-        <td>
-            {% if helpdeskRequest.completed == True %}
-            Completed
-            {% else %}
-            Pending
-            {% endif %}
-        </td>
-        <td> {{ helpdeskRequest.completed_date }}</td>
+        <td> {{ helpdeskRequest.issue }} </td>
 
     </tr>
     {% endfor %}
