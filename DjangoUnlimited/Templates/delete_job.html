@@ -1,8 +1,8 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -10,29 +10,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Job</title>
-    <header>
-        <nav>
-            <section class="nav-container">
-                <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                       height="60.0em" width="170.0em"></div>
-                <aside class="menu">
-                    <div class="menu-content">
-                        <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
-                        <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
-                    </div>
-                </aside>
-            </section>
-        </nav>
+    <title>Delete Jobs - Murdoch Dubai Job Portal</title>
 
-        <div class="bottomnav">
-            <a class="active" href="/"> <b>Home</b></a>
-            <a href="../view_jobs"> <b>Browse Students</b></a>
-            <a href="../create_job"> <b> Post a job</b></a>
-            <a href="../news"> <b> News</b></a>
-        </div>
-    </header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
+<header>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                    <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
+                </div>
+            </aside>
+        </section>
+    </nav>
+
+    <div class="bottomnav">
+        <a class="active" href="/"> <b>Home</b></a>
+        <a href="../view_jobs"> <b>Browse Students</b></a>
+        <a href="../create_job"> <b> Post a job</b></a>
+        <a href="../news"> <b> News</b></a>
+    </div>
+</header>
 
 <body>
 <form method='POST'>
@@ -40,7 +50,7 @@
     <div class="msg">
         {% csrf_token %}
         {% block content %}
-        <h2>Are you sure you want to delete the job {{ job.job_title }} ?</h2>
+            <h2>Are you sure you want to delete the job {{ job.job_title }} ?</h2>
 
             <br/><br/>
             <button class="btn btn-outline-danger" type="submit"><b>Yes, Delete</b></button>
@@ -48,10 +58,10 @@
             <br><br>
             <div>
                 {% for message in messages %}
-                <h3> {{message}} </h3>
+                    <h3> {{ message }} </h3>
                 {% endfor %}
             </div>
-            {% endblock %}
+        {% endblock %}
 
     </div>
 </form>
@@ -63,18 +73,10 @@
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <a href="https://www.murdochuniversitydubai.com/faq" style="color: white">
-                    <li>FAQ</li>
-                </a>
-                <a href="https://murdochdubaicareerportal.com/page/anti-scam" style="color: white">
-                    <li>Anti-Scam</li>
-                </a>
-                <a href="">
-                    <li style="color: white">Terms</li>
-                </a>
-                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white">
-                    <li>Privacy</li>
-                </a>
+                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
+                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
+                <li><a href="">Terms</a></li>
+                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
             </ul>
         </div>
 
@@ -82,9 +84,7 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <a href="sitemap.html" style="color: white">
-                    <li> Sitemap</li>
-                </a>
+                <li> <a href="sitemap.html">Sitemap</a></li>
             </ul>
         </div>
 

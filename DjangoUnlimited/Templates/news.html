@@ -1,8 +1,5 @@
 {% load staticfiles %}
 
-{% block title %}
-<title>NEWS HEADLINES BY CNN</title>
-{% endblock title %}
 
 {% block css %}
 <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
@@ -13,8 +10,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Profile</title>
+    <title>NEWS HEADLINES BY CNN</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
 <header>
     <nav>
         <section class="nav-container">
@@ -25,11 +32,12 @@
                     <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
 
                     {% if user.user_type == 'student' %}
-                        <a href="../student/view_student_profile"><i class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
+                    <a href="../student/view_student_profile"><i
+                            class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
                     {% elif user.user_type == 'employer' %}
-                        <a href="../employer/view_employer_profile"> {{ user.obj.company_name }} </a>
+                    <a href="../employer/view_employer_profile"> {{ user.obj.company_name }} </a>
                     {% elif user.user_type == 'admin' %}
-                        <a href="../admin"> {{ user.username }} </a>
+                    <a href="../admin"> {{ user.username }} </a>
                     {% endif %}
                 </div>
             </aside>
@@ -39,13 +47,15 @@
     <div class="bottomnav">
         <a class="active" href="/"> <b>Home</b></a>
         {% if user.user_type == 'student' %}
-            <a href="../view_jobs"><b>Browse Jobs</b></a>
+        <a href="../view_jobs"><b>Browse Jobs</b></a>
         {% elif user.user_type == 'employer' %}
-            <a href="../view_students"><b>Browse Students</b></a>
+        <a href="../view_students"><b>Browse Students</b></a>
+        <a href="../create_job"><b>Post a Job</b></a>
         {% elif user.user_type == 'admin' %}
-            <a href="../view_jobs"><b>Browse Jobs</b></a>
-            <a href="../view_students"><b>Browse Students</b></a>
+        <a href="../view_jobs"><b>Browse Jobs</b></a>
+        <a href="../view_students"><b>Browse Students</b></a>
         {% endif %}
+        <a class="active" href="/news"> <b>News</b></a>
     </div>
 </header>
 {% block content %}
@@ -95,18 +105,10 @@
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <a href="https://www.murdochuniversitydubai.com/faq" class="white">
-                    <li>FAQ</li>
-                </a>
-                <a href="https://murdochdubaicareerportal.com/page/anti-scam">
-                    <li>Anti-Scam</li>
-                </a>
-                <a href="">
-                    <li>Terms</li>
-                </a>
-                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy">
-                    <li>Privacy</li>
-                </a>
+                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
+                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
+                <li><a href="">Terms</a></li>
+                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
             </ul>
         </div>
 
@@ -114,21 +116,12 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <a href="sitemap.html">
-                    <li> Sitemap</li>
-                </a>
+                <li><a href="sitemap.html">Sitemap</a></li>
             </ul>
         </div>
+
 
         <!-- This is the 3rd column of the footer !-->
-        <div class="helpDesk">
-            <ul>
-                <h3> SUPPORT </h3>
-                <a href=my_helpdesk_request.html"> Help Desk</a>
-            </ul>
-        </div>
-
-        <!-- This is the 4th column of the footer !-->
         <div class="contact">
             <h3> CONTACT US </h3>
             <p class="para1">
@@ -144,7 +137,7 @@
 
         </div>
 
-        <!-- This is the 5th column of the footer !-->
+        <!-- This is the 4th column of the footer !-->
         <div class="follow">
             <h3> FOLLOW US </h3>
             <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img

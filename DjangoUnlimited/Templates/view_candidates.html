@@ -1,43 +1,43 @@
 {% load static %}
 
 {% block css %}
-<style>
+    <style>
         b, strong {
             font-weight: initial !important;
         }
 
 
-</style>
+    </style>
 {% endblock css %}
 
 {% block content %}
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Date Applied</th>
-        <th>Student Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for candidates in candidates %}
-    <tr>
-        <td>{{ candidates.date_applied }}</td>
-        <td>{{ candidates.applied }}</td>
-        <td>
-            <button type="button"><a target="_blank" href="{{ candidates.applied.cv.url }}">DOWNLOAD
-                CV</a></button>
-        </td>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Date Applied</th>
+            <th>Student Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for candidates in candidates %}
+            <tr>
+            <td>{{ candidates.date_applied }}</td>
+            <td>{{ candidates.applied }}</td>
+            <td>
+                <button type="button"><a target="_blank" href="{{ candidates.applied.cv.url }}">DOWNLOAD
+                    CV</a></button>
+            </td>
         {% endfor %}
-    </tr>
-    </tbody>
-</table>
+        </tr>
+        </tbody>
+    </table>
 
 
 {% endblock %}
 
 {% block js %}
-<script>
+    <script>
         // the initialisation of dataTables and set the ordering of first column
 
         $('.table').DataTable({
@@ -46,6 +46,5 @@
         });
 
 
-
-</script>
+    </script>
 {% endblock %}

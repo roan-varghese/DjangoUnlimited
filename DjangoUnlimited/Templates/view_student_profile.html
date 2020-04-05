@@ -1,8 +1,8 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
+<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock css %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +10,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View Profile</title>
+    <title>View Profile - Murdoch Dubai Job Portal</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
 <header>
     <nav>
         <section class="nav-container">
@@ -19,8 +29,9 @@
                                    height="60.0em" width="170.0em"></div>
             <aside class="menu">
                 <div class="menu-content">
-                    <a href="../student/view_student_profile"> {{ user.first_name }} </a>
                     <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                    <a href="../student/view_student_profile"> {{ user.first_name }} {{ user.last_name }}</a>
+
                 </div>
             </aside>
         </section>
@@ -32,16 +43,18 @@
         <a href="../news"> <b> News</b></a>
     </div>
 </header>
+
 <br><br>
+
 <body>
 <div class="overall-page">
     <div class="inside-container">
         <div class="overall-page">
             <div class="icon">
                 {% if student.dp %}
-                    <img src="{{ student.dp.url }}" height="80.0em" width="90.0em">
+                <img src="{{ student.dp.url }}" height="80.0em" width="90.0em">
                 {% else %}
-                    <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
                 {% endif %}
             </div>
             <div style="align:center; padding-top: 20px;"><h2>My Profile</h2></div>
@@ -57,18 +70,23 @@
 
             <strong>Skills: </strong><br><br>
             {% for skill in student.skills.all %}
-                <li>{{ skill }}</li><br>
+            <li>{{ skill }}</li>
+            <br>
             {% endfor %}
             {% if student.alumni_status %}
-                <p class="view"><strong> Alumni Status:</strong> Alumni</p>
+            <p class="view"><strong> Alumni Status:</strong> Alumni</p>
             {% else %}
-                <p class="view"><strong>Alumni Status: </strong> Current Student</p>
-                <p class="view"><strong> Expected Graduation Date:</strong> {{ student.expected_graduation_date }}</p>
-                <p class="view"><strong> Personal Email Address:</strong> {{ student.personal_email }}</p>
+            <p class="view"><strong>Alumni Status: </strong> Current Student</p>
+            <p class="view"><strong> Expected Graduation Date:</strong> {{ student.expected_graduation_date }}</p>
+            <p class="view"><strong> Personal Email Address:</strong> {{ student.personal_email }}</p>
             {% endif %}
             <p class="view"><strong> CV: </strong> {{ student.cv }}</p><br>
 
-            <div style="text-align:center"><button  type="submit" class="Button2" style="background-color: rgb(204,0,0); color: white; width: 140px; height:30px; margin: 0 auto;"> <a href="/student/edit_student_profile">Edit Profile</a></button></div>
+            <div style="text-align:center">
+                <button type="submit" class="Button2"
+                        style="background-color: rgb(204,0,0); color: white; width: 140px; height:30px; margin: 0 auto;">
+                    <a href="/student/edit_student_profile">Edit Profile</a></button>
+            </div>
 
             <br><br>
         </div>
@@ -84,18 +102,10 @@
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <a href="https://www.murdochuniversitydubai.com/faq" style="color: white">
-                    <li>FAQ</li>
-                </a>
-                <a href="https://murdochdubaicareerportal.com/page/anti-scam" style="color: white">
-                    <li>Anti-Scam</li>
-                </a>
-                <a href="">
-                    <li style="color: white">Terms</li>
-                </a>
-                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white">
-                    <li>Privacy</li>
-                </a>
+                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
+                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
+                <li><a href="">Terms</a></li>
+                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
             </ul>
         </div>
 
@@ -103,9 +113,7 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <a href="sitemap.html" style="color: white">
-                    <li> Sitemap</li>
-                </a>
+                <li><a href="sitemap.html">Sitemap</a></li>
             </ul>
         </div>
 

@@ -1,37 +1,47 @@
 {% load staticfiles %}
 <!-- Stylesheets -->
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Profile</title>
-    <header>
-        <nav>
-            <section class="nav-container">
-                <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                       height="60.0em" width="170.0em"></div>
-                <aside class="menu">
-                    <div class="menu-content">
-                        <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
-                        <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
-                    </div>
-                </aside>
-            </section>
-        </nav>
+    <title>Edit Profile - Murdoch Dubai Job Portal</title>
 
-        <div class="bottomnav">
-            <a href="/"> <b>Home</b></a>
-            <a href="../view_jobs"> <b>Browse Students</b></a>
-            <a href="../create_job"> <b> Post a job</b></a>
-            <a href="../news"> <b> News</b></a>
-        </div>
-    </header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
+<header>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                    <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
+                </div>
+            </aside>
+        </section>
+    </nav>
+
+    <div class="bottomnav">
+        <a href="/"> <b>Home</b></a>
+        <a href="../view_students"> <b>Browse Students</b></a>
+        <a href="../create_job"> <b> Post a job</b></a>
+        <a href="../news"> <b> News</b></a>
+    </div>
+</header>
 
 <body>
 <div>
@@ -51,9 +61,9 @@
             <div class="page">
                 <div class="icon">
                     {% if employer.logo %}
-                    <img src="{{ employer.logo.url }}" height="80.0em" width="90.0em">
+                        <img src="{{ employer.logo.url }}" height="80.0em" width="90.0em">
                     {% else %}
-                    <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                        <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
                     {% endif %}
                 </div>
                 <!-- displays welcome message -->
@@ -65,8 +75,8 @@
                 <form method="post" enctype="multipart/form-data" action="edit_employer_profile">
                     {% csrf_token %}
                     {% for field in employer_form %}
-                    <div class="Col1">{{ field.label }}</div>
-                    <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
+                        <div class="Col1">{{ field.label }}</div>
+                        <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
                     {% endfor %}
                     <div class="middle">
                         <button class="button2" type="submit"><b>Save Changes</b></button>
@@ -81,7 +91,7 @@
             <!-- this displays any errors during submission -->
             <div>
                 {% for message in messages %}
-                <h3> {{message}} </h3>
+                    <h3> {{ message }} </h3>
                 {% endfor %}
             </div>
         </div>
