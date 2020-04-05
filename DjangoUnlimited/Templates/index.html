@@ -7,82 +7,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Job Portal - Murdoch Dubai Job Portal</title>
+    <title>Career Portal - Murdoch Dubai Career Portal</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-    <meta name="keywords"
-          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
 
-    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
+    <meta name="description"
+          content="Welcome to Career Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords" content="Career Portal, United Arab Emirates, jobs ads, jobs, ads, script, app, premium jobs">
 </head>
 
-
-<body>
-{% csrf_token %}
-
-<!--This is the beginning of the header!-->
+<!--This is the begining of the header!-->
 <header>
     <nav>
-        <section class="nav-container">
-            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                   height="60.0em" width="170.0em"></div>
-            <aside class="menu">
-                <div class="menu-content">
+        <div class="topnav" id="myTopnav">
+           <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                     height="60.0em" width="170.0em"></div>
+
                     {% if user.is_authenticated %}
                         <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+
                         {% if user_type == 'student' %}
-                            <a href="../student/view_student_profile"><i
-                                    class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
+                            <a href="../student/view_student_profile"><i class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
                         {% elif user_type == 'employer' %}
                             <a href="../employer/view_employer_profile"> {{ obj.company_name }} </a>
-                        {% elif user.is_superuser %}
+                        {% elif user_type == 'admin' %}
                             <a href="../admin"> {{ user.username }} </a>
                         {% endif %}
+
                     {% else %}
-                        <a href="student/student_registration"><i class="userlogin"></i>Student Signup</a>
-                        <a href="employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
-                        <a href="accounts/login"><i class="userlogin "></i>Login</a>
+
+  <a href="../accounts/login" class="active">Login</a>
+  <div class="dropdown">
+    <button class="dropbtn">SignUp</button>
+    <div class="dropdown-content">
+      <a href="/student/student_registration">I'm a Student</a>
+      <a href="/employer/employer_registration">I'm an Employer</a>
+    </div>
+  </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a></div>
+
+
                     {% endif %}
-                </div>
-            </aside>
-        </section>
     </nav>
 
     <div class="bottomnav">
         <a class="active" href="/"> <b>Home</b></a>
         {% if user_type == 'student' %}
             <a href="../view_jobs"><b>Browse Jobs</b></a>
+            <a href="../news"> <b>News</b></a>
         {% elif user_type == 'employer' %}
             <a href="../view_students"><b>Browse Students</b></a>
             <a href="../create_job"> <b>Post a job</b></a>
-        {% elif user.is_superuser %}
+            <a href="../news"> <b>News</b></a>
+        {% elif user_type == 'admin' %}
             <a href="../view_jobs"><b>Browse Jobs</b></a>
             <a href="../view_students"><b>Browse Students</b></a>
             <a href="../create_job"> <b>Post a job</b></a>
+            <a href="../news"> <b>News</b></a>
         {% endif %}
-        <a href="../news"> <b>News</b></a>
     </div>
 </header>
-
+<script>/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}</script>
+<body>
+{% csrf_token %}
 {% if user.is_authenticated %}
     {% if user_type == 'student' %}
         <!-- displays welcome message -->
         <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3> <!-- displays welcome message -->
+
     {% elif user_type == 'employer' %}
-        <!-- displays welcome message -->
+            <!-- displays welcome message -->
         <h3>Welcome, {{ obj.company_name }}</h3>
         <p><a href="../view_jobs">MY JOBS</a>
-    {% elif user.is_superuser %}
+
+    {% elif user_type == 'admin' %}
         <!-- displays welcome message -->
         <h3>Welcome, {{ user.username }}</h3>
     {% endif %}
 {% else %}
     <p><a href="admin">ADMIN - > LOGIN</a></p>
 {% endif %}
-<br><br>
 <div class="home_img"><img src="{% static 'images/homeimg.jpg' %}" alt="Home page image"></div>
 <br><br>
 </body>
@@ -94,10 +107,18 @@
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
-                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
+                <a href="https://www.murdochuniversitydubai.com/faq" style="color: white">
+                    <li>FAQ</li>
+                </a>
+                <a href="https://murdochdubaicareerportal.com/page/anti-scam" style="color: white">
+                    <li>Anti-Scam</li>
+                </a>
+                <a href="">
+                    <li style="color: white">Terms</li>
+                </a>
+                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white">
+                    <li>Privacy</li>
+                </a>
             </ul>
         </div>
 
@@ -105,12 +126,19 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <li> <a href="sitemap.html">Sitemap</a></li>
+                <a href="sitemap.html" style="color: white">
+                    <li> Sitemap</li>
+                </a>
             </ul>
         </div>
 
-
         <!-- This is the 3rd column of the footer !-->
+        <div class="helpDesk">
+            <h3></h3>
+
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
         <div class="contact">
             <h3> CONTACT US </h3>
             <p class="para1">
@@ -126,7 +154,7 @@
 
         </div>
 
-        <!-- This is the 4th column of the footer !-->
+        <!-- This is the 5th column of the footer !-->
         <div class="follow">
             <h3> FOLLOW US </h3>
             <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
