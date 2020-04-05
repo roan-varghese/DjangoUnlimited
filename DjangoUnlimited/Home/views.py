@@ -96,7 +96,7 @@ def view_jobs(request):
         form = FilterJobForm()
         print("user", get_user_type(request))
         args = {'jobs': jobs, 'user': get_user_type(request), 'form': form}
-        return render(request, "browse_jobs.html", args)
+        return render(request, "view_jobs.html", args)
     elif user['user_type'] == 'employer':
         jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted')
         args = {'jobs': jobs, 'company': user['obj']}
@@ -107,7 +107,7 @@ def view_jobs(request):
         args = {'jobs': jobs, 'companies': companies, 'form': form, 'user_type': user}
     else:
        redirect('/')
-    return render(request, 'browse_jobs.html', args)
+    return render(request, 'view_jobs.html', args)
 
 
 @login_required
@@ -359,7 +359,7 @@ def view_students(request):
         form = FilterStudentForm()
         print("students", students)
         args = {'students': students, 'form': form, 'user': user}
-        return render(request, "browse_students.html", args)
+        return render(request, "view_students.html", args)
     elif user['user_type'] == 'employer' or user['user_type'] == 'admin':
         students = Student.objects.all()
         users = User.objects.all()
@@ -367,7 +367,7 @@ def view_students(request):
         args = {'students': students, 'users': users, 'form': form}
     else:
         return redirect('/')
-    return render(request, 'browse_students.html', args)
+    return render(request, 'view_students.html', args)
 
 
 @login_required
@@ -382,7 +382,7 @@ def job_to_student_skills(request, id):
     students = Student.objects.filter(skills__in=job.skills.all())
     students = list(set(students))
     args = {'students': students}
-    return render(request, "browse_students.html", args)
+    return render(request, "view_students.html", args)
 
 
 @login_required
