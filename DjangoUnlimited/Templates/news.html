@@ -75,7 +75,6 @@
     {% if mylist.has_previous %}
     <a
             href="?page=1">
-        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
     </a>
     {% endif %}
 
@@ -92,7 +91,6 @@
     {% if mylist.has_next %}
     <a
             href="?page={{ mylist.paginator.num_pages }}">
-        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
     </a>
     {% endif %}
 </div>

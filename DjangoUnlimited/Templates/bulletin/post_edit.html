@@ -8,13 +8,10 @@
     {% csrf_token %}
 
     {{ form.title }}
-
-
     {{ form.feed }}
 
 
-    <button id="submitbutton" type="submit" name="submitbutton" value="submitbutton"
-    >Submit
+    <button id="submitbutton" type="submit" name="submitbutton" value="submitbutton">Submit
     </button>
 
 
@@ -51,16 +48,15 @@
 
 <div class="pagination">
     {% if posts.has_previous %}
-    <a href="?page={{ posts.previous_page_number }}" class="white fonts-12">&nbsp;Previous&nbsp;</a>
+    <a href="?page={{ posts.previous_page_number }}" >&nbsp;Previous&nbsp;</a>
     {% endif %}
 
-    <span class="fonts-12">{{ posts.number }} </span>
-    <span class="fonts-12">&nbsp; of &nbsp;</span>
-    <span class="fonts-12">{{ posts.paginator.num_pages }}</span>
+    <span>{{ posts.number }} </span>
+    <span>&nbsp; of &nbsp;</span>
+    <span>{{ posts.paginator.num_pages }}</span>
 
     {% if posts.has_next %}
-    <a href="?page={{ posts.next_page_number }}" class="white fonts-12">&nbsp;Next</a>
+    <a href="?page={{ posts.next_page_number }}" >&nbsp;Next</a>
+    </div>
     {% endif %}
-
-
     {% endblock content %}
