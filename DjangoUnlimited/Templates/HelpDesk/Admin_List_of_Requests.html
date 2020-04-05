@@ -1,94 +1,40 @@
 {% block css %}
-<style>
-        b, strong {
-            font-weight: initial !important;
-        }
-
-</style>
 {% endblock css %}
 
 {% block content %}
-
 {% if user.user_type == 'admin' %}
-
-<table class="table ">
+<table class="table">
     <thead>
     <tr class="text-center">
         <th>Request Date</th>
-        <th>Requester</th>
+        <th>Issue</th>
         <th>Subject</th>
-        <th>Action</th>
-        <th>Completed Date</th>
+
     </tr>
     </thead>
     <tbody>
-    {% for helpDeskRequest in helpDeskRequests %}
+    {% for helpdeskRequest in reqs %}
     <tr class="text-center">
-        <td class="align-middle">
-            {{ helpDeskRequest.issue_date|date:"F d, Y"}}
-        </td>
-        <td class="align-middle">
-
-            {{ helpDeskRequest.name_Request }}
-        </td>
-        <td class="align-middle">
-            {{ helpDeskRequest.subject }}
-        </td>
+        <td>{{ helpdeskRequest.issue_date|date:"d/m/Y"}}</td>
         <td>
-            <button id="submitbutton" type="submit" name="submitbutton"
-                    value="{{ itsupportRequest.id }}"
-                    {% if helpDeskRequest.completed_date %}disabled>Closed{% else %}>Mark as
-                resolved{% endif %}
-            </button>
+            <a href="{% url 'HelpDesk' helpdeskRequest.id %}">
+                {{ helpdeskRequest.subject }}</a>
         </td>
-        <td class="align-middle">
-            {{ helpDeskRequest.completed_date|date:"F d, Y"}}
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3" class="text-center">
-            <h4>
-                There are currently no pending requests.
-            </h4>
-        </td>
+        <td> {{ helpdeskRequest.issue }} </td>
+
     </tr>
     {% endfor %}
     </tbody>
 </table>
 {% endif %}
 {% endblock %}
-
 {% block js %}
 <script>
-
         // the initialisation of dataTables and set the ordering of first column
-        $('.table').DataTable({
-            /* No ordering applied by DataTables during initialisation */
-            "order": [[0, "desc"]],
-            scrollX: true
+        $(".table").DataTable({
+            "order": [[0, "desc"]]
         });
 
 
-        $('.submitbutton').click(function () {
-            console.log('Clicked');
-
-            id = $(this).val()
-
-            $.ajax({
-                type: "POST",
-                url: "{% url 'HelpDeskRequests' %}",
-                data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    'ID': id,
-                    'submitbutton': 'submitbutton'
-                },
-                success: function (data) {
-                    location = location
-                },
-            });
-        })
-
-
 </script>
-{% endblock %}
+{% endblock js %}

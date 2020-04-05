@@ -1,41 +1,42 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Login.css' %}"/>
-    <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}"/>
+<link rel="stylesheet" rel="text/css" href="{% static 'css/index.css' %}"/>
+<link rel="stylesheet" rel="text/css" href="{% static 'css/Login.css' %}"/>
+<link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}"/>
 
 {% endblock css %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login - Murdoch Dubai Job Portal</title>
-
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-    <meta name="keywords"
-          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+          content="Welcome to Career Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords" content="Career Portal, United Arab Emirates, jobs ads, jobs, ads, script, app, premium jobs">
 
-    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 
 </head>
-
 <!--This is the begining of the header!-->
 <header>
-    <nav>
-        <section class="nav-container">
+  <nav>
+        <div class="topnav" id="myTopnav">
             <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                   height="60.0em" width="170.0em"></div>
-            <aside class="menu">
-                <div class="menu-content">
-                    <a href="/student/student_registration"><i class="userlogin"></i>Student Signup</a>
-                    <a href="/employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
-                </div>
-            </aside>
-        </section>
+                     height="60.0em" width="170.0em"></div>
+  <div class="dropdown">
+    <button class="dropbtn">SignUp
+    </button>
+    <div class="dropdown-content">
+      <a href="/student/student_registration">I'm a Student</a>
+      <a href="/employer/employer_registration">I'm an Employer</a>
+    </div>
+  </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a></div>
+
+
+
     </nav>
 
     <div class="bottomnav">
@@ -61,8 +62,8 @@
         </div>
         <div class="form-group has-feedback">
             <strong>
-                Password <br>
-                <input type="password" id="password" class="form-control" name="password"/>
+            Password <br>
+            <input type="password" id="password" class="form-control" name="password"/>
             </strong>
         </div>
 
@@ -81,20 +82,20 @@
 
     <!-- /.login-box-body -->
     <script>
-        $(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' /* optional */
-            });
-        });
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' /* optional */
+    });
+  });
 
     </script>
 </form>
 <!-- this displays any errors during submission -->
 <div>
     {% for message in messages %}
-        <h3> {{ message }} </h3>
+    <h3> {{ message }} </h3>
     {% endfor %}
 </div>
 

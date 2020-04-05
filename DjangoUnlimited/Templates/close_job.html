@@ -1,8 +1,8 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
+<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -57,6 +57,7 @@
         return true
     }
 
+
 </script>
 
 <div>
@@ -64,8 +65,8 @@
 
         {% csrf_token %}
         {% block content %}
-            <br/><br/>
-            <div class="msg">
+        <br/><br/>
+        <div class="msg">
             <h2 align="center">Are you sure you want to close the job {{ job.job_title }} ?</h2>
             <div class="msg2">
                 <h3>Did a Murdoch Student get this job?</h3>
@@ -80,10 +81,10 @@
             <button type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
             <div>
                 {% for message in messages %}
-                    <h3> {{ message }} </h3>
+                <h3> {{ message }} </h3>
                 {% endfor %}
             </div>
-        {% endblock %}
+            {% endblock %}
         </div>
     </form>
 </div>
@@ -108,11 +109,16 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <li> <a href="sitemap.html">Sitemap</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
             </ul>
         </div>
 
-
+        <div class = "helpDesk">
+            <ul>
+                <h3> Help Desk</h3>
+                <li> <a href = ""> </a></li>
+            </ul>
+        </div>
         <!-- This is the 3rd column of the footer !-->
         <div class="contact">
             <h3> CONTACT US </h3>
