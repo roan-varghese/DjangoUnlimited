@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'Bulletin'
 ]
 
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = ''
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'DjangoUnlimited'
 EMAIL_HOST_PASSWORD = '0192_django_Unlimited_'
