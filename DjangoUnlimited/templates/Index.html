@@ -7,16 +7,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Career Portal - Murdoch Dubai Career Portal</title>
+    <title>Job Portal - Murdoch Dubai Job Portal</title>
 
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="description"
-          content="Welcome to Career Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-    <meta name="keywords" content="Career Portal, United Arab Emirates, jobs ads, jobs, ads, script, app, premium jobs">
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
+
+<body>
+{% csrf_token %}
 
 <!--This is the beginning of the header!-->
 <header>
@@ -33,7 +38,7 @@
                                     class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
                         {% elif user_type == 'employer' %}
                             <a href="../employer/view_employer_profile"> {{ obj.company_name }} </a>
-                        {% elif user_type == 'admin' %}
+                        {% elif user.is_superuser %}
                             <a href="../admin"> {{ user.username }} </a>
                         {% endif %}
                     {% else %}
@@ -53,7 +58,7 @@
         {% elif user_type == 'employer' %}
             <a href="../view_students"><b>Browse Students</b></a>
             <a href="../create_job"> <b>Post a job</b></a>
-        {% elif user_type == 'admin' %}
+        {% elif user.is_superuser %}
             <a href="../view_jobs"><b>Browse Jobs</b></a>
             <a href="../view_students"><b>Browse Students</b></a>
             <a href="../create_job"> <b>Post a job</b></a>
@@ -62,26 +67,22 @@
     </div>
 </header>
 
-<body>
-{% csrf_token %}
 {% if user.is_authenticated %}
     {% if user_type == 'student' %}
         <!-- displays welcome message -->
         <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3> <!-- displays welcome message -->
-
     {% elif user_type == 'employer' %}
-
         <!-- displays welcome message -->
         <h3>Welcome, {{ obj.company_name }}</h3>
         <p><a href="../view_jobs">MY JOBS</a>
-
-            {% elif user_type == 'admin' %}
-            <!-- displays welcome message -->
+    {% elif user.is_superuser %}
+        <!-- displays welcome message -->
         <h3>Welcome, {{ user.username }}</h3>
     {% endif %}
 {% else %}
     <p><a href="admin">ADMIN - > LOGIN</a></p>
 {% endif %}
+<br><br>
 <div class="home_img"><img src="{% static 'images/homeimg.jpg' %}" alt="Home page image"></div>
 <br><br>
 </body>

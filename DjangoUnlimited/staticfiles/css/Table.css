@@ -1,0 +1,11 @@
+table {
+    width: 100%;
+}
+table, td {
+    border: solid black 1px;
+}
+table.menu {
+    width: auto;
+    margin-right: 0px;
+    margin-left: auto;
+}

@@ -3,6 +3,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/Table.css' %}"/>
 {% endblock css %}
 
 
@@ -31,6 +32,9 @@
                     <div class="menu-content">
 
                         <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                     <a href="../student/view_student_profile"><i
+                                    class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
+
                         {% if user_type == 'student' %}
                             <a href="../student/view_student_profile"><i
                                     class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
@@ -56,6 +60,7 @@
         </div>
     </header>
 
+    <body>
     <h2> List of Jobs</h2>
     <table class="table">
         <thead>
@@ -111,6 +116,9 @@
             <button class="button2" type="Submit"><b>Submit</b></button>
         </form>
     </div>
+
+
+    </body>
     <footer>
         <div class="main">
 

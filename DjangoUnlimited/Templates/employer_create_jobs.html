@@ -28,18 +28,26 @@
         <section class="nav-container">
             <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
                                    height="60.0em" width="170.0em"></div>
+
             <aside class="menu">
                 <div class="menu-content">
-                    <a href="../accounts/logout"><i class="userlogin"></i>LOG OUT</a>
-                    <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
+                    <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                    {% if user.user_type == 'employer' %}
+                        <a href="../employer/view_employer_profile"> {{ user.obj.company_name }} </a>
+                    {% elif user.user_type == 'admin' %}
+                        <a href="../admin"> {{ user.username }} </a>
+                    {% endif %}
                 </div>
             </aside>
-        </section>
+
+
     </nav>
 
+
     <div class="bottomnav">
-        <a href="/"> <b>Home</b></a>
-        <a href=""> <b>Browse Students</b></a>
+        <a href="../"> <b>Home</b></a>
+        <a href="../view_students"> <b>Browse Students</b></a>
+        <a class="active" href="/create_job"> <b>Post a Job</b></a>
         <a href="../news"> <b> News</b></a>
     </div>
 </header>

@@ -1,8 +1,5 @@
 {% load staticfiles %}
 
-{% block title %}
-    <title>NEWS HEADLINES BY CNN</title>
-{% endblock title %}
 
 {% block css %}
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
@@ -13,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News - Murdoch Dubai Job Portal</title>
+    <title>NEWS HEADLINES BY CNN</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,6 +50,7 @@
             <a href="../view_jobs"><b>Browse Jobs</b></a>
         {% elif user.user_type == 'employer' %}
             <a href="../view_students"><b>Browse Students</b></a>
+            <a href="../create_job"><b>Post a Job</b></a>
         {% elif user.user_type == 'admin' %}
             <a href="../view_jobs"><b>Browse Jobs</b></a>
             <a href="../view_students"><b>Browse Students</b></a>
