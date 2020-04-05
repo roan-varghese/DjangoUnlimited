@@ -1,8 +1,8 @@
 {% load staticfiles %}
 <!-- Stylesheet -->
 {% block css %}
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
+<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock css %}
 
 <!DOCTYPE html>
@@ -35,6 +35,7 @@
                 document.getElementById('id_expected_graduation_date').required = true
             }
         }
+
     </script>
 
 </head>
@@ -72,18 +73,18 @@
                 {% csrf_token %}
 
                 {% for field in user_form %}
-                    <br>
-                    <div class="Col1">{{ field.label }}:</div>
-                    <div class="Col2">{{ field }}</div>
+                <br>
+                <div class="Col1">{{ field.label }}:</div>
+                <div class="Col2">{{ field }}</div>
                 {% endfor %}
 
                 {% for field in student_form %}
-                    {% if field == "alumni_status" %}
-                        <div class="Col1">{{ field.label }}: {{ field }}</div>
-                    {% else %}
-                        <div class="Col1">{{ field.label }}:</div>
-                        <div class="Col2">{{ field }}<br><br>{{ field.help_text }}</div>
-                    {% endif %}
+                {% if field == "alumni_status" %}
+                <div class="Col1">{{ field.label }}: {{ field }}</div>
+                {% else %}
+                <div class="Col1">{{ field.label }}:</div>
+                <div class="Col2">{{ field }}<br><br>{{ field.help_text }}</div>
+                {% endif %}
 
                 {% endfor %}
                 <input type="checkbox" name="terms" required>
@@ -96,7 +97,7 @@
             </form>
             <div>
                 {% for message in messages %}
-                    <h3> {{ message }} </h3>
+                <h3> {{ message }} </h3>
                 {% endfor %}
             </div>
         </div>
@@ -112,18 +113,10 @@
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <a href="https://www.murdochuniversitydubai.com/faq" style="color: white">
-                    <li>FAQ</li>
-                </a>
-                <a href="https://murdochdubaicareerportal.com/page/anti-scam" style="color: white">
-                    <li>Anti-Scam</li>
-                </a>
-                <a href="">
-                    <li style="color: white">Terms</li>
-                </a>
-                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white">
-                    <li>Privacy</li>
-                </a>
+                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
+                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
+                <li><a href="">Terms</a></li>
+                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
             </ul>
         </div>
 
@@ -131,9 +124,7 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <a href="sitemap.html" style="color: white">
-                    <li> Sitemap</li>
-                </a>
+                <li><a href="sitemap.html">Sitemap</a></li>
             </ul>
         </div>
 
