@@ -7,15 +7,23 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
 from DjangoUnlimited.settings import SENDGRID_API_KEY
-from Home.forms import CreateJobForm, EditJobForm
-from Employer.forms import InitialEmployerForm, EmployerForm
+from django.utils import timezone
+from datetime import timedelta
+import csv
+from django.http import HttpResponse
+
 # Create your views here.
 
-from .forms import InitialAdminForm, AdminForm, AddIndustryForm
+from Home.forms import CreateJobForm, EditJobForm
+from Employer.forms import InitialEmployerForm, EmployerForm
+from .forms import InitialAdminForm, AdminForm, AddIndustryForm, Statistics
 from Accounts.views import isValidated
 from .models import Admin
 from .forms import EditAdminProfileForm
 from Student.forms import EditStudentProfileForm
+from Student.models import Student, StudentJobApplication
+from Home.models import Job
+from Employer.models import Employer
 
 # Create your views here.
 
@@ -164,12 +172,63 @@ def create_job(request):
         return render(request, "admin/admin_create_job.html", args)
 
 
-def get_statistic_file(request):
+def export_stats_file(request, users, students, current, alumni, employers, jobs_posted, apps, open_jobs, closed_jobs, deleted_jobs):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="file.csv"'
-    employers = Employer.objects.all()
     writer = csv.writer(response)
-    writer.writerow(['1002', 'Amit', 'Mukharji', 'LA', '"Testing"'])
-    for employer in employers:
-        writer.writerow([employer.company_name, employer.company_description, employer.phone_number])
+    writer.writerow(['Type of Statistics', 'Count'])
+    writer.writerow(['Users Signed Up', users])
+    writer.writerow(['Students Signed Up', students])
+    writer.writerow(['Current Students Signed Up', current])
+    writer.writerow(['Alumni Signed Up', alumni])
+    writer.writerow(['Employers Signed Up', employers])
+    writer.writerow(['Jobs Posted', jobs_posted])
+    writer.writerow(['Student Applications', apps])
+    writer.writerow(['Active Jobs', open_jobs])
+    writer.writerow(['Jobs Filled by Murdoch Students', closed_jobs])
+    writer.writerow(['Jobs Deleted', deleted_jobs])
     return response
+
+
+@staff_member_required
+def generate_statistics(request):
+    if request.method == "POST":
+        end_date = timezone.now()
+        time = request.POST.get('period')
+        if time == "Past 7 Days":
+            start_date = end_date - timedelta(6)
+        elif time == "Past 30 Days":
+            start_date = end_date - timedelta(29)
+        elif time == "Past Year":
+            start_date = end_date - timedelta(364)
+
+        users = User.objects.filter(date_joined__range=[start_date, end_date])
+        students = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
+        current = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]), alumni_status=False)
+        alumni = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]), alumni_status=True)
+        employers = Employer.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
+        jobs_posted = Job.objects.filter(date_posted__range=[start_date, end_date])
+        open_jobs = Job.objects.filter(date_posted__range=[start_date, end_date], status="Open")
+        closed_jobs = Job.objects.filter(date_posted__range=[start_date, end_date], status="Closed")
+        deleted_jobs = Job.objects.filter(date_posted__range=[start_date, end_date], status="Deleted")
+        apps = StudentJobApplication.objects.filter(date_applied__range=[start_date, end_date])
+
+        users = len(list(set(users)))
+        students = len(list(set(students)))
+        current = len(list(set(current)))
+        alumni = len(list(set(alumni)))
+        employers = len(list(set(employers)))
+        jobs_posted = len(list(set(jobs_posted)))
+        open_jobs = len(list(set(open_jobs)))
+        closed_jobs = len(list(set(closed_jobs)))
+        deleted_jobs = len(list(set(deleted_jobs)))
+        apps = len(list(set(apps)))
+
+        args = {'users':users, 'students': students, 'current': current, 'alumni': alumni, 'employers': employers,
+                'jobs_posted': jobs_posted, 'open_jobs': open_jobs, 'closed_jobs': closed_jobs,
+                'deleted_jobs': deleted_jobs, 'apps': apps}
+
+        return render(request, "admin/view_statistics.html", args)
+    else:
+        form = Statistics()
+        return render(request, "admin/generate_statistics.html", {'form': form})

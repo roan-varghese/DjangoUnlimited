@@ -1,16 +1,13 @@
 {% load staticfiles %}
-
-
+<!-- Stylesheet -->
 {% block css %}
-<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/index.css' %}"/>
 {% endblock css %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEWS HEADLINES BY CNN</title>
+    <title>Anti-Scam - Murdoch Dubai Job Portal</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +18,9 @@
 
     <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
+<body>
+{% csrf_token %}
 
 <!--This is the beginning of the header!-->
 <header>
@@ -65,31 +65,56 @@
         <a href="../news"> <b>News</b></a>
     </div>
 </header>
-{% block content %}
-<h2>Top Headlines by CNN</h2>
 
-{% for new, des, i, urllink in mylist %}
+<body>
+<h1>Anti-Scam</h1>
+<div class="box">
+    <h2>Anti-Scam</h2>
 
+    <h3><b>Hello Protect yourself against Internet fraud!</b></h3>
+    <br>
+    <h3>The vast majority of ads are posted by honest people and trust. So you can do excellent business. Despite this,
+        it
+        is important to follow a few common sense rules following to prevent any attempt to scam.</h3>
+    <br>
+    <h3><b>Our advice</b></h3>
+    <br>
+    <ul>
+        <li>Do business with people you can meet in person.</li>
+        <li>Never send money through Western Union, MoneyGram or other anonymous payment systems.</li>
+        <li>Never send money or products abroad.</li>
+        <li>Do not accept checks.</li>
+        <li>Ask about the person you're dealing with another confirming source name, address and telephone number.</li>
+        <li>Keep copies of all correspondence (emails, ads, letters, etc.) and details of the person.</li>
+        <li>If a deal seems too good to be true, there is every chance that this is the case. Refrain.</li>
+    </ul>
 
-<a href="{{ urllink }}"
-   target="_blank">{{ new }}</a>
+    <h3><b>Recognize attempted scam</b></h3>
+    <br>
+    <ul>
+        <li>The majority of scams have one or more of these characteristics:</li>
+        <li>The person is abroad or traveling abroad.</li>
+        <li>The person refuses to meet you in person.</li>
+        <li>Payment is made through Western Union, Money Gram or check.</li>
+        <li>The messages are in broken language (English or French or ...).</li>
+        <li>The texts seem to be copied and pasted.</li>
+        <li>The deal seems to be too good to be true.</li>
+    </ul>
+    <br>
+</div>
 
-<hr>
+</body>
 
-{% endfor %}
-
-{% endblock content %}
-<!--This is the begining of the footer!-->
+<!--This is the beginning of the footer!-->
 <footer>
     <div class="main">
-
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
-                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
+                <li><a href="/"> FAQ</a></li>
+                <li><a href="../Anti-Scam"> Anti-Scam</a></li>
+                <li><a href="../Terms"> Terms</a></li>
+                <li><a href="../Privacy"> Privacy</a></li>
             </ul>
         </div>
 
@@ -97,18 +122,20 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <li><a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </div>
-
-        <div class = "helpDesk">
-            <ul>
-                <h3> Help Desk</h3>
-                <li> <a href = "/HelpDesk/HelpDesk/"> </a></li>
+                <li><a href="sitemap.html"> Sitemap</a></li>
+                </a>
             </ul>
         </div>
 
         <!-- This is the 3rd column of the footer !-->
+        <div class="helpDesk">
+            <ul>
+                <h3> Help Desk</h3>
+                <li><a href="../HelpDesk"> Help Desk</a></li>
+            </ul>
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
         <div class="contact">
             <h3> CONTACT US </h3>
             <p class="para1">
@@ -121,16 +148,18 @@
                 P.O. Box 345005 <br>
                 Dubai, United Arab Emirates
             </p>
-
         </div>
 
-        <!-- This is the 4th column of the footer !-->
+        <!-- This is the 5th column of the footer !-->
         <div class="follow">
             <h3> FOLLOW US </h3>
-            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
-                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+                <img
+                        src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em">
+            </a>
             <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
+                                                                  alt="Facebook Icon" height="40.0em"
+                                                                  width="40.0em">
             </a>
             <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
                     src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
