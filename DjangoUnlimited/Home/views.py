@@ -33,6 +33,17 @@ def index(request):
     user = get_user_type(request)
     return render(request, "index.html", user)
 
+def terms(request):
+    return render(request, "terms.html")
+
+def faq(request):
+    return render(request, "faq.html")
+
+def anti_scam(request):
+    return render(request, "anti_scam.html")
+
+def privacy(request):
+    return render(request, "privacy.html")
 
 @login_required
 def view_jobs(request):

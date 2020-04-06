@@ -141,12 +141,14 @@
             </div>
 
             <!-- This is the 3rd column of the footer !-->
-            <div class="helpDesk">
-                <ul>
-                    <h3> Help Desk</h3>
-                    <li><a href="/HelpDesk/HelpDesk/"> Help Desk</a></li>
-                </ul>
-            </div>
+            {% if user_type == 'student' or user_type == 'employer' or user_type == 'admin' %}
+                <div class="helpDesk">
+                    <ul>
+                        <h3> Help Desk</h3>
+                        <li><a href="/HelpDesk/HelpDesk/"> Help Desk</a></li>
+                    </ul>
+                </div>
+            {% endif %}
 
             <!-- This is the 4th column of the footer !-->
             <div class="contact">

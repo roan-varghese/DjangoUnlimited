@@ -14,5 +14,9 @@ urlpatterns = [
     path('student_details/<int:id>', views.student_details, name='student_details'),
     path('news', views.news, name='news'),
     path('job_to_student_skills/<int:id>', views.job_to_student_skills, name='job_to_student_skills'),
-    path('get_cv_file/<int:id>', views.get_cv_file, name='get_cv_file')
+    path('get_cv_file/<int:id>', views.get_cv_file, name='get_cv_file'),
+    path('terms', views.terms, name='terms'),
+    path('faq', views.faq, name='faq'),
+    path('anti_scam', views.anti_scam, name='anti_scam'),
+    path('privacy', views.privacy, name='privacy')
 ]
