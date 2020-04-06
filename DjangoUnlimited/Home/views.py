@@ -16,9 +16,6 @@ from django.http import HttpResponse
 from wsgiref.util import FileWrapper
 from django.core.files import File
 import os
-import sys
-import pythoncom
-import win32com.client
 
 # Create your views here.
 
@@ -33,7 +30,8 @@ from Student.forms import StudentJobApplicationForm
 
 
 def index(request):
-    return render(request, "index.html", get_user_type(request))
+    user = get_user_type(request)
+    return render(request, "index.html", user)
 
 
 @login_required
@@ -42,19 +40,12 @@ def view_jobs(request):
     if request.method == 'POST':
         print(request.POST.get)
         min_duration = request.POST.get("min_duration")
-        # print(min_duration)
         max_duration = request.POST.get("max_duration")
-        # print(max_duration)
         location = request.POST.get("location")
-        # print(location)
         job_type_id = request.POST.get("job_type_id")
-        # print(job_type_id)
         min_salary = request.POST.get("min_salary")
-        # print(min_salary)
         max_salary = request.POST.get("max_salary")
-        # print(max_salary)
         industry_id = request.POST.get("industry_id")
-        # print(industry_id)
         if min_duration:
             min_duration_jobs = Job.objects.filter(duration__gte=min_duration)
         else:
@@ -98,10 +89,16 @@ def view_jobs(request):
         args = {'jobs': jobs, 'user': get_user_type(request), 'form': form}
         return render(request, "view_jobs.html", args)
     elif user['user_type'] == 'employer':
-        jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted')
+        jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted').exclude(status="Deleted")
+        #jobs = Job.objects.exclude(id__in=emp_jobs)
         args = {'jobs': jobs, 'company': user['obj']}
-    elif user['user_type'] == 'student' or user['user_type'] == 'admin':
-        jobs = Job.objects.all().order_by('-date_posted')
+    elif user['user_type'] == 'admin':
+        jobs = Job.objects.exclude(status="Deleted").order_by('-date_posted')
+        companies = Employer.objects.all()
+        form = FilterJobForm()
+        args = {'jobs': jobs, 'companies': companies, 'form': form, 'user_type': user}
+    elif user['user_type'] == 'student':
+        jobs = Job.objects.filter(status="Open").order_by('-date_posted')
         companies = Employer.objects.all()
         form = FilterJobForm()
         args = {'jobs': jobs, 'companies': companies, 'form': form, 'user_type': user}
@@ -385,19 +382,18 @@ def get_cv_file(request, id):
     student = Student.objects.get(user_id=id)
     cv = student.cv
     file_name = os.path.basename(cv.file.name)
-    extension = cv.file.name.split(".")
-    if extension[1] != "pdf":
-        input_filename = cv.file.name
-        output_filename = extension[0] + ".pdf"
-        pythoncom.CoInitialize()
-        word = win32com.client.Dispatch('Word.Application')
-        doc = word.Documents.Open(input_filename)
-        doc.SaveAs(output_filename, FileFormat=17)
-        doc.Close()
-        word.Quit()
-        file_name = os.path.split(output_filename)[1]
-        cv = open(output_filename, 'rb')
-
+    #extension = cv.file.name.split(".")
+    #if extension[1] != "pdf":
+    #    input_filename = cv.file.name
+    #    output_filename = extension[0] + ".pdf"
+    #    pythoncom.CoInitialize()
+    #    word = win32com.client.Dispatch('Word.Application')
+    #    doc = word.Documents.Open(input_filename)
+    #    doc.SaveAs(output_filename, FileFormat=17)
+    #    doc.Close()
+    #    word.Quit()
+    #    file_name = os.path.split(output_filename)[1]
+    #    cv = open(output_filename, 'rb')
     wrapper = FileWrapper(File(cv, 'rb'))
     response = HttpResponse(wrapper, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=' + file_name

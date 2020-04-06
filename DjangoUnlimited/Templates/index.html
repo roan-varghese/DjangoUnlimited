@@ -38,7 +38,7 @@
                                     class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
                         {% elif user_type == 'employer' %}
                             <a href="../employer/view_employer_profile"> {{ obj.company_name }} </a>
-                        {% elif user.is_superuser %}
+                        {% elif user_type == 'admin' %}
                             <a href="../admin"> {{ user.username }} </a>
                         {% endif %}
                     {% else %}
@@ -58,10 +58,10 @@
         {% elif user_type == 'employer' %}
             <a href="../view_students"><b>Browse Students</b></a>
             <a href="../create_job"> <b>Post a job</b></a>
-        {% elif user.is_superuser %}
+        {% elif user_type == 'admin' %}
             <a href="../view_jobs"><b>Browse Jobs</b></a>
             <a href="/view_students"><b>Browse Students</b></a>
-            <a href="../create_job"> <b>Post a job</b></a>
+            <a href="{% url 'admin:index' %}"> <b>Dashboard</b></a>
         {% endif %}
         <a href="../news"> <b>News</b></a>
     </div>
@@ -75,12 +75,10 @@
         <!-- displays welcome message -->
         <h3>Welcome, {{ obj.company_name }}</h3>
         <p><a href="../view_jobs">MY JOBS</a>
-            {% elif user.is_superuser %}
-            <!-- displays welcome message -->
+    {% elif user_type == 'admin' %}
+        <!-- displays welcome message -->
         <h3>Welcome, {{ user.username }}</h3>
     {% endif %}
-{% else %}
-    <p><a href="admin">ADMIN - > LOGIN</a></p>
 {% endif %}
 <br><br>
 <div class="home_img"><img src="{% static 'images/homeimg.jpg' %}" alt="Home page image"></div>

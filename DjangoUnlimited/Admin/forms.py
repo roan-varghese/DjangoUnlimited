@@ -94,3 +94,10 @@ class AddIndustryForm(forms.ModelForm):
     industry_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs=
                                                                                          {'class': 'form-control-text',
                                                                                           'style': 'resize:none;'}))
+class Statistics(forms.Form):
+    choices = [
+        ('Past 7 Days', 'Past 7 Days'),
+        ('Past 30 Days', 'Past 30 Days'),
+        ('Past Year', 'Past Year')
+    ]
+    period = forms.ChoiceField(label="Select Time Period",choices=choices, widget=forms.Select(attrs={'class': 'custom-select'}))

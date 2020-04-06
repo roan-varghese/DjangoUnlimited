@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Statistics</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td><b>Type of Statistics</b></td>
+                <td><b>Count</b></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Users Signed Up</td>
+                <td>{{ users }}</td>
+            </tr>
+
+            <tr>
+                <td>Students Signed Up</td>
+                <td>{{ students }}</td>
+            </tr>
+
+            <tr>
+                <td>Current Students Signed Up</td>
+                <td>{{ current }}</td>
+            </tr>
+
+            <tr>
+                <td>Alumni Signed Up</td>
+                <td>{{ alumni }}</td>
+            </tr>
+
+            <tr>
+                <td>Employers Signed Up</td>
+                <td>{{ employers }}</td>
+            </tr>
+
+            <tr>
+                <td>Jobs Posted</td>
+                <td>{{ jobs_posted }}</td>
+            </tr>
+
+            <tr>
+                <td>Student Applications</td>
+                <td>{{ apps }}</td>
+            </tr>
+
+            <tr>
+                <td>Active Jobs</td>
+                <td>{{ open_jobs }}</td>
+            </tr>
+
+            <tr>
+                <td>Jobs Filled by Murdoch Students</td>
+                <td>{{ closed_jobs }}</td>
+            </tr>
+
+            <tr>
+                <td>Jobs Deleted</td>
+                <td>{{ deleted_jobs }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button"><a href="{% url 'export_stats_file' users students current alumni employers jobs_posted apps open_jobs closed_jobs deleted_jobs %}">Export Data</a></button>
+</body>
+</html>
