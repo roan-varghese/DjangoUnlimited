@@ -3,7 +3,7 @@
 <!-- Stylesheet -->
 {% block css %}
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Table.css' %}"/>
+
 {% endblock css %}
 
 
@@ -23,6 +23,7 @@
 
         <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
     </head>
+
     <header>
         <nav>
             <section class="nav-container">
@@ -44,8 +45,6 @@
                     </div>
                 </aside>
             </section>
-
-
         </nav>
 
         <div class="bottomnav">
@@ -61,6 +60,7 @@
     </header>
 
     <body>
+
     <h2> List of Jobs</h2>
     <table class="table">
         <thead>
@@ -121,22 +121,13 @@
     </body>
     <footer>
         <div class="main">
-
             <!-- This is the 1st column of the footer!-->
             <div class="about">
                 <ul><h3>ABOUT US</h3>
-                    <a href="https://www.murdochuniversitydubai.com/faq">
-                        <li>FAQ</li>
-                    </a>
-                    <a href="https://murdochdubaicareerportal.com/page/anti-scam">
-                        <li>Anti-Scam</li>
-                    </a>
-                    <a href="">
-                        <li>Terms</li>
-                    </a>
-                    <a href="https://www.murdochuniversitydubai.com/university-privacy-policy">
-                        <li>Privacy</li>
-                    </a>
+                    <li><a href="/"> FAQ</a></li>
+                    <li><a href="../Anti-Scam"> Anti-Scam</a></li>
+                    <li><a href="../Terms"> Terms</a></li>
+                    <li><a href="../Privacy"> Privacy</a></li>
                 </ul>
             </div>
 
@@ -144,16 +135,17 @@
             <div class="sitemap">
                 <ul>
                     <h3>SITEMAP</h3>
-                    <a href="sitemap.html">
-                        <li> Sitemap</li>
+                    <li><a href="sitemap.html"> Sitemap</a></li>
                     </a>
                 </ul>
             </div>
 
             <!-- This is the 3rd column of the footer !-->
             <div class="helpDesk">
-                <h3></h3>
-
+                <ul>
+                    <h3> Help Desk</h3>
+                    <li><a href="../HelpDesk"> Help Desk</a></li>
+                </ul>
             </div>
 
             <!-- This is the 4th column of the footer !-->
@@ -169,7 +161,6 @@
                     P.O. Box 345005 <br>
                     Dubai, United Arab Emirates
                 </p>
-
             </div>
 
             <!-- This is the 5th column of the footer !-->

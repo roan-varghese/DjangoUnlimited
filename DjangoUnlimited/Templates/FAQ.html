@@ -1,16 +1,13 @@
 {% load staticfiles %}
-
-
+<!-- Stylesheet -->
 {% block css %}
-<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/index.css' %}"/>
 {% endblock css %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEWS HEADLINES BY CNN</title>
+    <title>Frequently Asked Questions - Murdoch Dubai Job Portal</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +18,9 @@
 
     <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
 </head>
+
+<body>
+{% csrf_token %}
 
 <!--This is the beginning of the header!-->
 <header>
@@ -65,55 +65,59 @@
         <a href="../news"> <b>News</b></a>
     </div>
 </header>
-{% block content %}
-<h5>Top Headlines</h5>
 
-{% for new, des, i, urllink in mylist %}
-
-
-<a href="{{ urllink }}"
-   target="_blank">{{ new }}</a>
-
-<hr>
-
-{% endfor %}
-
-<div class="pagination">
-    {% if mylist.has_previous %}
-    <a
-            href="?page=1">
-    </a>
-    {% endif %}
-
-    {% for num in mylist.paginator.page_range %}
-
-    {% if mylist.number == num %}
-    <span>{{ num }}</span>
-    {% elif num > mylist.number|add:'-3' and num < mylist.number|add:'3' %}
-    <a href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
-
-    {% endfor %}
-
-    {% if mylist.has_next %}
-    <a
-            href="?page={{ mylist.paginator.num_pages }}">
-    </a>
-    {% endif %}
+<body>
+<h1>FAQ</h1>
+<div class="box">
+    <h2><u>Frequently Asked Questions</u></h2>
+    <br>
+    <h3><b>How do I place an ad?</b></h3>
+    <br>
+    <h3>It's very easy to place an ad: click on the button "Post free Ads" above right.</h3>
+    <br>
+    <h3><b>What does it cost to advertise?</b></h3>
+    <br>
+    <h3>The publication is 100% free throughout the website.</h3>
+    <br>
+    <h3><b>If I post an ad, will I also get more spam e-mails?</b></h3>
+    <br>
+    <h3>Absolutely not because your email address is not visible on the website.</h3>
+    <br>
+    <h3><b>How long will my ad remain on the website?</b></h3>
+    <br>
+    <h3>In general, an ad is automatically deactivated from the website after 3 months. You will receive an email a week
+        before D-Day and another on the day of deactivation. You have the ability to put them online in the following
+        month
+        by logging into your account on the site. After this delay, your ad will be automatically removed permanently
+        from
+        the website.</h3>
+    <br>
+    <h3><b>I sold my item. How do I delete my ad?</b></h3>
+    <br>
+    <h3>Once your product is sold or leased, log in to your account to remove your ad.</h3>
 </div>
+</body>
 
-{% endblock content %}
-<!--This is the begining of the footer!-->
+<!--This is the beginning of the footer!-->
 <footer>
     <div class="main">
 
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
-                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
+                <a href="https://www.murdochuniversitydubai.com/faq" style="color: white">
+                    <li>FAQ</li>
+
+
+                    <li><a href="https://murdochdubaicareerportal.com/page/anti-scam" style="color: white" Anti-Scam
+                </a></li>
+                </a>
+                <a href="">
+                    <li style="color: white">Terms</li>
+                </a>
+                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white">
+                    <li>Privacy</li>
+                </a>
             </ul>
         </div>
 
@@ -121,18 +125,19 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <li><a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </div>
-
-        <div class = "helpDesk">
-            <ul>
-                <h3> Help Desk</h3>
-                <li> <a href = ""> </a></li>
+                <a href="sitemap.html" style="color: white">
+                    <li> Sitemap</li>
+                </a>
             </ul>
         </div>
 
         <!-- This is the 3rd column of the footer !-->
+        <div class="helpDesk">
+            <h3></h3>
+
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
         <div class="contact">
             <h3> CONTACT US </h3>
             <p class="para1">
@@ -148,7 +153,7 @@
 
         </div>
 
-        <!-- This is the 4th column of the footer !-->
+        <!-- This is the 5th column of the footer !-->
         <div class="follow">
             <h3> FOLLOW US </h3>
             <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
