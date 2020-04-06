@@ -283,11 +283,6 @@ def news(request):
 
     mylist = list(zip(news, desc, img, urllink))
 
-    paginator = Paginator(mylist, 5)
-
-    page = request.GET.get('page')
-    mylist = paginator.get_page(page)
-
     args = {'mylist': mylist, 'user': get_user_type(request)}
 
     return render(request, 'news.html', args)
