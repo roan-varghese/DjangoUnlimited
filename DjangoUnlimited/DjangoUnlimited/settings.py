@@ -102,8 +102,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'DjangoUnlimited',
         'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'PASSWORD': '12345678',
+        'HOST': 'djangounlimited.chfww0k5v2sg.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
