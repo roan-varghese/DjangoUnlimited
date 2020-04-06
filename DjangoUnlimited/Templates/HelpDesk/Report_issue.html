@@ -16,7 +16,6 @@
                                    height="60.0em" width="170.0em"></div>
             <aside class="menu">
                 <div class="menu-content">
-                   <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
                 </div>
             </aside>
         </section>
@@ -46,8 +45,9 @@
     </div>
 </form>
 </div>
+<br><br>
 {% if thread %}
-
+<div class="inside-container2">
 <p> Number of Comment/s: <span
         class="paragraph-comment"> {{ thread.text }} </span>
     {# Get the number of comments for current post #}
@@ -59,6 +59,7 @@
         {{ comment_count }} comment/s
                         </span>
 </p>
+
 
 
 {# Get comments from the DB #}
@@ -117,10 +118,10 @@
     <input type="hidden" name="email" value="{{ request.user.email }}"/>
     <input type="hidden" name="url" value="http://dummyurl.com"/>
     <input type="hidden" name="next" value="{{ request.path }}"/>
-    <div class="text-center my-3">
+    <div class="text-center my-3"> <br><br>
         <!-- disabled if ticket is completed -->
         {% if not help_desk_form.completed.value == True %}
-        <button type="submit" name="submit" value="Post">Comment
+        <button type="submit" name="submit" value="Post" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin: 0 auto;">Comment
         </button>
         {% endif %}
     </div>
@@ -129,7 +130,7 @@
 
 {% endif %}
 
-
+</div>
 {% endblock content %}
 
 {% block js %}
