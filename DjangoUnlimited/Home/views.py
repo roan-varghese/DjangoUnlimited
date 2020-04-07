@@ -402,7 +402,14 @@ def job_to_student_skills(request, id):
     students = list(set(students))
     args = {'students': students}
 
-    send_mail('Students found', 'Students with skills matching to your job have been found.', 'info@murdochcareerportal.com', ['ict302jan2020@gmail.com'], fail_silently=False)
+    message = Mail(
+        from_email='info@murdochcareerportal.com',
+        to_emails=['ict302jan2020@gmail.com'],
+        subject='Student Skill match',
+        html_content="Student/Students having skills matching to your job have been found."
+    )
+    sg = SendGridAPIClient(SENDGRID_API_KEY)
+    # sg.send(message)
 
     return render(request, "view_students.html", args)
 
