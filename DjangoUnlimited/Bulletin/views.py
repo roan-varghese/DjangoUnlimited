@@ -22,13 +22,7 @@ class CreatePostView(TemplateView):
     def get(self, request, *args, **kwargs):
         form = PostForm()
         user = get_user_type(request)
-        # Get the drafts of each user
-        posts = Post.objects.filter(status=False, author_id=request.user.id)
-        # Paginate the draft posts, 5 per page
-        paginator = Paginator(posts, 5)
-        page = request.GET.get('page')  # < Get the page number
-        posts = paginator.get_page(page)  #
-        args = {'form': form, 'posts': posts, 'user': user}
+        args = {'form': form, 'user': user}
         return render(request, self.template_name, args)
 
     # Save newly created post information to database
