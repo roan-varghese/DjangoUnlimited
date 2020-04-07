@@ -35,8 +35,8 @@ body{
 font-family: Arial;}
 
 input[type=email], select {
-  width: 90%;
-  padding: 10px 20px;
+  width: 100%;
+  padding: 10px 12px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -44,8 +44,8 @@ input[type=email], select {
   box-sizing: border-box;
 }
 input[type=password], select {
-  width: 90%;
-  padding: 10px 20px;
+  width: 100%;
+  padding: 10px 12px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
