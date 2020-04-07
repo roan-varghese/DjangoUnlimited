@@ -6,6 +6,7 @@
 {% endblock css %}
 
 {% block content %}
+{% if user.user_type == 'admin' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -162,4 +163,5 @@
     </div>
 </footer>
 </html>
+{% endif %}
 {% endblock content %}
