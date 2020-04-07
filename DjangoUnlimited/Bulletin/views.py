@@ -39,7 +39,7 @@ class CreatePostView(TemplateView):
                     post.update_date = timezone.now()
                     post.status = True  # post is published for everyone to view
                     post.save()
-                    return redirect('post_new')
+                    return redirect('all_posts')
 
 
 # view the details of each published and created post
