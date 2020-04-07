@@ -1,158 +1,65 @@
+{% extends "theme.html" %}
 {% load staticfiles %}
-<!-- Stylesheet -->
-{% block css %}
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+
+<!-- Additional Stylesheet -->
+{% block stylesheets %}
     <link rel="stylesheet" rel="text/css" href="{% static 'css/Login.css' %}"/>
-    <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}"/>
+{% endblock %}
 
-{% endblock css %}
+{% block title %}
+    Login - Murdoch Dubai Job Portal
+{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Login - Murdoch Dubai Job Portal</title>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-    <meta name="keywords"
-          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
-
-    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
-
-</head>
-
-<!--This is the begining of the header!-->
-<header>
-    <nav>
-        <section class="nav-container">
-            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                   height="60.0em" width="170.0em"></div>
-            <aside class="menu">
-                <div class="menu-content">
-                    <a href="/student/student_registration"><i class="userlogin"></i>Student Signup</a>
-                    <a href="/employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
+{% block content %}
+    {% if user.is_authenticated %}
+        You are already logged in
+    {% else %}
+        <form action="login" method="post">
+            {% csrf_token %}
+            <div class="headtop">
+                <h2>Log In</h2>
+            </div>
+        <br>
+            <div class="login-box-body">
+                <div class="form-group has-feedback">
+                    <strong>
+                        <label>Email Address </label><br>
+                            <input id="Email" type="Email" class="form-control" name="username" required/>
+                    </strong>
                 </div>
-            </aside>
-        </section>
-    </nav>
-
-    <div class="bottomnav">
-        <a class="active" href="/"> <b>Home</b></a>
-    </div>
-</header>
-<br>
-<body>
-<form action="login" method="post">
-    {% csrf_token %}
-    <div class="headtop">
-        <h2>Log In</h2>
-    </div>
-
-    <div class="login-box-body">
-        <div class="form-group has-feedback">
-            <strong>
-                Email Address <br>
-                <input id="Email" type="Email" class="form-control" name="username" required/>
-            </strong>
+                <div class="form-group has-feedback" >
+                    <strong>
+                        <label>   Password </label><br>
+                          <input type="password" id="password" class="form-control" name="password"/>
+                    </strong>
+                </div>
+                <div class="form-checkbox" style="padding-left:15px">
+                    <a style=" color:black" href=" /accounts/password_reset/">Forgot password?</a><br>
+                    <!-- <a href="password_reset">Forgot password?</a><br> -->
+                </div>
+                <div style="text-align:right;">
+                    <input id="Button1" type="submit" class="btn"
+                           style="background-color:rgb(204,0,0); width:80px; height:30px; color:white; font-weight:700 ; cursor:pointer; margin-right: 50px;"
+                           value="Log in"/>
+                </div>
+            </div>
+            <!-- /.login-box-body -->
+            <script>
+                $(function () {
+                    $('input').iCheck({
+                        checkboxClass: 'icheckbox_square-blue',
+                        radioClass: 'iradio_square-blue',
+                        increaseArea: '20%' /* optional */
+                    });
+                });
+            </script>
+        </form>
+        <!-- this displays any errors during submission -->
+        <div>
+            {% for message in messages %}
+                <h3> {{ message }} </h3>
+            {% endfor %}
         </div>
-
-        <div class="form-group has-feedback">
-            <strong>
-                Password <br>
-                <input type="password" id="password" class="form-control" name="password"/>
-            </strong>
-        </div>
-
-        <div class="form-checkbox">
-            <a style="padding-left:335px; color:black" href=" /accounts/password_reset/">Forgot password?</a><br><br>
-            <!-- <a href="password_reset">Forgot password?</a><br> -->
-        </div>
-
-        <div style="text-align:right;">
-            <input id="Button1" type="submit" class="btn"
-                   style="background-color:rgb(204,0,0); width:80px; height:30px; color:white; font-weight:700 ; cursor:pointer"
-                   value="Log in"/>
-        </div>
-
-    </div>
-
-    <!-- /.login-box-body -->
-    <script>
-        $(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' /* optional */
-            });
-        });
-
-    </script>
-</form>
-<!-- this displays any errors during submission -->
-<div>
-    {% for message in messages %}
-        <h3> {{ message }} </h3>
-    {% endfor %}
-</div>
-
-</body>
-<br>
-<!--This is the begining of the footer!-->
-<footer>
-    <div class="main">
-
-        <!-- This is the 1st column of the footer!-->
-        <div class="about">
-            <ul><h3>ABOUT US</h3>
-                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
-                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 2nd column of the footer !-->
-        <div class="sitemap">
-            <ul>
-                <h3>SITEMAP</h3>
-                <li> <a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </div>
-
-
-        <!-- This is the 3rd column of the footer !-->
-        <div class="contact">
-            <h3> CONTACT US </h3>
-            <p class="para1">
-                <b>Murdoch University Dubai</b>
-                <br>
-            </p>
-            <p class="para2">
-                Dubai International Academic City <br>
-                Block 10, Fourth floor <br>
-                P.O. Box 345005 <br>
-                Dubai, United Arab Emirates
-            </p>
-
-        </div>
-
-        <!-- This is the 4th column of the footer !-->
-        <div class="follow">
-            <h3> FOLLOW US </h3>
-            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
-                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
-            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
-            </a>
-            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                         alt="Instagram Icon" height="40.0em"
-                                                                         width="47.0em"></a>
-        </div>
-    </div>
-</footer>
-
-</html>
+        <br>
+    {% endif %}
+{% endblock %}

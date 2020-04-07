@@ -35,19 +35,19 @@ def index(request):
 
 
 def terms(request):
-    return render(request, "terms.html")
+    return render(request, "terms.html", get_user_type(request))
 
 
 def faq(request):
-    return render(request, "faq.html")
+    return render(request, "faq.html", get_user_type(request))
 
 
 def anti_scam(request):
-    return render(request, "anti_scam.html")
+    return render(request, "anti_scam.html", get_user_type(request))
 
 
 def privacy(request):
-    return render(request, "privacy.html")
+    return render(request, "privacy.html", get_user_type(request))
 
 
 @login_required
@@ -101,23 +101,23 @@ def view_jobs(request):
         jobs_all = Job.objects.all()
         jobs = jobs_all & filtered_jobs
         form = FilterJobForm()
-        print("user", get_user_type(request))
-        args = {'jobs': jobs, 'user': get_user_type(request), 'form': form}
+
+        args = {'jobs': jobs, 'obj': user['obj'], 'user_type': user['user_type'], 'form': form}
         return render(request, "view_jobs.html", args)
     elif user['user_type'] == 'employer':
         jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted').exclude(status="Deleted")
         # jobs = Job.objects.exclude(id__in=emp_jobs)
-        args = {'jobs': jobs, 'company': user['obj']}
+        args = {'jobs': jobs, 'obj': user['obj'], 'user_type': user['user_type']}
     elif user['user_type'] == 'admin':
         jobs = Job.objects.exclude(status="Deleted").order_by('-date_posted')
         companies = Employer.objects.all()
         form = FilterJobForm()
-        args = {'jobs': jobs, 'companies': companies, 'form': form, 'user_type': user}
+        args = {'jobs': jobs, 'companies': companies, 'form': form, 'obj': user['obj'], 'user_type': user['user_type']}
     elif user['user_type'] == 'student':
         jobs = Job.objects.filter(status="Open").order_by('-date_posted')
         companies = Employer.objects.all()
         form = FilterJobForm()
-        args = {'jobs': jobs, 'companies': companies, 'form': form, 'user_type': user}
+        args = {'jobs': jobs, 'companies': companies, 'form': form, 'obj': user['obj'], 'user_type': user['user_type']}
     else:
         redirect('/')
     return render(request, 'view_jobs.html', args)
@@ -126,7 +126,7 @@ def view_jobs(request):
 @login_required
 def create_job(request):
     try:
-        Employer.objects.get(user_id=request.user.id)
+        user = get_user_type(request)
         if request.method == 'POST':
             form = CreateJobForm(request.POST)
             if form.is_valid():
@@ -157,13 +157,13 @@ def create_job(request):
                 return redirect('create_job')
         else:
             form = CreateJobForm()
-            args = {'form': form, 'user': 'employer'}
+            args = {'form': form, 'obj': user['obj'], 'user_type': user['user_type']}
             return render(request, "employer_create_jobs.html", args)
     except Employer.DoesNotExist:
         pass
 
     try:
-        admin = Admin.objects.get(user_id=request.user.id)
+        user = get_user_type(request)
         print(admin.user.id)
         if request.method == 'POST':
             jobForm = CreateJobForm(request.POST)
@@ -187,7 +187,7 @@ def create_job(request):
         else:
             jobForm = CreateJobForm()
             companyForm = EmployerForm()
-            args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
+            args = {'jobForm': jobForm, 'companyForm': companyForm, 'obj': user['obj'], 'user_type': user['user_type']}
             return render(request, "employer_create_jobs.html", args)
     except Admin.DoesNotExist:
         pass
@@ -197,9 +197,10 @@ def create_job(request):
 
 @login_required
 def job_details(request, id):
+    user = get_user_type(request)
     job = Job.objects.get(id=id)
     companies = Employer.objects.all()
-    args = {'job': job, 'user': get_user_type(request), 'companies': companies}
+    args = {'job': job, 'obj': user['obj'], 'user_type': user['user_type'], 'companies': companies}
     form = StudentJobApplicationForm()
     if request.method == 'POST':
         if request.POST.get("apply"):
@@ -214,7 +215,7 @@ def job_details(request, id):
         elif request.POST.get("viewcandidates"):
             candidates = StudentJobApplication.objects.filter(job_id=job)
             print(candidates)
-            args = {'candidates': candidates}
+            args = {'candidates': candidates, 'obj': user['obj'], 'user_type': user['user_type']}
             return render(request, 'view_candidates.html', args)
     return render(request, 'job_details.html', args)
 
@@ -223,7 +224,7 @@ def job_details(request, id):
 def edit_job(request, id):
     job = Job.objects.get(id=id)
     try:
-        Employer.objects.get(user_id=request.user.id)
+        user = get_user_type(request)
         if request.method == 'POST':
             form = EditJobForm(request.POST, request.FILES, instance=job)
             if form.is_valid():
@@ -237,13 +238,13 @@ def edit_job(request, id):
                 return redirect(request.path_info)
         else:
             jobForm = EditJobForm(instance=job)
-            args = {'job': job, 'jobForm': jobForm, 'user': 'employer'}
+            args = {'job': job, 'jobForm': jobForm, 'obj': user['obj'], 'user_type': user['user_type']}
             return render(request, 'edit_job.html', args)
     except Employer.DoesNotExist:
         pass
 
     try:
-        admin = Admin.objects.get(user_id=request.user.id)
+        user = get_user_type(request)
         if request.method == 'POST':
             jobForm = EditJobForm(request.POST, instance=job)
             companyForm = EmployerForm(request.POST, request.FILES, instance=admin)
@@ -265,7 +266,7 @@ def edit_job(request, id):
         else:
             jobForm = EditJobForm()
             companyForm = EmployerForm()
-            args = {'jobForm': jobForm, 'companyForm': companyForm, 'user': 'admin'}
+            args = {'jobForm': jobForm, 'companyForm': companyForm, 'obj': user['obj'], 'user_type': user['user_type']}
             return render(request, 'edit_job.html', args)
     except Admin.DoesNotExist:
         pass
@@ -275,10 +276,9 @@ def edit_job(request, id):
 
 @login_required
 def my_applications(request):
-    id_student = request.user.id
-    student = Student.objects.get(user_id=id_student)
-    jobs_applied = StudentJobApplication.objects.filter(applied_id=student)
-    args = {'jobs_applied': jobs_applied}
+    user = get_user_type(request)
+    jobs_applied = StudentJobApplication.objects.filter(applied_id=user['obj'])
+    args = {'jobs_applied': jobs_applied, 'obj': user['obj'], 'user_type': user['user_type']}
     return render(request, 'my_applications.html', args)
 
 
@@ -302,40 +302,42 @@ def news(request):
         urllink.append(f['url'])
 
     mylist = list(zip(news, desc, img, urllink))
-
-    args = {'mylist': mylist, 'user': get_user_type(request)}
+    user = get_user_type(request)
+    args = {'mylist': mylist, 'obj': user['obj'], 'user_type': user['user_type']}
 
     return render(request, 'news.html', args)
 
 
 @login_required
 def delete_job(request, id):
+    user = get_user_type(request)
     job = Job.objects.get(id=id)
     if request.method == 'POST':
         job.status = 'Deleted'
         job.save()
         messages.success(request, "You have successfully deleted the job")
-        args = {'job': job}
+        args = {'job': job, 'obj': user['obj'], 'user_type': user['user_type']}
         return render(request, 'delete_job.html', args)
     else:
         form = EditJobForm()
-        args = {'job': job, 'form': form}
+        args = {'job': job, 'form': form, 'obj': user['obj'], 'user_type': user['user_type']}
         return render(request, 'delete_job.html', args)
 
 
 @login_required
 def close_job(request, id):
+    user = get_user_type(request)
     job = Job.objects.get(id=id)
     if request.method == 'POST':
         job.status = 'Closed'
         job.date_closed = timezone.now()
         job.save()
         messages.success(request, "You have successfully closed the job")
-        args = {'job': job}
+        args = {'job': job, 'obj': user['obj'], 'user_type': user['user_type']}
         return render(request, 'close_job.html', args)
     else:
         form = EditJobForm()
-        args = {'job': job, 'form': form}
+        args = {'job': job, 'form': form, 'obj': user['obj'], 'user_type': user['user_type']}
         return render(request, 'close_job.html', args)
 
 
@@ -373,13 +375,13 @@ def view_students(request):
         students = students_all & filtered_stds
         form = FilterStudentForm()
         print("students", students)
-        args = {'students': students, 'form': form, 'user': user}
+        args = {'students': students, 'form': form, 'obj': user['obj'], 'user_type': user['user_type']}
         return render(request, "view_students.html", args)
     elif user['user_type'] == 'employer' or user['user_type'] == 'admin':
         students = Student.objects.all()
         users = User.objects.all()
         form = FilterStudentForm()
-        args = {'students': students, 'users': users, 'form': form}
+        args = {'students': students, 'obj': user['obj'], 'user_type': user['user_type'], 'form': form}
     else:
         return redirect('/')
     return render(request, 'view_students.html', args)
@@ -388,19 +390,19 @@ def view_students(request):
 @login_required
 def student_details(request, id):
     student = Student.objects.get(user_id=id)
-    args = {'student': student, 'user': get_user_type(request)}
+    user = get_user_type(request)
+    args = {'student': student, 'obj': user['obj'], 'user_type': user['user_type']}
     return render(request, 'student_details.html', args)
 
 
 @login_required
 def job_to_student_skills(request, id):
+    user = get_user_type(request)
     job = Job.objects.get(id=id)
-    employer = Employer.objects.get(user_id=job.posted_by)
-    to = job.posted_by
     print(request.user)
     students = Student.objects.filter(skills__in=job.skills.all())
     students = list(set(students))
-    args = {'students': students}
+    args = {'students': students, 'form': FilterStudentForm(), 'obj': user['obj'], 'user_type': user['user_type']}
 
     message = Mail(
         from_email='info@murdochcareerportal.com',

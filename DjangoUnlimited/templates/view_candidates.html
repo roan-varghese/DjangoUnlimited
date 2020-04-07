@@ -1,111 +1,29 @@
-{% load static %}
-
-{% block css %}
-    <style>
-        b, strong {
-            font-weight: initial !important;
-        }
-
-
-    </style>
-{% endblock css %}
+{% extends "theme.html" %}
+{% load staticfiles %}
 
 {% block content %}
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Date Applied</th>
-            <th>Student Name</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for candidates in candidates %}
+    {% if candidates %}
+        <table class="table">
+            <thead>
             <tr>
-            <td>{{ candidates.date_applied }}</td>
-            <td>{{ candidates.applied }}</td>
-            <td>
-                <button type="button"><a target="_blank" href="{{ candidates.applied.cv.url }}">DOWNLOAD
-                    CV</a></button>
-            </td>
-        {% endfor %}
-        </tr>
-        </tbody>
-    </table>
-
-
+                <th>Date Applied</th>
+                <th>Student Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for candidates in candidates %}
+                <tr>
+                <td>{{ candidates.date_applied }}</td>
+                <td>{{ candidates.applied }}</td>
+                <td>
+                    <button type="button"><a target="_blank" href="{{ candidates.applied.cv.url }}">DOWNLOAD
+                        CV</a></button>
+                </td>
+            {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    {% else %}
+        No application received yet
+    {% endif %}
 {% endblock %}
-
-{% block js %}
-    <script>
-        // the initialisation of dataTables and set the ordering of first column
-
-        $('.table').DataTable({
-            "order": [[0, "desc"]],
-            scrollX: true
-        });
-
-
-    </script>
-{% endblock %}
-<footer>
-    <div class="main">
-
-        <!-- This is the 1st column of the footer!-->
-        <div class="about">
-            <ul><h3>ABOUT US</h3>
-                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
-                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 2nd column of the footer !-->
-        <div class="sitemap">
-            <ul>
-                <h3>SITEMAP</h3>
-                <li> <a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </div>
-
-
-        <!-- This is the 3rd column of the footer !-->
-        <div class="contact">
-            <h3> CONTACT US </h3>
-            <p class="para1">
-                <b>Murdoch University Dubai</b>
-                <br>
-            </p>
-            <p class="para2">
-                Dubai International Academic City <br>
-                Block 10, Fourth floor <br>
-                P.O. Box 345005 <br>
-                Dubai, United Arab Emirates
-            </p>
-
-        </div>
-
-        <div class = "helpDesk">
-            <ul>
-                <h3> Help Desk</h3>
-                <li> <a href = "/HelpDesk/HelpDesk/">Help Desk</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 4th column of the footer !-->
-        <div class="follow">
-            <h3> FOLLOW US </h3>
-            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
-                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
-            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
-            </a>
-            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                         alt="Instagram Icon" height="40.0em"
-                                                                         width="47.0em"></a>
-        </div>
-    </div>
-</footer>

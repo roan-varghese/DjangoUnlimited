@@ -1,144 +1,52 @@
+{% extends "theme.html" %}
 {% load staticfiles %}
+
 <!-- Stylesheet -->
-{% block css %}
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
+{% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
-{% endblock css %}
+{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employer Account Signup - Murdoch Dubai Job Portal</title>
+{% block title %}
+    Employer Account Signup - Murdoch Dubai Job Portal
+{% endblock %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-    <meta name="keywords"
-          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+{% block content %}
+    <br><br>
+    <div class="overall-page">
 
-    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
-</head>
-<!--This is the beginning of the header!-->
-<header>
-    <nav>
-        <section class="nav-container">
-            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                   height="60.0em" width="170.0em"></div>
-            <aside class="menu">
-                <div class="menu-content">
-                    <a href="/student/student_registration"><i class="userlogin"></i>Student Signup</a>
-                    <a href="/accounts/login"><i class="userlogin "></i>Login</a>
-                </div>
-            </aside>
-        </section>
-    </nav>
+        <div class="inside-container">
+            <div class="overall-page"></div>
 
-    <div class="bottomnav">
-        <a class="active" href="/"> <b>Home</b></a>
-    </div>
-</header>
-<body>
-<br><br>
-<div class="overall-page">
+            <h2 align="center">Create an account to post jobs</h2><br>
+            <div class="inside-container2">
+                <form action="employer_registration" method="post">
+                    {% csrf_token %}
 
-    <div class="inside-container">
-        <div class="overall-page"></div>
+                    {% for field in user_form %}
+                        <br>
+                        <div class="Col1">{{ field.label }}:</div>
+                        <div class="Col2">{{ field }}</div>
+                    {% endfor %}
 
-        <h2 align="center">Create an account to post jobs</h2><br>
-        <div class="inside-container2">
-            <form action="employer_registration" method="post">
-                {% csrf_token %}
+                    {% for field in employer_form %}
+                        <div class="Col1">{{ field.label }}:</div>
+                        <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
+                    {% endfor %}
 
-                {% for field in user_form %}
-                    <br>
-                    <div class="Col1">{{ field.label }}:</div>
-                    <div class="Col2">{{ field }}</div>
+                    <input type="checkbox" name="terms" required>
+                    <label>I have read and agree to the terms and conditions</label><br><br>
+
+                    <div style="text-align:center;">
+                        <input type="submit"
+                               style="color: white;  background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/>
+                    </div>
+                </form>
+                {% for message in messages %}
+                    <h3> {{ message }} </h3>
                 {% endfor %}
-
-                {% for field in employer_form %}
-                    <div class="Col1">{{ field.label }}:</div>
-                    <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
-                {% endfor %}
-
-                <input type="checkbox" name="terms" required>
-                <label>I have read and agree to the terms and conditions</label><br><br>
-
-                <div style="text-align:center;">
-                    <input type="submit"
-                           style="color: white;  background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/>
-                </div>
-            </form>
-            {% for message in messages %}
-                <h3> {{ message }} </h3>
-            {% endfor %}
+            </div>
         </div>
     </div>
-</div>
-<br>
-</body>
-<br><br>
-<!--This is the begining of the footer!-->
-<footer>
-    <div class="main">
-
-        <!-- This is the 1st column of the footer!-->
-        <div class="about">
-            <ul><h3>ABOUT US</h3>
-                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
-                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 2nd column of the footer !-->
-        <div class="sitemap">
-            <ul>
-                <h3>SITEMAP</h3>
-                <li> <a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </div>
-
-        <div class = "helpDesk">
-            <ul>
-                <h3> Help Desk</h3>
-                <li> <a href = ""> </a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 3rd column of the footer !-->
-        <div class="contact">
-            <h3> CONTACT US </h3>
-            <p class="para1">
-                <b>Murdoch University Dubai</b>
-                <br>
-            </p>
-            <p class="para2">
-                Dubai International Academic City <br>
-                Block 10, Fourth floor <br>
-                P.O. Box 345005 <br>
-                Dubai, United Arab Emirates
-            </p>
-
-        </div>
-
-        <!-- This is the 4th column of the footer !-->
-        <div class="follow">
-            <h3> FOLLOW US </h3>
-            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
-                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
-            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
-            </a>
-            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                         alt="Instagram Icon" height="40.0em"
-                                                                         width="47.0em"></a>
-        </div>
-    </div>
-</footer>
-</html>
+    <br>
+    <br><br>
+{% endblock %}

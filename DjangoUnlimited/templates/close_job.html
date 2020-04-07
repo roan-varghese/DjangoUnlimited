@@ -1,158 +1,42 @@
+{% extends "theme.html" %}
 {% load staticfiles %}
-<!-- Stylesheet -->
-{% block css %}
-<link rel="stylesheet" rel="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
-{% endblock css %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Close Jobs - Murdoch Dubai Job Portal</title>
+{% block title %}
+    Close Jobs - Murdoch Dubai Job Portal
+{% endblock %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-    <meta name="keywords"
-          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
-
-    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
-</head>
-
-<header>
-    <nav>
-        <section class="nav-container">
-            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                   height="60.0em" width="170.0em"></div>
-            <aside class="menu">
-                <div class="menu-content">
-                    <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
-                    <a href="../employer/view_employer_profile"><i class="useradd "></i>{{ employer.company_name }}</a>
-                </div>
-            </aside>
-        </section>
-    </nav>
-
-    <div class="bottomnav">
-        <a class="active" href="/"> <b>Home</b></a>
-        <a href="../view_jobs"> <b>Browse Students</b></a>
-        <a href="../create_job"> <b> Post a job</b></a>
-        <a href="../news"> <b> News</b></a>
-    </div>
-</header>
-
-<body>
+{% csrf_token %}
+{% block content %}
 <script>
     function validate(form) {
         var rb = document.querySelector('input[name="isMurdochStd"]:checked').value
         if (rb == 'no') {
             alert("Jobs can only be closed if filled by murdoch students. Please delete the job instead.")
             return false
-        } else {
+        }
+        else {
             return true
         }
         return true
     }
-
-
 </script>
 
 <div>
     <form method='POST' onsubmit="return validate(this)">
-
-        {% csrf_token %}
-        {% block content %}
-        <br/><br/>
-        <div class="msg">
-            <h2 align="center">Are you sure you want to close the job {{ job.job_title }} ?</h2>
-            <div class="msg2">
-                <h3>Did a Murdoch Student get this job?</h3>
-
-                <input type='radio' name='isMurdochStd' value='yes' id='yes' onclick="validate(this)"> Yes<br>
-                <input type='radio' name='isMurdochStd' value='no' id='no' onclick="validate(this)"> No<br>
-                <br>
-            </div>
-            <br>
-            <button class="btn btn-outline-danger" type="submit" onsubmit="return validate(this)"><b>Close</b>
-            </button>
-            <button type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
+            <h2 align="center">Are you sure you want to close the job {{ job.job_title }}?</h2>
+                <h3 align="center">Did a Murdoch Student get this job?</h3>
+                    <div style="text-align:center">
+                        <input type='radio' name='isMurdochStd' value='yes' id='yes' onclick="validate(this)"> Yes
+                        <input type='radio' name='isMurdochStd' value='no' id='no' onclick="validate(this)"> No<br>
+                        <br><br>
+                        <button class="btn btn-outline-danger" type="submit" onsubmit="return validate(this)"><b>Close</b></button>
+                        <button type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
+                    </div>
             <div>
                 {% for message in messages %}
                 <h3> {{ message }} </h3>
                 {% endfor %}
             </div>
-            {% endblock %}
-        </div>
     </form>
 </div>
-
-</body>
-
-<!--This is the beginning of the footer!-->
-<footer>
-        <div class="main">
-            <!-- This is the 1st column of the footer!-->
-            <div class="about">
-                <ul><h3>ABOUT US</h3>
-                    <li><a href="/"> FAQ</a></li>
-                    <li><a href="../Anti-Scam"> Anti-Scam</a></li>
-                    <li><a href="../Terms"> Terms</a></li>
-                    <li><a href="../Privacy"> Privacy</a></li>
-                </ul>
-            </div>
-
-            <!-- This is the 2nd column of the footer !-->
-            <div class="sitemap">
-                <ul>
-                    <h3>SITEMAP</h3>
-                    <li><a href="sitemap.html"> Sitemap</a></li>
-                    </a>
-                </ul>
-            </div>
-
-            <!-- This is the 3rd column of the footer !-->
-            <div class="helpDesk">
-                <ul>
-                    <h3> Help Desk</h3>
-                    <li><a href="/HelpDesk/HelpDesk/"> Help Desk</a></li>
-                </ul>
-            </div>
-
-            <!-- This is the 4th column of the footer !-->
-            <div class="contact">
-                <h3> CONTACT US </h3>
-                <p class="para1">
-                    <b>Murdoch University Dubai</b>
-                    <br>
-                </p>
-                <p class="para2">
-                    Dubai International Academic City <br>
-                    Block 10, Fourth floor <br>
-                    P.O. Box 345005 <br>
-                    Dubai, United Arab Emirates
-                </p>
-            </div>
-
-            <!-- This is the 5th column of the footer !-->
-            <div class="follow">
-                <h3> FOLLOW US </h3>
-                <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
-                    <img
-                            src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em">
-                </a>
-                <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                      alt="Facebook Icon" height="40.0em"
-                                                                      width="40.0em">
-                </a>
-                <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                        src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-                <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                             alt="Instagram Icon" height="40.0em"
-                                                                             width="47.0em"></a>
-            </div>
-        </div>
-    </footer>
-</html>
+{% endblock %}
