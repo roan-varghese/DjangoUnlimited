@@ -1,7 +1,12 @@
+{% load staticfiles %}
+<!-- Stylesheet -->
+{% block css %}
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/index.css' %}"/>
+{% endblock css %}
+
 {% block title %}
 <title>Bulletin - Add New Post</title>
 {% endblock title %}
-
 
 {% block content %}
 {% if user.user_type == 'admin' %}
