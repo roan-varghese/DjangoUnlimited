@@ -13,3 +13,7 @@ class Employer(models.Model):
     company_description = models.TextField()
     phone_number = models.CharField(max_length=50)
     logo = models.ImageField(upload_to='company_logos', null=True, blank=True)
+
+    def __str__(self):
+        name = self.user.company_name
+        return name

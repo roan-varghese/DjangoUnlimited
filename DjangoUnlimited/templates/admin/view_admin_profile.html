@@ -24,8 +24,8 @@
     <p>Email Address: {{ user.email }}</p>
     <p>Gender: {{ admin.gender }}</p>
 
-    <button type="button"><a href="{% url 'edit_admin_profile' %}">Edit Profile</a></button>
-    <button type="button"><a href="../../admin">Go back home</a></button>
+    <button><a href="{% url 'edit_admin_profile' %}">Edit Profile</a></button>
+    <button><a href="../../admin">Go back home</a></button>
 
 {% else %}
 
@@ -37,7 +37,7 @@
         {{ admin_form.as_p }}
     
         <button type="submit">Add Details</button>
-        <button type="button"><a href="../../admin">Cancel</a></button>
+        <button><a href="../../admin">Cancel</a></button>
     </form>
 
 {% endif %}

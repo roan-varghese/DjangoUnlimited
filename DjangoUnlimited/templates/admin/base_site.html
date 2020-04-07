@@ -3,6 +3,10 @@
 
 {% block title %} Admin {% endblock %}
 
+{% block extrastyle %}
+<!-- this is where you add any css for the admin -->
+{% endblock %}
+
 {% block branding %}
     <h1 id="site-name"><a href="{% url 'admin:index' %}">Murdoch Admin Dashboard</a></h1>
 {% endblock %}
