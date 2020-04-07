@@ -13,6 +13,7 @@ from DjangoUnlimited.settings import SENDGRID_API_KEY
 from Accounts.views import isValidated
 from .models import Student
 from .forms import *
+from Home.models import UserNotifications
 
 
 def student_signup(request):
@@ -50,7 +51,15 @@ def student_signup(request):
                                 html_content="A new Student has registered to use the Murdoch Career Portal."
                             )
                             sg = SendGridAPIClient(SENDGRID_API_KEY)
-                          #  sg.send(message)
+                           # sg.send(message)
+
+                          #  notification = "A new Student has registered to use the Murdoch Career Portal."
+                           # add_notif = UserNotifications(to_user_id=1, from_user_id=request.user.id,
+                                                     #     notification=notification,
+                                                      #    type='Sign Up',
+                                                      #    to_show=True)
+                           # add_notif.save()
+
                             return redirect("log_in")
                     else:
                         messages.info(request, student_form.errors)

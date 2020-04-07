@@ -16,34 +16,39 @@ from django.http import HttpResponse
 from wsgiref.util import FileWrapper
 from django.core.files import File
 import os
-
+from sendgrid.helpers.mail import To
 # Create your views here.
 
 from Employer.models import Employer
 from Admin.models import Admin
 from Student.models import Student, StudentJobApplication
 from Accounts.views import get_user_type
-from .models import Job, Skill
+from .models import Job, Skill, UserNotifications
 from .forms import CreateJobForm, EditJobForm, FilterJobForm, FilterStudentForm
 from Employer.forms import EmployerForm
 from Student.forms import StudentJobApplicationForm
-
+from django.core.mail import send_mail
 
 def index(request):
     user = get_user_type(request)
     return render(request, "index.html", user)
 
+
 def terms(request):
     return render(request, "terms.html")
+
 
 def faq(request):
     return render(request, "faq.html")
 
+
 def anti_scam(request):
     return render(request, "anti_scam.html")
 
+
 def privacy(request):
     return render(request, "privacy.html")
+
 
 @login_required
 def view_jobs(request):
@@ -101,7 +106,7 @@ def view_jobs(request):
         return render(request, "view_jobs.html", args)
     elif user['user_type'] == 'employer':
         jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted').exclude(status="Deleted")
-        #jobs = Job.objects.exclude(id__in=emp_jobs)
+        # jobs = Job.objects.exclude(id__in=emp_jobs)
         args = {'jobs': jobs, 'company': user['obj']}
     elif user['user_type'] == 'admin':
         jobs = Job.objects.exclude(status="Deleted").order_by('-date_posted')
@@ -114,7 +119,7 @@ def view_jobs(request):
         form = FilterJobForm()
         args = {'jobs': jobs, 'companies': companies, 'form': form, 'user_type': user}
     else:
-       redirect('/')
+        redirect('/')
     return render(request, 'view_jobs.html', args)
 
 
@@ -131,12 +136,18 @@ def create_job(request):
 
                 message = Mail(
                     from_email='info@murdochcareerportal.com',
-                    to_emails=['sethshivangi1998@gmail.com'],
+                    to_emails=['ict302jan2020@gmail.com'],
                     subject='New Job has been posted',
                     html_content="A new Job has been posted on the Murdoch Career Portal."
                 )
                 sg = SendGridAPIClient(SENDGRID_API_KEY)
-                #   sg.send(message)
+                # sg.send(message)
+
+                # notification = "A new job has been posted on the Murdoch Career Portal"
+                # add_notif = UserNotifications(to_user_id=1, from_user_id=request.user.id, notification=notification,
+                #   type='Job Posted',
+                #   to_show=True)
+                # add_notif.save()
 
                 for skill in request.POST.getlist('skills'):
                     data.skills.add(skill)
@@ -260,7 +271,8 @@ def edit_job(request, id):
         pass
 
     return redirect('log_in')
-    
+
+
 @login_required
 def my_applications(request):
     id_student = request.user.id
@@ -379,12 +391,19 @@ def student_details(request, id):
     args = {'student': student, 'user': get_user_type(request)}
     return render(request, 'student_details.html', args)
 
+
 @login_required
 def job_to_student_skills(request, id):
     job = Job.objects.get(id=id)
+    employer = Employer.objects.get(user_id=job.posted_by)
+    to = job.posted_by
+    print(request.user)
     students = Student.objects.filter(skills__in=job.skills.all())
     students = list(set(students))
     args = {'students': students}
+
+    send_mail('Students found', 'Students with skills matching to your job have been found.', 'info@murdochcareerportal.com', ['ict302jan2020@gmail.com'], fail_silently=False)
+
     return render(request, "view_students.html", args)
 
 
@@ -393,8 +412,8 @@ def get_cv_file(request, id):
     student = Student.objects.get(user_id=id)
     cv = student.cv
     file_name = os.path.basename(cv.file.name)
-    #extension = cv.file.name.split(".")
-    #if extension[1] != "pdf":
+    # extension = cv.file.name.split(".")
+    # if extension[1] != "pdf":
     #    input_filename = cv.file.name
     #    output_filename = extension[0] + ".pdf"
     #    pythoncom.CoInitialize()
@@ -409,3 +428,19 @@ def get_cv_file(request, id):
     response = HttpResponse(wrapper, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=' + file_name
     return response
+
+
+def usernotification(user, notification_string, type_of_notif):
+    user_notif = UserNotifications(to_user=user, notification=notification_string, type=type_of_notif, to_show=True)
+    user_notif.save()
+
+
+def seeneach_notification(request):
+    id = request.POST['noti_id']
+    UserNotifications.objects.filter(id=id).update(to_show=False)
+    return None
+
+
+def seen_notification(request):
+    UserNotifications.objects.filter(to_user=request.user).update(to_show=False)
+    return None

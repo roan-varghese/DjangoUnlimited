@@ -71,3 +71,12 @@ class HelpDeskComplaints(models.Model):
     details = models.TextField()
     admin_id = models.ForeignKey(Admin, on_delete=models.CASCADE, related_name='assigned_admin')
 
+
+# User notifications.
+class UserNotifications(models.Model):
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='to_user')
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='from_user')
+    notification = models.TextField()
+    type = models.CharField(max_length=100)
+    to_show = models.BooleanField(default=True)
+    date_time = models.DateTimeField(default=datetime.now)
