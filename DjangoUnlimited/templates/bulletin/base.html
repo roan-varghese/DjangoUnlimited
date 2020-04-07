@@ -4,7 +4,6 @@
 
 
 {% block content %}
-{% if user.user_type == 'admin' %}
 <p class="text-bold white font-15">Add New Post</p>
 
 
@@ -13,53 +12,15 @@
 
     {{ form.title }}
 
+    <br><br>
+
     {{ form.feed }}
 
-
+    <br><br>
     <button id="submitbutton" type="submit" name="submitbutton" value="submitbutton">Submit
     </button>
 
 
-    <button id="savebutton" type="submit" name="savebutton" value="savebutton">Save as draft
-    </button>
-
 </form>
 
-<p> List of Drafts</p>
-
-{% for post in posts %}
-
-<p> {{ post.release_date }} </p>
-<p> Title: {{ post.title }} </p>
-
-
-<a class="btn btn-default" href="{% url 'post_edit' post.pk %}"
-   title="Edit Post"><i class="fas fa-pen"></i></a>
-
-<hr>
-
-{% empty %}
-
-<p>No saved drafts to display.</p>
-
-{% endfor %}
-
-
-<div class="pagination">
-    {% if posts.has_previous %}
-
-    <a href="?page={{ posts.previous_page_number }}" >&nbsp;Previous&nbsp;</a>
-    {% endif %}
-
-    <span>{{ posts.number }} </span>
-    <span>&nbsp; of &nbsp;</span>
-    <span>{{ posts.paginator.num_pages }}</span>
-
-    {% if posts.has_next %}
-    <a href="?page={{ posts.next_page_number }}" >&nbsp;Next</a>
-    {% endif %}
-</div>
-
-
-{% endif %}
 {% endblock content %}
