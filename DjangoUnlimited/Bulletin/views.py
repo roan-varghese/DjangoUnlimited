@@ -56,6 +56,6 @@ def PostDetailView(request, pk):
 
 
 def AllPosts(request):
-    posts = Post.objects.filter(status=True)
+    posts = Post.objects.filter(status=True).order_by('-release_date')
     args = {'posts': posts}
     return render(request, 'bulletin/allPosts.html', args)
