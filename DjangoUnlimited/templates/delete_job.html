@@ -5,9 +5,9 @@
     Delete Jobs - Murdoch Dubai Job Portal
 {% endblock %}
 
-{% csrf_token %}
 {% block content %}
 <form method='POST'>
+    {% csrf_token %}
         <h2 align="center">Are you sure you want to delete the job {{ job.job_title }}?</h2>
 
         <div style="text-align:center">

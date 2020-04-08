@@ -18,13 +18,10 @@
     {{ user_form.as_p }}
     {{ admin_form.as_p }}
 
-    <input type="checkbox" name="terms" required>
-    <label>I have read and agree to the terms and conditions</label><br><br>
-
     <input type="hidden" name="next" value="../admin">
 
     <button type="submit">Create Admin</button>
-    <button><a href="../../admin">Cancel</a></button>
+    <button type="button"><a href="../../admin">Cancel</a></button>
 </form>
 
 <!-- this displays any errors during submission -->

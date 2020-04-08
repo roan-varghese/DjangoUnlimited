@@ -56,7 +56,14 @@
                 </div>
                 <p>{{ job.desc }}</p>
                 {% if user_type == 'student' %}
-                    <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply</button>
+                    <div style="text-align:center;">
+                        {% if applied == False %}
+                            <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply For Job</button>
+                        {% else %}
+                            <h4>Your application has been submitted.</h4> 
+                            <!-- a disabled button here -->
+                        {% endif %}
+                    </div>
                 {% else %}
                     <button class="button2" type="submit" name="viewcandidates" value="ViewCandidates&Save"><b>View
                         Applicants</b></button>

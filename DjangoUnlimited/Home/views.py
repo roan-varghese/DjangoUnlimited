@@ -201,10 +201,13 @@ def job_details(request, id):
     user = get_user_type(request)
     job = Job.objects.get(id=id)
     companies = Employer.objects.all()
-    args = {'job': job, 'obj': user['obj'], 'user_type': user['user_type'], 'companies': companies}
+    
+    args = {'job': job, 'obj': user['obj'], 'user_type': user['user_type'], 'companies': companies, 'applied': True}
     form = StudentJobApplicationForm()
+    
     if request.method == 'POST':
         if request.POST.get("apply"):
+
             post = form.save(commit=False)
             post.job_id = job
             id = request.user.id
@@ -213,12 +216,26 @@ def job_details(request, id):
             post.date_applied = timezone.now()
             post.save()
             return render(request, 'job_details.html', args)
+
         elif request.POST.get("viewcandidates"):
+
             candidates = StudentJobApplication.objects.filter(job_id=job)
             print(candidates)
             args = {'candidates': candidates, 'obj': user['obj'], 'user_type': user['user_type']}
             return render(request, 'view_candidates.html', args)
-    return render(request, 'job_details.html', args)
+
+    try:
+        student = Student.objects.get(user_id=request.user.id)
+        
+        job = Job.objects.get(id=id)
+        StudentJobApplication.objects.get(job_id_id=job)
+        StudentJobApplication.objects.get(applied=student)
+        
+        return render(request, 'job_details.html', args)
+
+    except:
+        args = {'job': job, 'obj': user['obj'], 'user_type': user['user_type'], 'companies': companies, 'applied': False}
+        return render(request, 'job_details.html', args)
 
 
 @login_required
