@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from .api_key import SENDGRID_API_KEY
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -53,13 +55,14 @@ INSTALLED_APPS = [
     'Bulletin'
 ]
 
+# SENDGRID_API_KEY = SENDGRID_API_KEY
 SENDGRID_API_KEY = ''
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'DjangoUnlimited'
-# EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'Django-Unlimited'
+EMAIL_HOST_PASSWORD = 'djangounlimited123'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'donotreply@murdochcareerportal.com'
+DEFAULT_FROM_EMAIL = 'roan.rv7@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 SITE_ID = 1  # needed for 'django.contrib.sites' to work for admin site
@@ -97,27 +100,27 @@ WSGI_APPLICATION = 'DjangoUnlimited.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'DjangoUnlimited',
-        'USER': 'postgres',
-        'PASSWORD': '12345678',
-        'HOST': 'djangounlimited.chfww0k5v2sg.us-east-2.rds.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'DjangoUnlimited',
 #         'USER': 'postgres',
-#         'PASSWORD': '1234',
-#         'HOST': 'localhost',
+#         'PASSWORD': '12345678',
+#         'HOST': 'djangounlimited.chfww0k5v2sg.us-east-2.rds.amazonaws.com',
 #         'PORT': '5432',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'DjangoUnlimited',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

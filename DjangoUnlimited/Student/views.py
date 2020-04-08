@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
-from DjangoUnlimited.settings import SENDGRID_API_KEY
+from DjangoUnlimited.settings import SENDGRID_API_KEY, DEFAULT_FROM_EMAIL 
 
 # Create your views here.
 
@@ -45,13 +45,13 @@ def student_signup(request):
                                 student.skills.add(skill)
 
                             message = Mail(
-                                from_email='info@murdochcareerportal.com',
-                                to_emails=['sethshivangi1998@gmail.com'],
+                                from_email=DEFAULT_FROM_EMAIL,
+                                to_emails=['ict302jan2020@gmail.com'],
                                 subject='New User has signed up',
                                 html_content="A new Student has registered to use the Murdoch Career Portal."
                             )
                             sg = SendGridAPIClient(SENDGRID_API_KEY)
-                           # sg.send(message)
+                            # sg.send(message)
 
                           #  notification = "A new Student has registered to use the Murdoch Career Portal."
                            # add_notif = UserNotifications(to_user_id=1, from_user_id=request.user.id,

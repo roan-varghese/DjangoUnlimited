@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 *.pyc
 
+#api_key
+DjangoUnlimited/api_key.py
+
 #settings
 Intranet/settings.py
 

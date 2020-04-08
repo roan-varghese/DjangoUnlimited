@@ -11,7 +11,7 @@ from django.contrib import messages
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
-from DjangoUnlimited.settings import SENDGRID_API_KEY
+from DjangoUnlimited.settings import SENDGRID_API_KEY, DEFAULT_FROM_EMAIL
 from django.http import HttpResponse
 from wsgiref.util import FileWrapper
 from django.core.files import File
@@ -31,6 +31,7 @@ from django.core.mail import send_mail
 
 def index(request):
     user = get_user_type(request)
+    print(SENDGRID_API_KEY)
     return render(request, "index.html", user)
 
 
@@ -135,7 +136,7 @@ def create_job(request):
                 data.save()
 
                 message = Mail(
-                    from_email='info@murdochcareerportal.com',
+                    from_email=DEFAULT_FROM_EMAIL,
                     to_emails=['ict302jan2020@gmail.com'],
                     subject='New Job has been posted',
                     html_content="A new Job has been posted on the Murdoch Career Portal."
