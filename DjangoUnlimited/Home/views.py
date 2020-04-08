@@ -98,7 +98,7 @@ def view_jobs(request):
             industry_id_jobs = Job.objects.all()
 
         filtered_jobs = min_duration_jobs & max_duration_jobs & location_jobs & max_salary_jobs & min_salary_jobs & job_type_id_jobs & industry_id_jobs
-        jobs_all = Job.objects.all()
+        jobs_all = Job.objects.filter(status="Open").order_by('-date_posted')
         jobs = jobs_all & filtered_jobs
         form = FilterJobForm()
 
