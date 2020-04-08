@@ -10,7 +10,7 @@ from DjangoUnlimited.settings import SENDGRID_API_KEY
 
 # Create your views here.
 
-from Accounts.views import isValidated
+from Accounts.views import isValidated, get_user_type
 from .models import Student
 from .forms import *
 from Home.models import UserNotifications
@@ -74,7 +74,8 @@ def student_signup(request):
     else:
         user_form = InitialStudentForm()
         student_form = StudentForm()
-        args = {'student_form': student_form, 'user_form': user_form}
+        user = get_user_type(request)
+        args = {'student_form': student_form, 'user_form': user_form, 'user_type': user['user_type']}
 
         return render(request, 'student_registration.html', args)
 
@@ -99,12 +100,12 @@ def edit_profile(request):
     else:
         user_form = EditStudentProfileInitialForm(instance=request.user)
         student_form = EditStudentProfileForm(instance=student)
-        args = {'student_form': student_form, 'user_form': user_form}
+        args = {'student_form': student_form, 'user_form': user_form, 'user_type': "student", 'obj': student}
         return render(request, 'edit_student_profile.html', args)
 
 @login_required
 def view_profile(request):
     user = request.user
-    student = Student.objects.get(user_id=user.id)
-    args = {'student': student, 'user': user}
+    u = get_user_type(request)
+    args = {'user': user, 'user_type': u['user_type'], 'obj': u['obj']}
     return render(request, 'view_student_profile.html', args)

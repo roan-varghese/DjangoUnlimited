@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-from Accounts.views import isValidated
+from Accounts.views import isValidated, get_user_type
 from .models import Employer
 from .forms import InitialEmployerForm, EmployerForm
 from Student.models import Student
@@ -84,16 +84,17 @@ def signup(request):
     else:
         user_form = InitialEmployerForm()
         employer_form = EmployerForm()
-        args = {'employer_form': employer_form, 'user_form': user_form}
+        user = get_user_type(request)
+        args = {'employer_form': employer_form, 'user_form': user_form, 'user_type': user['user_type']}
         return render(request, 'employer_registration.html', args)
 
 
 @login_required
 def edit_profile(request):
-    employer = Employer.objects.get(user_id=request.user.id)
-    if employer is not None:
+    args = get_user_type(request)
+    if args['obj'] is not None:
         if request.method == 'POST':
-            form = EmployerForm(request.POST, request.FILES, instance=employer)
+            form = EmployerForm(request.POST, request.FILES, instance=args['obj'])
 
             if form.is_valid():
                 form.save()
@@ -102,8 +103,8 @@ def edit_profile(request):
                 messages.info(request, form.errors)
                 return redirect("edit_employer_profile")
         else:
-            form = EmployerForm(instance=employer)
-            args = {'employer_form': form, 'employer': employer}
+            form = EmployerForm(instance=args['obj'])
+            args = {'employer_form': form, 'obj': args['obj'], 'user_type': args['user_type']}
             return render(request, 'edit_employer_profile.html', args)
     else:
         messages.info(request, 'This employer user does not exist')
@@ -111,5 +112,4 @@ def edit_profile(request):
 
 @login_required
 def view_profile(request):
-    employer = Employer.objects.get(user_id=request.user.id)
-    return render(request, 'view_employer_profile.html', {'employer': employer})
+    return render(request, 'view_employer_profile.html', get_user_type(request))

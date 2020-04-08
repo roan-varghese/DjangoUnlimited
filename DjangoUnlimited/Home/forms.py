@@ -15,19 +15,21 @@ class CreateJobForm(forms.ModelForm):
     job_type_id = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'custom-select'}),
         queryset=JobType.objects.all(),
-        # required = True
+        required = True,
+        label="Job Type"
     )
     salary = forms.FloatField()
     skills = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         queryset=Skill.objects.all(),
-        # required = True
+        required = True
     )
 
     industry_id = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'custom-select'}),
         queryset=Industry.objects.all(),
-        # required = True,
+        required = True,
+        label="Industry"
     )
 
     class Meta:
@@ -51,19 +53,21 @@ class EditJobForm(forms.ModelForm):
     job_type_id = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'custom-select'}),
         queryset=JobType.objects.all(),
-        # required = True
+        required = True,
+        label="Job Type"
     )
     salary = forms.FloatField()
     skills = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         queryset=Skill.objects.all(),
-        # required = True
+        required = True
     )
 
     industry_id = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'custom-select'}),
         queryset=Industry.objects.all(),
-        # required = True,
+        required = True,
+        label="Industry"
     )
 
     class Meta:
@@ -78,7 +82,8 @@ class FilterJobForm(forms.ModelForm):
     job_type_id = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'custom-select'}),
         queryset=JobType.objects.all(),
-        required=False
+        required=False,
+        label="Job Type"
     )
     min_salary = forms.FloatField(required=False)
     max_salary = forms.FloatField(required=False)
@@ -86,7 +91,8 @@ class FilterJobForm(forms.ModelForm):
     industry_id = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'custom-select'}),
         queryset=Industry.objects.all(),
-        required=False
+        required=False,
+        label="Industry"
     )
 
     class Meta:

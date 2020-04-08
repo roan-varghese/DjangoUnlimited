@@ -1,154 +1,26 @@
+{% extends "theme.html" %}
 {% load staticfiles %}
-<!-- Stylesheet -->
-{% block css %}
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Index.css' %}"/>
-{% endblock css %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Job Portal - Murdoch Dubai Job Portal</title>
+{% block title %}
+    Job Portal - Murdoch Dubai Job Portal
+{% endblock %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-    <meta name="keywords"
-          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
-
-    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
-</head>
-
-
-<body>
 {% csrf_token %}
-
-<!--This is the beginning of the header!-->
-<header>
-    <nav>
-        <section class="nav-container">
-            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                   height="60.0em" width="170.0em"></div>
-            <aside class="menu">
-                <div class="menu-content">
-                    {% if user.is_authenticated %}
-                        <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
-                        {% if user_type == 'student' %}
-                            <a href="../student/view_student_profile"><i
-                                    class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
-                        {% elif user_type == 'employer' %}
-                            <a href="../employer/view_employer_profile"> {{ obj.company_name }} </a>
-                        {% elif user_type == 'admin' %}
-                            <a href="../admin"> {{ user.username }} </a>
-                        {% endif %}
-                    {% else %}
-                        <a href="student/student_registration"><i class="userlogin"></i>Student Signup</a>
-                        <a href="employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
-                        <a href="accounts/login"><i class="userlogin "></i>Login</a>
-                    {% endif %}
-                </div>
-            </aside>
-        </section>
-    </nav>
-
-    <div class="bottomnav">
-        <a class="active" href="/"> <b>Home</b></a>
+{% block content %}
+    {% if user.is_authenticated %}
         {% if user_type == 'student' %}
-            <a href="../view_jobs"><b>Browse Jobs</b></a>
-        {% elif user_type == 'employer' %}
-            <a href="../view_students"><b>Browse Students</b></a>
-            <a href="../create_job"> <b>Post a job</b></a>
-        {% elif user_type == 'admin' %}
-            <a href="../view_jobs"><b>Browse Jobs</b></a>
-            <a href="/view_students"><b>Browse Students</b></a>
-            <a href="{% url 'admin:index' %}"> <b>Dashboard</b></a>
-            <a href="myadmin/statistics"> <b>Statistics</b></a>
-        {% endif %}
-        <a href="../news"> <b>News</b></a>
-        <a href="https://www.murdochuniversitydubai.com/"> <b>Murdoch University Home</b></a>
-    </div>
-</header>
-
-{% if user.is_authenticated %}
-    {% if user_type == 'student' %}
-        <!-- displays welcome message -->
-        <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3> <!-- displays welcome message -->
-    {% elif user_type == 'employer' %}
-        <!-- displays welcome message -->
-        <h3>Welcome, {{ obj.company_name }}</h3>
-        <p><a href="../view_jobs">MY JOBS</a>
-            {% elif user_type == 'admin' %}
             <!-- displays welcome message -->
-        <h3>Welcome, {{ user.username }}</h3>
+            <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3> <!-- displays welcome message -->
+        {% elif user_type == 'employer' %}
+            <!-- displays welcome message -->
+            <h3>Welcome, {{ obj.company_name }}</h3>
+            <p><a href="../view_jobs">MY JOBS</a>
+                {% elif user_type == 'admin' %}
+                <!-- displays welcome message -->
+            <h3>Welcome, {{ user.username }}</h3>
+        {% endif %}
     {% endif %}
-{% endif %}
-<br><br>
-<div class="home_img"><img src="{% static 'images/Homeimg.jpg' %}" alt="Home page image"></div>
-<br><br>
-</body>
-
-<!--This is the beginning of the footer!-->
-<footer>
-    <div class="main">
-        <!-- This is the 1st column of the footer!-->
-        <div class="about">
-            <ul><h3>ABOUT US</h3>
-                <li><a href="faq"> FAQ</a></li>
-                <li><a href="anti_scam"> Anti-Scam</a></li>
-                <li><a href="terms"> Terms</a></li>
-                <li><a href="privacy"> Privacy</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 2nd column of the footer !-->
-        <div class="sitemap">
-            <ul>
-                <h3>SITEMAP</h3>
-                <li><a href="sitemap.html"> Sitemap</a></li>
-                </a>
-            </ul>
-        </div>
-
-        <!-- This is the 3rd column of the footer !-->
-        <div class="helpDesk">
-            <ul>
-                <h3> Help Desk</h3>
-                <li><a href="/HelpDesk/HelpDesk/"> Help Desk</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 4th column of the footer !-->
-        <div class="contact">
-            <h3> CONTACT US </h3>
-            <p class="para1">
-                <b>Murdoch University Dubai</b>
-                <br>
-            </p>
-            <p class="para2">
-                Dubai International Academic City <br>
-                Block 10, Fourth floor <br>
-                P.O. Box 345005 <br>
-                Dubai, United Arab Emirates
-            </p>
-        </div>
-
-        <!-- This is the 5th column of the footer !-->
-        <div class="follow">
-            <h3> FOLLOW US </h3>
-            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
-                <img
-                        src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em">
-            </a>
-            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                  alt="Facebook Icon" height="40.0em"
-                                                                  width="40.0em">
-            </a>
-            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                         alt="Instagram Icon" height="40.0em"
-                                                                         width="47.0em"></a>
-        </div>
-    </div>
-</footer>
-</html>
+    <br><br>
+    <div align="center" border="1em"><img src="{% static 'images/Homeimg.jpg' %}" alt="Home page image"></div>
+    <br><br>
+{% endblock %}

@@ -36,7 +36,7 @@ def login(request):
                     auth.login(request, user)
                     return render(request, "index.html", get_user_type(request))
     else:
-        return render(request, 'login.html')
+        return render(request, 'login.html', get_user_type(request))
 
 def forgot_password(request):
     if request.method == 'POST':
