@@ -77,7 +77,7 @@ class HelpDeskFormView(TemplateView):
                     html_content="A new helpdesk complaint has been filed by."
                 )
                 sg = SendGridAPIClient(SENDGRID_API_KEY)
-                sg.send(message)
+             #   sg.send(message)
                 messages.success(request, "Your request has been submitted.")
                 return redirect('HelpDesk', f.id)
 
