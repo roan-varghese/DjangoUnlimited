@@ -59,9 +59,9 @@
                     <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply</button>
                 {% else %}
                     <button class="button2" type="submit" name="viewcandidates" value="ViewCandidates&Save"><b>View
-                        Candidates</b></button>
-                    <button class="button2" type="button"><a href="{% url 'job_to_student_skills' job.id %}">View
-                        Potential Candidates</a></button>
+                        Applicants</b></button>
+                    <button class="button2" type="button"><a href="{% url 'job_to_student_skills' job.id %}"><b>View
+                        Candidates</b></a></button>
                 {% endif %}
             </form>
         </div>
