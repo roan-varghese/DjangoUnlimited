@@ -75,18 +75,18 @@ class StudentForm(forms.ModelForm):
         ('Female', 'Female')
     ]
     gender = forms.ChoiceField(choices=gender_choices, widget=forms.RadioSelect(attrs={'class': 'custom-select'}))
-    DOB = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=True, label='Date of Birth',
+    DOB = forms.DateField(required=True, label='Date of Birth',
                           widget=forms.DateInput(attrs={
-                              'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
+                              'class': 'datepicker form-control-text', 'placeholder': 'YYYY-DD-MM',
                               'autocomplete': 'off'
                           }))
     student_id = forms.CharField(label='Student ID', max_length=8, min_length=8)
     alumni_status = forms.BooleanField(required=False, label='Select if you are a Murdoch University Alumni',
                                        widget=forms.CheckboxInput(attrs={'onClick': 'disable_fields(this.checked)'}))
-    expected_graduation_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
+    expected_graduation_date = forms.DateField(required=False,
                                                label='Expected Graduation Date',
                                                widget=forms.DateInput(attrs={
-                                                   'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
+                                                   'class': 'datepicker form-control-text', 'placeholder': 'YYYY-DD-MM',
                                                    'autocomplete': 'off'
                                                }))
     personal_email = forms.EmailField(required=False, label='Personal Email Address')
@@ -124,17 +124,17 @@ class EditStudentProfileForm(forms.ModelForm):
             ('Female', 'Female')
         ]
     gender = forms.ChoiceField(choices=gender_choices, widget=forms.RadioSelect(attrs={'class': 'custom-select'}))
-    DOB = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=True, label='Date of Birth',
+    DOB = forms.DateField(required=True, label='Date of Birth',
                           widget=forms.DateInput(attrs={
-                              'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
+                              'class': 'datepicker form-control-text', 'placeholder': 'YYYY-DD-MM',
                               'autocomplete': 'off'
                           }))
     alumni_status = forms.BooleanField(required=False, label='Select if you are a Murdoch University Alumni',
                                        widget=forms.CheckboxInput(attrs={'onClick': 'disable_fields(this.checked)'}))
-    expected_graduation_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
+    expected_graduation_date = forms.DateField(required=False,
                                                label='Expected Graduation Date',
                                                widget=forms.DateInput(attrs={
-                                                   'class': 'datepicker form-control-text', 'placeholder': 'DD-MM-YYYY',
+                                                   'class': 'datepicker form-control-text', 'placeholder': 'YYYY-DD-MM',
                                                    'autocomplete': 'off'
                                                }))
     personal_email = forms.EmailField(required=False, label='Personal Email Address')
