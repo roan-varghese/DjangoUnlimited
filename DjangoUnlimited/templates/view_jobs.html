@@ -67,6 +67,7 @@
 </header>
 
     <h2> List of Jobs</h2>
+    <h5><a href='../view_jobs'>View All Jobs</a></h5>
     <table class="table">
         <thead>
         <tr>
@@ -78,6 +79,7 @@
             <th>Duration</th>
             <th>Industry</th>
             <th>Job Type</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
@@ -91,6 +93,7 @@
             <td>{{ job.duration }}</td>
             <td>{{ job.industry_id }}</td>
             <td>{{ job.job_type_id }}</td>
+            <td>{{ job.status }}</td>
         {% endfor %}
         </tr>
         </tbody>

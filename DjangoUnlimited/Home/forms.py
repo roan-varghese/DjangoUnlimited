@@ -42,12 +42,7 @@ class EditJobForm(forms.ModelForm):
         attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
     description = forms.CharField(label='Job Description', max_length=100, required=True, widget=forms.Textarea(
         attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
-    job_status = [
-        ('Open', 'Open'),
-        ('Closed', 'Closed'),
-        ('Deleted', 'Deleted')
-    ]
-    status = forms.ChoiceField(choices=job_status, widget=forms.Select(attrs={'class': 'custom-select'}))
+
     duration = forms.IntegerField(label='Duration (in months)')
     location = forms.CharField(max_length = 100, required = True)
     job_type_id = forms.ModelChoiceField(
@@ -72,7 +67,7 @@ class EditJobForm(forms.ModelForm):
 
     class Meta:
         model = Job
-        exclude = ['posted_by', 'date_posted', 'date_closed']
+        exclude = ['posted_by', 'date_posted', 'date_closed', 'status']
 
 
 class FilterJobForm(forms.ModelForm):

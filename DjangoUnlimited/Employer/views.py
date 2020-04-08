@@ -61,14 +61,14 @@ def signup(request):
                                 html_content="A new Employer has registered to use the Murdoch Career Portal."
                             )
                             sg = SendGridAPIClient(SENDGRID_API_KEY)
-                            #sg.send(message)
+                           # sg.send(message)
 
-                          #  notification = "A new Employer has registered to use the Murdoch Career Portal."
-                           # add_notif = UserNotifications(to_user_id=1, from_user_id=request.user.id,
-                                                   #       notification=notification,
-                                                     #     type='Sign Up',
-                                                     #     to_show=True)
-                          #  add_notif.save()
+                        #  notification = "A new Employer has registered to use the Murdoch Career Portal."
+                        # add_notif = UserNotifications(to_user_id=1, from_user_id=request.user.id,
+                        #       notification=notification,
+                        #     type='Sign Up',
+                        #     to_show=True)
+                        #  add_notif.save()
 
                         return redirect("log_in")
                     else:

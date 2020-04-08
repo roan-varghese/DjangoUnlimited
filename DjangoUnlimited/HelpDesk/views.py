@@ -11,7 +11,10 @@ from django_comments.models import Comment
 from Accounts.views import get_user_type
 from .models import HelpDeskModel
 from .forms import HelpDeskForm
-
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.core.mail import send_mail
+from DjangoUnlimited.settings import SENDGRID_API_KEY
 
 class HelpDeskFormView(TemplateView):
     template_name = 'HelpDesk/Report_issue.html'
@@ -67,6 +70,14 @@ class HelpDeskFormView(TemplateView):
                 f = form.save(commit=False)
                 f.name_Request = request.user
                 f.save()
+                message = Mail(
+                    from_email='info@murdochcareerportal.com',
+                    to_emails=['ict302jan2020@gmail.com'],
+                    subject='HelpDesk Request',
+                    html_content="A new helpdesk complaint has been filed by."
+                )
+                sg = SendGridAPIClient(SENDGRID_API_KEY)
+             #   sg.send(message)
                 messages.success(request, "Your request has been submitted.")
                 return redirect('HelpDesk', f.id)
 
