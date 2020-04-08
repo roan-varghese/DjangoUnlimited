@@ -128,6 +128,7 @@ def view_jobs(request):
 def create_job(request):
     try:
         user = get_user_type(request)
+        Employer.objects.get(user_id= request.user.id)
         if request.method == 'POST':
             form = CreateJobForm(request.POST)
             if form.is_valid():
@@ -165,6 +166,7 @@ def create_job(request):
 
     try:
         user = get_user_type(request)
+        admin = Admin.objects.get(user_id=request.user.id)
         print(admin.user.id)
         if request.method == 'POST':
             jobForm = CreateJobForm(request.POST)
@@ -228,8 +230,7 @@ def job_details(request, id):
         student = Student.objects.get(user_id=request.user.id)
         
         job = Job.objects.get(id=id)
-        StudentJobApplication.objects.get(job_id_id=job)
-        StudentJobApplication.objects.get(applied=student)
+        StudentJobApplication.objects.get(job_id_id=job, applied=student)
         
         return render(request, 'job_details.html', args)
 
@@ -243,6 +244,7 @@ def edit_job(request, id):
     job = Job.objects.get(id=id)
     try:
         user = get_user_type(request)
+        Employer.objects.get(user_id= request.user.id)
         if request.method == 'POST':
             form = EditJobForm(request.POST, request.FILES, instance=job)
             if form.is_valid():
@@ -263,6 +265,7 @@ def edit_job(request, id):
 
     try:
         user = get_user_type(request)
+        admin = Admin.objects.get(user_id=request.user.id)
         if request.method == 'POST':
             jobForm = EditJobForm(request.POST, instance=job)
             companyForm = EmployerForm(request.POST, request.FILES, instance=admin)
