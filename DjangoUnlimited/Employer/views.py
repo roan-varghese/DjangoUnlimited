@@ -16,8 +16,7 @@ from Home.models import UserNotifications
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
-from django.core import mail
-from DjangoUnlimited.settings import SENDGRID_API_KEY
+from DjangoUnlimited.settings import SENDGRID_API_KEY, DEFAULT_FROM_EMAIL
 
 import os
 import csv
@@ -56,7 +55,7 @@ def signup(request):
                             employer.save()
 
                             message = Mail(
-                                from_email='info@murdochcareerportal.com',
+                                from_email=DEFAULT_FROM_EMAIL,
                                 to_emails=['ict302jan2020@gmail.com'],
                                 subject='New User has signed up',
                                 html_content="A new Employer has registered to use the Murdoch Career Portal."

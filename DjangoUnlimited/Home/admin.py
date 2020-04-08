@@ -9,14 +9,7 @@ from Employer.models import Employer
 from Student.models import Student
 
 class JobAdmin(admin.ModelAdmin):
-
-    # def formfield_for_foreignkey(self, db_field, request, **kwargs):
-    #     if db_field.name == "posted_by":
-    #         kwargs["queryset"] = User.objects.filter(
-    #                 is_staff__in=['False']
-    #             )
-    #     return super().formfield_for_foreignkey(db_field, request, **kwargs)
-
+    
     list_display = ('posted_by', 'job_title', 'description', 'salary')
     change_list_template = "admin/job_change_list.html"
 
