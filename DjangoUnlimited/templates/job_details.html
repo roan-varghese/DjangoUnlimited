@@ -1,6 +1,5 @@
 {% extends "theme.html" %}
 {% load staticfiles %}
-
 <!-- Stylesheet -->
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
@@ -17,7 +16,8 @@
             <form method="POST">
                 {% csrf_token %}
 
-                <div class="icon">
+                <div class = "overall-page">
+                <div class="icon" style = flex:1;">
                     {% for company in companies %}
                         {% if job.posted_by == company.user %}
                             {% if company.logo %}
@@ -29,11 +29,13 @@
                     {% endfor %}
                 </div>
 
-                <div style="text-align: right; margin-right: 4.5em">
-                    <button type="button"><a href="{% url 'close_job' job.id %}">Close Job</a></button>
-                    <button type="button"><a href="{% url 'delete_job' job.id %}">Delete Job</a></button>
-                    <button type="button"><a href="{% url 'edit_job' job.id %}">Edit Job</a></button>
+                <div style="text-align: display: inline-block;">
+                    <br/><br/>
+                    <button class = "buttons" type="button"><a href="{% url 'close_job' job.id %}">Close Job</a></button>
+                    <button class = "buttons" type="button"><a href="{% url 'delete_job' job.id %}">Delete Job</a></button>
+                    <button class = "buttons" style = "margin-right: 5em;" type="button"><a href="{% url 'edit_job' job.id %}">Edit Job</a></button>
                     <br><br>
+                </div>
                 </div>
 
                 <div class="inside-container2">
@@ -58,7 +60,7 @@
                 {% if user_type == 'student' %}
                     <div style="text-align:center;">
                         {% if applied == False %}
-                            <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply For Job</button>
+                            <button class = "buttons2" type="submit" name="apply" value="Apply&Save">&nbsp;Apply To Job</button>
                         {% else %}
                             <h4>Your application has been submitted.</h4> 
                             <!-- a disabled button here -->
