@@ -26,7 +26,7 @@
 <header>
     <nav>
         <div class="topnav" id="myTopnav">
-           <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo" height="60.0em" width="170.0em"></div>
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo" height="60.0em" width="170.0em"></div>
             {% if user.is_authenticated %}
                 {% if user_type == 'student' %}
                     <div class="dropdown">
@@ -85,7 +85,7 @@
             <a href="../myadmin/statistics"> <b>Statistics</b></a>
         {% endif %}
         <a href="../news"> <b>News</b></a>
-        <a href="https://www.murdochuniversitydubai.com/"> <b>Murdoch University Home</b></a>
+        <a href="https://www.murdochuniversitydubai.com/" target="_blank"><b>Murdoch University Home</b></a>
     </div>
 </header>
 
@@ -101,10 +101,10 @@
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <li><a href="../faq"> FAQ</a></li>
-                <li><a href="../anti_scam"> Anti-Scam</a></li>
-                <li><a href="../terms"> Terms</a></li>
-                <li><a href="../privacy"> Privacy</a></li>
+                <li><a href="../faq" target="_blank"> FAQ</a></li>
+                <li><a href="../anti_scam" target="_blank"> Anti-Scam</a></li>
+                <li><a href="../terms" target="_blank"> Terms</a></li>
+                <li><a href="../privacy" target="_blank"> Privacy</a></li>
             </ul>
         </div>
 
@@ -112,7 +112,7 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <li><a href="../sitemap.html"> Sitemap</a></li>
+                <li><a href="../sitemap" target="_blank">Sitemap</a></li>
                 </a>
             </ul>
         </div>
