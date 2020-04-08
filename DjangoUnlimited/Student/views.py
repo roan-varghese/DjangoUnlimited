@@ -46,7 +46,7 @@ def student_signup(request):
 
                             message = Mail(
                                 from_email='info@murdochcareerportal.com',
-                                to_emails=['sethshivangi1998@gmail.com'],
+                                to_emails=['ict302jan2020@gmail.com'],
                                 subject='New User has signed up',
                                 html_content="A new Student has registered to use the Murdoch Career Portal."
                             )
