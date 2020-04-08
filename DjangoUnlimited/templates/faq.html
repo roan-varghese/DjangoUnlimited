@@ -1,42 +1,173 @@
-{% extends "theme.html" %}
 {% load staticfiles %}
+<!-- Stylesheet -->
+{% block css %}
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/index.css' %}"/>
+{% endblock css %}
 
-<!-- Additional Stylesheets -->
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/AboutUs.css' %}"/>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Frequently Asked Questions - Murdoch Dubai Job Portal</title>
 
-{% block title %}
-    Frequently Asked Questions - Murdoch Dubai Job Portal
-{% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
 
-{% block content %}
-    {% csrf_token %}
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
+</head>
 
-    <h1><u>FAQ</u></h1>
-    <div class="container">
-        <h2>Frequently Asked Questions</h2>
-        <h3>How do I place an ad?</h3>
-        <p>It's very easy to place an ad: click on the button "Post free Ads" above right.</p>
+<body>
+{% csrf_token %}
 
-        <h3>What does it cost to advertise?</h3>
-        <p>The publication is 100% free throughout the website.</p>
+<!--This is the beginning of the header!-->
+<header>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    {% if user.is_authenticated %}
+                        <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                        {% if user_type == 'student' %}
+                            <a href="../student/view_student_profile"><i
+                                    class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
+                        {% elif user_type == 'employer' %}
+                            <a href="../employer/view_employer_profile"> {{ obj.company_name }} </a>
+                        {% elif user.is_superuser %}
+                            <a href="../admin"> {{ user.username }} </a>
+                        {% endif %}
+                    {% else %}
+                        <a href="student/student_registration"><i class="userlogin"></i>Student Signup</a>
+                        <a href="employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
+                        <a href="accounts/login"><i class="userlogin "></i>Login</a>
+                    {% endif %}
+                </div>
+            </aside>
+        </section>
+    </nav>
 
-        <h3>If I post an ad, will I also get more spam e-mails?</h3>
-        <p>Absolutely not because your email address is not visible on the website.</p>
-
-        <h3>How long will my ad remain on the website?</h3>
-        <p>In general, an ad is automatically deactivated from the website after 3 months. You will receive an email a
-            week
-            before D-Day and another on the day of deactivation. You have the ability to put them online in the
-            following
-            month
-            by logging into your account on the site. After this delay, your ad will be automatically removed
-            permanently
-            from
-            the website.</p>
-
-        <h3>I sold my item. How do I delete my ad?</h3>
-        <p>Once your product is sold or leased, log in to your account to remove your ad.</p>
+    <div class="bottomnav">
+        <a class="active" href="/"> <b>Home</b></a>
+        {% if user_type == 'student' %}
+            <a href="../view_jobs"><b>Browse Jobs</b></a>
+        {% elif user_type == 'employer' %}
+            <a href="../view_students"><b>Browse Students</b></a>
+            <a href="../create_job"> <b>Post a job</b></a>
+        {% elif user.is_superuser %}
+            <a href="../view_jobs"><b>Browse Jobs</b></a>
+            <a href="/view_students"><b>Browse Students</b></a>
+            <a href="../create_job"> <b>Post a job</b></a>
+        {% endif %}
+        <a href="../news"> <b>News</b></a>
     </div>
-{% endblock %}
+</header>
+
+<body>
+<h1>FAQ</h1>
+<div class="box">
+    <h2><u>Frequently Asked Questions</u></h2>
+    <br>
+    <h3><b>How do I place an ad?</b></h3>
+    <br>
+    <h3>It's very easy to place an ad: click on the button "Post free Ads" above right.</h3>
+    <br>
+    <h3><b>What does it cost to advertise?</b></h3>
+    <br>
+    <h3>The publication is 100% free throughout the website.</h3>
+    <br>
+    <h3><b>If I post an ad, will I also get more spam e-mails?</b></h3>
+    <br>
+    <h3>Absolutely not because your email address is not visible on the website.</h3>
+    <br>
+    <h3><b>How long will my ad remain on the website?</b></h3>
+    <br>
+    <h3>In general, an ad is automatically deactivated from the website after 3 months. You will receive an email a week
+        before D-Day and another on the day of deactivation. You have the ability to put them online in the following
+        month
+        by logging into your account on the site. After this delay, your ad will be automatically removed permanently
+        from
+        the website.</h3>
+    <br>
+    <h3><b>I sold my item. How do I delete my ad?</b></h3>
+    <br>
+    <h3>Once your product is sold or leased, log in to your account to remove your ad.</h3>
+</div>
+</body>
+
+<!--This is the beginning of the footer!-->
+<footer>
+    <div class="main">
+
+        <!-- This is the 1st column of the footer!-->
+        <div class="about">
+            <ul><h3>ABOUT US</h3>
+                <a href="https://www.murdochuniversitydubai.com/faq" style="color: white">
+                    <li>FAQ</li>
+
+
+                    <li><a href="https://murdochdubaicareerportal.com/page/anti-scam" style="color: white" Anti-Scam
+                </a></li>
+                </a>
+                <a href="">
+                    <li style="color: white">Terms</li>
+                </a>
+                <a href="https://www.murdochuniversitydubai.com/university-privacy-policy" style="color: white">
+                    <li>Privacy</li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- This is the 2nd column of the footer !-->
+        <div class="sitemap">
+            <ul>
+                <h3>SITEMAP</h3>
+                <a href="sitemap.html" style="color: white">
+                    <li> Sitemap</li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- This is the 3rd column of the footer !-->
+        <div class="helpDesk">
+            <h3></h3>
+
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
+        <div class="contact">
+            <h3> CONTACT US </h3>
+            <p class="para1">
+                <b>Murdoch University Dubai</b>
+                <br>
+            </p>
+            <p class="para2">
+                Dubai International Academic City <br>
+                Block 10, Fourth floor <br>
+                P.O. Box 345005 <br>
+                Dubai, United Arab Emirates
+            </p>
+
+        </div>
+
+        <!-- This is the 5th column of the footer !-->
+        <div class="follow">
+            <h3> FOLLOW US </h3>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
+                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
+            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
+                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
+            </a>
+            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
+                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
+            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
+                                                                         alt="Instagram Icon" height="40.0em"
+                                                                         width="47.0em"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,60 +1,182 @@
-{% extends "theme.html" %}
 {% load staticfiles %}
+<!-- Stylesheet -->
+{% block css %}
+    <link rel="stylesheet" rel="text/css" href="{% static 'css/index.css' %}"/>
+{% endblock css %}
 
-<!-- Additional Stylesheets -->
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/AboutUs.css' %}"/>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Terms - Murdoch Dubai Job Portal</title>
 
-{% block title %}
-    Terms - Murdoch Dubai Job Portal
-{% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
+    <meta name="keywords"
+          content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
 
-{% block content %}
-    {% csrf_token %}
+    <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
+</head>
 
-    <h1><u>Privacy</u></h1>
-    <div class="container">
-        <h2>Privacy</h2>
-        <p>
-            Your privacy is an important part of our relationship with you. Protecting your privacy is only part of our
-            mission to provide a secure web environment. When using our site, including our services, your information
-            will remain strictly confidential. Contributions made on our blog or on our forum are open to public view;
-            so please do not post any personal information in your dealings with others. We accept no liability for
-            those actions because it is your sole responsibility to adequate and safe post content on our site. We will
-            not share, rent or share your information with third parties.
-            <br><br>When you visit our site, we collect technical information about your computer and how you access our
-            website
-            and analyze this information such as Internet Protocol (IP) address of your computer, the operating system
-            used by your computer, the browser (eg, Chrome, Firefox, Internet Explorer or other) your computer uses, the
-            name of your Internet service provider (ISP), the Uniform Resource Locator (URL) of the website from which
-            you come and the URL to which you go next and certain operating metrics such as the number of times you use
-            our website. This general information can be used to help us better understand how our site is viewed and
-            used. We may share this general information about our site with our business partners or the general public.
-            For example, we may share the information on the number of daily unique visitors to our site with potential
-            corporate partners or use them for advertising purposes. This information does contain any of your personal
-            data that can be used to contact you or identify you.
-            <br><br>When we place links or banners to other sites of our website, please note that we do not control
-            this
-            kind
-            of content or practices or privacy policies of those sites. We do not endorse or assume no responsibility
-            for the privacy policies or information collection practices of any other website other than managed sites
-            JobClass.
-            <br><br>We use the highest security standard available to protect your identifiable information in transit
-            to
-            us.
-            All data stored on our servers are protected by a secure firewall for the unauthorized use or activity can
-            not take place. Although we make every effort to protect your personal information against loss, misuse or
-            alteration by third parties, you should be aware that there is always a risk that low-intentioned manage to
-            find a way to thwart our security system or that Internet transmissions could be intercepted.
-            <br><br>We reserve the right, without notice, to change, modify, add or remove portions of our Privacy
-            Policy at
-            any
-            time and from time to time. These changes will be posted publicly on our website. When you visit our
-            website, you accept all the terms of our privacy policy. Your continued use of this website constitutes your
-            continued agreement to these terms. If you do not agree with the terms of our privacy policy, you should
-            cease using our website.
-        </p>
-        <br>
+<body>
+{% csrf_token %}
+
+<!--This is the beginning of the header!-->
+<header>
+    <nav>
+        <section class="nav-container">
+            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                   height="60.0em" width="170.0em"></div>
+            <aside class="menu">
+                <div class="menu-content">
+                    {% if user.is_authenticated %}
+                        <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
+                        {% if user_type == 'student' %}
+                            <a href="../student/view_student_profile"><i
+                                    class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
+                        {% elif user_type == 'employer' %}
+                            <a href="../employer/view_employer_profile"> {{ obj.company_name }} </a>
+                        {% elif user.is_superuser %}
+                            <a href="../admin"> {{ user.username }} </a>
+                        {% endif %}
+                    {% else %}
+                        <a href="student/student_registration"><i class="userlogin"></i>Student Signup</a>
+                        <a href="employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
+                        <a href="accounts/login"><i class="userlogin "></i>Login</a>
+                    {% endif %}
+                </div>
+            </aside>
+        </section>
+    </nav>
+
+    <div class="bottomnav">
+        <a class="active" href="/"> <b>Home</b></a>
+        {% if user_type == 'student' %}
+            <a href="../view_jobs"><b>Browse Jobs</b></a>
+        {% elif user_type == 'employer' %}
+            <a href="../view_students"><b>Browse Students</b></a>
+            <a href="../create_job"> <b>Post a job</b></a>
+        {% elif user.is_superuser %}
+            <a href="../view_jobs"><b>Browse Jobs</b></a>
+            <a href="/view_students"><b>Browse Students</b></a>
+            <a href="../create_job"> <b>Post a job</b></a>
+        {% endif %}
+        <a href="../news"> <b>News</b></a>
     </div>
-{% endblock %}
+</header>
+
+<body>
+<h1>Terms</h1>
+<div class="box">
+    <h1><u>Privacy</u></h1>
+
+    <h2><b>Privacy</b></h2>
+    <br>
+    <h3>Each of the terms mentioned below have in these Conditions of Sale JobClass Service (hereinafter the
+        "Conditions") the following meanings:</h3>
+    <br>
+    <h3><b>Subject</b></h3>
+    <br>
+    <h3>
+        Your privacy is an important part of our relationship with you. Protecting your privacy is only part of our
+        mission to provide a secure web environment. When using our site, including our services, your information
+        will remain strictly confidential. Contributions made on our blog or on our forum are open to public view;
+        so please do not post any personal information in your dealings with others. We accept no liability for
+        those actions because it is your sole responsibility to adequate and safe post content on our site. We will
+        not share, rent or share your information with third parties.
+        <br>When you visit our site, we collect technical information about your computer and how you access our website
+        and analyze this information such as Internet Protocol (IP) address of your computer, the operating system
+        used by your computer, the browser (eg, Chrome, Firefox, Internet Explorer or other) your computer uses, the
+        name of your Internet service provider (ISP), the Uniform Resource Locator (URL) of the website from which
+        you come and the URL to which you go next and certain operating metrics such as the number of times you use
+        our website. This general information can be used to help us better understand how our site is viewed and
+        used. We may share this general information about our site with our business partners or the general public.
+        For example, we may share the information on the number of daily unique visitors to our site with potential
+        corporate partners or use them for advertising purposes. This information does contain any of your personal
+        data that can be used to contact you or identify you.
+        <br>When we place links or banners to other sites of our website, please note that we do not control this kind
+        of content or practices or privacy policies of those sites. We do not endorse or assume no responsibility
+        for the privacy policies or information collection practices of any other website other than managed sites
+        JobClass.
+        <br>We use the highest security standard available to protect your identifiable information in transit to us.
+        All data stored on our servers are protected by a secure firewall for the unauthorized use or activity can
+        not take place. Although we make every effort to protect your personal information against loss, misuse or
+        alteration by third parties, you should be aware that there is always a risk that low-intentioned manage to
+        find a way to thwart our security system or that Internet transmissions could be intercepted.
+        <br>We reserve the right, without notice, to change, modify, add or remove portions of our Privacy Policy at any
+        time and from time to time. These changes will be posted publicly on our website. When you visit our
+        website, you accept all the terms of our privacy policy. Your continued use of this website constitutes your
+        continued agreement to these terms. If you do not agree with the terms of our privacy policy, you should
+        cease using our website.
+    </h3>
+    <br>
+</div>
+
+</body>
+
+<!--This is the beginning of the footer!-->
+<footer>
+    <div class="main">
+        <!-- This is the 1st column of the footer!-->
+        <div class="about">
+            <ul><h3>ABOUT US</h3>
+                <li><a href="/"> FAQ</a></li>
+                <li><a href="../Anti-Scam"> Anti-Scam</a></li>
+                <li><a href="../Terms"> Terms</a></li>
+                <li><a href="../Privacy"> Privacy</a></li>
+            </ul>
+        </div>
+
+        <!-- This is the 2nd column of the footer !-->
+        <div class="sitemap">
+            <ul>
+                <h3>SITEMAP</h3>
+                <li><a href="sitemap.html"> Sitemap</a></li>
+                </a>
+            </ul>
+        </div>
+
+        <!-- This is the 3rd column of the footer !-->
+        <div class="helpDesk">
+            <ul>
+                <h3> Help Desk</h3>
+                <li><a href="../HelpDesk"> Help Desk</a></li>
+            </ul>
+        </div>
+
+        <!-- This is the 4th column of the footer !-->
+        <div class="contact">
+            <h3> CONTACT US </h3>
+            <p class="para1">
+                <b>Murdoch University Dubai</b>
+                <br>
+            </p>
+            <p class="para2">
+                Dubai International Academic City <br>
+                Block 10, Fourth floor <br>
+                P.O. Box 345005 <br>
+                Dubai, United Arab Emirates
+            </p>
+        </div>
+
+        <!-- This is the 5th column of the footer !-->
+        <div class="follow">
+            <h3> FOLLOW US </h3>
+            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+                <img
+                        src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em">
+            </a>
+            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
+                                                                  alt="Facebook Icon" height="40.0em"
+                                                                  width="40.0em">
+            </a>
+            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
+                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
+            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
+                                                                         alt="Instagram Icon" height="40.0em"
+                                                                         width="47.0em"></a>
+        </div>
+    </div>
+</footer>
+</html>
