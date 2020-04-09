@@ -17,30 +17,34 @@
                 {% csrf_token %}
 
                 <div class = "overall-page">
-                <div class="icon" style = "flex:1;">
                     {% for company in companies %}
                         {% if job.posted_by == company.user %}
-                            <div align="left">
-                            {% if company.logo %}
-                                <img src="{{ company.logo.url }}" height="80.0em" width="90.0em">
+                            <div class="icon" style = "flex:1;">
+                                {% if company.logo %}
+                                    <img src="{{ company.logo.url }}" height="80.0em" width="90.0em">
+                                {% else %}
+                                    <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                                {% endif %}
+                            </div>
+
+                            {% if user_type == "student" %}
+                                <div style = "flex:6; margin-top: 1em">
+                                    <h1>{{ company.company_name }}</h1>
+                                </div>
                             {% else %}
-                                <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                                <div style = "flex:2; margin-top: 1em">
+                                    <h1>{{ company.company_name }}</h1>
+                                </div>
                             {% endif %}
-                            </div>
-                            <div align="left" style="margin-left: 6.5em">
-                            <h1>{{ company.company_name }}</h1>
-                            </div>
                         {% endif %}
                     {% endfor %}
-                </div>
+
 
                 {% if user_type != "student" %}
-                    <div style="display: inline-block;">
-                        <br/><br/>
+                    <div style="display: inline-block; margin-top: 2.5em">
                         <button class = "buttons" type="button"><a style="text-decoration: none;" href="{% url 'close_job' job.id %}">Close Job</a></button>
                         <button class = "buttons" type="button"><a style="text-decoration: none;" href="{% url 'delete_job' job.id %}">Delete Job</a></button>
                         <button class = "buttons" style = "margin-right: 5em;" type="button"><a style="text-decoration: none;" href="{% url 'edit_job' job.id %}">Edit Job</a></button>
-                        <br><br>
                     </div>
                 {% endif %}
                 </div>
