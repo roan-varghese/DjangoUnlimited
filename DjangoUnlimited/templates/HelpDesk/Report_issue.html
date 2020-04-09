@@ -49,38 +49,36 @@
 
         {% get_comment_list for thread as comments_list %}
         {% for comment in comments_list %}
-        {% if comment.user == user %}
-
-        <p>
-            {{ comment.user_name }}
-        </p>
-        <p> "{{ comment.submit_date }}"
-            "{{ comment.submit_date|timesince }}"
-        </p>
-
-        <div>
-            {% if forloop.counter != comment_count %}
-            {% endif %}
-            <p>{{ comment.comment }}</p>
-
-                {% else %}
-
-                <span>
+            {% if comment.user == user %}
+                <p>
                     {{ comment.user_name }}
-                </span>
-                <p> {{ comment.submit_date }}"
-                    {{ comment.submit_date|timesince }} ago
+                </p>
+                <p> "{{ comment.submit_date }}"
+                    "{{ comment.submit_date|timesince }}"
                 </p>
 
+                <div>
+                    {% if forloop.counter != comment_count %}
+                    {% endif %}
+                    <p>{{ comment.comment }}</p>
+                </div>
+            {% else %}
+                <div>
+                    <span>
+                        {{ comment.user_name }}
+                    </span>
+                    <p> {{ comment.submit_date }}"
+                        {{ comment.submit_date|timesince }} ago
+                    </p>
 
-            {% if forloop.counter != comment_count %}
+                    {% if forloop.counter != comment_count %}
+                    {% endif %}
+                    <p>
+                        {{ comment.comment }}
+                    </p>
+                </div>
+
             {% endif %}
-            <p>
-                {{ comment.comment }}
-            </p>
-        </div>
-
-        {% endif %}
         {% endfor %}
     {% get_comment_form for thread as form %}
 
