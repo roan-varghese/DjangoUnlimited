@@ -28,19 +28,21 @@
                             {% endif %}
                             </div>
                             <div align="left" style="margin-left: 6.5em">
-                            &emsp;<h1>{{ company.company_name }}</h1>
+                            <h1>{{ company.company_name }}</h1>
                             </div>
                         {% endif %}
                     {% endfor %}
                 </div>
 
-                <div style="display: inline-block;">
-                    <br/><br/>
-                    <button class = "buttons" type="button"><a style="text-decoration: none;" href="{% url 'close_job' job.id %}">Close Job</a></button>
-                    <button class = "buttons" type="button"><a style="text-decoration: none;" href="{% url 'delete_job' job.id %}">Delete Job</a></button>
-                    <button class = "buttons" style = "margin-right: 5em;" type="button"><a style="text-decoration: none;" href="{% url 'edit_job' job.id %}">Edit Job</a></button>
-                    <br><br>
-                </div>
+                {% if user_type != "student" %}
+                    <div style="display: inline-block;">
+                        <br/><br/>
+                        <button class = "buttons" type="button"><a style="text-decoration: none;" href="{% url 'close_job' job.id %}">Close Job</a></button>
+                        <button class = "buttons" type="button"><a style="text-decoration: none;" href="{% url 'delete_job' job.id %}">Delete Job</a></button>
+                        <button class = "buttons" style = "margin-right: 5em;" type="button"><a style="text-decoration: none;" href="{% url 'edit_job' job.id %}">Edit Job</a></button>
+                        <br><br>
+                    </div>
+                {% endif %}
                 </div>
 
                 <div class="inside-container2">
