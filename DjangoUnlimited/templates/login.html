@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block content %}
+    <body style="min-height: 400px; margin-bottom: 150px;">
     {% if user.is_authenticated %}
         You are already logged in
     {% else %}
@@ -54,12 +55,10 @@
                 });
             </script>
         </form>
-        <!-- this displays any errors during submission -->
-        <div>
-            {% for message in messages %}
-                <h3> {{ message }} </h3>
-            {% endfor %}
-        </div>
         <br>
     {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <footer style="position: fixed">
 {% endblock %}

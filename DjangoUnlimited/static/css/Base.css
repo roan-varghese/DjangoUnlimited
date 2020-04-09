@@ -50,7 +50,6 @@ footer{
 
 .para1{
     padding:0;
-    padding-bottom: 0;
     border:0;
     margin: 0;
 }
@@ -82,7 +81,7 @@ a{
     bottom: 0;
     left:0;
     margin: auto;
-    margin-top: 1em
+    margin-top: 1em;
 }
 
 .about{
@@ -148,7 +147,7 @@ a{
     color: white;
     padding: 34px 36px;
     background-color: rgb(29,26,26);
-    margin: 0;
+    margin-right: 2em;
 }
 
 /* Style the dropdown content (hidden by default) */
@@ -156,7 +155,6 @@ a{
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }

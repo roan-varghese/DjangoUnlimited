@@ -1,15 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>View Statistics</title>
-</head>
-<body>
+{% extends "theme.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    View Statistics
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Table.css' %}"/>
+{% endblock %}
+
+{% block content %}
     <table>
         <thead>
             <tr>
-                <td><b>Type of Statistics</b></td>
-                <td><b>Count</b></td>
+                <th>Type of Statistics</th>
+                <th>Count</th>
             </tr>
         </thead>
 
@@ -66,5 +71,4 @@
         </tbody>
     </table>
     <button type="button"><a href="{% url 'export_stats_file' users students current alumni employers jobs_posted apps open_jobs closed_jobs deleted_jobs %}">Export Data</a></button>
-</body>
-</html>
+{% endblock %}

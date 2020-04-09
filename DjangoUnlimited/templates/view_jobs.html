@@ -3,7 +3,7 @@
 <!-- Stylesheet -->
 {% block stylesheets %}
     <!-- <link rel="stylesheet" rel="text/css" href=" {//% static 'css/base.css' %}"/> -->
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Table.css' %}"/>
 {% endblock stylesheets %}
 
 {% block content %}
@@ -54,7 +54,7 @@
     {% endfor %}
 
     {% if user_type == "student" %}
-        <div class="job_post">
+        <div class="sidebar">
             <h2>Filter Job Listing</h2>
             <hr>
 

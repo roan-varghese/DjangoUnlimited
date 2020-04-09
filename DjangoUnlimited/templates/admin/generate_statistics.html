@@ -1,12 +1,14 @@
+{% extends "theme.html" %}
 {% load staticfiles %}
+
 {% block stylesheets %}
 {% endblock %}
-{% block content %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Statistics</title>
+{% block title %}
+    Generate Statistics - Murdoch Dubai Job Portal
+{% endblock %}
+
+{% block content %}
     <style>
     .inside-container2{
         margin: auto;
@@ -42,18 +44,15 @@
         color:white;
     }
     </style>
-</head>
 
-<body>
-<br/>
-<div class="inside-container2">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="button3" type="Submit">Submit</button>
-        <br/>
-    </form>
-</div>
-</body>
-</html>
+    <body>
+    <br/>
+    <div class="inside-container2">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button3" type="Submit">Submit</button>
+            <br/>
+        </form>
+    </div>
 {% endblock %}

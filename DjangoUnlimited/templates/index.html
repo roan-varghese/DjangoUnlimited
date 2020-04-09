@@ -14,16 +14,15 @@
         {% elif user_type == 'employer' %}
             <!-- displays welcome message -->
             <h3>Welcome, {{ obj.company_name }}</h3>
-            <p><a href="../view_jobs">MY JOBS</a>
-        {% elif user_type == 'admin' %}
-            <!-- displays welcome message -->
+                {% elif user_type == 'admin' %}
+                <!-- displays welcome message -->
             <h3>Welcome, {{ user.username }}</h3>
         {% elif user.is_superuser == True %}
             <h3>Welcome, {{ user.username }}</h3>
             <h3><a href = "myadmin/view_admin_profile">Click</a> to gain full admin access</h3>
         {% endif %}
-        
     {% endif %}
+
     <br><br>
     <div align="center" border="1em"><img src="{% static 'images/Homeimg.jpg' %}" alt="Home page image"></div>
     <br><br>

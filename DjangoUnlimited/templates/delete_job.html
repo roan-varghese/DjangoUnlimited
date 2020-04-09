@@ -14,11 +14,5 @@
             <button type="submit"><b>Yes, Delete</b></button>
             <button type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
         </div>
-
-        <div>
-            {% for message in messages %}
-            <h3> {{ message }} </h3>
-            {% endfor %}
-        </div>
 </form>
 {% endblock %}

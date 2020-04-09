@@ -1,7 +1,7 @@
 {% extends "theme.html" %}
 {% load staticfiles %}
 
-<!-- Stylesheet -->
+<!-- Additional Stylesheet -->
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock %}
@@ -41,9 +41,6 @@
                                style="color: white;  background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/>
                     </div>
                 </form>
-                {% for message in messages %}
-                    <h3> {{ message }} </h3>
-                {% endfor %}
             </div>
         </div>
     </div>

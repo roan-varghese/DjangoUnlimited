@@ -1,16 +1,17 @@
 {% extends "theme.html" %}
 {% load staticfiles %}
+
 <!-- Additional Stylesheets -->
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<script>
-$(document).ready(function() {
-    $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd'});
-});
-</script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd'});
+    });
+    </script>
 {% endblock %}
 {% block title %}
     Edit Profile - Murdoch Dubai Job Portal
@@ -72,16 +73,8 @@ $(document).ready(function() {
                 </form>
             </div>
             <br><br>
-
-            <!-- this displays any errors during submission -->
-            <div>
-                {% for message in messages %}
-                    <h4 class="message"> {{ message }} </h4>
-                {% endfor %}
-            </div>
         </div>
     </div>
     </div>
     <br><br>
-    </body>
 {% endblock %}

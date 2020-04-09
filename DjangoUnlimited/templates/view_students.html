@@ -1,107 +1,81 @@
-{% extends 'navbar.html' %}
+{% extends 'theme.html' %}
 {% load staticfiles %}
 
-{% block css %}
-    <link rel="stylesheet" rel="text/css" href="{% static 'css/Base.css' %}"/>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<script>
-$(document).ready(function() {
-    $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd'});
-});
-</script>
-{% endblock css %}
+{% block title %}
+    View Students - Murdoch Dubai Job Portal
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Table.css' %}"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd'});
+    });
+    </script>
+{% endblock %}
 
 {% block content %}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>Browse Students - Murdoch Dubai Job Portal</title>
+    <script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description"
-              content="Welcome to Murdoch University Job Portal : 100% Job Board. Find a job near you. Simple, fast and efficient -  United Arab Emirates">
-        <meta name="keywords"
-              content="Job Portal, Career Portal, United Arab Emirates, jobs ads, career, jobs, ads, script, app, premium jobs">
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
 
-        <link rel="shortcut icon" href="{% static 'images/Favicon.png' %}"/>
-    </head>
 
-    <header>
-        <nav>
-            <section class="nav-container">
-                <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                       height="60.0em" width="170.0em"></div>
-                <aside class="menu">
-                    <div class="menu-content">
-                        {% if user.is_authenticated %}
-                            <a href="../accounts/logout"><i class="userlogin"></i>Log Out</a>
-                            {% if user_type == 'student' %}
-                                <a href="../student/view_student_profile"><i
-                                        class="userlogin"></i>{{ user.first_name }} {{ user.last_name }}</a>
-                            {% elif user_type == 'employer' %}
-                                <a href="../employer/view_employer_profile"> {{ obj.company_name }} </a>
-                            {% elif user_type == 'admin' %}
-                                <a href="../admin"> {{ user.username }} </a>
-                            {% endif %}
-                        {% else %}
-                            <a href="student/student_registration"><i class="userlogin"></i>Student Signup</a>
-                            <a href="employer/employer_registration"><i class="userlogin"></i>Employer Signup</a>
-                            <a href="accounts/login"><i class="userlogin "></i>Login</a>
-                        {% endif %}
-                    </div>
-                </aside>
-            </section>
-        </nav>
+    <h2 style="margin-left: 1.5em">Browse Students</h2>
 
-        <div class="bottomnav">
-            <a class="active" href="/"> <b>Home</b></a>
-            {% if user_type == 'student' %}
-                <a href="../view_jobs"><b>Browse Jobs</b></a>
-            {% elif user_type == 'employer' %}
-                <a href="../view_students"><b>Browse Students</b></a>
-                <a href="../create_job"> <b>Post a job</b></a>
-            {% elif user_type == 'admin' %}
-                <a href="../view_jobs"><b>Browse Jobs</b></a>
-                <a href="/view_students"><b>Browse Students</b></a>
-                <a href="{% url 'admin:index' %}"> <b>Dashboard</b></a>
-                <a href="myadmin/statistics"> <b>Statistics</b></a>
-            {% endif %}
-            <a href="../news"> <b>News</b></a>
-            <a href="https://www.murdochuniversitydubai.com/"> <b>Murdoch University Home</b></a>
-        </div>
-    </header>
+    <div align="left">
+        <h3 style="margin-left: 2em"><a href='../view_students'>View All Students</a></h3>
+    </div>
 
-    <body>
-    <h2>Browse Students</h2>
-
-    <h5><a href='../view_students'>View All Students</a></h5>
-    <table class="table">
+    <div align="right">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Student Names...">
+    </div>
+    <br>
+    <table class="table" align="right" style="width: 60%; margin-right: 10em" id="myTable">
         <thead>
-        <tr>
+        <tr class="text-center">
             <th>Student Name</th>
             <th>Email</th>
             <th>Expected Graduation Date</th>
         </tr>
         </thead>
         <tbody>
-        {% for student in students %}
-            <tr>
-            <td>
-                <a href="{% url 'student_details' student.user_id %}"> {{ student.user.first_name }} {{ student.user.last_name }}</a>
-            </td>
-            <td> {{ student.user }}</td>
-            <td>{{ student.expected_graduation_date }}</td>
-        {% endfor %}
-        </tr>
+            {% for student in students %}
+                <tr class="text-center">
+                <td>
+                    <a href="{% url 'student_details' student.user_id %}"> {{ student.user.first_name }} {{ student.user.last_name }}</a>
+                </td>
+                <td>{{ student.user }}</td>
+                <td>{{ student.expected_graduation_date }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-    <br>
 
     {% if user_type != 'student' %}
-        <div>
+        <div class="sidebar">
             <h2>Filter Students Listing</h2>
             <hr>
             <form method="POST">
@@ -113,91 +87,4 @@ $(document).ready(function() {
             </form>
         </div>
     {% endif %}
-
-
-    </body>
-
-<!--This is the beginning of the footer!-->
-<footer style="position: static">
-    <div class="main" style="margin-top: 1em">
-        <!-- This is the 1st column of the footer!-->
-        <div class="about" style="margin-top: 1em">
-            <ul><h3 style="font-size: large">ABOUT US</h3>
-                <li><a href="faq" style="text-decoration: none; color: white; font-size: small"> FAQ</a></li>
-                <li><a href="anti_scam" style="text-decoration: none; color: white; font-size: small"> Anti-Scam</a></li>
-                <li><a href="terms" style="text-decoration: none; color: white; font-size: small"> Terms</a></li>
-                <li><a href="privacy" style="text-decoration: none; color: white; font-size: small"> Privacy</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 2nd column of the footer !-->
-        <div class="sitemap" style="margin-top: 1em">
-            <ul>
-                <h3 style="font-size: large">SITEMAP</h3>
-                <li><a href="sitemap.html" style="text-decoration: none; color: white; font-size: small"> Sitemap</a></li>
-                </a>
-            </ul>
-        </div>
-
-        <!-- This is the 3rd column of the footer !-->
-        {% if user.is_authenticated %}
-            <div class="helpDesk" style="margin-top: 1em">
-                <ul>
-                    <h3 style="font-size: large"> HELP DESK</h3>
-                    <li><a href="/HelpDesk/HelpDesk/" style="text-decoration: none; color: white; font-size: small"> Help Desk</a></li>
-                </ul>
-            </div>
-        {% else %}
-            <div class="helpDesk" style="margin-top: 1em">
-            </div>
-        {% endif %}
-
-        <!-- This is the 4th column of the footer !-->
-        <div class="contact" style="margin-top: 1em">
-            <h3 style="font-size: large"> CONTACT US </h3>
-            <p class="para1">
-                <b>Murdoch University Dubai</b>
-                <br>
-            </p>
-            <p class="para2">
-                Dubai International Academic City <br>
-                Block 10, Fourth floor <br>
-                P.O. Box 345005 <br>
-                Dubai, United Arab Emirates
-            </p>
-        </div>
-
-        <!-- This is the 5th column of the footer !-->
-        <div class="follow" style="margin-top: 1em">
-            <h3 style="font-size: large"> FOLLOW US </h3>
-            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
-                <img
-                        src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em">
-            </a>
-            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                  alt="Facebook Icon" height="40.0em"
-                                                                  width="40.0em">
-            </a>
-            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                         alt="Instagram Icon" height="40.0em"
-                                                                         width="47.0em"></a>
-        </div>
-    </div>
-</footer>
-</html>
-
-{% endblock %}
-
-{% block js %}
-    <script>
-        // the initialisation of dataTables and set the ordering of first column
-
-        $('.table').DataTable({
-            "order": [[0, "desc"]],
-            scrollX: true
-        });
-
-    </script>
 {% endblock %}
