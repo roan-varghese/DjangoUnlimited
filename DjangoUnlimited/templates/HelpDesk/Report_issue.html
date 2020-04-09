@@ -52,9 +52,7 @@
 <div class="inside-container2">
 <p> Number of Comment/s: <span
         class="paragraph-comment"> {{ thread.text }} </span>
-    {# Get the number of comments for current post #}
     {% get_comment_count for thread as comment_count %}
-    <!-- Number of comments-->
     <span>
         {% if comment_count != 0 %}
         {% endif %}
@@ -62,25 +60,21 @@
                         </span>
 </p>
 
-
-
-{# Get comments from the DB #}
 {% get_comment_list for thread as comments_list %}
-<!--      Comments          -->
 {% for comment in comments_list %}
 {% if comment.user == user %}
 
-<span>
+<p>
     {{ comment.user_name }}
-</span>
+</p>
 <p> "{{ comment.submit_date }}"
-    {{ comment.submit_date|timesince }} ago
+    "{{ comment.submit_date|timesince }}"
 </p>
 
 <div>
     {% if forloop.counter != comment_count %}
     {% endif %}
-    <pre>{{ comment.comment }}</pre>
+    <p>{{ comment.comment }}</p>
 
     {% else %}
 
@@ -94,9 +88,9 @@
 
     {% if forloop.counter != comment_count %}
     {% endif %}
-    <pre>
+    <p>
         {{ comment.comment }}
-    </pre>
+    </p>
 </div>
 
 {% endif %}
@@ -108,9 +102,7 @@
     <div>
                 <textarea id="{{ form.comment.id_for_label }}" name="{{ form.comment.html_name }}"
                           class="form-control"
-                          required
-                ></textarea></div>
-    {# Required hidden fields to be rendered for security reasons from django-contrib-comments #}
+                          required ></textarea></div>
     {% for field in form %}
     {% if field.is_hidden %}
     <div>{{ field }}</div>
@@ -121,11 +113,8 @@
     <input type="hidden" name="url" value="http://dummyurl.com"/>
     <input type="hidden" name="next" value="{{ request.path }}"/>
     <div class="text-center my-3"> <br><br>
-        <!-- disabled if ticket is completed -->
-        {% if not help_desk_form.completed.value == True %}
         <button type="submit" name="submit" value="Post" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin: 0 auto;">Comment
         </button>
-        {% endif %}
     </div>
 </form>
 
@@ -135,17 +124,6 @@
 </div>
 {% endblock content %}
 
-{% block js %}
-<script>
-        // the initialisation of bootstrap tooltips
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-
-</script>
-<br><br>
-
-{% endblock js %}
 <!--This is the begining of the footer!-->
 <footer>
     <div class="main">
