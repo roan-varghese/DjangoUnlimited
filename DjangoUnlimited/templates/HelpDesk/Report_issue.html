@@ -67,8 +67,8 @@
                     <span>
                         {{ comment.user_name }}
                     </span>
-                    <p> {{ comment.submit_date }}"
-                        {{ comment.submit_date|timesince }} ago
+                    <p> "{{ comment.submit_date }}"
+                        "{{ comment.submit_date|timesince }}"
                     </p>
 
                     {% if forloop.counter != comment_count %}
@@ -104,14 +104,4 @@
 
     </div>
     {% endif %}
-
-    </div>
-
-    <script>
-            // the initialisation of bootstrap tooltips
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-
-    </script>
 {% endblock content %}
