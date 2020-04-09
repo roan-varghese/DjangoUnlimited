@@ -22,7 +22,7 @@ class CreatePostView(TemplateView):
     def get(self, request, *args, **kwargs):
         form = PostForm()
         user = get_user_type(request)
-        args = {'form': form, 'user': user}
+        args = {'form': form, 'obj': user['obj'], 'user_type': user['user_type']}
         return render(request, self.template_name, args)
 
     # Save newly created post information to database
@@ -57,5 +57,6 @@ def PostDetailView(request, pk):
 
 def AllPosts(request):
     posts = Post.objects.filter(status=True).order_by('-release_date')
-    args = {'posts': posts}
+    user = get_user_type(request)
+    args = {'posts': posts, 'obj': user['obj'], 'user_type': user['user_type']}
     return render(request, 'bulletin/allPosts.html', args)
