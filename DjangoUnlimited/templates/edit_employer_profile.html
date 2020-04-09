@@ -19,15 +19,14 @@
             <div class="page">
                 <div class="icon">
                     {% if obj.logo %}
-                        <img src="{{ obj.logo.url }}" height="80.0em" width="90.0em">
+                        <img src="{{ obj.logo.url }}" height="90.0em" width="90.0em">
                     {% else %}
-                        <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                        <img src="{% static 'DefaultDP.jpg' %}" height="90.0em" width="90.0em">
                     {% endif %}
                 </div>
                 <!-- displays welcome message -->
-                <div class="hello"><h3>Hello, {{ obj.company_name }}</h3></div>
+                <div class="hello" style="margin-top: 1em"><h1>Edit Profile</h1></div>
             </div>
-            <div class="heading"><h4 align="center">My profile</h4></div>
             <div class="inside-container2">
                 <br/><br/>
                 <form method="post" enctype="multipart/form-data" action="edit_employer_profile">

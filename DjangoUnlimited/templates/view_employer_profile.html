@@ -17,9 +17,9 @@
             <div class="overall-page">
                 <div class="icon">
                     {% if obj.logo %}
-                        <img src="{{ obj.logo.url }}" height="80.0em" width="90.0em">
+                        <img src="{{ obj.logo.url }}" height="90.0em" width="90.0em">
                     {% else %}
-                        <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                        <img src="{% static 'DefaultDP.jpg' %}" height="90.0em" width="90.0em">
                     {% endif %}
                 </div>
                 <div style="align:center; padding-top: 20px;"><h2>My Profile</h2></div>
@@ -33,13 +33,6 @@
                     <button type="submit" class="button2"
                             style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin: 0 auto;">
                         <a href="/employer/edit_employer_profile">Edit Profile</a></button>
-                </div>
-
-                <!-- this displays any errors during submission -->
-                <div>
-                    {% for message in messages %}
-                        <h3> {{ message }} </h3>
-                    {% endfor %}
                 </div>
                 <br><br>
             </div>
