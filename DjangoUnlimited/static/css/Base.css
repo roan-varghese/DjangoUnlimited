@@ -45,7 +45,7 @@ footer{
     position: static;
     margin: auto;
     font-size: 0.85em;
-    height:9em;
+    height:8em;
 }
 
 .para1{
@@ -80,8 +80,7 @@ a{
     width: 100%;
     bottom: 0;
     left:0;
-    margin: auto;
-    margin-top: 1em;
+    margin-top: 5em;
 }
 
 .about{
