@@ -1,211 +1,107 @@
+{% extends "theme.html" %}
 {% load staticfiles %}
-<!-- Stylesheets -->
-{% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Stylesheet.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
-{% endblock css %}
+
+<!-- Additional Stylesheets -->
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
+{% endblock %}
+
+{% block title %}
+    Raise Help Desk Request - Murdoch Dubai Job Portal
+{% endblock %}
+
+
 {% block content %}
-{% load comments %}
+    {% load comments %}
+    <br><br>
+    <div class="inside-container2">
+        <form method="POST">
+            <div>
+                {% csrf_token %}
+                <div class="headtop">
 
-<title>HELP DESK</title>
-<!--This is the begining of the header!-->
-<header>
-    <nav>
-        <section class="nav-container">
-            <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
-                                   height="60.0em" width="170.0em"></div>
-            <aside class="menu">
-                <div class="menu-content">
-                       <a href="/HelpDesk/HelpDesk/myrequests"><i class="userlogin"></i>View My Request</a>
-                    <a href="/accounts/logout"><i class="userlogin"></i>Log Out</a>
                 </div>
-            </aside>
-        </section>
-    </nav>
 
-    <div class="bottomnav">
-        <a class="active" href="/"> <b>Home</b></a>
+                <p>Subject:</p>
+                {{ help_desk_form.subject }}
+                <p>Please describe the issue or concern you are facing in detail:</p>
+                {{ help_desk_form.issue }}
+                {% if not thread %}
+        <br><br>
+                <button type="submit" name="submitbutton"  style=" color: white; background-color:rgb(204,0,0); width: 140px; height:30px; margin-left: 450px;"> Submit</button>
+
+            {% endif %}
+            </div>
+        </form>
     </div>
-</header>
-<br><br>
-<div class="inside-container2">
-<form method="POST">
-    <div>
+    <br><br>
+    {% if thread %}
+    <div class="inside-container2">
+        <p> Number of Comment/s: <span
+                class="paragraph-comment"> {{ thread.text }} </span>
+            {% get_comment_count for thread as comment_count %}
+            <span>
+                {% if comment_count != 0 %}
+                {% endif %}
+                {{ comment_count }} comment/s
+                                </span>
+        </p>
+
+        {% get_comment_list for thread as comments_list %}
+        {% for comment in comments_list %}
+            {% if comment.user == user %}
+                <p>
+                    {{ comment.user_name }}
+                </p>
+                <p> "{{ comment.submit_date }}"
+                    "{{ comment.submit_date|timesince }}"
+                </p>
+
+                <div>
+                    {% if forloop.counter != comment_count %}
+                    {% endif %}
+                    <p>{{ comment.comment }}</p>
+                </div>
+            {% else %}
+                <div>
+                    <span>
+                        {{ comment.user_name }}
+                    </span>
+                    <p> "{{ comment.submit_date }}"
+                        "{{ comment.submit_date|timesince }}"
+                    </p>
+
+                    {% if forloop.counter != comment_count %}
+                    {% endif %}
+                    <p>
+                        {{ comment.comment }}
+                    </p>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+    {% get_comment_form for thread as form %}
+
+    <form method="post">
         {% csrf_token %}
-        <div class="headtop">
+        <div>
+            <textarea id="{{ form.comment.id_for_label }}" name="{{ form.comment.html_name }}" class="form-control" required ></textarea>
+        </div>
+
+        {% for field in form %}
+            {% if field.is_hidden %}
+                <div>{{ field }}</div>
+            {% endif %}
+        {% endfor %}
+        <input type="hidden" name="name" value="{{ request.user.get_full_name }}"/>
+        <input type="hidden" name="email" value="{{ request.user.email }}"/>
+        <input type="hidden" name="url" value="http://dummyurl.com"/>
+        <input type="hidden" name="next" value="{{ request.path }}"/>
+        <div class="text-center my-3"> <br><br>
+            <button type="submit" name="submit" value="Post" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin: 0 auto;">Comment</button>
+        </div>
+    </form>
+
     </div>
-
-        <p>Subject:</p>
-        {{ help_desk_form.subject }}
-        <p>Please describe the issue or concern you are facing in detail:</p>
-        {{ help_desk_form.issue }}
-        {% if not thread %}
-<br><br>
-        <button type="submit" name="submitbutton"  style=" color: white; background-color:rgb(204,0,0); width: 140px; height:30px; margin-left: 450px;"> Submit</button>
-
-        {% endif %}
-    </div>
-</form>
-</div>
-<br><br>
-{% if thread %}
-<div class="inside-container2">
-<p> Number of Comment/s: <span
-        class="paragraph-comment"> {{ thread.text }} </span>
-    {# Get the number of comments for current post #}
-    {% get_comment_count for thread as comment_count %}
-    <!-- Number of comments-->
-    <span>
-        {% if comment_count != 0 %}
-        {% endif %}
-        {{ comment_count }} comment/s
-                        </span>
-</p>
-
-
-
-{# Get comments from the DB #}
-{% get_comment_list for thread as comments_list %}
-<!--      Comments          -->
-{% for comment in comments_list %}
-{% if comment.user == user %}
-
-<span>
-    {{ comment.user_name }}
-</span>
-<p> "{{ comment.submit_date }}"
-    {{ comment.submit_date|timesince }} ago
-</p>
-
-<div>
-    {% if forloop.counter != comment_count %}
     {% endif %}
-    <pre>{{ comment.comment }}</pre>
-
-    {% else %}
-
-    <span>
-        {{ comment.user_name }}
-    </span>
-    <p> {{ comment.submit_date }}"
-        {{ comment.submit_date|timesince }} ago
-    </p>
-
-
-    {% if forloop.counter != comment_count %}
-    {% endif %}
-    <pre>
-        {{ comment.comment }}
-    </pre>
-</div>
-
-{% endif %}
-{% endfor %}
-{% get_comment_form for thread as form %}
-
-<form method="post">
-    {% csrf_token %}
-    <div>
-                <textarea id="{{ form.comment.id_for_label }}" name="{{ form.comment.html_name }}"
-                          class="form-control"
-                          required
-                ></textarea></div>
-    {# Required hidden fields to be rendered for security reasons from django-contrib-comments #}
-    {% for field in form %}
-    {% if field.is_hidden %}
-    <div>{{ field }}</div>
-    {% endif %}
-    {% endfor %}
-    <input type="hidden" name="name" value="{{ request.user.get_full_name }}"/>
-    <input type="hidden" name="email" value="{{ request.user.email }}"/>
-    <input type="hidden" name="url" value="http://dummyurl.com"/>
-    <input type="hidden" name="next" value="{{ request.path }}"/>
-    <div class="text-center my-3"> <br><br>
-        <!-- disabled if ticket is completed -->
-        {% if not help_desk_form.completed.value == True %}
-        <button type="submit" name="submit" value="Post" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin: 0 auto;">Comment
-        </button>
-        {% endif %}
-    </div>
-</form>
-
-
-{% endif %}
-
-</div>
 {% endblock content %}
-
-{% block js %}
-<script>
-        // the initialisation of bootstrap tooltips
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-
-</script>
-<br><br>
-
-{% endblock js %}
-<!--This is the begining of the footer!-->
-<footer>
-    <div class="main">
-
-        <!-- This is the 1st column of the footer!-->
-        <div class="about">
-            <ul><h3>ABOUT US</h3>
-                <li><a href="https://www.murdochuniversitydubai.com/faq">FAQ </a></li>
-                <li><a href="https://murdochdubaicareerportal.com/page/anti-scam">Anti-Scam</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="https://www.murdochuniversitydubai.com/university-privacy-policy">Privacy</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 2nd column of the footer !-->
-        <div class="sitemap">
-            <ul>
-                <h3>SITEMAP</h3>
-                <li> <a href="sitemap.html">Sitemap</a></li>
-            </ul>
-        </div>
-
- <div class = "helpDesk">
-            <ul>
-                <h3> Help Desk</h3>
-                <li> <a href = "/HelpDesk/HelpDesk/">Help Desk</a></li>
-            </ul>
-        </div>
-
-        <!-- This is the 3rd column of the footer !-->
-        <div class="contact">
-            <h3> CONTACT US </h3>
-            <p class="para1">
-                <b>Murdoch University Dubai</b>
-                <br>
-            </p>
-            <p class="para2">
-                Dubai International Academic City <br>
-                Block 10, Fourth floor <br>
-                P.O. Box 345005 <br>
-                Dubai, United Arab Emirates
-            </p>
-
-        </div>
-
-        <!-- This is the 4th column of the footer !-->
-        <div class="follow">
-            <h3> FOLLOW US </h3>
-            <a href="https://twitter.com/MurdochUniDubai?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img
-                    src="{% static 'images/twitter.png' %}" alt="Twitter Icon" height="35.0em" width="35.0em"> </a>
-            <a href="https://www.facebook.com/murdochdubai/"><img src="{% static 'images/facebook.png' %}"
-                                                                  alt="Facebook Icon" height="40.0em" width="40.0em">
-            </a>
-            <a href="https://www.linkedin.com/school/murdoch-university-dxb/"><img
-                    src="{% static 'images/linkedin.png' %}" alt="LinkedIn Icon" height="35.0em" width="35.0em"></a>
-            <a href="https://www.instagram.com/murdochdubai/?hl=en"><img src="{% static 'images/insta.png' %}"
-                                                                         alt="Instagram Icon" height="40.0em"
-                                                                         width="47.0em"></a>
-        </div>
-    </div>
-</footer>
-
-</html>

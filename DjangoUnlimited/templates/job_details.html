@@ -1,6 +1,5 @@
 {% extends "theme.html" %}
 {% load staticfiles %}
-
 <!-- Stylesheet -->
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
@@ -17,40 +16,53 @@
             <form method="POST">
                 {% csrf_token %}
 
-                <div class="icon">
+                <div class = "overall-page">
                     {% for company in companies %}
                         {% if job.posted_by == company.user %}
-                            {% if company.logo %}
-                                <img src="{{ company.logo.url }}" height="80.0em" width="90.0em">
+                            <div class="icon" style = "flex:1;">
+                                {% if company.logo %}
+                                    <img src="{{ company.logo.url }}" height="80.0em" width="90.0em">
+                                {% else %}
+                                    <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                                {% endif %}
+                            </div>
+
+                            {% if user_type == "student" %}
+                                <div style = "flex:6; margin-top: 1em">
+                                    <h1>{{ company.company_name }}</h1>
+                                </div>
                             {% else %}
-                                <img src="{% static 'DefaultDP.jpg' %}" height="80.0em" width="90.0em">
+                                <div style = "flex:2; margin-top: 1em">
+                                    <h1>{{ company.company_name }}</h1>
+                                </div>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                </div>
 
-                <div style="text-align: right; margin-right: 4.5em">
-                    <button type="button"><a href="{% url 'close_job' job.id %}">Close Job</a></button>
-                    <button type="button"><a href="{% url 'delete_job' job.id %}">Delete Job</a></button>
-                    <button type="button"><a href="{% url 'edit_job' job.id %}">Edit Job</a></button>
-                    <br><br>
+
+                {% if user_type != "student" %}
+                    <div style="display: inline-block; margin-top: 2.5em">
+                        <button class = "buttons" type="button"><a style="text-decoration: none;" href="{% url 'close_job' job.id %}">Close Job</a></button>
+                        <button class = "buttons" type="button"><a style="text-decoration: none;" href="{% url 'delete_job' job.id %}">Delete Job</a></button>
+                        <button class = "buttons" style = "margin-right: 5em;" type="button"><a style="text-decoration: none;" href="{% url 'edit_job' job.id %}">Edit Job</a></button>
+                    </div>
+                {% endif %}
                 </div>
 
                 <div class="inside-container2">
-                    <h3>{{ job.job_title }}</h3>
-                    <p>{{ job.description }}</p>
-                    <p>{{ job.location }} | {{ job.duration }} | AED {{ job.salary }}</p>
-                    <p>Posted On: {{ job.date_posted }}</p>
+                    <h2>{{ job.job_title }}</h2>
+                    <p><b>About the Job:</b><br>&emsp;{{ job.description }}</p>
+                    <p><b>Location:</b> {{ job.location }} | <b>Duration:</b> {{ job.duration }} | <b>Salary:</b> AED {{ job.salary }}</p>
+                    <p><b>Posted On:</b> {{ job.date_posted }}</p>
 
-                    Skills required:
+                    <b>Skills required:</b>
                     {% for skill in job.skills.all %}
                         <li>{{ skill }}</li>
                     {% endfor %}
 
                     {% for company in companies %}
                         {% if job.posted_by == company.user %}
-                            <p>{{ company.company_name }}</p>
-                            <p>{{ company.company_description }}</p>
+                            <p><b>About the Company:</b><br>&emsp;{{ company.company_description }}</p>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -58,7 +70,7 @@
                 {% if user_type == 'student' %}
                     <div style="text-align:center;">
                         {% if applied == False %}
-                            <button type="submit" name="apply" value="Apply&Save">&nbsp;Apply For Job</button>
+                            <button class = "buttons2" type="submit" name="apply" value="Apply&Save">&nbsp;Apply To Job</button>
                         {% else %}
                             <h4>Your application has been submitted.</h4> 
                             <!-- a disabled button here -->

@@ -41,8 +41,7 @@ def student_signup(request):
                             student = student_form.save(commit=False)
                             student.user = user
                             student.save()
-                            for skill in request.POST.getlist('skills'):
-                                student.skills.add(skill)
+                            student_form.save_m2m()
 
                             message = Mail(
                                 from_email=DEFAULT_FROM_EMAIL,

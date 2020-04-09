@@ -18,7 +18,7 @@ class CreateJobForm(forms.ModelForm):
         required = True,
         label="*Job Type"
     )
-    salary = forms.FloatField(label='*Salary',)
+    salary = forms.FloatField(label="*Salary (AED per month)")
     skills = forms.ModelMultipleChoiceField(
         label='*Skill',
         widget=forms.CheckboxSelectMultiple,
@@ -52,7 +52,7 @@ class EditJobForm(forms.ModelForm):
         required = True,
         label="Job Type"
     )
-    salary = forms.FloatField()
+    salary = forms.FloatField(label="Salary (AED per month)")
     skills = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         queryset=Skill.objects.all(),

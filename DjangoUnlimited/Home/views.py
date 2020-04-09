@@ -51,6 +51,9 @@ def privacy(request):
     return render(request, "privacy.html", get_user_type(request))
 
 
+def sitemap(request):
+    return render(request, "sitemap.html", get_user_type(request))
+
 @login_required
 def view_jobs(request):
     user = get_user_type(request)
@@ -135,6 +138,7 @@ def create_job(request):
                 data = form.save(commit=False)
                 data.posted_by = request.user
                 data.save()
+                form.save_m2m()
 
                 message = Mail(
                     from_email=DEFAULT_FROM_EMAIL,
@@ -150,9 +154,6 @@ def create_job(request):
                 #   type='Job Posted',
                 #   to_show=True)
                 # add_notif.save()
-
-                for skill in request.POST.getlist('skills'):
-                    data.skills.add(skill)
                 return redirect('/')
             else:
                 messages.info(request, form.errors)
@@ -180,8 +181,7 @@ def create_job(request):
                     job = jobForm.save(commit=False)
                     job.posted_by = request.user
                     job.save()
-                    for skill in request.POST.getlist('skills'):
-                        job.skills.add(skill)
+                    jobForm.save_m2m()
                     return redirect('/')
             else:
                 messages.info(request, jobForm.errors)
@@ -251,6 +251,7 @@ def edit_job(request, id):
                 data = form.save(commit=False)
                 data.posted_by = request.user
                 data.save()
+                form.save_m2m()
                 next = request.POST.get('next', '/')
                 return redirect(next)
             else:
@@ -275,9 +276,10 @@ def edit_job(request, id):
                     company = companyForm.save(commit=False)
                     company.user_id = admin.user.id
                     company.save()
-                    job = jobForm.save(commit=False)
-                    job.posted_by = request.user
-                    job.save()
+                    j = jobForm.save(commit=False)
+                    j.posted_by = request.user
+                    j.save()
+                    jobForm.save_m2m()
                     next_page = request.POST.get('next', '/')
                     return redirect(next_page)
             else:

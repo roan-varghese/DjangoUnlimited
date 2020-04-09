@@ -16,10 +16,11 @@ from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
 from DjangoUnlimited.settings import SENDGRID_API_KEY
 
+
 class HelpDeskFormView(TemplateView):
     template_name = 'HelpDesk/Report_issue.html'
-
     def get(self, request, *args, **kwargs):
+        user = get_user_type(request)
         if kwargs:
             pk = kwargs['pk']  # get a particular instance of the IT Support Form filled previously
             help_desk_form = HelpDeskForm(instance=HelpDeskModel.objects.get(id=pk))
@@ -35,7 +36,9 @@ class HelpDeskFormView(TemplateView):
 
         args = {
             'help_desk_form': help_desk_form,
-            'thread': thread
+            'thread': thread,
+            'user_type': user['user_type'],
+            'obj': user['obj']
         }
 
         return render(request, self.template_name, args)
@@ -91,7 +94,8 @@ class HelpDeskRequests(TemplateView):
         user = get_user_type(request)
         args = {
             'reqs': c,
-            'user': user,
+            'user_type': user['user_type'],
+            'obj': user['obj']
         }
         print (c)
 
@@ -105,7 +109,9 @@ class MyHelpDeskRequests(TemplateView):
     def get(self, request, *args, **kwargs):
         c = HelpDeskModel.objects.filter(name_Request=request.user.id)
         pending_requests = HelpDeskModel.objects.filter(name_Request=request.user.id).order_by("completed")
-
+        user = get_user_type(request)
         return render(request, 'HelpDesk/my_helpdesk_requests.html',
                       {'helpdeskRequests': pending_requests,
+                       'user_type': user['user_type'],
+                       'obj': user['obj']
                        })

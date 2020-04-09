@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.db import transaction
-from django.contrib.admin.views.decorators import staff_member_required 
+from django.contrib.admin.views.decorators import staff_member_required
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
@@ -17,7 +17,7 @@ from django.http import HttpResponse
 from Home.forms import CreateJobForm, EditJobForm
 from Employer.forms import InitialEmployerForm, EmployerForm
 from .forms import InitialAdminForm, AdminForm, AddIndustryForm, Statistics
-from Accounts.views import isValidated
+from Accounts.views import isValidated, get_user_type
 from .models import Admin
 from .forms import EditAdminProfileForm
 from Student.forms import EditStudentProfileForm
@@ -25,9 +25,10 @@ from Student.models import Student, StudentJobApplication
 from Home.models import Job
 from Employer.models import Employer
 
+
 # Create your views here.
 
-@staff_member_required 
+@staff_member_required
 def create_admin(request):
     if request.method == 'POST':
         user_form = InitialAdminForm(request.POST)
@@ -65,7 +66,8 @@ def create_admin(request):
                         messages.info(request, admin_form.errors)
                         return redirect("admin_register")
                 else:
-                    messages.info(request,'ERROR: Password must be 8 characters or more, and must have at least 1 uppercase, lowercase, numeric and special character.')
+                    messages.info(request,
+                                  'ERROR: Password must be 8 characters or more, and must have at least 1 uppercase, lowercase, numeric and special character.')
                     return redirect("admin_register")
         else:
             messages.info(request, user_form.errors)
@@ -75,6 +77,7 @@ def create_admin(request):
         admin_form = AdminForm()
         args = {'admin_form': admin_form, 'user_form': user_form}
         return render(request, 'admin/admin_registration.html', args)
+
 
 @staff_member_required
 def view_profile(request):
@@ -105,7 +108,7 @@ def view_profile(request):
             return render(request, 'admin/view_admin_profile.html', args)
 
 
-@staff_member_required 
+@staff_member_required
 def edit_profile(request):
     admin = Admin.objects.get(user_id=request.user.id)
 
@@ -129,14 +132,15 @@ def edit_profile(request):
         args = {'admin_form': admin_form, 'user_form': user_form}
         return render(request, 'admin/edit_admin_profile.html', args)
 
+
 @staff_member_required
 def create_job(request):
     admin = Admin.objects.get(user_id=request.user.id)
-    
+
     if request.method == 'POST':
         jobForm = CreateJobForm(request.POST, request.FILES)
         companyForm = EmployerForm(request.POST, request.FILES)
-        
+
         if jobForm.is_valid() and companyForm.is_valid():
             with transaction.atomic():
                 company = companyForm.save(commit=False)
@@ -172,7 +176,8 @@ def create_job(request):
         return render(request, "admin/admin_create_job.html", args)
 
 
-def export_stats_file(request, users, students, current, alumni, employers, jobs_posted, apps, open_jobs, closed_jobs, deleted_jobs):
+def export_stats_file(request, users, students, current, alumni, employers, jobs_posted, apps, open_jobs, closed_jobs,
+                      deleted_jobs):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="file.csv"'
     writer = csv.writer(response)
@@ -192,6 +197,7 @@ def export_stats_file(request, users, students, current, alumni, employers, jobs
 
 @staff_member_required
 def generate_statistics(request):
+    user = get_user_type(request)
     if request.method == "POST":
         end_date = timezone.now()
         time = request.POST.get('period')
@@ -204,8 +210,10 @@ def generate_statistics(request):
 
         users = User.objects.filter(date_joined__range=[start_date, end_date])
         students = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
-        current = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]), alumni_status=False)
-        alumni = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]), alumni_status=True)
+        current = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]),
+                                         alumni_status=False)
+        alumni = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]),
+                                        alumni_status=True)
         employers = Employer.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
         jobs_posted = Job.objects.filter(date_posted__range=[start_date, end_date])
         open_jobs = Job.objects.filter(date_posted__range=[start_date, end_date], status="Open")
@@ -224,11 +232,12 @@ def generate_statistics(request):
         deleted_jobs = len(list(set(deleted_jobs)))
         apps = len(list(set(apps)))
 
-        args = {'users':users, 'students': students, 'current': current, 'alumni': alumni, 'employers': employers,
+        args = {'users': users, 'students': students, 'current': current, 'alumni': alumni, 'employers': employers,
                 'jobs_posted': jobs_posted, 'open_jobs': open_jobs, 'closed_jobs': closed_jobs,
-                'deleted_jobs': deleted_jobs, 'apps': apps}
+                'deleted_jobs': deleted_jobs, 'apps': apps, 'user_type': user['user_type'], 'obj': user['obj']}
 
         return render(request, "admin/view_statistics.html", args)
     else:
         form = Statistics()
-        return render(request, "admin/generate_statistics.html", {'form': form})
+        args = {'form': form, 'user_type': user['user_type'], 'obj': user['obj']}
+        return render(request, "admin/generate_statistics.html", args)

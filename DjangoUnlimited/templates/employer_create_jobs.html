@@ -1,8 +1,8 @@
 {% extends "theme.html" %}
 {% load staticfiles %}
-<!-- Stylesheet -->
+<!-- Additional Stylesheet -->
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Register.css' %}"/>
 {% endblock %}
 
 {% block title %}
@@ -12,13 +12,6 @@
 {% block content %}
 <br><br>
 <div class="overall-page">
-    <div class="sidebar">
-        <h4> MY ACCOUNT</h4>
-        <button class="button"><a href="../employer/edit_employer_profile">Edit Company Information</a></button>
-        <h4> MY JOBS</h4>
-        <button class="button"><a href="../view_jobs"> View Job Listings</a></button>
-    </div>
-
     <div class="job_post">
         <h2>Create Job Listing</h2>
         <h3>Job details</h3>
@@ -42,6 +35,7 @@
                     {% for field in companyForm %}
                         <div class="col1">{{ field.label }} </div>
                         <div class="col2">{{ field }}</div>
+                        {{ field.help_text }}
                     {% endfor %}
                 {% endif %}
 
@@ -50,13 +44,6 @@
             </form>
             </div>
             <br><br>
-
-            <!-- this displays any errors during submission -->
-            <div>
-                {% for message in messages %}
-                    <h3 class="message"> {{ message }} </h3>
-                {% endfor %}
-            </div>
             </div>
 <br>
 {% endblock %}
