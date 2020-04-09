@@ -70,6 +70,17 @@ li>a{
     text-decoration: none;
 }
 
+.button{
+    background-color:rgb(204,0,0);
+    height: 2em;
+    width:10em;
+    align:center;
+    border-radius: 0.45em;
+    margin-left: 20%;
+    color:white;
+    text-align: center;
+ }
+
 .main{
     background-color: rgb(29,26,26);
     display:flex;

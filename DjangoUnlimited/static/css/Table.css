@@ -27,15 +27,12 @@ text-align: left;
     margin-top:0em;
     width: 17em;
     background-color: #E8E8E8;
-    padding-top: 0px;
-    padding-bottom: 2em;
     padding-left: 1.5em;
     text-align: left;
     border: 0.05em solid grey;
 }
 
 input[type=text],select{
-  width: 20%;
   padding: 12px 12px;
   margin-right: 12em;
   display: inline-block;
