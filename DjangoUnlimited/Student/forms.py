@@ -14,11 +14,11 @@ import dns.resolver, dns.exception
 
 
 class InitialStudentForm(forms.ModelForm):
-    first_name = forms.CharField(label='First Name')
-    last_name = forms.CharField(label='Last Name')
-    email = forms.EmailField(required=True)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    first_name = forms.CharField(label='*First Name')
+    last_name = forms.CharField(label='*Last Name')
+    email = forms.EmailField(label='*Email Address', required=True)
+    password1 = forms.CharField(label='*Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='*Confirm Password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -74,31 +74,35 @@ class StudentForm(forms.ModelForm):
         ('Male', 'Male'),
         ('Female', 'Female')
     ]
-    gender = forms.ChoiceField(choices=gender_choices, widget=forms.RadioSelect(attrs={'class': 'custom-select'}))
-    DOB = forms.DateField(required=True, label='Date of Birth',
+    gender = forms.ChoiceField(choices=gender_choices, label='*Gender',
+                        widget=forms.RadioSelect(attrs={'class': 'custom-select'}))
+    DOB = forms.DateField(required=True, label='*Date of Birth',
                           widget=forms.DateInput(attrs={
                               'class': 'datepicker form-control-text', 'placeholder': 'YYYY-DD-MM',
                               'autocomplete': 'off'
                           }))
-    student_id = forms.CharField(label='Student ID', max_length=8, min_length=8)
+    student_id = forms.CharField(label='*Student ID', max_length=8, min_length=8)
     alumni_status = forms.BooleanField(required=False, label='Select if you are a Murdoch University Alumni',
                                        widget=forms.CheckboxInput(attrs={'onClick': 'disable_fields(this.checked)'}))
     expected_graduation_date = forms.DateField(required=False,
-                                               label='Expected Graduation Date',
+                                               label='*Expected Graduation Date',
                                                widget=forms.DateInput(attrs={
                                                    'class': 'datepicker form-control-text', 'placeholder': 'YYYY-DD-MM',
                                                    'autocomplete': 'off'
                                                }))
-    personal_email = forms.EmailField(required=False, label='Personal Email Address')
+    personal_email = forms.EmailField(required=False, label='*Personal Email Address')
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
+                                            label='*Skill',
                                             widget=forms.CheckboxSelectMultiple,
                                             required=True)
-    dp = forms.ImageField(label='Select a profile picture', required=False, help_text="Only jpeg and png file formats allowed.", validators=[FileTypeValidator(
-                                                                                                                                    allowed_types=['image/jpeg','image/png']
-                                                                                                                                )])
-    cv = forms.FileField(allow_empty_file=False, label='Attach CV', help_text="Only PDF, docx, and doc file formats allowed.", validators=[FileTypeValidator(
-                                                                                                                        allowed_types=["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
-                                                                                                                     )])
+    dp = forms.ImageField(label='Select a profile picture (only jpeg and png file formats allowed)', required=False,
+    validators=[FileTypeValidator(                                                                                                                                
+        allowed_types=['image/jpeg','image/png']
+    )])
+    cv = forms.FileField(allow_empty_file=False, label='*Attach CV (only PDF, docx, and doc file formats allowed)',
+    validators=[FileTypeValidator(
+        allowed_types=["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
+    )])
 
     class Meta:
         model = Student

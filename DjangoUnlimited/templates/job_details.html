@@ -77,10 +77,12 @@
                         {% endif %}
                     </div>
                 {% else %}
-                    <button class="button2" type="submit" name="viewcandidates" value="ViewCandidates&Save"><b>View
-                        Applicants</b></button>
-                    <button class="button2" type="button"><a style="text-decoration: none;" href="{% url 'job_to_student_skills' job.id %}"><b>View
-                        Candidates</b></a></button>
+                    {% if job.status == 'Open' %}
+                        <button class="button2" type="submit" name="viewcandidates" value="ViewCandidates&Save"><b>View
+                            Applicants</b></button>
+                        <button class="button2" type="button"><a href="{% url 'job_to_student_skills' job.id %}"><b>View
+                            Candidates</b></a></button>
+                    {% endif %}
                 {% endif %}
             </form>
         </div>

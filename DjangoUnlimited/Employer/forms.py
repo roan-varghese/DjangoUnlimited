@@ -10,9 +10,9 @@ import dns.resolver, dns.exception
 
 class InitialEmployerForm(forms.ModelForm):
     
-    email = forms.EmailField(required=True)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    email = forms.EmailField(label='*Email Address', required=True)
+    password1 = forms.CharField(label='*Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='*Confirm Password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -62,12 +62,13 @@ class InitialEmployerForm(forms.ModelForm):
         
 
 class EmployerForm(forms.ModelForm):
-    logo = forms.ImageField(label='Logo', required=False, help_text="Only jpeg or png file formats allowed.", validators=[FileTypeValidator(
-                                                                                                                allowed_types=['image/jpeg','image/png']
-                                                                                                                )])
-    company_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
+    logo = forms.ImageField(label='Logo', required=False, help_text="Only jpeg or png file formats allowed.", 
+    validators=[FileTypeValidator(
+        allowed_types=['image/jpeg','image/png']
+    )])
+    company_name = forms.CharField(max_length=50, label='*Company Name', required=True, widget=forms.TextInput(
                                                                 attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
-    company_description = forms.CharField(required=False, widget=forms.Textarea)
+    company_description = forms.CharField(label='Company Description', required=False, widget=forms.Textarea)
     phone_number = forms.CharField(required=False, max_length=50, widget=forms.TextInput(
                                                                                 attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
 
