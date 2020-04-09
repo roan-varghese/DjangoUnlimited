@@ -19,7 +19,8 @@
             <div>
                 {% csrf_token %}
                 <div class="headtop">
-            </div>
+
+                </div>
 
                 <p>Subject:</p>
                 {{ help_desk_form.subject }}
@@ -86,25 +87,24 @@
     <form method="post">
         {% csrf_token %}
         <div>
-                    <textarea id="{{ form.comment.id_for_label }}" name="{{ form.comment.html_name }}"
-                              class="form-control"
-                              required ></textarea></div>
+            <textarea id="{{ form.comment.id_for_label }}" name="{{ form.comment.html_name }}" class="form-control" required ></textarea>
+        </div>
+
         {% for field in form %}
-        {% if field.is_hidden %}
-        <div>{{ field }}</div>
-        {% endif %}
+            {% if field.is_hidden %}
+                <div>{{ field }}</div>
+            {% endif %}
         {% endfor %}
         <input type="hidden" name="name" value="{{ request.user.get_full_name }}"/>
         <input type="hidden" name="email" value="{{ request.user.email }}"/>
         <input type="hidden" name="url" value="http://dummyurl.com"/>
         <input type="hidden" name="next" value="{{ request.path }}"/>
         <div class="text-center my-3"> <br><br>
-            <button type="submit" name="submit" value="Post" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin: 0 auto;">Comment
-            </button>
+            <button type="submit" name="submit" value="Post" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin: 0 auto;">Comment</button>
         </div>
     </form>
 
-
+    </div>
     {% endif %}
 
     </div>
