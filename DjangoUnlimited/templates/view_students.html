@@ -42,16 +42,16 @@
     }
     </script>
 
+    <div style="display: flex">
+        <div align="left" style="margin-left: 1em; flex:1">
+            <h2>Browse Students</h2>
+        </div>
 
-    <h2 style="margin-left: 1.5em">Browse Students</h2>
-
-    <div align="left">
-        <h3 style="margin-left: 2em"><a href='../view_students'>View All Students</a></h3>
+        <div align="right" style=" margin-top: 1em; flex:3">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Student Names...">
+        </div>
     </div>
 
-    <div align="right">
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Student Names...">
-    </div>
     <br>
     <table class="table" align="right" style="width: 60%; margin-right: 10em" id="myTable">
         <thead>
@@ -76,7 +76,10 @@
 
     {% if user_type != 'student' %}
         <div class="sidebar">
-            <h2>Filter Students Listing</h2>
+            <h2 style="margin-bottom: 0.3em">Filter Students Listing</h2>
+            <div align="right" style="margin-right: 1.5em">
+                <a href='../view_students'>View All Students</a>
+            </div>
             <hr>
             <form method="POST">
 

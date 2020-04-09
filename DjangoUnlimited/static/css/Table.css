@@ -25,7 +25,7 @@ text-align: left;
 .sidebar{
     margin-left: 1em;
     margin-top:0em;
-    width: 18em;
+    width: 17em;
     background-color: #E8E8E8;
     padding-top: 0px;
     padding-bottom: 2em;
@@ -37,7 +37,7 @@ text-align: left;
 input[type=text],select{
   width: 20%;
   padding: 12px 12px;
-  margin-right: 4em;
+  margin-right: 12em;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;

@@ -70,10 +70,6 @@ li>a{
     text-decoration: none;
 }
 
-a{
-    color: black;
-    text-decoration: none;
-}
 .main{
     background-color: rgb(29,26,26);
     display:flex;
