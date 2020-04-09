@@ -51,6 +51,9 @@ def privacy(request):
     return render(request, "privacy.html", get_user_type(request))
 
 
+def sitemap(request):
+    return render(request, "sitemap.html", get_user_type(request))
+
 @login_required
 def view_jobs(request):
     user = get_user_type(request)

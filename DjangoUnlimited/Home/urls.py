@@ -18,5 +18,6 @@ urlpatterns = [
     path('terms', views.terms, name='terms'),
     path('faq', views.faq, name='faq'),
     path('anti_scam', views.anti_scam, name='anti_scam'),
-    path('privacy', views.privacy, name='privacy')
+    path('privacy', views.privacy, name='privacy'),
+    path('sitemap', views.sitemap, name='sitemap')
 ]
