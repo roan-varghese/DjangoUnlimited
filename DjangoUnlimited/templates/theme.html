@@ -27,49 +27,51 @@
 <header>
     <nav>
         <div class="topnav" id="myTopnav">
-           <div class="logo"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo" height="60.0em" width="170.0em"></div>
+            <div class="logo"><a href="/"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo" height="60.0em" width="170.0em"></a></div>
             {% if user.is_authenticated %}
                 {% if user_type == 'student' %}
                     <div class="dropdown">
                         <button class="dropbtn">{{ user.first_name }} {{ user.last_name }}</button>
                         <div class="dropdown-content">
-                            <a href="../../student/view_student_profile">View Profile</a>
-                            <a href="../../my_applications">My Applications</a>
-                            <a href="../../HelpDesk/myrequests">My Help Desk Requests</a>
-                            <a href="../../accounts/logout">Log Out</a>
+                            <a href="{% url 'view_student_profile' %}">View Profile</a>
+                            <a href="{% url 'my_applications' %}">My Applications</a>
+                            <a href="{% url 'MyHelpDeskRequests' %}">My Help Desk Requests</a>
+                            <a href="{% url 'logout' %}">Log Out</a>
                         </div>
                     </div>
                 {% elif user_type == 'employer' %}
                      <div class="dropdown">
                         <button class="dropbtn">{{ obj.company_name }}</button>
                         <div class="dropdown-content">
-                            <a href="../../employer/view_employer_profile">View Profile</a>
-                            <a href="../../view_jobs">My Jobs</a>
-                            <a href="../../HelpDesk/myrequests">My Help Desk Requests</a>
-                            <a href="../../accounts/logout">Log Out</a>
+                            <a href="{% url 'view_employer_profile' %}">View Profile</a>
+                            <a href="{% url 'view_jobs' %}">My Jobs</a>
+                            <a href="{% url 'MyHelpDeskRequests' %}">My Help Desk Requests</a>
+                            <a href="{% url 'logout' %}">Log Out</a>
                         </div>
                      </div>
                 {% elif user_type == 'admin' %}
                     <div class="dropdown">
                         <button class="dropbtn">{{ user.username }}</button>
                         <div class="dropdown-content">
-                            <a href="../../admin">View Profile</a>
-                            <a href="../../HelpDesk/requests">Help Desk Requests</a>
+                            <a href="{% url 'admin:index' %}">View Profile</a>
+                            <a href="{% url 'requests' %}">Help Desk Requests</a>
                             <a href="{% url 'admin:index' %}">Dashboard</a>
-                            <a href="../../accounts/logout">Log Out</a>
+                            <a href="{% url 'logout' %}">Log Out</a>
                         </div>
                     </div>
                 {% endif %}
             {% else %}
                 <div class="dropdown">
-                    <a href="../../accounts/login" style="margin-right: 2em">Login</a>
+                    <div class="loginButton">
+                        <a href="{% url 'log_in' %}" style="margin-right: 2em">Login</a>
+                    </div>
                 </div>
 
                 <div class="dropdown">
                     <button class="dropbtn" style="margin: 0">SignUp</button>
                     <div class="dropdown-content">
-                        <a href="../../student/student_registration">I'm a Student</a>
-                        <a href="../../employer/employer_registration">I'm an Employer</a>
+                        <a href="{% url 'student_registration' %}">I'm a Student</a>
+                        <a href="{% url 'employer_register' %}">I'm an Employer</a>
                     </div>
                 </div>
             {% endif %}
@@ -79,19 +81,19 @@
     <div class="bottomnav">
         <a href="/"> <b>Home</b></a>
         {% if user_type == 'student' %}
-            <a href="../../view_jobs"><b>Browse Jobs</b></a>
-            <a href="../../bulletin/allPosts"><b>Bulletin</b></a>
+            <a href="{% url 'view_jobs' %}"><b>Browse Jobs</b></a>
+            <a href="{% url 'all_posts' %}"><b>Bulletin</b></a>
         {% elif user_type == 'employer' %}
-            <a href="../../view_students"><b>Browse Students</b></a>
-            <a href="../../create_job"> <b>Post a Job</b></a>
-            <a href="../../bulletin/allPosts"><b>Bulletin</b></a>
+            <a href="{% url 'view_students' %}"><b>Browse Students</b></a>
+            <a href="{% url 'create_job' %}"> <b>Post a Job</b></a>
+            <a href="{% url 'all_posts' %}"><b>Bulletin</b></a>
         {% elif user_type == 'admin' %}
-            <a href="../../view_jobs"><b>Browse Jobs</b></a>
-            <a href="../../view_students"><b>Browse Students</b></a>
-            <a href="../../myadmin/statistics"> <b>Statistics</b></a>
-            <a href="../../bulletin/post/new"><b>Create Bulletin Post</b></a>
+            <a href="{% url 'view_jobs' %}"><b>Browse Jobs</b></a>
+            <a href="{% url 'view_students' %}"><b>Browse Students</b></a>
+            <a href="{% url 'statistics' %}"> <b>Statistics</b></a>
+            <a href="{% url 'post_new' %}"><b>Create Bulletin Post</b></a>
         {% endif %}
-        <a href="../../news"> <b>News</b></a>
+        <a href="{% url 'news' %}"> <b>News</b></a>
         {% if user_type != 'admin' %}
             <a href="https://www.murdochuniversitydubai.com/" target="_blank"><b>Murdoch University Home</b></a>
         {% endif %}
@@ -116,10 +118,10 @@
         <!-- This is the 1st column of the footer!-->
         <div class="about">
             <ul><h3>ABOUT US</h3>
-                <li><a href="../../faq"> FAQ</a></li>
-                <li><a href="../../anti_scam"> Anti-Scam</a></li>
-                <li><a href="../../terms"> Terms</a></li>
-                <li><a href="../../privacy"> Privacy</a></li>
+                <li><a href="{% url 'faq' %}"> FAQ</a></li>
+                <li><a href="{% url 'anti_scam' %}"> Anti-Scam</a></li>
+                <li><a href="{% url 'terms' %}"> Terms</a></li>
+                <li><a href="{% url 'privacy' %}"> Privacy</a></li>
             </ul>
         </div>
 
@@ -127,7 +129,7 @@
         <div class="sitemap">
             <ul>
                 <h3>SITEMAP</h3>
-                <li><a href="../../sitemap" target="_blank">Sitemap</a></li>
+                <li><a href="{% url 'sitemap' %}" target="_blank">Sitemap</a></li>
                 </a>
             </ul>
         </div>
@@ -137,7 +139,7 @@
             <div class="helpDesk">
                 <ul>
                     <h3>HELP DESK</h3>
-                    <li><a href="../../HelpDesk/"> Help Desk</a></li>
+                    <li><a href="{% url 'HelpDesk' %}"> Help Desk</a></li>
                 </ul>
             </div>
         {% else %}

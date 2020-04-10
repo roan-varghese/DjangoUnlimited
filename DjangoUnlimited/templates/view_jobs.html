@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+
     <style>
         .overall-page1 {
             display: flex;
@@ -95,25 +96,27 @@
     </style>
 
     <div style="display: flex">
-        <div class="sidebar" style="width: 17.5%; margin-top: 4.4em; position: fixed;">
-            <h2 style="margin-bottom: 0.3em">Filter Job Listing</h2>
-            <div align="right" style="margin-right: 7%">
-                <a href="../../view_jobs"><b>View All Jobs</b></a>
+        {% if user_type != "employer" %}
+            <div class="sidebar" style="width: 17.5%; margin-top: 1em; position: fixed;">
+                <h2 style="margin-bottom: 0.3em">Filter Job Listing</h2>
+                <div align="right" style="margin-right: 7%">
+                    <a href="{% url 'view_jobs' %}"><b>View All Jobs</b></a>
+                </div>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    <b>Duration (in months):</b><br>
+                    Min: {{ form.min_duration }}<br>
+                    Max:{{ form.max_duration }}<br><br>
+                    <b>{{ form.location.label }}:</b> {{ form.location }}<br><br>
+                    <b>{{ form.job_type_id.label }}:</b> {{ form.job_type_id }}<br><br>
+                    <b>Salary (AED/month):</b><br>
+                    From: {{ form.min_salary }}<br>
+                    To: {{ form.max_salary }}<br><br>
+                    <button class="button" type="Submit"><b>Submit</b></button>
+                </form>
             </div>
-            <hr>
-            <form method="POST">
-                {% csrf_token %}
-                <b>Duration (in months):</b><br>
-                Min: {{ form.min_duration }}<br>
-                Max:{{ form.max_duration }}<br><br>
-                <b>{{ form.location.label }}:</b> {{ form.location }}<br><br>
-                <b>{{ form.job_type_id.label }}:</b> {{ form.job_type_id }}<br><br>
-                <b>Salary (AED/month):</b><br>
-                From: {{ form.min_salary }}<br>
-                To: {{ form.max_salary }}<br><br>
-                <button class="button" type="Submit"><b>Submit</b></button>
-            </form>
-        </div>
+        {% endif %}
 
         <div style="flex: 5; margin-left: 2em; margin-right: 2em">
             <div style="display: flex">
@@ -123,6 +126,7 @@
             </div>
 
             <div class="overall-page1">
+
                 <div class="inside-container">
                     {% for job in jobs %}
                         {% for company in companies %}
