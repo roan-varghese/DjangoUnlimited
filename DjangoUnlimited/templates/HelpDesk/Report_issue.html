@@ -18,24 +18,25 @@
         <form method="POST">
             <div>
                 {% csrf_token %}
-                <div class="headtop">
-
-                </div>
+                <div class="headtop"></div>
 
                 <p>Subject:</p>
                 {{ help_desk_form.subject }}
                 <p>Please describe the issue or concern you are facing in detail:</p>
                 {{ help_desk_form.issue }}
-                {% if not thread %}
-        <br><br>
-                <button type="submit" name="submitbutton"  style=" color: white; background-color:rgb(204,0,0); width: 140px; height:30px; margin-left: 450px;"> Submit</button>
 
+                {% if not thread %}
+                    <br><br>
+                    <div align="center">
+                        <button type="submit" name="submitbutton"  style=" color: white; background-color:rgb(204,0,0); width: 140px; height:30px;"> Submit</button>
+                    </div>
             {% endif %}
             </div>
         </form>
     </div>
-    <br><br>
+
     {% if thread %}
+        <body>
     <div class="inside-container2">
         <p> Number of Comment/s: <span
                 class="paragraph-comment"> {{ thread.text }} </span>

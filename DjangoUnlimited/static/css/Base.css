@@ -45,7 +45,7 @@ footer{
     position: static;
     margin: auto;
     font-size: 0.85em;
-    height:9em;
+    height:8em;
 }
 
 .para1{
@@ -70,18 +70,24 @@ li>a{
     text-decoration: none;
 }
 
-a{
-    color: black;
-    text-decoration: none;
-}
+.button{
+    background-color:rgb(204,0,0);
+    height: 2em;
+    width:10em;
+    align:center;
+    border-radius: 0.45em;
+    margin-left: 20%;
+    color:white;
+    text-align: center;
+ }
+
 .main{
     background-color: rgb(29,26,26);
     display:flex;
     width: 100%;
     bottom: 0;
     left:0;
-    margin: auto;
-    margin-top: 1em;
+    margin-top: 5em;
 }
 
 .about{

@@ -1,6 +1,7 @@
 {% extends "theme.html" %}
 {% load staticfiles %}
 
+
 {% block title %}
     Bulletin - Murdoch Dubai Job Portal
 {% endblock %}
@@ -8,52 +9,53 @@
 {% block content %}
 
     <style>
-    .bulletin{
-        display:flex;
-    }
+        .bulletin {
+            display: flex;
+        }
 
-    .post{
-        flex:1;
-        border: 0.15em solid grey;
-        width:90%;
-        background-color: white;
-        border-radius: 1em;
-        padding: 0.25em;
-    }
+        .post {
+            flex: 1;
+            border: 0.15em solid grey;
+            width: 90%;
+            background-color: white;
+            border-radius: 1em;
+            padding: 0.25em;
+        }
 
-    .page{
-        margin: auto;
-        width: 70%;
-        height: auto;
-        background-color: #E8E8E8;
-        margin-top: 2em;
-        align: center;
-        border: 0.15em solid grey;
-        padding-bottom:1em;
-        border-radius: 1.5em;
-    }
-    h4{
-        font-weight: normal;
-    }
+        .page {
+            margin: auto;
+            width: 70%;
+            height: auto;
+            background-color: #E8E8E8;
+            margin-top: 2em;
+            align: center;
+            border: 0.15em solid grey;
+            padding-bottom: 1em;
+            border-radius: 1.5em;
+        }
+
+        h4 {
+            font-weight: normal;
+        }
     </style>
 
-<div class="page">
-    <br/><br/>
-    {% for post in posts %}
-    <div class="bulletins" align="center">
-        <div class="post">
-            <h3 align="left"> {{ post.title }}</h3>
-            <hr>
-            <h4 align="left">{{ post.feed }} </h4>
-            <br/>
-            <hr>
-            <b> Author:</b> {{ post.author }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <b>Release Date</b>: {{ post.release_date }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <br/>
-        </div>
-        <br/>
-    </div>
+    <div class="page">
+        <br/><br/>
+        {% for post in posts %}
+            <div class="bulletins" align="center">
+                <div class="post">
+                    <h3 align="left"> {{ post.title }}</h3>
+                    <hr>
+                    <h4 align="left">{{ post.feed }} </h4>
+                    <br/>
+                    <hr>
+                    <b> Author:</b> {{ post.author }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <b>Release Date</b>: {{ post.release_date }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <br/>
+                </div>
+                <br/>
+            </div>
 
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 {% endblock %}

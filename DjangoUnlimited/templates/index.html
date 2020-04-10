@@ -10,7 +10,7 @@
     {% if user.is_authenticated %}
         {% if user_type == 'student' %}
             <!-- displays welcome message -->
-            <h3>Welcome, {{ user.first_name }} {{ user.last_name }}</h3> <!-- displays welcome message -->
+            <h3 >Welcome, {{ user.first_name }} {{ user.last_name }}</h3> <!-- displays welcome message -->
         {% elif user_type == 'employer' %}
             <!-- displays welcome message -->
             <h3>Welcome, {{ obj.company_name }}</h3>

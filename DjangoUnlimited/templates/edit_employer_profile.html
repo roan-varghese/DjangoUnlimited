@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    {% csrf_token %}
+
 <div>
     <br><br>
     <div class="overall-page">
@@ -30,6 +30,7 @@
             <div class="inside-container2">
                 <br/><br/>
                 <form method="post" enctype="multipart/form-data" action="edit_employer_profile">
+                    {% csrf_token %}
                     {% for field in employer_form %}
                         <div class="Col1">{{ field.label }}</div>
                         <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
