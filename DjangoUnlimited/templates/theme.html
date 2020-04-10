@@ -51,7 +51,11 @@
                      </div>
                 {% elif user_type == 'admin' %}
                     <div class="dropdown">
-                        <button class="dropbtn">{{ user.username }}</button>
+                        {% if user.super_user %}
+                            <button class="dropbtn">{{ user.username }}</button>
+                        {% else %}
+                            <button class="dropbtn">{{ user.first_name }} {{ user.last_name }}</button>
+                        {% endif %}
                         <div class="dropdown-content">
                             <a href="{% url 'admin:index' %}">View Profile</a>
                             <a href="{% url 'MyHelpDeskRequests' %}">Help Desk Requests</a>
