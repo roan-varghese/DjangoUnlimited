@@ -8,7 +8,7 @@ from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail
 from DjangoUnlimited.settings import SENDGRID_API_KEY
 from django.utils import timezone
-from datetime import timedelta
+from datetime import timedelta, datetime, date
 import csv
 from django.http import HttpResponse
 
@@ -176,10 +176,9 @@ def create_job(request):
         return render(request, "admin/admin_create_job.html", args)
 
 
-def export_stats_file(request, users, students, current, alumni, employers, jobs_posted, apps, open_jobs, closed_jobs,
-                      deleted_jobs):
+def export_stats_file(request, users, students, current, alumni, employers, jobs_posted, apps, open_jobs, closed_jobs, deleted_jobs):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="file.csv"'
+    response['Content-Disposition'] = 'attachment; filename=' + date.today().strftime("%B %d %Y") + ".csv"
     writer = csv.writer(response)
     writer.writerow(['Type of Statistics', 'Count'])
     writer.writerow(['Users Signed Up', users])

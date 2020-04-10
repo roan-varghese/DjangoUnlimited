@@ -104,10 +104,14 @@
             <hr>
             <form method="POST">
                 {% csrf_token %}
-                Duration (months):<br>{{ form.min_duration }} - {{ form.max_duration }}<br><br>
-                Location: {{ form.location }}<br><br>
-                {{ form.job_type_id.label }}: {{ form.job_type_id }}<br><br>
-                Salary (AED/month):<br>{{ form.min_salary }} - {{ form.max_salary }}<br><br>
+                <b>Duration (in months):</b><br>
+                Min: {{ form.min_duration }}<br>
+                Max:{{ form.max_duration }}<br><br>
+                <b>{{ form.location.label }}:</b> {{ form.location }}<br><br>
+                <b>{{ form.job_type_id.label }}:</b> {{ form.job_type_id }}<br><br>
+                <b>Salary (AED/month):</b><br>
+                From: {{ form.min_salary }}<br>
+                To: {{ form.max_salary }}<br><br>
                 <button class="button" type="Submit"><b>Submit</b></button>
             </form>
         </div>

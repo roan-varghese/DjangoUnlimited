@@ -45,14 +45,16 @@
     }
     </style>
 
-    <body>
-    <br/>
-    <div class="inside-container2">
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="button3" type="Submit">Submit</button>
-            <br/>
-        </form>
-    </div>
+    <body style="min-height: 400px; margin-bottom: 150px;">
+        <br/>
+        <div class="inside-container2">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="button3" type="Submit">Submit</button>
+                <br/>
+            </form>
+        </div>
+    </body>
+    <footer  style="position: fixed; font-size: medium">
 {% endblock %}

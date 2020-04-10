@@ -73,6 +73,6 @@
         </tbody>
     </table>
 <br><br>
-    <button type="button" class="buttons" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin-left: 43em;"><a href="{% url 'export_stats_file' users students current alumni employers jobs_posted apps open_jobs closed_jobs deleted_jobs %}">Export Data</a></button>
+    <button type="button" class="buttons" style="background-color: rgb(204,0,0); color:white; width: 140px; height:30px; margin-left: 43em;"><a style="text-decoration: none" href="{% url 'export_stats_file' users students current alumni employers jobs_posted apps open_jobs closed_jobs deleted_jobs %}">Export Data</a></button>
 <br><br>
 {% endblock %}
