@@ -13,7 +13,6 @@
 {% endblock %}
 
 {% block content %}
-
     <style>
         .overall-page1 {
             display: flex;
@@ -96,7 +95,7 @@
     </style>
 
     <div style="display: flex">
-        <div class="sidebar" style="width: 17.5%; margin-top: 1em; position: fixed;">
+        <div class="sidebar" style="width: 17.5%; margin-top: 4.4em; position: fixed;">
             <h2 style="margin-bottom: 0.3em">Filter Job Listing</h2>
             <div align="right" style="margin-right: 7%">
                 <a href="../../view_jobs"><b>View All Jobs</b></a>
@@ -124,7 +123,6 @@
             </div>
 
             <div class="overall-page1">
-
                 <div class="inside-container">
                     {% for job in jobs %}
                         {% for company in companies %}

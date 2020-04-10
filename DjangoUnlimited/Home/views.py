@@ -301,6 +301,7 @@ def edit_job(request, id):
 def my_applications(request):
     user = get_user_type(request)
     jobs_applied = StudentJobApplication.objects.filter(applied_id=user['obj'])
+    print(jobs_applied)
     args = {'jobs_applied': jobs_applied, 'obj': user['obj'], 'user_type': user['user_type']}
     return render(request, 'my_applications.html', args)
 
