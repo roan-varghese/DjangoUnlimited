@@ -2,6 +2,7 @@
   font-family: Arial;
   border-collapse: collapse;
   width: 70%;
+    margin-bottom: 2%;
 }
 
 .text-center th , .text-center td{
