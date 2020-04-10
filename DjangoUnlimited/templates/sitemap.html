@@ -6,19 +6,19 @@
 {% endblock %}
 
 {% block content %}
-
     <style>
         .column {
             float: left;
             width: 20%;
+            flex: 1;
         }
 
     </style>
-    <body style="min-height: 400px; margin-bottom: 150px;">
-    <h1>Sitemap</h1>
-    <div class="row">
-        <div class="column">
 
+    <body>
+    <h1 align="center" style="margin-bottom: 0.1%;">Sitemap</h1>
+    <div style="display: flex; margin-left: 10%">
+        <div class="column">
             <h3><a href="/">Home</a></h3>
             <p><a href="news">News</a></p>
             <p><a href="../accounts/login">Log In</a></p>
@@ -29,27 +29,19 @@
             <p><a href="../anti_scam">Anti-Scam</a></p>
             <p><a href="../terms">Terms</a></p>
             <p><a href="../privacy">Privacy</a></p>
+        </div>
 
+        <div class="column">
             <h3>Sign Up</h3>
             <p><a href="../student/student_registration">Student Sign Up</a></p>
             <p><a href="../employer/employer_registration">Employer Sign Up</a></p>
 
-        </div>
-        <div class="column">
             {% if user_type == 'student' %}
                 <h3>Student</h3>
                 <p><a href="/student/view_student_profile">View Profile</a></p>
                 <p><a href="../student/edit_student_profile">Edit Profile</a></p>
                 <p><a href="my_applications">My Applications</a></p>
                 <p><a href="../view_jobs">Browse Jobs</a></p>
-
-                <h3>Bulletin</h3>
-                <p><a href="../bulletin/allPosts">Bulletin Posts</a></p>
-
-                <h3>Help Desk</h3>
-                <p><a href="../HelpDesk">Help Desk</a></p>
-                <p><a href="../HelpDesk/myrequests">My HelpDesk Requests</a></p>
-
 
             {% elif user_type == 'employer' %}
                 <h3>Employer</h3>
@@ -58,42 +50,47 @@
                 <p><a href="../view_students">Browse Students</a></p>
                 <p><a href="../create_job">Post a Job</a></p>
                 <p><a href="../view_jobs">My Jobs</a></p>
+            {% elif user_type == "admin" %}
+                <h3>Admin</h3>
+                <p><a href="../myadmin/edit_admin_profile">Edit Profile</a></p>
+                <p><a href="../myadmin/view_admin_profile">View Profile</a></p>
+                <p><a href="{% url 'admin_register' %}">Create New Admin</a></p>
+                <p><a href="../view_jobs">Browse Jobs</a></p>
+                <p><a href="../view_students">Browse Students</a></p>
+            {% endif %}
+        </div>
 
+        {% if user_type != "admin" %}
+            <div class="column">
                 <h3>Bulletin</h3>
                 <p><a href="../bulletin/allPosts">Bulletin Posts</a></p>
 
                 <h3>Help Desk</h3>
                 <p><a href="../HelpDesk">Help Desk</a></p>
                 <p><a href="../HelpDesk/myrequests">My HelpDesk Requests</a></p>
-
-            {% elif user_type == 'admin' %}
-
-                <h3>Admin</h3>
-                <p><a href="../myadmin/edit_admin_profile">Edit Profile</a></p>
-                <p><a href="../myadmin/view_admin_profile">View Profile</a></p>
-                <p><a href="{% url 'admin_register' %}">Create New Admin</a></p>
+            </div>
+        {% else %}
+            <div class="column">
+                <br><br><br>
+                <a href="{% url 'admin:index' %}">Dashboard</a>
+                <p><a href="../myadmin/statistics">Statistics</a></p>
                 <p><a href="../admin/Home/job">Post a Job</a></p>
                 <p><a href="{% url 'admin_create_job' %}">Create Job Without Existing Company Account</a></p>
                 <p><a href="../admin/Home/industry">Add Industry</a></p>
                 <p><a href="../admin/Home/skill">Add Skill</a></p>
                 <p><a href="../admin/Home/jobtype">Add Job Type</a></p>
+            </div>
 
-                <p><a href="../view_jobs">Browse Jobs</a></p>
-                <p><a href="../view_students">Browse Students</a></p>
-                <a href="{% url 'admin:index' %}">Dashboard</a>
-                <p><a href="../myadmin/statistics">Statistics</a></p>
-
+            <div class="column">
                 <h3>Bulletin</h3>
                 <p><a href="../bulletin/allPosts">Bulletin Posts</a></p>
                 <p><a href="../bulletin/post/new/">Create New Post</a></p>
 
                 <h3>Help Desk</h3>
                 <p><a href="../HelpDesk/requests">HelpDesk Requests</a></p>
-
+            </div>
             {% endif %}
-
         </div>
-    </div>
     </body>
-    <footer style="position: fixed; font-size: medium; padding-bottom: 0.5em;">
+    <footer style="position: fixed; font-size: medium;">
 {% endblock %}
