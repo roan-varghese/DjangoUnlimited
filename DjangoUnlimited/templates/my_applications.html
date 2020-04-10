@@ -26,7 +26,7 @@
             {% for job in jobs_applied %}
                 <tr class="table" align="center">
                 <td>{{ job.date_applied }}</td>
-                <td><a href="{% url 'job_details' job.id %}">{{ job.job_id }}</a></td>
+                <td><a href="{% url 'job_details' job.job_id_id %}">{{ job.job_id }}</a></td>
             {% endfor %}
             </tr>
             </tbody>
