@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-#from .api_key import SENDGRID_API_KEY
+# from .api_key import SENDGRID_API_KEY, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -58,8 +58,10 @@ INSTALLED_APPS = [
 # SENDGRID_API_KEY = SENDGRID_API_KEY
 SENDGRID_API_KEY = ''
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'Django-Unlimited'
-EMAIL_HOST_PASSWORD = 'djangounlimited123'
+# EMAIL_HOST_USER = EMAIL_HOST_USER
+# EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'roan.rv7@gmail.com'
