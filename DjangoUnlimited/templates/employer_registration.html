@@ -23,13 +23,9 @@
         }
     </script>
     <br><br>
-    <div class="overall-page">
-
-        <div class="inside-container">
-            <div class="overall-page"></div>
-
-            <h2 align="center">Create an account to post jobs</h2><br>
-            <div class="inside-container2">
+        <div class="inside-container2" style="width: 60%">
+            <h2 align="center">Create an account to post jobs</h2>
+            <hr>
                 <form action="employer_registration" method="post" onsubmit="return validatePhone(num)">
                     {% csrf_token %}
 
@@ -38,7 +34,7 @@
                         <div class="Col1">{{ field.label }}:</div>
                         <div class="Col2">{{ field }}</div>
                     {% endfor %}
-
+                     <br>
                     {% for field in employer_form %}
                         <div class="Col1">{{ field.label }}:</div>
                         <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
@@ -49,13 +45,10 @@
                         Conditions</a></label><br><br>
 
                     <div style="text-align:center;">
-                        <input type="submit"
-                               style="color: white;  background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/>
+                        <input type="submit" class="mybutton">
                     </div>
                 </form>
-            </div>
         </div>
-    </div>
     <br>
     <br><br>
 {% endblock %}

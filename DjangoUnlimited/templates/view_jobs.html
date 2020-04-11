@@ -148,10 +148,15 @@
                                             </div>
                                         </div>
                                         <div class="right">
-                                            <h3><a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a>
-                                            </h3>
+                                            <div style="display:flex;">
+                                                <div style="flex: 5">
+                                                    <h3><a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a></h3>
+                                                </div>
 
-                                            <h4> {{ obj.company_name }}</h4>
+                                                <div style="flex: 1; margin-top: 0.75em">
+                                                    <p> <b>Status:</b> {{ job.status }} </p>
+                                                </div>
+                                            </div>
                                             <hr>
                                             <div class="text">{{ job.description }}</div>
                                             <hr>

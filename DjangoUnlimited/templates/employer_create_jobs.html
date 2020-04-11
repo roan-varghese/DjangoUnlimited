@@ -10,12 +10,11 @@
 {% endblock %}
 
 {% block content %}
-    <br><br>
-    <div class="overall-page">
-        <div class="job_post">
-            <h2>Create Job Listing</h2>
-            <h3>Job details</h3>
-            <hr>
+<br><br>
+<div class="inside-container2" style="width: 60%">
+        <h2>Create Job Listing</h2>
+        <h3>Job details</h3>
+        <hr>
             <form action="create_job" method="post" enctype="multipart/form-data">
 
                 {% csrf_token %}
@@ -39,11 +38,17 @@
                     {% endfor %}
                 {% endif %}
 
-                <button class="button2" type="Submit"><b>Submit</b></button>
-                <button class="button2" type="button"><a href="/"> <b>Cancel</b></a></button>
+                <div style="display: flex">
+                    <div style="flex: 1" align="center">
+                        <button class="mybutton" type="Submit"><b>Submit</b></button>
+                    </div>
+
+                    <div style="flex: 1" align="center">
+                        <button class="mybutton" type="button"><a href="/"> <b>Cancel</b></a></button>
+                    </div>
+                </div>
             </form>
-        </div>
-        <br><br>
-    </div>
-    <br>
+            <br><br>
+            </div>
+<br>
 {% endblock %}

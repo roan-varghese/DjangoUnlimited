@@ -11,8 +11,8 @@
         <h2 align="center">Are you sure you want to delete the job {{ job.job_title }}?</h2>
 
         <div style="text-align:center">
-            <button type="submit"><b>Yes, Delete</b></button>
-            <button type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
+            <button class="mybutton" type="submit"><b>Yes, Delete</b></button>
+            <button class="mybutton" type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
         </div>
     </form>
 {% endblock %}

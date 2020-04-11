@@ -81,6 +81,11 @@ li>a{
     text-align: center;
  }
 
+.button>a{
+    text-decoration: none;
+    color:white;
+}
+
 .mybutton{
     background-color: rgb(204,0,0);
     color:white;
@@ -141,8 +146,12 @@ li>a{
 .logo>a{
     float:left;
     position: absolute;
-    padding-top: 1.25%;
-    padding-left: 5%;
+    padding-top: 0.1%;
+    margin-top: 1.25%;
+    margin-left: 5%;
+    padding-left: 0.1%;
+    padding-right: 0.1%;
+    padding-bottom: 0.1%;
 }
 
 /* Add an active class to highlight the current page */

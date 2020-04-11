@@ -60,7 +60,7 @@
             {% endif %}
         </div>
 
-        {% if user_type != "admin" %}
+        {% if user_type == "student" or user_type == "employer" %}
             <div class="column">
                 <h3>Bulletin</h3>
                 <p><a href="{% url 'all_posts' %}">Bulletin Posts</a></p>
@@ -69,7 +69,7 @@
                 <p><a href="{% url 'HelpDesk' %}">Help Desk</a></p>
                 <p><a href="{% url 'MyHelpDeskRequests' %}">My HelpDesk Requests</a></p>
             </div>
-        {% else %}
+        {% elif user_type != "admin" %}
             <div class="column">
                 <br><br><br>
                 <a href="{% url 'admin:index' %}">Dashboard</a>

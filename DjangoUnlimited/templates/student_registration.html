@@ -40,15 +40,9 @@
     <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
 
     <br>
-    <div class="overall-page">
-
-        <div class="inside-container">
-            <div class="overall-page"></div>
-
-            <h2 align="center">Create an account to browse jobs</h2><br>
-
-            <div class="inside-container2">
-
+        <div class="inside-container2" style="width: 60%">
+            <h2 align="center">Create an account to browse jobs</h2>
+                <hr>
                 <form method="post" action="student_registration" enctype="multipart/form-data">
                     {% csrf_token %}
 
@@ -58,9 +52,11 @@
                         <div class="Col2">{{ field }}</div>
                     {% endfor %}
 
-                    {% for field in student_form %}
+                        <br>
+
+                        {% for field in student_form %}
                         {% if field.label == "Select if you are a Murdoch University Alumni" %}
-                            <div class="Col1">{{ field.label }}: {{ field }}<br><br></div>
+                            <div class="Col1">{{ field.label }}: {{ field }}<br><br><br></div>
                         {% else %}
                             <div class="Col1">{{ field.label }}:</div>
                             <div class="Col2">{{ field }}<br><br>{{ field.help_text }}</div>
@@ -68,8 +64,7 @@
                     {% endfor %}
 
                     <input type="checkbox" name="terms" required>
-                    <label>*I have read and agree to the <a href="../terms" target="_blank">Terms and
-                        Conditions</a></label><br><br>
+                    <label>*I have read and agree to the <a href="../terms" target="_blank">Terms and Conditions</a></label><br><br>
 
                     <div style="text-align:center;">
                         <input type="submit"
@@ -82,9 +77,6 @@
                     {% endfor %}
                 </div>
             </div>
-        </div>
-        <br>
-    </div>
     </body>
     <br><br>
 {% endblock %}

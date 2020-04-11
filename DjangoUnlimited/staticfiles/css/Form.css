@@ -88,7 +88,6 @@
 
 .button2>a{
     color:white;
-    text-decoration: none;
 }
 
 .col1{
@@ -114,6 +113,7 @@ input[type=text], textarea{
   border: 0.1em solid #ccc;
   border-radius: 0.45em;
   resize: vertical;
+    height: em;
 }
 
 input[type=text], number{

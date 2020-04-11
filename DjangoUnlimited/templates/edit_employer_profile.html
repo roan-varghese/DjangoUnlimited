@@ -47,17 +47,21 @@
                             <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
                         {% endfor %}
 
-                        <div class="middle">
-                            <button class="button2" type="submit"><b>Save Changes</b></button>
-                            <button class="button2" type="button"><a style="text-decoration: none"
-                                                                     href="view_employer_profile"> <b>Cancel</b></a>
-                            </button>
+                    <div class="middle" style="display: flex">
+                        <div style="flex: 1" align="center">
+                            <button class="mybutton" type="submit"><b>Save Changes</b></button>
                         </div>
-                    </form>
-                </div>
-                <br><br>
+
+                        <div style="flex: 1" align="center">
+                            <button class="mybutton" type="button"><a style="text-decoration: none" href="view_employer_profile"> <b>Cancel</b></a>
+                        </div>
+                        </button>
+                    </div>
+                </form>
             </div>
+            <br><br>
         </div>
     </div>
-    <br><br><br>
+</div>
+<br><br><br>
 {% endblock %}
