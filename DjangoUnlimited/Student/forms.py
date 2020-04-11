@@ -39,8 +39,8 @@ class InitialStudentForm(forms.ModelForm):
         return user
 
     def usernameExists(self):
-        studentID = self.cleaned_data.get("email")
-        if User.objects.filter(username=studentID).exists():
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(username=email).exists():
             return True
         return False
 
