@@ -7,10 +7,13 @@
     <title>Edit Profile</title>
 </head>
 <body>
+{% block messages %}{% endblock messages %}
 {% block content %}
 
-    <form method="post" enctype="multipart/form-data" action="{% url 'edit_admin_profile' %}">
-        {% csrf_token %}
+<h1>Edit your admin profile</h1>
+
+<form method="post" enctype="multipart/form-data" action="{% url 'edit_admin_profile' %}">
+    {% csrf_token %}
 
         {{ user_form.as_p }}
         {{ admin_form.as_p }}

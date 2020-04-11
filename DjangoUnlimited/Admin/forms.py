@@ -4,6 +4,7 @@ from django.forms import models, HiddenInput
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from upload_validator import FileTypeValidator
 
 from .models import Admin
 # from ..DjangoUnlimited import settings
@@ -76,6 +77,11 @@ class AdminForm(forms.ModelForm):
         ('Female', 'Female')
     ]
     gender = forms.ChoiceField(choices=gender_choices, widget=forms.Select(attrs={'class': 'custom-select'}))
+
+    dp = forms.ImageField(label='Select a profile picture (only jpeg and png file formats allowed)', required=False,
+    validators=[FileTypeValidator(                                                                                                                                
+        allowed_types=['image/jpeg','image/png']
+    )])
 
     class Meta:
         model = Admin

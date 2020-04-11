@@ -67,7 +67,7 @@ def create_admin(request):
                         return redirect("admin_register")
                 else:
                     messages.info(request,
-                                  'ERROR: Password must be 8 characters or more, and must have at least 1 uppercase, lowercase, numeric and special character.')
+                                  'ERROR: Password must be 8 characters or more, and must have atleast 1 numeric character and 1 letter.')
                     return redirect("admin_register")
         else:
             messages.info(request, user_form.errors)

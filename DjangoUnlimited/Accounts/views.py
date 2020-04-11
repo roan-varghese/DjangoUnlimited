@@ -15,6 +15,9 @@ def isValidated(passwd):
 
     if not any(char.isdigit() for char in passwd): 
         status = False
+
+    if not any(char.isalpha() for char in passwd): 
+        status = False
         
     return status
 
