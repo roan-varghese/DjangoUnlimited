@@ -58,7 +58,6 @@ def sitemap(request):
 def view_jobs(request):
     user = get_user_type(request)
     if request.method == 'POST':
-        print(request.POST.get)
         min_duration = request.POST.get("min_duration")
         max_duration = request.POST.get("max_duration")
         location = request.POST.get("location")
@@ -105,8 +104,9 @@ def view_jobs(request):
         jobs_all = Job.objects.filter(status="Open").order_by('-date_posted')
         jobs = jobs_all & filtered_jobs
         form = FilterJobForm()
+        companies = Employer.objects.all()
 
-        args = {'jobs': jobs, 'obj': user['obj'], 'user_type': user['user_type'], 'form': form}
+        args = {'companies': companies, 'jobs': jobs, 'obj': user['obj'], 'user_type': user['user_type'], 'form': form}
         return render(request, "view_jobs.html", args)
     elif user['user_type'] == 'employer':
         jobs = Job.objects.filter(posted_by=request.user.id).order_by('-date_posted').exclude(status="Deleted")

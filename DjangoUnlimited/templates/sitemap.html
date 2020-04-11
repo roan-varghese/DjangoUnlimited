@@ -52,15 +52,15 @@
                 <p><a href="{% url 'view_jobs' %}">My Jobs</a></p>
             {% elif user_type == "admin" %}
                 <h3>Admin</h3>
-                <p><a href="../myadmin/edit_admin_profile">Edit Profile</a></p>
-                <p><a href="../myadmin/view_admin_profile">View Profile</a></p>
+                <p><a href="{% url 'edit_admin_profile' %}">Edit Profile</a></p>
+                <p><a href="{% url 'view_admin_profile' %}">View Profile</a></p>
                 <p><a href="{% url 'admin_register' %}">Create New Admin</a></p>
                 <p><a href="{% url 'view_jobs' %}">Browse Jobs</a></p>
                 <p><a href="{% url 'view_students' %}">Browse Students</a></p>
             {% endif %}
         </div>
 
-        {% if user_type != "admin" %}
+        {% if user_type == "student" or user_type == "employer" %}
             <div class="column">
                 <h3>Bulletin</h3>
                 <p><a href="{% url 'all_posts' %}">Bulletin Posts</a></p>
@@ -69,12 +69,12 @@
                 <p><a href="{% url 'HelpDesk' %}">Help Desk</a></p>
                 <p><a href="{% url 'MyHelpDeskRequests' %}">My HelpDesk Requests</a></p>
             </div>
-        {% else %}
+        {% elif user_type != "admin" %}
             <div class="column">
                 <br><br><br>
                 <a href="{% url 'admin:index' %}">Dashboard</a>
                 <p><a href="{% url 'statistics' %}">Statistics</a></p>
-                <p><a href="../admin/Home/job">Post a Job</a></p>
+                <p><a href="../admin/Home/job/add">Post a Job</a></p>
                 <p><a href="{% url 'admin_create_job' %}">Create Job Without Existing Company Account</a></p>
                 <p><a href="../admin/Home/industry">Add Industry</a></p>
                 <p><a href="../admin/Home/skill">Add Skill</a></p>
@@ -89,8 +89,8 @@
                 <h3>Help Desk</h3>
                 <p><a href="{% url 'HelpDeskRequests' %}">HelpDesk Requests</a></p>
             </div>
-            {% endif %}
-        </div>
+        {% endif %}
+    </div>
     </body>
     <footer style="position: fixed; font-size: medium;">
 {% endblock %}

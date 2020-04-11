@@ -38,13 +38,11 @@
 
                 Skills:
                 {% for skill in student.skills.all %}
-                <li>{{ skill }}</li>
+                    <li>{{ skill }}</li>
                 {% endfor %}
 
                 <div style="text-align:center">
-                    <button type="button"
-                            style="background-color: rgb(204,0,0);color: white; width: 140px; height:30px; margin: 0 auto;">
-                        <a style="text-decoration: none" href="{% url 'get_cv_file' student.user_id %}">Download CV</a></button>
+                    <button type="button" class="mybutton"><a href="{% url 'get_cv_file' student.user_id %}">Download CV</a></button>
                 </div>
                 <br><br>
             </div>

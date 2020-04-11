@@ -15,21 +15,21 @@
 <form method="post" enctype="multipart/form-data" action="{% url 'edit_admin_profile' %}">
     {% csrf_token %}
 
-    {{ user_form.as_p }}
-    {{ admin_form.as_p }}
+        {{ user_form.as_p }}
+        {{ admin_form.as_p }}
 
-    <input type="hidden" name="next" value="{% url 'view_admin_profile' %}">
+        <input type="hidden" name="next" value="{% url 'view_admin_profile' %}">
 
-    <button type="submit">Save Changes</button>
-    <button type="button"><a href="{% url 'view_admin_profile' %}">Cancel</a></button>
-</form>
+        <button type="submit">Save Changes</button>
+        <button type="button"><a href="{% url 'view_admin_profile' %}">Cancel</a></button>
+    </form>
 
-<!-- this displays any errors during submission -->
-<div>
-    {% for message in messages %}
-        <h3> {{ message }} </h3>
-    {% endfor %}
-</div>
+    <!-- this displays any errors during submission -->
+    <div>
+        {% for message in messages %}
+            <h3> {{ message }} </h3>
+        {% endfor %}
+    </div>
 
 {% endblock %}
 </body>

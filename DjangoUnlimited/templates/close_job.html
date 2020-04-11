@@ -6,19 +6,18 @@
 {% endblock %}
 
 {% block content %}
-<script>
-    function validate(form) {
-        var rb = document.querySelector('input[name="isMurdochStd"]:checked').value
-        if (rb == 'no') {
-            alert("Jobs can only be closed if filled by murdoch students. Please delete the job instead.")
-            return false
-        }
-        else {
+    <script>
+        function validate(form) {
+            var rb = document.querySelector('input[name="isMurdochStd"]:checked').value
+            if (rb == 'no') {
+                alert("Jobs can only be closed if filled by murdoch students. Please delete the job instead.")
+                return false
+            } else {
+                return true
+            }
             return true
         }
-        return true
-    }
-</script>
+    </script>
 
 <div>
     <form method='POST' onsubmit="return validate(this)">
@@ -29,8 +28,8 @@
             <input type='radio' name='isMurdochStd' value='yes' id='yes' onclick="validate(this)"> Yes
             <input type='radio' name='isMurdochStd' value='no' id='no' onclick="validate(this)"> No<br>
             <br><br>
-            <button class="btn btn-outline-danger" type="submit" onsubmit="return validate(this)"><b>Close</b></button>
-            <button type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
+            <button class="mybutton" type="submit" onsubmit="return validate(this)"><b>Close</b></button>
+            <button class="mybutton" type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
         </div>
     </form>
 </div>

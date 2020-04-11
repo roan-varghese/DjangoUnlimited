@@ -11,15 +11,22 @@
 {% endblock %}
 
 {% block content %}
+    <script>
+        function validatePhone(field) {
+            if (!(/^\+?[0-9 -]+$/.test(field.value))) {
+                alert("Invalid phone number.")
+                field.focus()
+                field.select()
+                return false
+            }
+            return true
+        }
+    </script>
     <br><br>
-    <div class="overall-page">
-
-        <div class="inside-container">
-            <div class="overall-page"></div>
-
-            <h2 align="center">Create an account to post jobs</h2><br>
-            <div class="inside-container2">
-                <form action="employer_registration" method="post">
+        <div class="inside-container2" style="width: 60%">
+            <h2 align="center">Create an account to post jobs</h2>
+            <hr>
+                <form action="employer_registration" method="post" onsubmit="return validatePhone(num)">
                     {% csrf_token %}
 
                     {% for field in user_form %}
@@ -27,23 +34,21 @@
                         <div class="Col1">{{ field.label }}:</div>
                         <div class="Col2">{{ field }}</div>
                     {% endfor %}
-
+                     <br>
                     {% for field in employer_form %}
                         <div class="Col1">{{ field.label }}:</div>
                         <div class="Col2">{{ field }}<br>{{ field.help_text }}<br><br></div>
                     {% endfor %}
 
                     <input type="checkbox" name="terms" required>
-                    <label>*I have read and agree to the <a href="../terms" target="_blank">Terms and Conditions</a></label><br><br>
+                    <label>*I have read and agree to the <a href="../terms" target="_blank">Terms and
+                        Conditions</a></label><br><br>
 
                     <div style="text-align:center;">
-                        <input type="submit"
-                               style="color: white;  background-color:rgb(204,0,0); width: 140px; height:30px; margin: 0 auto;"/>
+                        <input type="submit" class="mybutton">
                     </div>
                 </form>
-            </div>
         </div>
-    </div>
     <br>
     <br><br>
 {% endblock %}
