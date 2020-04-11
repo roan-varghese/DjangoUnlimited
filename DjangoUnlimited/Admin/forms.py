@@ -2,6 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import models, HiddenInput
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 
 from .models import Admin
 # from ..DjangoUnlimited import settings
@@ -10,11 +12,11 @@ import dns.resolver, dns.exception
 
 class InitialAdminForm(forms.ModelForm):
     
-    first_name = forms.CharField(label='First Name')
-    last_name = forms.CharField(label='Last Name')
-    email = forms.EmailField(required=True)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+    first_name = forms.CharField(label='*First Name')
+    last_name = forms.CharField(label='*Last Name')
+    email = forms.EmailField(label='*Email Address', required=True)
+    password1 = forms.CharField(label='*Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='*Confirm Password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -33,6 +35,8 @@ class InitialAdminForm(forms.ModelForm):
         user.is_staff = True
         if commit:
             user.save()
+        permissions = list(Permission.objects.filter(content_type_id__in=(14,15,16,17))) #14 industry, #15 jobtype, #16 skill, #17 job
+        user.user_permissions.add(*permissions)
         return user
 
     def usernameExists(self):

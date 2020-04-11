@@ -8,7 +8,7 @@ from Admin.models import Admin
 from django.db.models import ManyToManyField
 
 class Industry(models.Model):
-    industry_name = models.CharField(max_length=50)
+    industry_name = models.CharField(max_length=50, unique=True)
 
     def clean(self):
         self.industry_name = self.industry_name.capitalize()
@@ -30,7 +30,7 @@ class Skill(models.Model):
 
 
 class JobType(models.Model):
-    type_name = models.CharField(max_length=50)
+    type_name = models.CharField(max_length=50, unique=True)
 
     def clean(self):
         self.type_name = self.type_name.capitalize()
