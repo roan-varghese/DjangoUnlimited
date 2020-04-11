@@ -11,7 +11,7 @@ class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='employer_user')
     company_name = models.CharField(max_length=50)
     company_description = models.TextField()
-    phone_number = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=15)
     logo = models.ImageField(upload_to='company_logos', null=True, blank=True)
 
     def __str__(self):
