@@ -9,9 +9,11 @@
 </head>
 
 <body>
+
+{% block messages %}{% endblock messages %}
 {% block content %}
 
-<h2>Admin account creation</h2>
+<h1>Admin account creation</h1>
 <form action="{% url 'admin_register' %}" method="post">
     {% csrf_token %}
 
