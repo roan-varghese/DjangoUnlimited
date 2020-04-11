@@ -14,6 +14,7 @@ from Accounts.views import isValidated, get_user_type, number_symbol_exists
 from .models import Student
 from .forms import *
 from Home.models import UserNotifications
+from re import search
 
 
 def student_signup(request):
@@ -47,6 +48,15 @@ def student_signup(request):
                 if isValidated(user_form.cleaned_data.get('password1')): #checks if password is valid
                     student_form = StudentForm(request.POST, request.FILES)
                     if student_form.is_valid():
+                        email = user_form.cleaned_data["email"]
+
+                        if not search("@student.murdoch.edu.au", email):
+                            if not student_form.cleaned_data["alumni_status"]:
+                                messages.info(request, 'The email you have entered is not a murdoch student email.')
+                                return redirect("student_registration")
+                            else:
+                                pass
+
                         with transaction.atomic():
                             user = user_form.save()
                             student = student_form.save(commit=False)
