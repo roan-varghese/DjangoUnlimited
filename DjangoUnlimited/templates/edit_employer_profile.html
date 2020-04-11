@@ -12,11 +12,13 @@
 
 {% block content %}
     <script>
-        function validatePhone(field) {
+        function validatePhone() {
+            const field = document.getElementById("num");
             if (!(/^\+?[0-9 -]+$/.test(field.value))) {
-                alert("Invalid phone number.")
-                field.focus()
-                field.select()
+
+                alert("Invalid phone number.");
+                field.focus();
+                field.select();
                 return false
             }
             return true
@@ -39,7 +41,7 @@
                 </div>
                 <div class="inside-container2">
                     <br/><br/>
-                    <form method="post" enctype="multipart/form-data" action="edit_employer_profile" onsubmit="return validatePhone(this.num)">
+                    <form method="post" enctype="multipart/form-data" action="edit_employer_profile" onsubmit="return validatePhone()">
                         {% csrf_token %}
                         {% for field in employer_form %}
                             <div class="Col1">{{ field.label }}</div>
