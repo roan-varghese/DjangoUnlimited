@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+
     <style>
         .overall-page1 {
             display: flex;
@@ -29,14 +30,13 @@
         }
 
         .inside-container {
-            margin: auto;
             height: auto;
             padding-top: 0px;
             padding-bottom: 3em;
             align: left;
             border: 0.05em;
-            margin-bottom: 0em;
-            margin-left: 20em;
+            margin: auto auto 0em 20em;
+            width: 70%;
         }
 
         .top {
@@ -56,7 +56,7 @@
 
         .right {
             width: 90%;
-            margin-left: 10%;
+            margin-left: 12.5%;
             margin-right: 2%;
         }
 
@@ -94,45 +94,54 @@
 
     </style>
 
-    <div style="display: flex">
-        <div class="sidebar" style="width: 17.5%; margin-top: 4.4em; position: fixed;">
-            <h2 style="margin-bottom: 0.3em">Filter Job Listing</h2>
-            <div align="right" style="margin-right: 7%">
-                <a href="../../view_jobs"><b>View All Jobs</b></a>
-            </div>
-            <hr>
-            <form method="POST">
-                {% csrf_token %}
-                <b>Duration (in months):</b><br>
-                Min: {{ form.min_duration }}<br>
-                Max:{{ form.max_duration }}<br><br>
-                <b>{{ form.location.label }}:</b> {{ form.location }}<br><br>
-                <b>{{ form.job_type_id.label }}:</b> {{ form.job_type_id }}<br><br>
-                <b>Salary (AED/month):</b><br>
-                From: {{ form.min_salary }}<br>
-                To: {{ form.max_salary }}<br><br>
-                <button class="button" type="Submit"><b>Submit</b></button>
-            </form>
-        </div>
-
-        <div style="flex: 5; margin-left: 2em; margin-right: 2em">
-            <div style="display: flex">
-                <div align="left" style="margin-left: 20em;">
-                    <h2>Browse Jobs</h2>
+    {% if jobs %}
+        <div style="display: flex">
+            {% if user_type != "employer" %}
+                <div class="sidebar" style="width: 17.5%; margin-top: 1em; position: fixed;">
+                    <h2 style="margin-bottom: 0.3em">Filter Job Listing</h2>
+                    <div align="right" style="margin-right: 7%">
+                        <a href="{% url 'view_jobs' %}"><b>View All Jobs</b></a>
+                    </div>
+                    <hr>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <b>Duration (in months):</b><br>
+                        Min: {{ form.min_duration }}<br>
+                        Max:{{ form.max_duration }}<br><br>
+                        <b>{{ form.location.label }}:</b> {{ form.location }}<br><br>
+                        <b>{{ form.job_type_id.label }}:</b> {{ form.job_type_id }}<br><br>
+                        <b>Salary (AED/month):</b><br>
+                        From: {{ form.min_salary }}<br>
+                        To: {{ form.max_salary }}<br><br>
+                        <button class="button" type="Submit"><b>Submit</b></button>
+                    </form>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="overall-page1">
-                <div class="inside-container">
-                    {% for job in jobs %}
-                        {% for company in companies %}
-                            {% if job.posted_by == company.user %}
+            <div style="flex: 5; margin-left: 2em; margin-right: 2em">
+                <div style="display: flex">
+                    {% if user_type == "employer" %}
+                        <div align="left" style="margin-left: 10em;">
+                            <h2>My Jobs</h2>
+                        </div>
+                    {% else %}
+                        <div align="left" style="margin-left: 20em;">
+                            <h2>Browse Jobs</h2>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+                {% for job in jobs %}
+                    {% if user_type == "employer" %}
+                        <div class="overall-page1">
+                            <div class="inside-container" style="margin-left: 10em;">
                                 <div class="top">
                                     <div class="overall-page2">
                                         <div class="left">
                                             <div class="icon">
-                                                {% if company.logo %}
-                                                    <img src="{{ company.logo.url }}" height="150.0em"
+                                                {% if obj.logo %}
+                                                    <img src="{{ obj.logo.url }}" height="150.0em"
                                                          width="150.0em">
                                                 {% else %}
                                                     <img src="{% static 'DefaultDP.jpg' %}" height="150.0em"
@@ -144,7 +153,7 @@
                                             <h3><a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a>
                                             </h3>
 
-                                            <h4> {{ company.company_name }}</h4>
+                                            <h4> {{ obj.company_name }}</h4>
                                             <hr>
                                             <div class="text">{{ job.description }}</div>
                                             <hr>
@@ -164,12 +173,64 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% for company in companies %}
+                            {% if job.posted_by == company.user %}
+                                <div class="overall-page1">
+                                    <div class="inside-container">
+                                        <div class="top">
+                                            <div class="overall-page2">
+                                                <div class="left">
+                                                    <div class="icon">
+                                                        {% if company.logo %}
+                                                            <img src="{{ company.logo.url }}" height="150.0em"
+                                                                 width="150.0em">
+                                                        {% else %}
+                                                            <img src="{% static 'DefaultDP.jpg' %}" height="150.0em"
+                                                                 width="150.0em">
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="right">
+                                                    <h3><a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a>
+                                                    </h3>
+
+                                                    <h4> {{ company.company_name }}</h4>
+                                                    <hr>
+                                                    <div class="text">{{ job.description }}</div>
+                                                    <hr>
+
+                                                    <div class="bottom">
+                                                        <div class="row">
+                                                            <div class="column"><b>Salary:</b>
+                                                                <p> AED {{ job.salary }} </p></div>
+                                                            <div class="column"><b>Duration:</b>
+                                                                <p> {{ job.duration }} months</p></div>
+                                                            <div class="column"><b>Industry:</b>
+                                                                <p> {{ job.industry_id }} </p></div>
+                                                            <div class="column"><b>Job Type:</b>
+                                                                <p> {{ job.job_type_id }} </p></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
                         {% endfor %}
-                        <br>
-                    {% endfor %}
-                </div>
+                    {% endif %}
+                    <br>
+                {% endfor %}
             </div>
         </div>
-    </div>
+    {% else %}
+        <body style="min-height: 400px; margin-bottom: 150px;">
+            <h1 align="center">No jobs to display</h1>
+        </body>
+
+        <footer style="position: fixed; font-size: medium">
+    {% endif %}
 {% endblock %}

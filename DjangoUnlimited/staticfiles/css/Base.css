@@ -125,11 +125,11 @@ li>a{
   color: white;
 }
 
-.logo{
+.logo>a{
     float:left;
     position: absolute;
-    top: 1em;
-    left: 3.5em;
+    padding-top: 1.25%;
+    padding-left: 5%;
 }
 
 /* Add an active class to highlight the current page */
@@ -176,7 +176,7 @@ li>a{
 }
 
 /* Add a dark background on topnav links and the dropdown button on hover */
-.topnav a:hover, .dropdown:hover .dropbtn {
+.loginButton a:hover, .dropdown:hover .dropbtn {
     background-color: rgb(204,0,0);;
     color: white;
 }
