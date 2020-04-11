@@ -6,13 +6,18 @@
 {% endblock %}
 
 {% block content %}
-    <form method='POST'>
-        {% csrf_token %}
-        <h2 align="center">Are you sure you want to delete the job {{ job.job_title }}?</h2>
+    <body style="min-height: 400px; margin-bottom: 150px;">
+        <form method='POST'>
+            {% csrf_token %}
+            <h2 align="center">Are you sure you want to delete the job {{ job.job_title }}?</h2>
 
-        <div style="text-align:center">
-            <button class="mybutton" type="submit"><b>Yes, Delete</b></button>
-            <button class="mybutton" type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
-        </div>
-    </form>
+            <br><br>
+            <div style="text-align:center">
+                <button class="mybutton" type="submit"><b>Yes, Delete</b></button>
+                <button class="mybutton" type="button"><a href="{% url 'job_details' job.id %}"><b>Cancel</b></a></button>
+            </div>
+        </form>
+    </body>
+
+    <footer style="position: fixed; font-size: medium">
 {% endblock %}
