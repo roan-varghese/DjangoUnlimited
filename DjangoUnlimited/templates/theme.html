@@ -57,7 +57,7 @@
                             <button class="dropbtn">{{ user.first_name }} {{ user.last_name }}</button>
                         {% endif %}
                         <div class="dropdown-content">
-                            <a href="{% url 'admin:index' %}">View Profile</a>
+                            <a href="{% url 'view_admin_profile' %}">View Profile</a>
                             <a href="{% url 'HelpDeskRequests' %}">Help Desk Requests</a>
                             <a href="{% url 'admin:index' %}">Dashboard</a>
                             <a href="{% url 'logout' %}">Log Out</a>
@@ -95,7 +95,7 @@
             <a href="{% url 'view_jobs' %}"><b>Browse Jobs</b></a>
             <a href="{% url 'view_students' %}"><b>Browse Students</b></a>
             <a href="{% url 'statistics' %}"> <b>Statistics</b></a>
-            <a href="{% url 'post_new' %}"><b>Create Bulletin Post</b></a>
+            <a href="{% url 'all_posts' %}"><b>Bulletin</b></a>
         {% endif %}
         <a href="{% url 'news' %}"> <b>News</b></a>
         {% if user_type != 'admin' %}

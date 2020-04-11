@@ -52,8 +52,8 @@
                 <p><a href="{% url 'view_jobs' %}">My Jobs</a></p>
             {% elif user_type == "admin" %}
                 <h3>Admin</h3>
-                <p><a href="../myadmin/edit_admin_profile">Edit Profile</a></p>
-                <p><a href="../myadmin/view_admin_profile">View Profile</a></p>
+                <p><a href="{% url 'edit_admin_profile' %}">Edit Profile</a></p>
+                <p><a href="{% url 'view_admin_profile' %}">View Profile</a></p>
                 <p><a href="{% url 'admin_register' %}">Create New Admin</a></p>
                 <p><a href="{% url 'view_jobs' %}">Browse Jobs</a></p>
                 <p><a href="{% url 'view_students' %}">Browse Students</a></p>
@@ -74,7 +74,7 @@
                 <br><br><br>
                 <a href="{% url 'admin:index' %}">Dashboard</a>
                 <p><a href="{% url 'statistics' %}">Statistics</a></p>
-                <p><a href="../admin/Home/job">Post a Job</a></p>
+                <p><a href="../admin/Home/job/add">Post a Job</a></p>
                 <p><a href="{% url 'admin_create_job' %}">Create Job Without Existing Company Account</a></p>
                 <p><a href="../admin/Home/industry">Add Industry</a></p>
                 <p><a href="../admin/Home/skill">Add Skill</a></p>

@@ -72,7 +72,7 @@ li>a{
 
 .button{
     background-color:rgb(204,0,0);
-    height: 2em;
+    height: 2.5em;
     width:10em;
     align:center;
     border-radius: 0.45em;
@@ -80,6 +80,19 @@ li>a{
     color:white;
     text-align: center;
  }
+
+.mybutton{
+    background-color: rgb(204,0,0);
+    color:white;
+    width: 140px;
+    height:30px;
+    margin: 0 auto;
+}
+
+.mybutton>a{
+    text-decoration: none;
+    color:white;
+}
 
 .main{
     background-color: rgb(29,26,26);

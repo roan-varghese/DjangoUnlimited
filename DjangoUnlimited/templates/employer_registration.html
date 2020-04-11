@@ -11,6 +11,19 @@
 {% endblock %}
 
 {% block content %}
+    <script>
+        function validatePhone(field)
+		{
+			if(!(/^\+?[0-9 -]+$/.test(field.value)))
+			{
+				alert("Invalid phone number.")
+				field.focus()
+				field.select()
+				return false
+			}
+			return true
+		}
+    </script>
     <br><br>
     <div class="overall-page">
 
@@ -19,7 +32,7 @@
 
             <h2 align="center">Create an account to post jobs</h2><br>
             <div class="inside-container2">
-                <form action="employer_registration" method="post">
+                <form action="employer_registration" method="post" onsubmit="return validatePhone(num)">
                     {% csrf_token %}
 
                     {% for field in user_form %}

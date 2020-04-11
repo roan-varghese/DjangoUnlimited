@@ -69,8 +69,8 @@ class EmployerForm(forms.ModelForm):
     company_name = forms.CharField(max_length=50, label='*Company Name', required=True, widget=forms.TextInput(
                                                                 attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
     company_description = forms.CharField(label='Company Description', required=False, widget=forms.Textarea)
-    phone_number = forms.CharField(required=False, max_length=15, widget=forms.TextInput(
-                                                                                attrs={'class': 'form-control-text', 'style': 'resize:none;'}))
+    phone_number = forms.CharField(label="Contact Number", required=False, max_length=15, widget=forms.TextInput(
+                                                                                attrs={'class': 'form-control-text', 'style': 'resize:none;', 'id':"num"}))
 
     class Meta:
         model = Employer

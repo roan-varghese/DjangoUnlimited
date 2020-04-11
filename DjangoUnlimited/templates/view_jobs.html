@@ -35,8 +35,8 @@
             padding-bottom: 3em;
             align: left;
             border: 0.05em;
-            margin: auto auto 0em 20em;
-            width: 70%;
+            margin: auto auto 0em 5%;
+            width: 100%;
         }
 
         .top {
@@ -71,7 +71,7 @@
         .column {
             text-align: center;
             float: left;
-            width: 25%;
+            width: 20%;
         }
 
         /* Clear floats after the columns */
@@ -97,7 +97,7 @@
     {% if jobs %}
         <div style="display: flex">
             {% if user_type != "employer" %}
-                <div class="sidebar" style="width: 17.5%; margin-top: 1em; position: fixed;">
+                <div class="sidebar" style="flex: 1.3; margin-top: 1%; height: 33em">
                     <h2 style="margin-bottom: 0.3em">Filter Job Listing</h2>
                     <div align="right" style="margin-right: 7%">
                         <a href="{% url 'view_jobs' %}"><b>View All Jobs</b></a>
@@ -107,7 +107,8 @@
                         {% csrf_token %}
                         <b>Duration (in months):</b><br>
                         Min: {{ form.min_duration }}<br>
-                        Max:{{ form.max_duration }}<br><br>
+                        Max: {{ form.max_duration }}<br><br>
+                        <b>{{ form.industry_id.label }}:</b> {{ form.industry_id }}<br><br>
                         <b>{{ form.location.label }}:</b> {{ form.location }}<br><br>
                         <b>{{ form.job_type_id.label }}:</b> {{ form.job_type_id }}<br><br>
                         <b>Salary (AED/month):</b><br>
@@ -118,24 +119,21 @@
                 </div>
             {% endif %}
 
-            <div style="flex: 5; margin-left: 2em; margin-right: 2em">
+            <div style="flex: 5; margin-left: 2em; margin-right: 5%">
                 <div style="display: flex">
-                    {% if user_type == "employer" %}
-                        <div align="left" style="margin-left: 10em;">
+                    <div align="left" style="margin-left: 5%;">
+                        {% if user_type == "employer" %}
                             <h2>My Jobs</h2>
-                        </div>
-                    {% else %}
-                        <div align="left" style="margin-left: 20em;">
+                        {% else %}
                             <h2>Browse Jobs</h2>
-                        </div>
-                    {% endif %}
-
+                        {% endif %}
+                    </div>
                 </div>
 
                 {% for job in jobs %}
                     {% if user_type == "employer" %}
                         <div class="overall-page1">
-                            <div class="inside-container" style="margin-left: 10em;">
+                            <div class="inside-container">
                                 <div class="top">
                                     <div class="overall-page2">
                                         <div class="left">
@@ -168,6 +166,8 @@
                                                         <p> {{ job.industry_id }} </p></div>
                                                     <div class="column"><b>Job Type:</b>
                                                         <p> {{ job.job_type_id }} </p></div>
+                                                    <div class="column"><b>Location:</b>
+                                                        <p> {{ job.location }} </p></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,8 +194,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="right">
-                                                    <h3><a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a>
-                                                    </h3>
+                                                    <div style="display:flex;">
+                                                        <div style="flex: 5">
+                                                            <h3><a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a></h3>
+                                                        </div>
+
+                                                        {% if user_type == "admin" %}
+                                                            <div style="flex: 1; margin-top: 0.75em">
+                                                                <p> <b>Status:</b> {{ job.status }} </p>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+
 
                                                     <h4> {{ company.company_name }}</h4>
                                                     <hr>
@@ -212,6 +222,8 @@
                                                                 <p> {{ job.industry_id }} </p></div>
                                                             <div class="column"><b>Job Type:</b>
                                                                 <p> {{ job.job_type_id }} </p></div>
+                                                            <div class="column"><b>Location:</b>
+                                                                <p> {{ job.location }} </p></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -222,7 +234,6 @@
                             {% endif %}
                         {% endfor %}
                     {% endif %}
-                    <br>
                 {% endfor %}
             </div>
         </div>

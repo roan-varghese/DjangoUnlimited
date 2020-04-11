@@ -39,6 +39,18 @@
         }
     </style>
 
+    <div style="display: flex; width: 70%; margin-left: 15%">
+        <div align="left" style="flex: 1">
+            <h1>Bulletin</h1>
+        </div>
+
+        {% if user_type == "admin" %}
+            <div align="right" style="flex: 1; margin-top: 2.5%">
+                <button class="mybutton" style="margin-left: 44.75%;"><a href="{% url 'post_new' %}"><b>Create Post</b></a></button>
+            </div>
+        {% endif %}
+    </div>
+
     <div class="page">
         <br/><br/>
         {% for post in posts %}
@@ -55,7 +67,7 @@
                 </div>
                 <br/>
             </div>
-
         {% endfor %}
     </div>
+    <br><br>
 {% endblock %}
