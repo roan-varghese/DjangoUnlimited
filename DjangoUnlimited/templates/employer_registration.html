@@ -12,17 +12,15 @@
 
 {% block content %}
     <script>
-        function validatePhone(field)
-		{
-			if(!(/^\+?[0-9 -]+$/.test(field.value)))
-			{
-				alert("Invalid phone number.")
-				field.focus()
-				field.select()
-				return false
-			}
-			return true
-		}
+        function validatePhone(field) {
+            if (!(/^\+?[0-9 -]+$/.test(field.value))) {
+                alert("Invalid phone number.")
+                field.focus()
+                field.select()
+                return false
+            }
+            return true
+        }
     </script>
     <br><br>
     <div class="overall-page">
@@ -47,7 +45,8 @@
                     {% endfor %}
 
                     <input type="checkbox" name="terms" required>
-                    <label>*I have read and agree to the <a href="../terms" target="_blank">Terms and Conditions</a></label><br><br>
+                    <label>*I have read and agree to the <a href="../terms" target="_blank">Terms and
+                        Conditions</a></label><br><br>
 
                     <div style="text-align:center;">
                         <input type="submit"

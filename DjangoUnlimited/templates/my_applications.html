@@ -15,19 +15,19 @@
     {% if jobs_applied %}
         <table class="table" align="center" style="margin-top: 2%; margin-bottom: 2%">
             <thead>
-                <tr class="text-center">
-                    <th>Job Title</th>
-                    <th>Date Applied</th>
-                </tr>
+            <tr class="text-center">
+                <th>Job Title</th>
+                <th>Date Applied</th>
+            </tr>
             </thead>
 
             <tbody>
-                {% for job in jobs_applied %}
-                    <tr class="text-center" align="center">
-                        <td><a href="{% url 'job_details' job.job_id_id %}">{{ job.job_id }}</a></td>
-                        <td>{{ job.date_applied }}</td>
-                    </tr>
-                {% endfor %}
+            {% for job in jobs_applied %}
+                <tr class="text-center" align="center">
+                    <td><a href="{% url 'job_details' job.job_id_id %}">{{ job.job_id }}</a></td>
+                    <td>{{ job.date_applied }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     {% else %}

@@ -8,9 +8,9 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     <script>
-    $(document).ready(function() {
-        $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd'});
-    });
+        $(document).ready(function () {
+            $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+        });
     </script>
 {% endblock %}
 
@@ -19,22 +19,22 @@
 {% endblock %}
 
 {% block content %}
-<script language="JavaScript">
-    function disable_fields(status) {
-        if (status) {
-            document.getElementById('id_expected_graduation_date').disabled = true
-            document.getElementById('id_personal_email').disabled = true
-            document.getElementById('id_personal_email').required = false
-            document.getElementById('id_expected_graduation_date').required = false
-        } else {
-            document.getElementById('id_expected_graduation_date').disabled = false
-            document.getElementById('id_personal_email').disabled = false
-            document.getElementById('id_personal_email').required = true
-            document.getElementById('id_expected_graduation_date').required = true
+    <script language="JavaScript">
+        function disable_fields(status) {
+            if (status) {
+                document.getElementById('id_expected_graduation_date').disabled = true
+                document.getElementById('id_personal_email').disabled = true
+                document.getElementById('id_personal_email').required = false
+                document.getElementById('id_expected_graduation_date').required = false
+            } else {
+                document.getElementById('id_expected_graduation_date').disabled = false
+                document.getElementById('id_personal_email').disabled = false
+                document.getElementById('id_personal_email').required = true
+                document.getElementById('id_expected_graduation_date').required = true
+            }
         }
-    }
 
-</script>
+    </script>
 
 
     <body onload="disable_fields(document.getElementById('id_alumni_status').checked)">
@@ -56,9 +56,9 @@
                         <br>
                         <div class="Col1">{{ field.label }}:</div>
                         <div class="Col2">{{ field }}</div>
-                        {% endfor %}
+                    {% endfor %}
 
-                        {% for field in student_form %}
+                    {% for field in student_form %}
                         {% if field.label == "Select if you are a Murdoch University Alumni" %}
                             <div class="Col1">{{ field.label }}: {{ field }}<br><br></div>
                         {% else %}
@@ -68,7 +68,8 @@
                     {% endfor %}
 
                     <input type="checkbox" name="terms" required>
-                    <label>*I have read and agree to the <a href="../terms" target="_blank">Terms and Conditions</a></label><br><br>
+                    <label>*I have read and agree to the <a href="../terms" target="_blank">Terms and
+                        Conditions</a></label><br><br>
 
                     <div style="text-align:center;">
                         <input type="submit"
@@ -77,7 +78,7 @@
                 </form>
                 <div>
                     {% for message in messages %}
-                    <h3> {{ message }} </h3>
+                        <h3> {{ message }} </h3>
                     {% endfor %}
                 </div>
             </div>

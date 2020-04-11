@@ -27,7 +27,8 @@
 <header>
     <nav>
         <div class="topnav" id="myTopnav">
-            <div class="logo"><a href="/"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo" height="60.0em" width="170.0em"></a></div>
+            <div class="logo"><a href="/"><img src="{% static 'images/murdochlogo.png' %}" alt="Murdoch University Logo"
+                                               height="60.0em" width="170.0em"></a></div>
             {% if user.is_authenticated %}
                 {% if user_type == 'student' %}
                     <div class="dropdown">
@@ -40,7 +41,7 @@
                         </div>
                     </div>
                 {% elif user_type == 'employer' %}
-                     <div class="dropdown">
+                    <div class="dropdown">
                         <button class="dropbtn">{{ obj.company_name }}</button>
                         <div class="dropdown-content">
                             <a href="{% url 'view_employer_profile' %}">View Profile</a>
@@ -48,7 +49,7 @@
                             <a href="{% url 'MyHelpDeskRequests' %}">My Help Desk Requests</a>
                             <a href="{% url 'logout' %}">Log Out</a>
                         </div>
-                     </div>
+                    </div>
                 {% elif user_type == 'admin' %}
                     <div class="dropdown">
                         {% if user.super_user %}
@@ -105,7 +106,7 @@
 </header>
 
 {% block content %}
-<body>
+    <body>
 {% endblock %}
 
 <!-- this displays any errors during submission -->

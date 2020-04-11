@@ -196,12 +196,14 @@
                                                 <div class="right">
                                                     <div style="display:flex;">
                                                         <div style="flex: 5">
-                                                            <h3><a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a></h3>
+                                                            <h3>
+                                                                <a href="{% url 'job_details' job.id %}"> {{ job.job_title }} </a>
+                                                            </h3>
                                                         </div>
 
                                                         {% if user_type == "admin" %}
                                                             <div style="flex: 1; margin-top: 0.75em">
-                                                                <p> <b>Status:</b> {{ job.status }} </p>
+                                                                <p><b>Status:</b> {{ job.status }} </p>
                                                             </div>
                                                         {% endif %}
                                                     </div>
@@ -239,7 +241,7 @@
         </div>
     {% else %}
         <body style="min-height: 400px; margin-bottom: 150px;">
-            <h1 align="center">No jobs to display</h1>
+        <h1 align="center">No jobs to display</h1>
         </body>
 
         <footer style="position: fixed; font-size: medium">
