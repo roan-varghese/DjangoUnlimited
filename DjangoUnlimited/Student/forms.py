@@ -16,7 +16,7 @@ import dns.resolver, dns.exception
 class InitialStudentForm(forms.ModelForm):
     first_name = forms.CharField(label='*First Name')
     last_name = forms.CharField(label='*Last Name')
-    email = forms.EmailField(label='*Email Address', required=True)
+    email = forms.EmailField(label='*Murdoch Student Email Address', required=True)
     password1 = forms.CharField(label='*Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='*Confirm Password', widget=forms.PasswordInput)
 
