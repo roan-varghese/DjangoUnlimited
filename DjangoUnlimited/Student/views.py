@@ -52,7 +52,7 @@ def student_signup(request):
 
                         if not search("@student.murdoch.edu.au", email):
                             if not student_form.cleaned_data["alumni_status"]:
-                                messages.info(request, 'The email you have entered is not a murdoch student email.')
+                                messages.info(request, 'Please enter an existing murdoch student email.')
                                 return redirect("student_registration")
                             else:
                                 pass
