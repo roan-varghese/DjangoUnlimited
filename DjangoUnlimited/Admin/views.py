@@ -218,12 +218,13 @@ def generate_statistics(request):
 
         users = User.objects.filter(date_joined__range=[start_date, end_date])
         admins = Admin.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
+        admin_users = User.objects.filter(id__in=Admin.objects.all())
         students = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
         current = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]),
                                          alumni_status=False)
         alumni = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]),
                                         alumni_status=True)
-        employers = Employer.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
+        employers = Employer.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date])).exclude(user_id__in=admin_users)
         jobs_posted = Job.objects.filter(date_posted__range=[start_date, end_date])
         open_jobs = Job.objects.filter(date_posted__range=[start_date, end_date], status="Open")
         closed_jobs = Job.objects.filter(date_posted__range=[start_date, end_date], status="Closed")
