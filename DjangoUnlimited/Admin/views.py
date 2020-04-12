@@ -184,13 +184,14 @@ def create_job(request):
         return render(request, "admin/admin_create_job.html", args)
 
 
-def export_stats_file(request, users, students, current, alumni, employers, jobs_posted, apps, open_jobs, closed_jobs, deleted_jobs):
+def export_stats_file(request, users, admins, students, current, alumni, employers, jobs_posted, apps, open_jobs, closed_jobs, deleted_jobs):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=' + date.today().strftime("%B %d %Y") + ".csv"
     writer = csv.writer(response)
     writer.writerow(['Type of Statistics', 'Count'])
     writer.writerow(['Users Signed Up', users])
-    writer.writerow(['Students Signed Up', students])
+    writer.writerow(['Administrators Signed Up', admins])
+    writer.writerow(['Total Students Signed Up', students])
     writer.writerow(['Current Students Signed Up', current])
     writer.writerow(['Alumni Signed Up', alumni])
     writer.writerow(['Employers Signed Up', employers])
@@ -216,6 +217,7 @@ def generate_statistics(request):
             start_date = end_date - timedelta(364)
 
         users = User.objects.filter(date_joined__range=[start_date, end_date])
+        admins = Admin.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
         students = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]))
         current = Student.objects.filter(user_id__in=User.objects.filter(date_joined__range=[start_date, end_date]),
                                          alumni_status=False)
@@ -229,6 +231,7 @@ def generate_statistics(request):
         apps = StudentJobApplication.objects.filter(date_applied__range=[start_date, end_date])
 
         users = len(list(set(users)))
+        admins = len(list(set(admins)))
         students = len(list(set(students)))
         current = len(list(set(current)))
         alumni = len(list(set(alumni)))
@@ -239,7 +242,7 @@ def generate_statistics(request):
         deleted_jobs = len(list(set(deleted_jobs)))
         apps = len(list(set(apps)))
 
-        args = {'users': users, 'students': students, 'current': current, 'alumni': alumni, 'employers': employers,
+        args = {'users': users, 'admins': admins, 'students': students, 'current': current, 'alumni': alumni, 'employers': employers,
                 'jobs_posted': jobs_posted, 'open_jobs': open_jobs, 'closed_jobs': closed_jobs,
                 'deleted_jobs': deleted_jobs, 'apps': apps, 'user_type': user['user_type'], 'obj': user['obj']}
 
