@@ -105,17 +105,18 @@
     </div>
 </header>
 
-{% block content %}
-    <body>
-{% endblock %}
-
 <!-- this displays any errors during submission -->
 <div>
     {% for message in messages %}
         <h3 class="message"> {{ message }} </h3>
     {% endfor %}
 </div>
-</body>
+
+{% block content %}
+    <body>
+    </body>
+{% endblock %}
+
 
 <!--This is the beginning of the footer!-->
 <footer>
