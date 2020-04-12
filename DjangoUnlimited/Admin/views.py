@@ -189,7 +189,7 @@ def export_stats_file(request, users, admins, students, current, alumni, employe
     response['Content-Disposition'] = 'attachment; filename=' + date.today().strftime("%B %d %Y") + ".csv"
     writer = csv.writer(response)
     writer.writerow(['Type of Statistics', 'Count'])
-    writer.writerow(['Users Signed Up', users])
+    writer.writerow(['Total Users Signed Up', users])
     writer.writerow(['Administrators Signed Up', admins])
     writer.writerow(['Total Students Signed Up', students])
     writer.writerow(['Current Students Signed Up', current])
