@@ -36,7 +36,7 @@ class InitialAdminForm(forms.ModelForm):
         user.is_staff = True
         if commit:
             user.save()
-        permissions = Permission.objects.filter(content_type_id__in=(14,15,16,17)) #14 industry, #15 jobtype, #16 skill, #17 job
+        permissions = Permission.objects.filter(content_type_id__in=(14,15,16,18)) #14 industry, #15 jobtype, #16 skill, #18 job
         user.user_permissions.add(*permissions)
         return user
 
