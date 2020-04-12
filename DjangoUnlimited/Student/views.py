@@ -10,32 +10,53 @@ from DjangoUnlimited.settings import SENDGRID_API_KEY, DEFAULT_FROM_EMAIL
 
 # Create your views here.
 
-from Accounts.views import isValidated, get_user_type
+from Accounts.views import isValidated, get_user_type, number_symbol_exists
 from .models import Student
 from .forms import *
 from Home.models import UserNotifications
+from re import search
 
 
 def student_signup(request):
     if request.method == 'POST':
         user_form = InitialStudentForm(request.POST)
         if user_form.is_valid():
-            if user_form.usernameExists():
+            if user_form.usernameExists(): #checks if username exists in db
                 messages.info(request, 'Username already taken. Try a different one.')
                 return redirect("student_registration")
-            elif user_form.emailExists():
+
+            elif user_form.emailExists(): #checks if email exists in db
                 messages.info(request, 'Email already taken. Try a different one.')
                 return redirect("student_registration")
-            elif not user_form.samePasswords():
+
+            elif number_symbol_exists(user_form.cleaned_data["first_name"]): #checks if number/symbol exists in string
+                messages.info(request, 'Please enter a valid first name.')
+                return redirect("student_registration")
+
+            elif number_symbol_exists(user_form.cleaned_data["last_name"]): #checks if number/symbol exists in string
+                messages.info(request, 'Please enter a valid last name.')
+                return redirect("student_registration")
+
+            elif not user_form.samePasswords(): #checks if password and confirm password are matching
                 messages.info(request, 'Passwords not matching. Try again.')
                 return redirect("student_registration")
-            elif not user_form.emailDomainExists():
+
+            elif not user_form.emailDomainExists(): #checks if there is an exising domain for given email
                 messages.info(request, 'Email domain does not exist. Try again.')
                 return redirect("student_registration")
             else:
-                if isValidated(user_form.cleaned_data.get('password1')):
+                if isValidated(user_form.cleaned_data.get('password1')): #checks if password is valid
                     student_form = StudentForm(request.POST, request.FILES)
                     if student_form.is_valid():
+                        email = user_form.cleaned_data["email"]
+
+                        if not search("@student.murdoch.edu.au", email):
+                            if not student_form.cleaned_data["alumni_status"]:
+                                messages.info(request, 'The email you have entered is not a murdoch student email.')
+                                return redirect("student_registration")
+                            else:
+                                pass
+
                         with transaction.atomic():
                             user = user_form.save()
                             student = student_form.save(commit=False)

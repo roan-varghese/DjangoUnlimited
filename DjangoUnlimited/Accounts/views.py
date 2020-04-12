@@ -21,6 +21,19 @@ def isValidated(passwd):
         
     return status
 
+def number_symbol_exists(string):
+    status = False
+
+    special_symbols = {'$', '@', '%', '&', '?', '.', '!', '#', '*', '_'}
+
+    if any(char.isdigit() for char in string):
+        status = True
+
+    if any(char in special_symbols for char in string):
+        status = True
+
+    return status
+
 def login(request):
     if request.method == 'POST':
             username = request.POST['username']

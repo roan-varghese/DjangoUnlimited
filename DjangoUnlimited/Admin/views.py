@@ -17,7 +17,7 @@ from django.http import HttpResponse
 from Home.forms import CreateJobForm, EditJobForm
 from Employer.forms import InitialEmployerForm, EmployerForm
 from .forms import InitialAdminForm, AdminForm, AddIndustryForm, Statistics
-from Accounts.views import isValidated, get_user_type
+from Accounts.views import isValidated, get_user_type, number_symbol_exists
 from .models import Admin
 from .forms import EditAdminProfileForm
 from Student.forms import EditStudentProfileForm
@@ -35,23 +35,31 @@ def create_admin(request):
 
         if user_form.is_valid():
             if user_form.usernameExists():
-                messages.info(request, 'Username already taken. Try a different one.')
+                messages.info(request, 'Username already taken. Try a different one.') #checks if username exists in db
                 return redirect("admin_register")
 
             elif user_form.emailExists():
-                messages.info(request, 'Email already taken. Try a different one.')
+                messages.info(request, 'Email already taken. Try a different one.') #checks if email exists in db
+                return redirect("admin_register")
+
+            elif number_symbol_exists(user_form.cleaned_data["first_name"]): #checks if number/symbol exists in string
+                messages.info(request, 'Please enter a valid first name.')
+                return redirect("admin_register")
+
+            elif number_symbol_exists(user_form.cleaned_data["last_name"]): #checks if number/symbol exists in string
+                messages.info(request, 'Please enter a valid last name.')
                 return redirect("admin_register")
 
             elif not user_form.samePasswords():
-                messages.info(request, 'Passwords not matching. Try again.')
+                messages.info(request, 'Passwords not matching. Try again.') #checks if password and confirm password are matching
                 return redirect("admin_register")
 
-            elif not user_form.emailDomainExists():
+            elif not user_form.emailDomainExists(): #checks if there is an exising domain for given email
                 messages.info(request, 'Email domain does not exist. Try again.')
                 return redirect("admin_register")
 
             else:
-                if isValidated(user_form.cleaned_data.get('password1')):
+                if isValidated(user_form.cleaned_data.get('password1')): #checks if password is valid
                     admin_form = AdminForm(request.POST, request.FILES)
 
                     if admin_form.is_valid():
