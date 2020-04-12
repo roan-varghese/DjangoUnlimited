@@ -103,8 +103,13 @@ class FilterJobForm(forms.ModelForm):
 
 
 class FilterStudentForm(forms.ModelForm):
-    alumni_status = forms.BooleanField(required=False, label='Alumni Student',
-                                       widget=forms.CheckboxInput(attrs={'onClick': 'disable_fields(this.checked)'}))
+    choices = [
+        ('Current', 'Current'),
+        ('Alumni', 'Alumni')
+    ]
+    alumni_status = forms.ChoiceField(required=False, label='Student Status', choices=choices,
+                                       widget=forms.RadioSelect(attrs={'class': 'custom-select',
+                                                                       'onClick': 'disable_fields(this.checked)'}))
 
     min_graduation_date = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False,
                                                label='Minimum Graduation Date',

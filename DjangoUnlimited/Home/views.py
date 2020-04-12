@@ -375,7 +375,10 @@ def view_students(request):
         max_graduation_date = request.POST.get('max_graduation_date')
 
         if alumni_status:
-            alumni_status_students = Student.objects.filter(alumni_status=True)
+            if alumni_status == "Alumni":
+                alumni_status_students = Student.objects.filter(alumni_status=True)
+            elif alumni_status == "Current":
+                alumni_status_students = Student.objects.filter(alumni_status=False)
         else:
             alumni_status_students = Student.objects.all()
 
