@@ -198,7 +198,7 @@ def export_stats_file(request, users, admins, students, current, alumni, employe
     writer.writerow(['Jobs Posted', jobs_posted])
     writer.writerow(['Student Applications', apps])
     writer.writerow(['Active Jobs', open_jobs])
-    writer.writerow(['Jobs Filled by Murdoch Students', closed_jobs])
+    writer.writerow(['Jobs Closed and Filled by Murdoch Students', closed_jobs])
     writer.writerow(['Jobs Deleted', deleted_jobs])
     return response
 
